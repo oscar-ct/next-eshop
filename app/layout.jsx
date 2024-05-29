@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import {Toaster} from "react-hot-toast";
+import AuthProvider from "@/components/AuthProvider";
+import {GlobalProvider} from "@/context/GlobalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,15 +12,20 @@ export const metadata = {
   description: "e-shop rebuilt with Next.js",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({children}) {
     return (
-        <html lang="en">
-            <body className={inter.className}>
-            <Navbar/>
-                <main>
-                    {children}
-                </main>
-            </body>
-        </html>
+        <GlobalProvider>
+            <AuthProvider>
+                <html lang="en">
+                    <body className={inter.className}>
+                        <Toaster/>
+                        <Navbar/>
+                        <main>
+                            {children}
+                        </main>
+                    </body>
+                </html>
+            </AuthProvider>
+        </GlobalProvider>
     );
 };
