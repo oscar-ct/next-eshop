@@ -1,9 +1,10 @@
+import HomePageProducts from "@/components/HomePageProducts";
 
 const Page = async () => {
 
     return (
         <div>
-            HomePage
+            <HomePageProducts/>
         </div>
     );
 };
