@@ -7,10 +7,12 @@ import Message from "@/components/Message";
 import Link from "next/link";
 import CustomBtn from "@/components/CustomBtn";
 import CartItem from "@/components/CartItem";
+import {useRouter} from "next/navigation";
 
 const CartPage = () => {
 
-    const { cartItems, totalPrice } = useContext(GlobalContext);
+    const { cartItems, itemsPrice, totalPrice } = useContext(GlobalContext);
+    const router = useRouter();
 
     const totalNumberOfItems = cartItems.reduce((acc, item) => {
         return acc + item.quantity
@@ -22,7 +24,7 @@ const CartPage = () => {
     }, []);
 
     const checkoutHandler = () => {
-
+        router.push("/shipping");
     };
 
 
@@ -51,7 +53,7 @@ const CartPage = () => {
                     <div className={"px-3 pt-4 flex flex-col items-center"}>
                         <div
                             className={"text-3xl md:text-4xl font-semibold pt-3 md:pt-10 flex justify-center text-center"}>
-                            Your cart total is ${totalPrice}
+                            Your cart total is ${itemsPrice}
                         </div>
                         <div className={"pt-8 md:pt-10 text-center text-sm"}>
                             Taxes and shipping will be calculated at checkout
