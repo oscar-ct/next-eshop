@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.closed {
+    transform: rotate(0deg);
+    transition: transform 0.1s linear;
+}
+.open {
+    transform: rotate(180deg);
+    transition: transform 0.1s linear;
+}
+.show-password-img {
+    transform: translateY(-37px)translateX(-10px);
+    cursor: pointer;
+}
