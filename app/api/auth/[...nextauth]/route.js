@@ -22,20 +22,17 @@ const handler = NextAuth({
             credentials: {
                 email: {},
                 password: {},
-                name: {},
             },
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
-                console.log(credentials)
                 await connectDB();
                 const user = await User.findOne({email: credentials?.email});
                 const passwordCorrect =  await bcrypt.compare(credentials?.password || "", user.password);
-                console.log(passwordCorrect)
                 if (passwordCorrect) {
                     return {
                         id: user._id,
                         email: user.email,
-                        name: user.name,
+                        name: {username: user.name, userIsAdmin: user.isAdmin}
                     }
                 }
                 return null;
