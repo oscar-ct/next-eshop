@@ -18,6 +18,14 @@ const globalReducer = (state, action) => {
                     cartItems: [...state.cartItems, itemUserAddedToCart],
                 }
             }
+        case "REMOVE_TO_CART":
+            const itemUserRemovedFromCart = action.payload;
+            return {
+                ...state,
+                cartItems: state.cartItems.filter((item) => {
+                    return itemUserRemovedFromCart._id !== item._id;
+                }),
+            }
         case "UPDATE_CART":
             if (state.cartItems.length === 0) {
                 return {
@@ -46,6 +54,22 @@ const globalReducer = (state, action) => {
                     totalPrice,
                 }
             }
+        case "CLEAR_CART":
+            localStorage.removeItem("cart");
+            return {
+                cartItems: [],
+                itemsPrice: 0,
+                shippingPrice: 0,
+                taxPrice: 0,
+                totalPrice: 0,
+                shippingAddress: {},
+                paymentMethod: null,
+                discount: false,
+                discountKey: "",
+                publishableKey: "",
+                guestData: ""
+            };
+
         case "SET_LOCAL_STORAGE":
             localStorage.setItem("cart", JSON.stringify(state));
             return state;
