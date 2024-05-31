@@ -104,7 +104,7 @@ const RegisterForm = () => {
 
                                 <input
                                     className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
-                                    autoComplete={"confirm-password"}
+                                    autoComplete={"off"}
                                     type={showPassword ? "text" : "password"}
                                     placeholder={"Confirm your password"}
                                     id={"confirmPassword"}
