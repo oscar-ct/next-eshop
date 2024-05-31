@@ -8,6 +8,7 @@ import ProductItemRating from "@/components/ProductItemRating";
 import Image from "next/image";
 import GlobalContext from "@/context/GlobalContext";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 
 const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWidth}) => {
@@ -16,8 +17,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
     const [imgIndex, setImageIndex] = useState(0);
     const quantity = 1;
 
-    // const router = useRouter();
-
+    const router = useRouter();
 
     const buttonRef = useRef();
     const cardRef = useRef();
@@ -47,6 +47,16 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
         window.addEventListener("click", handleAddToCartButtonClick);
         return () => window.removeEventListener("click", handleAddToCartButtonClick);
     }, [addToCartHandler, product.countInStock]);
+
+    useEffect(() => {
+        const handleCardClick = (event) => {
+            if (!buttonRef?.current?.contains(event.target) && cardRef?.current?.contains(event.target)) {
+                router.push(`/products/${product._id}`);
+            }
+        };
+        window.addEventListener("click", handleCardClick);
+        return () => window.removeEventListener("click", handleCardClick);
+    }, [router, product._id]);
 
 
     return (
