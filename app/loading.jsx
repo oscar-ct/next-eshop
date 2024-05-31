@@ -1,9 +1,8 @@
-import React from 'react';
 
 const Loading = () => {
     return (
-        <div>
-            Loading...
+        <div className={"z-30 w-full h-screen flex items-center justify-center"}>
+            <span className="loading loading-bars loading-lg"/>
         </div>
     );
 };
