@@ -33,7 +33,6 @@ const LoginForm = () => {
             password: password,
             redirect: false,
         });
-        console.log(response);
         if (!response?.error) {
             router.push("/");
             router.refresh();
