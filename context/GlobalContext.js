@@ -27,6 +27,10 @@ export function GlobalProvider({ children }) {
     return (
         <GlobalContext.Provider value={{
             dispatch,
+            itemsPrice: state.itemsPrice,
+            shippingPrice: state.shippingPrice,
+            taxPrice: state.taxPrice,
+            totalPrice: state.totalPrice,
             cartItems: state.cartItems,
             shippingAddress: state.shippingAddress,
             paymentMethod: state.paymentMethod,
