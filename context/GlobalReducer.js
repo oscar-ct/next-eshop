@@ -18,23 +18,34 @@ const globalReducer = (state, action) => {
                     cartItems: [...state.cartItems, itemUserAddedToCart],
                 }
             }
-        case "REMOVE_TO_CART":
+        case "REMOVE_FROM_CART":
             const itemUserRemovedFromCart = action.payload;
-            return {
-                ...state,
-                cartItems: state.cartItems.filter((item) => {
-                    return itemUserRemovedFromCart._id !== item._id;
-                }),
-            }
-        case "UPDATE_CART":
-            if (state.cartItems.length === 0) {
+            if (state.cartItems.length !== 1) {
+                const cart = state.cartItems.filter(function (item) {
+                    return item._id !== itemUserRemovedFromCart;
+                });
                 return {
                     ...state,
+                    cartItems: cart,
+                }
+            } else {
+                return {
+                    cartItems: [],
                     itemsPrice: 0,
                     shippingPrice: 0,
                     taxPrice: 0,
                     totalPrice: 0,
+                    shippingAddress: {},
+                    paymentMethod: null,
+                    discount: false,
+                    discountKey: "",
+                    publishableKey: "",
+                    guestData: ""
                 }
+            }
+        case "UPDATE_CART":
+            if (state.cartItems.length === 0) {
+                return state;
             } else {
                 const addDecimals = (num) => {
                     return Math.round(num * 1e2) / 1e2;
