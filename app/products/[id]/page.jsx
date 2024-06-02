@@ -28,7 +28,7 @@ const fetchProduct = async (id) => {
         // if (!res.ok) {
         //     throw new Error("Failed to fetch products data");
         // }
-        return res.json()
+        return res.json();
     } catch (e) {
         console.log(e);
         return [];
@@ -48,7 +48,7 @@ const ProductPage = () => {
     const [loading, setLoading] = useState(true);
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
-    const [reviewData, setReviewData] = useState({});
+    // const [reviewData, setReviewData] = useState({});
     const [detailsActive, setDetailsActive] = useState(false);
     const [quantity, setQuantity] = useState(1);
 
@@ -79,13 +79,14 @@ const ProductPage = () => {
         dispatch({
             type: "ADD_TO_CART",
             payload: {...product, quantity},
+
         });
+        dispatch({type: "UPDATE_CART"});
+        dispatch({type: "SET_LOCAL_STORAGE"});
         toast.success(() => {
             return <span>Added To Cart</span>
         });
-    }
-
-
+    };
 
     if (!loading && fullScreen && product) {
         return (
