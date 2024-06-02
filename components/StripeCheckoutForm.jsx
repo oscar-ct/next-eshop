@@ -14,7 +14,6 @@ const fetchDiscountValidity = async (body) => {
     }
     try {
         const response = await fetch(`${apiDomain}/discount`, {
-
             method: "POST",
             body: JSON.stringify(body),
         });
@@ -187,17 +186,20 @@ const StripeCheckoutForm = ({existingOrder}) => {
                             if (orderId) {
                                 const order = await fetchPayOrder({orderId: orderId, details});
                                 if (order) {
-                                    console.log("payment successful!!!!!");
-                                    // router.push(`/order/${order._id}/payment?stripe=successful`);
+                                    router.push(`/orders/${order._id}/payment?stripe=successful`);
                                     // window.location.href = `/order/${data}/payment?stripe=successful`;
                                 }
                             }
                         } else {
-                            await fetchPayOrder({orderId: existingOrder._id, details});
+                            if (!existingOrder.isPaid) {
+                                await fetchPayOrder({orderId: existingOrder._id, details});
+                                router.refresh();
+                            }
+                            // router.push(`/orders/${existingOrder._id}`)
                         }
                         // dispatch(setLoading(false));
-                        dispatch({type: "REMOVE_DISCOUNT"});
-                        dispatch({type: "SET_LOCAL_STORAGE"});
+                        // dispatch({type: "REMOVE_DISCOUNT"});
+                        // dispatch({type: "SET_LOCAL_STORAGE"});
                         break;
                     }
                     case "processing": {
@@ -279,7 +281,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: existingOrder ? `${window.location.origin}/order/${existingOrder._id}` : `${window.location.origin}/checkout`,
+                return_url: existingOrder ? `${window.location.origin}/orders/${existingOrder._id}` : `${window.location.origin}/checkout`,
             },
         });
         if (error) {
