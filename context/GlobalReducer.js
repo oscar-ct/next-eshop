@@ -123,7 +123,7 @@ const globalReducer = (state, action) => {
                 ...state,
                 paymentMethod: action.payload
             }
-        case "SET_DISCOUNT":
+        case "ADD_DISCOUNT":
             return {
                 ...state,
                 discount: true,
