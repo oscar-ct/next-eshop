@@ -54,7 +54,7 @@ const CartIcon = ({ isValidShippingAddress, isValidPaymentMethod, totalCartItems
                                                     <div className="font-bold text-info py-3">
                                                         Subtotal:<span className={"pl-2 text-white"}>${subtotalPrice}</span>
                                                     </div>
-                                                    <CustomBtn customClass={"w-full"} onClick={() => router.push(isValidShippingAddress && isValidPaymentMethod ? "/submitorder" : "/cart")}>
+                                                    <CustomBtn customClass={"w-full"} onClick={() => router.push(isValidShippingAddress && isValidPaymentMethod ? "/checkout" : "/cart")}>
                                                         {isValidShippingAddress && isValidPaymentMethod ? "Checkout" : "View Cart"}
                                                     </CustomBtn>
                                                 </>
