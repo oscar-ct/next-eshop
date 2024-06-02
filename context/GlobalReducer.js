@@ -30,6 +30,7 @@ const globalReducer = (state, action) => {
                 }
             } else {
                 return {
+                    ...state,
                     cartItems: [],
                     itemsPrice: 0,
                     shippingPrice: 0,
@@ -66,6 +67,21 @@ const globalReducer = (state, action) => {
                 }
             }
         case "CLEAR_CART":
+            return {
+                ...state,
+                cartItems: [],
+                itemsPrice: 0,
+                shippingPrice: 0,
+                taxPrice: 0,
+                totalPrice: 0,
+                shippingAddress: {},
+                paymentMethod: null,
+                discount: false,
+                discountKey: "",
+                publishableKey: "",
+                guestData: "",
+            };
+        case "RESET_STATE":
             localStorage.removeItem("cart");
             return {
                 cartItems: [],
@@ -78,12 +94,25 @@ const globalReducer = (state, action) => {
                 discount: false,
                 discountKey: "",
                 publishableKey: "",
-                guestData: ""
+                guestData: "",
+                user: null,
             };
-
         case "SET_LOCAL_STORAGE":
             localStorage.setItem("cart", JSON.stringify(state));
             return state;
+        case "ADD_USER":
+            return {
+                ...state,
+                user: action.payload
+            }
+        case "UPDATE_USER_ADDRESSES":
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    shippingAddresses: action.payload
+                }
+            }
         case "SET_SHIPPING_DATA":
             return {
                 ...state,
@@ -97,12 +126,14 @@ const globalReducer = (state, action) => {
         case "SET_DISCOUNT":
             return {
                 ...state,
-                discount: action.payload
+                discount: true,
+                discountKey: action.payload
             }
-        case "SET_DISCOUNT_KEY":
+        case "REMOVE_DISCOUNT":
             return {
                 ...state,
-                discountKey: action.payload
+                discount: false,
+                discountKey: ""
             }
         case "SET_PUBLISHABLE_KEY":
             return {
@@ -115,6 +146,7 @@ const globalReducer = (state, action) => {
                 guestData: action.payload
             }
         default:
+            console.log("case missed...")
             return state;
     }
 };
