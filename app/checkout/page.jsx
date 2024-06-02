@@ -55,7 +55,7 @@ const fetchDiscountValidity = async (body) => {
 };
 
 
-const Page = () => {
+const CheckoutPage = () => {
 
     const { user: userData, dispatch, discount, discountKey, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice, guestData } = useContext(GlobalContext);
     const router = useRouter();
@@ -90,13 +90,16 @@ const Page = () => {
             }, 1000)
         } else {
             toast.success("You are now receiving FREE SHIPPING!");
-            dispatch({type: "ADD_DISCOUNT", payload: discountCode})
+            dispatch({type: "ADD_DISCOUNT", payload: discountCode});
+            dispatch({type: "UPDATE_CART"});
+            dispatch({type: "SET_LOCAL_STORAGE"});
         }
     };
 
     const submitRemoveDiscountCode = () => {
         setDiscountCode("");
         dispatch({type: "REMOVE_DISCOUNT"});
+        dispatch({type: "UPDATE_CART"});
         dispatch({type: "SET_LOCAL_STORAGE"});
     };
 
@@ -370,6 +373,9 @@ const Page = () => {
                                             {
                                                 paymentMethod === "PayPal / Credit Card" && (
                                                     <div className={"px-4"}>
+                                                        <div>
+                                                            Paypal service temporarily unavailable...
+                                                        </div>
                                                         {/*<PaypalCheckout createNewOrder={() => createNewOrder()}/>*/}
                                                     </div>
                                                 )
@@ -434,4 +440,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default CheckoutPage;
