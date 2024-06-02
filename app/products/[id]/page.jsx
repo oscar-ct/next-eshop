@@ -22,7 +22,7 @@ const fetchProduct = async (id) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
     try {
         if (!apiDomain) {
-            return [];
+            return null;
         }
         const res = await fetch(`${apiDomain}/products/${id}`);
         // if (!res.ok) {
@@ -31,7 +31,7 @@ const fetchProduct = async (id) => {
         return res.json();
     } catch (e) {
         console.log(e);
-        return [];
+        return null;
     }
 };
 
