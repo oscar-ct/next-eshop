@@ -1,16 +1,36 @@
 "use client";
 
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import Link from "next/link";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import toast from "react-hot-toast";
+import GlobalContext from "@/context/GlobalContext";
+
+const fetchUser = async (id) => {
+    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
+    try {
+        if (!apiDomain) {
+            return null;
+        }
+        const res = await fetch(`${apiDomain}/users/${id}`);
+        // if (!res.ok) {
+        //     throw new Error("Failed to fetch products data");
+        // }
+        return res.json()
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
 
 const LoginForm = () => {
 
     // const [passwordRecoveryEmail, setPasswordRecoveryEmail] = useState("");
     const router = useRouter();
+    const { dispatch } = useContext(GlobalContext);
+
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
@@ -34,6 +54,9 @@ const LoginForm = () => {
             redirect: false,
         });
         if (!response?.error) {
+            const user = await fetchUser(email);
+            dispatch({type: "ADD_USER", payload: user})
+            dispatch({type: "SET_LOCAL_STORAGE"});
             router.push("/");
             router.refresh();
         }
