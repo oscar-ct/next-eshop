@@ -24,7 +24,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
     const { dispatch } = useContext(GlobalContext);
 
     const logoutHandler = async () => {
-        dispatch({type: "CLEAR_CART"});
+        dispatch({type: "RESET_STATE"});
         setOpenNav(false);
         await signOut();
     };

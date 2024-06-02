@@ -57,7 +57,7 @@ const Navbar = () => {
 
     const logoutHandler = async () => {
         try {
-            dispatch({type: "CLEAR_CART"})
+            dispatch({type: "RESET_STATE"})
             await signOut();
             // await logoutApiCall().unwrap();
             // navigate("/login");
