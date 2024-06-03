@@ -2,10 +2,39 @@
 
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import Link from "next/link";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import toast from "react-hot-toast";
+import {signIn} from "next-auth/react";
+import GlobalContext from "@/context/GlobalContext";
+import {useRouter} from "next/navigation";
+
+const fetchRegister = async (body) => {
+    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
+    try {
+        if (!apiDomain) {
+            return null;
+        }
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+            const message = await response.text();
+            toast.error(message);
+            return null;
+        }
+        return response.json();
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
 
 const RegisterForm = () => {
+
+    const { dispatch } = useContext(GlobalContext);
+    const router = useRouter();
 
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -25,21 +54,27 @@ const RegisterForm = () => {
 
     const submitRegister = async (e) => {
         e.preventDefault();
-            const response = await fetch("/api/auth/register", {
-                method: "POST",
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password,
-                    name: formData.name,
-                })
+        const body = {
+            email: formData.email,
+            password: formData.password,
+            name: formData.name,
+        }
+        const newUser = await fetchRegister(body);
+        if (newUser) {
+            const response = await signIn("credentials", {
+                email: email,
+                password: password,
+                redirect: false,
             });
-            if (!response.ok) {
-                const message = await response.text();
-                toast.error(message);
+            if (response.ok) {
+                dispatch({type: "ADD_USER", payload: newUser});
+                dispatch({type: "SET_LOCAL_STORAGE"});
+                router.push("/");
+                router.refresh();
             }
-
-
+        }
     };
+
 
     return (
         <div className="h-max relative">
