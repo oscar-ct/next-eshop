@@ -1,4 +1,4 @@
-import {NextResponse} from "next/server";
+// import {NextResponse} from "next/server";
 import bcrypt from "bcrypt";
 import connectDB from "@/config/db";
 import User from "@/models/User";
@@ -21,10 +21,17 @@ export async function POST(req) {
                 email: email,
                 password: protectedPassword,
             });
-
-}
+            return Response.json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                shippingAddresses: user.shippingAddresses,
+            });
+        }
     } catch (e) {
         console.log(e);
+        return new Response("Something went wrong...", {status: 500});
     }
-    return NextResponse.json({message: "success"})
+    // return NextResponse.json({message: "success"})
 }
