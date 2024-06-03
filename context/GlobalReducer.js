@@ -96,6 +96,7 @@ const globalReducer = (state, action) => {
                 publishableKey: "",
                 guestData: "",
                 user: null,
+                cancelIntentData: null,
             };
         case "SET_LOCAL_STORAGE":
             localStorage.setItem("cart", JSON.stringify(state));
@@ -104,6 +105,11 @@ const globalReducer = (state, action) => {
             return {
                 ...state,
                 user: action.payload
+            }
+        case "UPDATE_CANCEL_INTENT_DATA":
+            return {
+                ...state,
+                cancelIntentData: action.payload
             }
         case "UPDATE_USER_ADDRESSES":
             return {
