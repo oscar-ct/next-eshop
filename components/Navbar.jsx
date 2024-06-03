@@ -20,7 +20,7 @@ const Navbar = () => {
 
     const router = useRouter();
 
-    const { cartItems, itemsPrice, shippingAddress, paymentMethod, dispatch } = useContext(GlobalContext);
+    const { user, cartItems, itemsPrice, shippingAddress, paymentMethod, dispatch } = useContext(GlobalContext);
 
     const totalCartItems = cartItems.reduce((acc, item) => {
         return acc + item.quantity
@@ -70,8 +70,8 @@ const Navbar = () => {
     };
 
     const adminOrdersLink = "/admin/orders";
-    const myOrdersLink = "/profile/orders";
-    const myAccountLink = "/profile/account";
+    const myOrdersLink = "/account/orders";
+    const myAccountLink = "/account";
     const topRatedLink = "/sort/toprated/select/all";
     const latestProductsLink = "/sort/latest/select/all";
 
@@ -149,7 +149,7 @@ const Navbar = () => {
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
                                             <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
-                                                <span>{session.user.name.username.substring(0, 32)}</span>
+                                                <span>{user.name.substring(0, 32)}</span>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
                                                     <FaChevronDown/>
                                                 </div>
