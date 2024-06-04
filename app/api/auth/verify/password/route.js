@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import connectDB from "@/config/db";
 import User from "@/models/User";
 
+// POST auth/verify/password
+
 export async function POST(req) {
     try {
         const { _id, password } = await req.json();
