@@ -25,3 +25,11 @@
 .max-height-2 {
     max-height: 2.6em;
 }
+
+.step:before {
+    height: .1rem!important;
+}
+.step:after { background-color: white!important; border: #7c3cfc solid 1px;}
+.step:before { background-color: white!important; border: #7c3cfc solid 1px;}
+.step-success:after { background-color: #7c3cfc!important; color: white!important; border: #7c3cfc solid 1px;}
+.step-success:before { background-color: #7c3cfc!important;}
