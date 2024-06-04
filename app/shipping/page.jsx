@@ -1,6 +1,6 @@
 "use client";
 
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
 import {useSession} from "next-auth/react";
@@ -9,6 +9,7 @@ import Select from "react-select";
 import {customStyles} from "@/utils/selectCustomStyles";
 import {countries, states} from "@/utils/locationData";
 import toast from "react-hot-toast";
+import CheckoutSteps from "@/components/CheckoutSteps";
 
 const fetchUserAddress = async (id, body) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -176,6 +177,7 @@ const ShippingPage = () => {
 
     if (mounted) return (
         <>
+            <CheckoutSteps/>
             <div className={"pt-0 w-full flex justify-center"}>
                 <div className={"pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
