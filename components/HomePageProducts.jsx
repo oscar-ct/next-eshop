@@ -3,21 +3,24 @@
 import {useEffect, useState} from "react";
 import ProductItem from "@/components/ProductItem";
 import {useParams, } from "next/navigation";
+import toast from "react-hot-toast";
 
 const fetchProducts = async () => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
     try {
         if (!apiDomain) {
-            return [];
+            return null;
         }
-        const res = await fetch(`${apiDomain}/products`);
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        const res = await fetch(`${apiDomain}/products/sort/latest/select/all/page/1`);
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json()
     } catch (e) {
         console.log(e);
-        return [];
+        return null;
     }
 };
 
@@ -56,7 +59,7 @@ const HomePageProducts = () => {
         return () => window.removeEventListener("resize", adjustWidth);
     });
 
-    if (!loading) {
+    if (!loading && products) {
         return (
             <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black/90 md:bg-transparent`}>
                 <div className={"h-12 md:bg-zinc-700"}>
