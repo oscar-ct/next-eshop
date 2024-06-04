@@ -8,7 +8,8 @@ const capitalizeFirstChar = (string) => {
 };
 
 //  GET /api/products
-export const GET = async (req) => {
+export const GET = async (req, {params}) => {
+    console.log(params)
     try {
         await connectDB();
         const { query } = parse(req.url, true);

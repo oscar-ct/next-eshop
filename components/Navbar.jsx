@@ -72,8 +72,8 @@ const Navbar = () => {
     const adminOrdersLink = "/admin/orders";
     const myOrdersLink = "/account/orders";
     const myAccountLink = "/account";
-    const topRatedLink = "/sort/toprated/select/all";
-    const latestProductsLink = "/sort/latest/select/all";
+    const topRatedLink = "/products/sort/toprated/select/all/page/1";
+    const latestProductsLink = "/products/sort/latest/select/all/page/1";
 
 
     const [mounted, setMounted] = useState(false);
@@ -132,9 +132,9 @@ const Navbar = () => {
                                                         <Link href={topRatedLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
                                                             <span className={"w-full text-xl text-white whitespace-nowrap"}>Top Rated</span>
                                                         </Link>
-                                                        <Link href={latestProductsLink} className={"block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>
-                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>
-                                                        </Link>
+                                                        {/*<Link href={latestProductsLink} className={"block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>*/}
+                                                        {/*    <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>*/}
+                                                        {/*</Link>*/}
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,7 +149,7 @@ const Navbar = () => {
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
                                             <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
-                                                <span>{user.name.substring(0, 32)}</span>
+                                                <span>{user?.name.substring(0, 32)}</span>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
                                                     <FaChevronDown/>
                                                 </div>
