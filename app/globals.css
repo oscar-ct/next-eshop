@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+iframe {
+    z-index: 0 !important;
+}
 .closed {
     transform: rotate(0deg);
     transition: transform 0.1s linear;
@@ -55,4 +58,17 @@
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.fadeInEffect {
+    animation: fadeIn 350ms ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100%;
+    }
 }
