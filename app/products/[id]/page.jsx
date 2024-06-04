@@ -7,7 +7,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css/zoom';
 import 'swiper/css';
 import ProductItemRating from "@/components/ProductItemRating";
-import {FaPen} from "react-icons/fa";
+import {FaPen, FaTrash} from "react-icons/fa";
 import {useSession} from "next-auth/react";
 import FormatPrice from "@/components/FormatPrice";
 import CustomBtn from "@/components/CustomBtn";
@@ -18,6 +18,8 @@ import BackButtonMessage from "@/components/BackButtonMessage";
 import Image from "next/image";
 import Loading from "@/app/loading";
 import ProductItem from "@/components/ProductItem";
+import ReviewModal from "@/components/modals/ReviewModal";
+import ConfirmModal from "@/components/modals/ConfirmModal";
 
 
 const fetchProduct = async (id) => {
@@ -58,13 +60,36 @@ const fetchTopRatedProducts = async (id) => {
     }
 };
 
+const fetchDeleteProductReview = async (body, id, reviewId) => {
+    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
+    try {
+        if (!apiDomain) {
+            return null;
+        }
+        const response = await fetch(`${apiDomain}/products/${id}/review/${reviewId}/delete`, {
+            method: "DELETE",
+            body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+            const message = await response.text();
+            toast.error(message);
+            return null;
+        }
+        return response.json();
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
+
 
 const ProductPage = () => {
 
     const { data: session } = useSession();
     const router = useRouter();
 
-    const { dispatch } = useContext(GlobalContext);
+    const { dispatch, user } = useContext(GlobalContext);
 
     const {id} = useParams();
     const [product, setProduct] = useState(null);
@@ -73,7 +98,7 @@ const ProductPage = () => {
     const [loadingTopRated, setLoadingTopRated] = useState(true);
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
-    // const [reviewData, setReviewData] = useState({});
+    const [reviewData, setReviewData] = useState({});
     const [detailsActive, setDetailsActive] = useState(false);
     const [quantity, setQuantity] = useState(1);
 
@@ -123,6 +148,31 @@ const ProductPage = () => {
         toast.success(() => {
             return <span>Added To Cart</span>
         });
+    };
+
+    const submitDeleteProductReview = async () => {
+        const body = {
+            sessionUserId: user._id,
+            reviewUserId: reviewData.reviewUserId
+        }
+        const res = await fetchDeleteProductReview(body, id, reviewData.reviewId);
+        if (res) {
+            setProduct(res);
+            // const productReviews = [...product.reviews];
+            // const updatedProductReviews = productReviews.filter((review) => {
+            //     return review._id !== reviewData.reviewId;
+            // });
+            // let updatedProduct = {...product}
+            // delete updatedProduct.reviews
+            // const finalProduct = {...updatedProduct, reviews: updatedProductReviews}
+            // setProduct(finalProduct);
+            toast.success("Review deleted!");
+        }
+    };
+
+    const openConfirmModalAndSetReviewData = (reviewId, reviewUserId) => {
+        setReviewData({reviewId, reviewUserId});
+        window.confirm_modal.showModal();
     };
 
     if (!loading && fullScreen && product) {
@@ -583,19 +633,18 @@ const ProductPage = () => {
                                                                         <span
                                                                             className={"pl-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
                                                                     </div>
-
-                                                                    {/*<div*/}
-                                                                    {/*    className={"pb-2 text-xs text-neutral-500 flex items-center"}>*/}
-                                                                    {/*    {*/}
-                                                                    {/*        userData?._id === review.user && (*/}
-                                                                    {/*            <button*/}
-                                                                    {/*                onClick={() => openConfirmModal(review._id, review.user)}*/}
-                                                                    {/*                className={"pl-2"}>*/}
-                                                                    {/*                <FaTrash fill={"red"}/>*/}
-                                                                    {/*            </button>*/}
-                                                                    {/*        )*/}
-                                                                    {/*    }*/}
-                                                                    {/*</div>*/}
+                                                                    <div
+                                                                        className={"pb-2 text-xs text-neutral-500 flex items-center"}>
+                                                                        {
+                                                                            user?._id === review.user && (
+                                                                                <button
+                                                                                    onClick={() => openConfirmModalAndSetReviewData(review._id, review.user)}
+                                                                                    className={"pl-2"}>
+                                                                                    <FaTrash fill={"red"}/>
+                                                                                </button>
+                                                                            )
+                                                                        }
+                                                                    </div>
                                                                 </div>
                                                                 <div className={"pt-2 flex items-start"}>
                                                                     <ProductItemRating rating={review.rating}/>
@@ -642,6 +691,8 @@ const ProductPage = () => {
                         </div>
                     </div>
                 </div>
+                <ReviewModal productId={id} onPage={true} setProduct={setProduct}/>
+                <ConfirmModal title={"Are you sure you want to delete this review?"} initiateFunction={submitDeleteProductReview}/>
             </>
         )
     }
