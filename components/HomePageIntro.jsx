@@ -54,7 +54,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                         }}
                         className={"h-full w-full bg-zinc-800"}
                     >
-                        <div className={"backdrop-blur-sm w-full h-full flex flex-col items-center justify-between"}>
+                        <div className={"w-full h-full flex flex-col items-center justify-between"}>
                             <div className={"flex h-[32em] w-full ibmplex"}>
 
                                 <div className={"w-1/3 2xl:w-3/12 h-full"}></div>
