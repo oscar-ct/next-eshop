@@ -16,6 +16,8 @@ import GlobalContext from "@/context/GlobalContext";
 import BackButton from "@/components/BackButton";
 import BackButtonMessage from "@/components/BackButtonMessage";
 import Image from "next/image";
+import Loading from "@/app/loading";
+import ProductItem from "@/components/ProductItem";
 
 
 const fetchProduct = async (id) => {
@@ -25,9 +27,30 @@ const fetchProduct = async (id) => {
             return null;
         }
         const res = await fetch(`${apiDomain}/products/${id}`);
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
+        return res.json();
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
+const fetchTopRatedProducts = async (id) => {
+    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
+    try {
+        if (!apiDomain) {
+            return null;
+        }
+        const res = await fetch(`${apiDomain}/products/toprated`);
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json();
     } catch (e) {
         console.log(e);
@@ -46,6 +69,8 @@ const ProductPage = () => {
     const {id} = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [productsTopRated, setProductsTopRated] = useState(null);
+    const [loadingTopRated, setLoadingTopRated] = useState(true);
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
     // const [reviewData, setReviewData] = useState({});
@@ -55,7 +80,7 @@ const ProductPage = () => {
     const scrollTo = useRef(null);
 
     useEffect(() => {
-        const fetchProductsData = async () => {
+        const fetchProductData = async () => {
             try {
                 const product = await fetchProduct(id);
                 setProduct(product);
@@ -65,10 +90,22 @@ const ProductPage = () => {
                 setLoading(false);
             }
         };
-        if (product === null) {
-            fetchProductsData();
-        }
+        if (product === null) fetchProductData();
     }, [product]);
+
+    useEffect(() => {
+        const fetchProductsTopRatedData = async () => {
+            try {
+                const products = await fetchTopRatedProducts();
+                setProductsTopRated(products);
+            } catch (e) {
+                console.log(e);
+            } finally {
+                setLoadingTopRated(false);
+            }
+        };
+        if (productsTopRated === null) fetchProductsTopRatedData();
+    }, [productsTopRated]);
 
 
     const executeScroll = () => {
@@ -131,7 +168,7 @@ const ProductPage = () => {
         )
     }
 
-    if (!loading && product) {
+    if (!loading && product && !loadingTopRated && productsTopRated) {
         return (
             <>
                 <div className={"flex w-full"}>
@@ -582,30 +619,33 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/*<div className={"hidden lg:pr-3 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>*/}
-                            {/*    <div className={"flex flex-col"}>*/}
-                            {/*        <div className={"py-2 px-5 pl-3 bg-zinc-700"}>*/}
-                            {/*            <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>*/}
-                            {/*        </div>*/}
-                            {/*        <div*/}
-                            {/*            className={"shadow-lg bg-white sm:px-3 sm:pb-2 flex overflow-x-auto h-full border"}>*/}
-                            {/*            {*/}
-                            {/*                !loadingRated && (*/}
-                            {/*                    topRatedProducts.map(function (product, index) {*/}
-                            {/*                        return <ProductItem key={index} product={product} smallSize={true}*/}
-                            {/*                                            cardWidth={"w-[12em] sm:w-56"} windowInnerWidth={768}/>*/}
-                            {/*                    })*/}
-                            {/*                )*/}
-                            {/*            }*/}
-                            {/*        </div>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={"hidden lg:pr-3 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
+                                <div className={"flex flex-col"}>
+                                    <div className={"py-2 px-5 pl-3 bg-zinc-700"}>
+                                        <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
+                                    </div>
+                                    <div
+                                        className={"shadow-lg bg-white sm:px-3 sm:pb-2 flex overflow-x-auto h-full border"}>
+                                        {
+                                            productsTopRated.map(function (product, index) {
+                                                return <ProductItem
+                                                    key={index}
+                                                    product={product}
+                                                    smallSize={true}
+                                                    cardWidth={"w-[12em] sm:w-56"}
+                                                    windowInnerWidth={768}/>
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </>
         )
     }
+    return <Loading/>
 };
 
 export default ProductPage;
