@@ -11,13 +11,12 @@ import CartIcon from "@/components/CartIcon";
 import GlobalContext from "@/context/GlobalContext";
 import NavbarMobile from "@/components/NavbarMobile";
 import Image from 'next/image';
+import NavbarSearchBox from "@/components/NavbarSearchBox";
 
 
 const Navbar = () => {
 
     const { data: session } = useSession();
-    // const session = await getServerSession();
-
     const router = useRouter();
 
     const { user, cartItems, itemsPrice, shippingAddress, paymentMethod, dispatch } = useContext(GlobalContext);
@@ -59,17 +58,12 @@ const Navbar = () => {
         try {
             dispatch({type: "RESET_STATE"})
             await signOut();
-            // await logoutApiCall().unwrap();
-            // navigate("/login");
-            // dispatch(clearCartItems());
-            // dispatch(logout());
             setUserDropdownActive(false);
         } catch (e) {
             console.log(e)
         }
     };
 
-    const adminOrdersLink = "/admin/orders";
     const myOrdersLink = "/account/orders";
     const myAccountLink = "/account";
     const topRatedLink = "/products/sort/toprated/select/all/page/1";
@@ -84,7 +78,7 @@ const Navbar = () => {
     return mounted && (
         <>
             <nav
-                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg dark:bg-black lg:bg-black text-black lg:text-white dark:text-white`}
+                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg dark:bg-black  text-black border-b dark:text-white`}
             >
                 <div className="px-2 flex justify-between items-center">
                     <div className={"hidden lg:flex md:items-center cursor-pointer rounded-xl py-2 px-3"}>
@@ -106,7 +100,7 @@ const Navbar = () => {
                     <div className={"hidden lg:flex justify-end"}>
                         <div className={"flex justify-end"}>
                             <div className="ml-auto flex items-center gap-1 lg:gap-2">
-                                {/*<SearchBox/>*/}
+                                <NavbarSearchBox/>
                                 <div className="flex-none">
                                     <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} totalCartItems={totalCartItems} subtotalPrice={itemsPrice} windowInnerWidth={windowInnerWidth}/>
                                 </div>
@@ -149,7 +143,7 @@ const Navbar = () => {
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
                                             <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
-                                                <span>{user?.name.substring(0, 32)}</span>
+                                                <span className={"font-normal text-base"}>{user?.name.substring(0, 32)}</span>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
                                                     <FaChevronDown/>
                                                 </div>
@@ -223,29 +217,28 @@ const Navbar = () => {
                                         </div>
                                     )
                                 }
-                                {
-                                    session?.user.name.userIsAdmin && (
+                                {/*{*/}
+                                {/*    session?.user.name.userIsAdmin && (*/}
 
-                                        <div className="relative inline-block text-left">
-                                            <div
-                                                onClick={() => navigate(adminOrdersLink)}
-                                                className={"cursor-pointer btn rounded-full btn-secondary normal-case flex items-center"}
-                                            >
-                                                <div className={"flex flex-col"}>
-                                                    <span>Admin</span>
-                                                    <span>Dashboard</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                }
+                                {/*        <div className="relative inline-block text-left">*/}
+                                {/*            <div*/}
+                                {/*                onClick={() => navigate(adminOrdersLink)}*/}
+                                {/*                className={"cursor-pointer btn rounded-full btn-secondary normal-case flex items-center"}*/}
+                                {/*            >*/}
+                                {/*                <div className={"flex flex-col"}>*/}
+                                {/*                    <span>Dashboard</span>*/}
+                                {/*                </div>*/}
+                                {/*            </div>*/}
+                                {/*        </div>*/}
+                                {/*    )*/}
+                                {/*}*/}
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <NavbarMobile latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress} adminOrdersLink={adminOrdersLink}/>
+            <NavbarMobile latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress}/>
         </>
     )
 };

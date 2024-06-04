@@ -7,7 +7,7 @@ import {AnimatePresence, motion, useAnimation} from "framer-motion";
 import {useRouter} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
 
-const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrdersLink, cartItems, itemsPrice, shippingAddress, paymentMethod, windowInnerWidth, adminOrdersLink}) => {
+const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrdersLink, cartItems, itemsPrice, shippingAddress, paymentMethod, windowInnerWidth }) => {
 
     const [openNav, setOpenNav] = useState(false);
     const [searchIsActive, setSearchIsActive] = useState(false);
@@ -98,14 +98,13 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                         </>
                                     )
                                 }
-                                {
-                                    session?.user.name.userIsAdmin && (
-                                        <Link href={adminOrdersLink} className={"antialiased hover:subpixel-antialiased"}>
-                                            Admin Dashboard
-                                        </Link>
-                                    )
-                                }
-
+                                {/*{*/}
+                                {/*    session?.user.name.userIsAdmin && (*/}
+                                {/*        <Link href={adminOrdersLink} className={"antialiased hover:subpixel-antialiased"}>*/}
+                                {/*            Dashboard*/}
+                                {/*        </Link>*/}
+                                {/*    )*/}
+                                {/*}*/}
                                 {
                                     session && (
                                         <button onClick={logoutHandler}
@@ -270,17 +269,17 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                         </>
                                     )
                                 }
-                                {
-                                    session?.user.name.userIsAdmin && (
-                                        <>
-                                            <li className="py-2 px-8">
-                                                <Link onClick={() => setOpenNav(!openNav)} href={adminOrdersLink} className={"w-fit cursor-pointer text-3xl font-bold text-secondary flex items-center normal-case antialiased hover:subpixel-antialiased"}>
-                                                    Admin Dashboard
-                                                </Link>
-                                            </li>
-                                        </>
-                                    )
-                                }
+                                {/*{*/}
+                                {/*    session?.user.name.userIsAdmin && (*/}
+                                {/*        <>*/}
+                                {/*            <li className="py-2 px-8">*/}
+                                {/*                <Link onClick={() => setOpenNav(!openNav)} href={adminOrdersLink} className={"w-fit cursor-pointer text-3xl font-bold text-secondary flex items-center normal-case antialiased hover:subpixel-antialiased"}>*/}
+                                {/*                    Dashboard*/}
+                                {/*                </Link>*/}
+                                {/*            </li>*/}
+                                {/*        </>*/}
+                                {/*    )*/}
+                                {/*}*/}
                                 {
                                     session ? (
                                         <li onClick={() => setOpenNav(!openNav)} className="py-2 px-8">
