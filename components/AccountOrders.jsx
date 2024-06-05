@@ -15,9 +15,11 @@ const fetchUserOrders = async (id) => {
             return null;
         }
         const res = await fetch(`${apiDomain}/orders/user/${id}`);
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json();
     } catch (e) {
         console.log(e);
@@ -35,9 +37,11 @@ const fetchCancelOrder = async (id) => {
         const res = await fetch(`${apiDomain}/orders/${id}/cancel`, {
             method: "DELETE",
         });
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json();
     } catch (e) {
         console.log(e);
@@ -55,9 +59,11 @@ const fetchCancelProduct = async (id, productId) => {
         const res = await fetch(`${apiDomain}/orders/${id}/cancel/product/${productId}`, {
             method: "DELETE",
         });
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json();
     } catch (e) {
         console.log(e);
@@ -69,10 +75,8 @@ const fetchCancelProduct = async (id, productId) => {
 const AccountOrders = () => {
 
     const { user, cancelIntentData } = useContext(GlobalContext);
-
     const [orders, setOrders] = useState(null);
     const [loading, setLoading] = useState(true);
-
 
     useEffect(() => {
         const fetchUserOrdersData = async () => {
@@ -93,18 +97,22 @@ const AccountOrders = () => {
         if (cancelIntentData) {
             if (cancelIntentData.orderItemsLength === 1 && !cancelIntentData.isCanceled) {
                 const updatedOrder = await fetchCancelOrder(cancelIntentData.orderId);
-                const updatedOrders = orders.map((order) => {
-                    return order._id === cancelIntentData.orderId ? updatedOrder : order;
-                });
-                setOrders(updatedOrders);
-                return;
+                if (updatedOrder) {
+                    const updatedOrders = orders.map((order) => {
+                        return order._id === cancelIntentData.orderId ? updatedOrder : order;
+                    });
+                    setOrders(updatedOrders);
+                    return;
+                }
             } else {
                 const updatedOrder = await fetchCancelProduct(cancelIntentData.orderId, cancelIntentData.productId);
-                const updatedOrders = orders.map((order) => {
-                    return order._id === cancelIntentData.orderId ? updatedOrder : order;
-                });
-                setOrders(updatedOrders);
-                return;
+                if (updatedOrder) {
+                    const updatedOrders = orders.map((order) => {
+                        return order._id === cancelIntentData.orderId ? updatedOrder : order;
+                    });
+                    setOrders(updatedOrders);
+                    return;
+                }
             }
         }
         toast.error("Please try again later");
