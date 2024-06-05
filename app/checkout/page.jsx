@@ -12,6 +12,7 @@ import Image from 'next/image';
 import stripe from "@/icons/stripe-logo.svg";
 import StripeCheckout from "@/components/StripeCheckout";
 import CheckoutSteps from "@/components/CheckoutSteps";
+import Loading from "@/app/loading";
 
 const fetchNewOrder = async (body) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -64,6 +65,7 @@ const CheckoutPage = () => {
     const [discountCode, setDiscountCode] = useState("");
     const [discountLabelActive, setDiscountLabelActive] = useState(false);
     const [discountLabelHover, setDiscountLabelHover] = useState(false);
+    const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
 
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -139,38 +141,28 @@ const CheckoutPage = () => {
         // dispatch(setLoading(true));
         const orderId = await createNewOrder();
         if (orderId) {
-            router.push(`/order/${orderId}/payment?${paymentMethod === "Stripe / Credit Card" ? "stripe" : "paypal"}=unsuccessful`);
+            router.push(`/orders/${orderId}/payment?${paymentMethod === "Stripe / Credit Card" ? "stripe" : "paypal"}=unsuccessful`);
         }
         // dispatch(setLoading(false));
     };
 
-    const [mounted, setMounted] = useState(false);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        setMounted(true);
+        setLoading(false);
     }, []);
 
-    if (mounted) {
+    if (!loading) {
         return (
             <>
                 <CheckoutSteps/>
                 {
-                    mounted && cartItems.length !== 0 && (Object.keys(shippingAddress).length !== 0 || paymentMethod !== null) && (
+                    cartItems.length !== 0 && (Object.keys(shippingAddress).length !== 0 || paymentMethod !== null) && (
                         <div>
-                            <div className={"pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto"}>
+                            <div className={`${saveButtonDisabled ? "opacity-65" : ""} pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto`}>
                                 <div className={"lg:w-7/12 2xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                     <div className={"pt-3 md:pt-7"}>
                                         <h1 className={"hidden md:block py-2 text-center font-semibold text-2xl ibmplex bg-zinc-700 text-white"}>
                                             Review your Order Information
-                                            {/*<span className={"text-xl md:text-white font-light"}>*/}
-                                            {/*    {totalNumberOfItems}*/}
-                                            {/*    {*/}
-                                            {/*        totalNumberOfItems === 1 ? (*/}
-                                            {/*            " Item"*/}
-                                            {/*        ) : (*/}
-                                            {/*            " Items"*/}
-                                            {/*        )*/}
-                                            {/*    }*/}
-                                            {/*</span>)*/}
                                         </h1>
                                         <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
                                             Review your Order Information
@@ -217,9 +209,14 @@ const CheckoutPage = () => {
                                                             <span>{shippingAddress.country}</span>
                                                         </div>
                                                         <div className={"2xl:self-end 2xl:pr-3"}>
-                                                            <Link href={"/shipping"}>
-                                                                <FaEdit className={"w-3"}/>
-                                                            </Link>
+                                                            {
+                                                                !saveButtonDisabled && (
+                                                                    <Link href={"/shipping"}>
+                                                                        <FaEdit className={"w-3"}/>
+                                                                    </Link>
+                                                                )
+                                                            }
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -252,15 +249,19 @@ const CheckoutPage = () => {
                                                             </div>
                                                         </div>
                                                         <div className={"flex items-start 2xl:items-end"}>
-                                                            <Link href={"/payment"}>
-                                                                <FaEdit className={"w-3"}/>
-                                                            </Link>
+                                                            {
+                                                                !saveButtonDisabled && (
+                                                                    <Link href={"/payment"}>
+                                                                        <FaEdit className={"w-3"}/>
+                                                                    </Link>
+                                                                )
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={"pt-5"}>
+                                        <div className={"py-5"}>
                                             <h3 className={"font-semibold"}>
                                                 Order Item(s):
                                             </h3>
@@ -268,7 +269,7 @@ const CheckoutPage = () => {
                                                 {
                                                     cartItems.map(function (item) {
                                                         return (
-                                                            <CheckoutItem item={item} key={item._id}/>
+                                                            <CheckoutItem saveButtonDisabled={saveButtonDisabled} item={item} key={item._id}/>
                                                         )
                                                     })
                                                 }
@@ -332,7 +333,7 @@ const CheckoutPage = () => {
                                             </div>
                                             <div className={"px-6 pb-4"}>
                                                 {
-                                                    discount ? (
+                                                    discount && (
                                                         <div className={"pb-10 w-full flex items-center justify-between"}>
                                                             <span className={"text-sm font-semibold"}>Discount code applied :D</span>
                                                             <div className={"pl-10"}>
@@ -342,7 +343,10 @@ const CheckoutPage = () => {
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                    ) : (
+                                                    )
+                                                }
+                                                {
+                                                    !discount && !saveButtonDisabled && (
                                                         <div className={"pb-10"}>
                                                             <div className={"flex w-full items-end"}>
                                                                 <div className={`relative h-11 w-full`}>
@@ -361,21 +365,16 @@ const CheckoutPage = () => {
                                                                         {discountLabelActive ? "Discount code" : "Have a discount code?"}
                                                                     </label>
                                                                 </div>
-                                                                {
-                                                                    discountLabelActive && (
-                                                                        <button
-                                                                            onClick={submitApplyDiscountCode}
-                                                                            className={"pl-5 text-xs"}
-                                                                        >
-                                                                            Apply
-                                                                        </button>
-                                                                    )
-                                                                }
+                                                                <button
+                                                                    onClick={submitApplyDiscountCode}
+                                                                    className={"pl-5 text-xs"}
+                                                                >
+                                                                    Apply
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     )
                                                 }
-
 
                                                 {
                                                     paymentMethod === "PayPal / Credit Card" && (
@@ -404,7 +403,7 @@ const CheckoutPage = () => {
                                                                     />
                                                                 </div>
                                                             </div>
-                                                            <StripeCheckout/>
+                                                            <StripeCheckout setSaveButtonDisabled={setSaveButtonDisabled}/>
                                                         </>
 
                                                     )
@@ -413,7 +412,7 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                     {
-                                        userData && (
+                                        userData && !saveButtonDisabled && (
                                             <div className={"pt-3 px-2 sm:px-0"}>
                                                 <div className={"alert flex rounded-sm w-full"}>
                                                     <div className={"flex items-center justify-start w-full"}>
@@ -449,6 +448,7 @@ const CheckoutPage = () => {
             </>
         );
     }
+    return <Loading/>
 };
 
 export default CheckoutPage;
