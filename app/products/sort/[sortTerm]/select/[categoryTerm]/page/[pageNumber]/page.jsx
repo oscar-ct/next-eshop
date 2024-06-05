@@ -11,6 +11,7 @@ import ProductItem from "@/components/ProductItem";
 import Message from "@/components/Message";
 import Paginate from "@/components/Paginate";
 import toast from "react-hot-toast";
+import Loading from "@/app/loading";
 
 
 const fetchProducts = async (params) => {
@@ -123,6 +124,7 @@ const ProductsPage = () => {
             </div>
         );
     }
+    return <Loading/>
 };
 
 export default ProductsPage;

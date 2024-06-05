@@ -5,6 +5,7 @@ import GlobalContext from "@/context/GlobalContext";
 import AccountOrdersItem from "@/components/AccountOrdersItem";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import toast from "react-hot-toast";
+import Loading from "@/app/loading";
 
 
 const fetchUserOrders = async (id) => {
@@ -124,6 +125,7 @@ const AccountOrders = () => {
             <h1 className={"mt-5 text-2xl font-bold text-center mx-auto"}>No Orders Found</h1>
         )
     );
+    return <Loading/>
 };
 
 export default AccountOrders;

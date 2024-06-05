@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import ProductItem from "@/components/ProductItem";
 import Snake from "@/components/Snake";
 import Paginate from "@/components/Paginate";
+import Loading from "@/app/loading";
 
 
 const fetchProductsSearch = async (params) => {
@@ -158,6 +159,7 @@ const SearchPage = () => {
             </>
         );
     }
+    return <Loading/>
 };
 
 export default SearchPage;
