@@ -20,6 +20,7 @@ const fetchDiscountValidity = async (body) => {
         if (!response.ok) {
             const message = await response.text();
             toast.error(message);
+            return null;
         }
         return response.json();
     } catch (e) {
@@ -41,6 +42,7 @@ const fetchNewOrder = async (body) => {
         if (!response.ok) {
             const message = await response.text();
             toast.error(message);
+            return null;
         }
         return response.json();
     } catch (e) {
@@ -62,6 +64,7 @@ const fetchStripePaymentIntent = async (body) => {
         if (!response.ok) {
             const message = await response.text();
             toast.error(message);
+            return null;
         }
         return response.json();
     } catch (e) {
@@ -83,6 +86,7 @@ const fetchPayOrder = async (body) => {
         if (!response.ok) {
             const message = await response.text();
             toast.error(message);
+            return null;
         }
         return response.json();
     } catch (e) {
@@ -104,6 +108,7 @@ const fetchVerifiedOrderDollarAmount = async (body) => {
         if (!response.ok) {
             const message = await response.text();
             toast.error(message);
+            return null;
         }
         return response.json();
     } catch (e) {
@@ -152,7 +157,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
             shippingPrice,
             taxPrice,
             totalPrice,
-            validCode: res.validCode,
+            validCode: res ? res.validCode : false,
         }
         const newOrder = await fetchNewOrder(body);
         return newOrder._id;
