@@ -8,7 +8,7 @@ import {useContext} from "react";
 import GlobalContext from "@/context/GlobalContext";
 import Image from 'next/image';
 
-const CheckoutItem = ( {item} ) => {
+const CheckoutItem = ({ item, saveButtonDisabled }) => {
 
     const { dispatch } = useContext(GlobalContext);
 
@@ -26,7 +26,6 @@ const CheckoutItem = ( {item} ) => {
             <div className={"flex w-full mt-5"}>
                 <div className={"w-2/12"}>
                     <Link className={"bg-zinc-100/70 rounded-md w-full h-full flex justify-center items-center"} href={`/products/${item._id}`}>
-                        {/*<img className={"max-h-[160px] object-cover rounded-md"} src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"} alt={"cartItem"}/>*/}
                         <Image
                             priority
                             src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"}
@@ -58,19 +57,28 @@ const CheckoutItem = ( {item} ) => {
                             </div>
                         </div>
                         <div className={"w-6/12 flex justify-center items-end"}>
-                            <QuantitySelect quantity={item.quantity} products={item.countInStock} item={item}/>
+                            {
+                                !saveButtonDisabled && (
+                                    <QuantitySelect quantity={item.quantity} products={item.countInStock} item={item}/>
+                                )
+                            }
+
                         </div>
                     </div>
                 </div>
                 <div className={"w-1/12 flex flex-col items-end justify-between"}>
                     <FormatPrice price={item.price * item.quantity} fontSize={"text-xl"}/>
                     <div>
-                        <button
-                            onClick={() => removeFromCartHandler(item._id)}
-                            className={"btn-glass btn-xs rounded-full"}
-                        >
-                            <FaTrash className={"text-red-500 text-md"}/>
-                        </button>
+                        {
+                            !saveButtonDisabled && (
+                                <button
+                                    onClick={() => removeFromCartHandler(item._id)}
+                                    className={"btn-glass btn-xs rounded-full"}
+                                >
+                                    <FaTrash className={"text-red-500 text-md"}/>
+                                </button>
+                            )
+                        }
                     </div>
                 </div>
             </div>
