@@ -10,6 +10,7 @@ import Image from "next/image";
 import stripe from "@/icons/stripe-logo.svg";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import Loading from "@/app/loading";
+import {toast} from "react-hot-toast";
 
 const fetchOrder = async (id) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -18,9 +19,11 @@ const fetchOrder = async (id) => {
             return null;
         }
         const res = await fetch(`${apiDomain}/orders/${id}`);
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json();
     } catch (e) {
         console.log(e);
@@ -37,9 +40,11 @@ const fetchCancelOrder = async (id) => {
         const res = await fetch(`${apiDomain}/orders/${id}/cancel`, {
             method: "DELETE",
         });
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
+        if (!res.ok) {
+            const message = await res.text();
+            toast.error(message);
+            return null;
+        }
         return res.json();
     } catch (e) {
         console.log(e);
@@ -107,17 +112,13 @@ const OrderPage = () => {
         }
     }, [order]);
 
-    // const onApproveTest = async  () => {
-    //     dispatch(setLoading(true));
-    //     await payOrder({orderId, details: { payer: {} }});
-    //     refetch();
-    //     dispatch(setLoading(false));
-    // }
-
     const submitCancel = async () => {
         const updatedOrder = await fetchCancelOrder(orderId[0]);
-        setOrder(updatedOrder);
-        // refetch();
+        if (updatedOrder) {
+            setOrder(updatedOrder);
+            return;
+        }
+        toast.error("Please try again later");
     };
 
 
