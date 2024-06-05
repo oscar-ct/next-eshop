@@ -113,7 +113,7 @@ const fetchVerifiedOrderDollarAmount = async (body) => {
 };
 
 
-const StripeCheckoutForm = ({existingOrder}) => {
+const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
 
     const stripe = useStripe();
     const elements = useElements();
@@ -163,10 +163,11 @@ const StripeCheckoutForm = ({existingOrder}) => {
             "payment_intent_client_secret"
         );
         if (!clientSecret) {
+            setSaveButtonDisabled(false);
             return;
         } else {
+            setSaveButtonDisabled(true);
             setClientHasSecret(true);
-            // dispatch(setLoading(true));
         }
         if (!stripe) {
             return;
@@ -175,7 +176,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
             stripe.retrievePaymentIntent(clientSecret).then(async ({paymentIntent}) => {
                 switch (paymentIntent.status) {
                     case "succeeded": {
-                        setMessage("Payment succeeded!");
+                        setMessage("Payment succeeded! 🎉");
                         const details = {
                             id: paymentIntent.id,
                             status: paymentIntent.status,
@@ -187,7 +188,6 @@ const StripeCheckoutForm = ({existingOrder}) => {
                                 const order = await fetchPayOrder({orderId: orderId, details});
                                 if (order) {
                                     router.push(`/orders/${order._id}/payment?stripe=successful`);
-                                    // window.location.href = `/order/${data}/payment?stripe=successful`;
                                 }
                             }
                         } else {
@@ -195,11 +195,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
                                 await fetchPayOrder({orderId: existingOrder._id, details});
                                 router.refresh();
                             }
-                            // router.push(`/orders/${existingOrder._id}`)
                         }
-                        // dispatch(setLoading(false));
-                        // dispatch({type: "REMOVE_DISCOUNT"});
-                        // dispatch({type: "SET_LOCAL_STORAGE"});
                         break;
                     }
                     case "processing": {
@@ -209,13 +205,11 @@ const StripeCheckoutForm = ({existingOrder}) => {
                     case "requires_payment_method": {
                         setPaymentFailed(true);
                         setMessage("Your payment was not successful, please try again.");
-                        // dispatch(setLoading(false));
                         break;
                     }
                     default: {
                         setMessage("Something went wrong.");
                         setPaymentFailed(true);
-                        // dispatch(setLoading(false));
                         break;
                     }
                 }
@@ -224,15 +218,15 @@ const StripeCheckoutForm = ({existingOrder}) => {
     }, [stripe, dispatch, placeNewOrder, existingOrder, router]);
 
     const handleError = (error) => {
-        // dispatch(setLoading(false));
         setLoadingBtn(false);
         setErrorMessage(error.message);
+        setSaveButtonDisabled(false);
     };
 
     const handlePriceError = () => {
         toast.error("Something went wrong, please try again later.");
         setLoadingBtn(false);
-        // dispatch(setLoading(false));
+        setSaveButtonDisabled(false);
     };
 
     const handleSubmit = async (e) => {
@@ -242,8 +236,8 @@ const StripeCheckoutForm = ({existingOrder}) => {
             // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
-        // dispatch(setLoading(true));
         setLoadingBtn(true);
+        setSaveButtonDisabled(true);
         // Trigger form validation and wallet collection
         const {error: submitError} = await elements.submit();
         if (submitError) {
@@ -273,7 +267,6 @@ const StripeCheckoutForm = ({existingOrder}) => {
                 return;
             }
         }
-
         const {clientSecret} = await fetchStripePaymentIntent({totalPriceFromBackend});
 
         // Confirm the PaymentIntent using the details collected by the Payment Element
@@ -317,7 +310,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
                             <CustomBtn customClass={"w-full flex justify-center items-center my-3"} type={"submit"}
                                        isDisabled={loadingBtn || !stripe || !elements}>
                                 {
-                                    loadingBtn ? <span className="loading loading-bars loading-sm"/> : `Pay Now - ($${existingOrder ? existingOrder.totalPrice : totalPrice})`
+                                    loadingBtn ? <span className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - ($${existingOrder ? existingOrder.totalPrice : totalPrice})`
                                 }
                             </CustomBtn>
                         </div>
@@ -326,7 +319,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
             }
             {
                 (errorMessage || message) && (
-                    <div className={`text-center leading-[20px] text-lg ${errorMessage && "pt-4"}`}>
+                    <div className={`text-center leading-[20px] text-lg py-4 ${errorMessage ? "text-red-600" : "font-bold"}`}>
                         {errorMessage || message}
                     </div>
                 )
@@ -336,7 +329,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
                     <div className={"pt-6"}>
                         <CustomBtn customClass={"w-full"} type={"button"} onClick={(e) => {
                             e.preventDefault();
-                            window.location.href = existingOrder ? `${window.location.origin}/order/${existingOrder._id}` : `${window.location.origin}/submitorder`
+                            window.location.href = existingOrder ? `${window.location.origin}/order/${existingOrder._id}` : `${window.location.origin}/checkout`
                         }}>
                             Try Again
                         </CustomBtn>
