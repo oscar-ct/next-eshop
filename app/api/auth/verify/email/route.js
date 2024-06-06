@@ -1,5 +1,5 @@
 import connectDB from "@/config/db";
-import User from "@/models/User";
+import Order from "@/models/Order";
 
 // POST auth/verify/email
 
@@ -7,8 +7,9 @@ export async function POST(req) {
     try {
         const { email } = await req.json();
         await connectDB();
-        const user = await User.findOne({email: email});
-        if (user) {
+        const user = await Order.find({"user.email": email}).select("_id");
+        console.log(user)
+        if (user.length !== 0) {
             return Response.json({
                 isValidEmail: true
             });
