@@ -13,6 +13,8 @@ import stripe from "@/icons/stripe-logo.svg";
 import StripeCheckout from "@/components/StripeCheckout";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import Loading from "@/app/loading";
+import PaypalCheckout from "@/components/PaypalCheckout";
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 const fetchNewOrder = async (body) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -133,6 +135,7 @@ const CheckoutPage = () => {
             validCode: res.validCode,
         }
         const newOrder = await fetchNewOrder(order);
+        if (!newOrder) return null;
         return newOrder._id;
     };
 
@@ -151,6 +154,13 @@ const CheckoutPage = () => {
         setLoading(false);
     }, []);
 
+    const initialOptions = {
+        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+        currency: "USD",
+        intent: "capture",
+        enableFunding: "venmo",
+    };
+
     if (!loading) {
         return (
             <>
@@ -158,7 +168,7 @@ const CheckoutPage = () => {
                 {
                     cartItems.length !== 0 && (Object.keys(shippingAddress).length !== 0 || paymentMethod !== null) && (
                         <div>
-                            <div className={`${saveButtonDisabled ? "opacity-65" : ""} pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto`}>
+                            <div className={`pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto`}>
                                 <div className={"lg:w-7/12 2xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                     <div className={"pt-3 md:pt-7"}>
                                         <h1 className={"hidden md:block py-2 text-center font-semibold text-2xl ibmplex bg-zinc-700 text-white"}>
@@ -379,10 +389,9 @@ const CheckoutPage = () => {
                                                 {
                                                     paymentMethod === "PayPal / Credit Card" && (
                                                         <div className={"px-4"}>
-                                                            <div>
-                                                                Paypal service temporarily unavailable...
-                                                            </div>
-                                                            {/*<PaypalCheckout createNewOrder={() => createNewOrder()}/>*/}
+                                                            <PayPalScriptProvider options={initialOptions}>
+                                                                <PaypalCheckout createNewOrder={() => createNewOrder()} setSaveButtonDisabled={setSaveButtonDisabled}/>
+                                                            </PayPalScriptProvider>
                                                         </div>
                                                     )
                                                 }
