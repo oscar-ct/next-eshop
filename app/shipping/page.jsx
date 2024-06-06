@@ -8,29 +8,8 @@ import CustomBtn from "@/components/CustomBtn";
 import Select from "react-select";
 import {customStyles} from "@/utils/selectCustomStyles";
 import {countries, states} from "@/utils/locationData";
-import toast from "react-hot-toast";
 import CheckoutSteps from "@/components/CheckoutSteps";
-
-const fetchUserAddress = async (id, body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/users/${id}/updateaddress`, {
-            method: "PUT",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
+import {fetchUserAddress} from "@/utils/api-requests/fetchRequests";
 
 
 const ShippingPage = () => {
@@ -208,7 +187,7 @@ const ShippingPage = () => {
                                     {
                                         !user && (
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                <label htmlFor={"email"} className="text-sm font-medium text-gray-700 tracking-wide">
                                                     Customer Email
                                                 </label>
                                                 <input
@@ -226,7 +205,7 @@ const ShippingPage = () => {
                                         )
                                     }
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <label htmlFor={"name"} className="text-sm font-medium text-gray-700 tracking-wide">
                                             Recipient&apos;s Name
                                         </label>
                                         <input
@@ -241,7 +220,7 @@ const ShippingPage = () => {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <label htmlFor={"address"} className="text-sm font-medium text-gray-700 tracking-wide">
                                             Street Address
                                         </label>
                                         <input
@@ -256,7 +235,7 @@ const ShippingPage = () => {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <label htmlFor={"city"} className="text-sm font-medium text-gray-700 tracking-wide">
                                             City
                                         </label>
                                         <input
@@ -273,9 +252,9 @@ const ShippingPage = () => {
                                     <div className="space-y-2">
                                         <div className={"flex w-full"}>
                                             <div className={"w-8/12 md:w-6/12 pr-2"}>
-                                                <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                <span className="text-sm font-medium text-gray-700 tracking-wide">
                                                     State
-                                                </label>
+                                                </span>
                                                 <Select placeholder={"Select State"}
                                                         options={states}
                                                         styles={{...customStyles, control: (base) => ({
@@ -292,7 +271,7 @@ const ShippingPage = () => {
                                                 />
                                             </div>
                                             <div className={"w-4/12 md:w-6/12 pl-2"}>
-                                                <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                <label htmlFor={"postalCode"} className="text-sm font-medium text-gray-700 tracking-wide">
                                                     ZIP Code
                                                 </label>
                                                 <input
@@ -310,8 +289,8 @@ const ShippingPage = () => {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-700 tracking-wide">Country
-                                        </label>
+                                        <span className="text-sm font-medium text-gray-700 tracking-wide">Country
+                                        </span>
                                         <Select
                                             placeholder={"Select Country"}
                                             options={countries}
@@ -339,9 +318,9 @@ const ShippingPage = () => {
                                                     )
                                                 }
 
-                                                <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
+                                                <label htmlFor={"checkbox"} className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
                                                     <span className="text-sm pr-2">Save this address</span>
-                                                    <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
+                                                    <input id={"checkbox"} type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
                                                 </label>
                                             </div>
                                         )
@@ -379,6 +358,7 @@ const ShippingPage = () => {
                                                             </div>
                                                             <div className={"w-2/12 flex items-center"}>
                                                                 <input
+                                                                    autoComplete={"off"}
                                                                     type="radio"
                                                                     name="address"
                                                                     id={index.toString()}

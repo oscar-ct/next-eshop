@@ -3,32 +3,12 @@
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import Link from "next/link";
 import {useContext, useState} from "react";
-import toast from "react-hot-toast";
 import {signIn} from "next-auth/react";
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
+import {fetchRegister} from "@/utils/api-requests/fetchRequests";
+import toast from "react-hot-toast";
 
-const fetchRegister = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const response = await fetch("/api/auth/register", {
-            method: "POST",
-            body: JSON.stringify(body)
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
 
 
 const RegisterForm = () => {
@@ -54,23 +34,33 @@ const RegisterForm = () => {
 
     const submitRegister = async (e) => {
         e.preventDefault();
-        const body = {
-            email: formData.email,
-            password: formData.password,
-            name: formData.name,
-        }
-        const newUser = await fetchRegister(body);
-        if (newUser) {
-            const response = await signIn("credentials", {
-                email: email,
-                password: password,
-                redirect: false,
-            });
-            if (response.ok) {
-                dispatch({type: "ADD_USER", payload: newUser});
-                dispatch({type: "SET_LOCAL_STORAGE"});
-                router.push("/");
-                router.refresh();
+        const emailRegex = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
+        if (!emailRegex.test(email)) {
+            toast.error("Please enter a valid email");
+        } else if (password !== confirmPassword) {
+            toast.error("Passwords do not match");
+
+        } else if (password.trim().length < 6 || confirmPassword.trim().length < 6) {
+            toast.error("Password is too short.  Password must be at least 6 characters");
+        } else {
+            const body = {
+                email: formData.email,
+                password: formData.password,
+                name: formData.name,
+            }
+            const newUser = await fetchRegister(body);
+            if (newUser) {
+                const response = await signIn("credentials", {
+                    email: email,
+                    password: password,
+                    redirect: false,
+                });
+                if (response.ok) {
+                    dispatch({type: "ADD_USER", payload: newUser});
+                    dispatch({type: "SET_LOCAL_STORAGE"});
+                    router.push("/");
+                    router.refresh();
+                }
             }
         }
     };
@@ -89,7 +79,7 @@ const RegisterForm = () => {
                         </div>
                         <form onSubmit={submitRegister} className="space-y-3">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-600 tracking-wide">Full Name
+                                <label htmlFor={"name"} className="text-sm font-medium text-gray-600 tracking-wide">Full Name
                                 </label>
                                 <input
                                     className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -103,7 +93,7 @@ const RegisterForm = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-600 tracking-wide">Email
+                                <label htmlFor={"email"} className="text-sm font-medium text-gray-600 tracking-wide">Email
                                 </label>
                                 <input
                                     className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -117,13 +107,13 @@ const RegisterForm = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
+                                <label htmlFor={"password"} className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
                                     Password
                                 </label>
 
                                 <input
                                     className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
-                                    autoComplete={"password"}
+                                    autoComplete={"off"}
                                     type={showPassword ? "text" : "password"}
                                     placeholder={"Enter your password"}
                                     id={"password"}
@@ -133,7 +123,7 @@ const RegisterForm = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-600 tracking-wide">
+                                <label htmlFor={"confirmPassword"} className="text-sm font-medium text-gray-600 tracking-wide">
                                     Confirm Password
                                 </label>
 
@@ -163,15 +153,6 @@ const RegisterForm = () => {
                                     }
                                 </div>
                             </div>
-
-                            {/*{*/}
-                            {/*    invalidRegister && (*/}
-                            {/*        <div className={"flex justify-center"}>*/}
-                            {/*            <span className={"text-red-500 font-bold"}>{errorMessage}</span>*/}
-                            {/*        </div>*/}
-                            {/*    )*/}
-                            {/*}*/}
-
                             <div className={"flex justify-center"}>
                                 <button type="submit"
                                         className="btn btn-neutral normal-case rounded-full btn-wide ibmplex text-base">

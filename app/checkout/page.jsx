@@ -15,48 +15,7 @@ import CheckoutSteps from "@/components/CheckoutSteps";
 import Loading from "@/app/loading";
 import PaypalCheckout from "@/components/PaypalCheckout";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
-
-const fetchNewOrder = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/orders/add`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchDiscountValidity = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/discount`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
+import {fetchDiscountValidity, fetchNewOrder} from "@/utils/api-requests/fetchRequests";
 
 
 const CheckoutPage = () => {
@@ -123,7 +82,7 @@ const CheckoutPage = () => {
             };
         }
         const res = await fetchDiscountValidity({discountKey})
-        const order = {
+        const body = {
             user,
             orderItems: cartItems,
             shippingAddress,
@@ -134,7 +93,7 @@ const CheckoutPage = () => {
             totalPrice,
             validCode: res.validCode,
         }
-        const newOrder = await fetchNewOrder(order);
+        const newOrder = await fetchNewOrder(body);
         if (!newOrder) return null;
         return newOrder._id;
     };
@@ -361,6 +320,7 @@ const CheckoutPage = () => {
                                                             <div className={"flex w-full items-end"}>
                                                                 <div className={`relative h-11 w-full`}>
                                                                     <input
+                                                                        id={"discountCode"}
                                                                         onMouseEnter={() => setDiscountLabelHover(true)}
                                                                         onMouseLeave={() => setDiscountLabelHover(false)}
                                                                         onFocus={() => setDiscountLabelActive(true)}
@@ -371,6 +331,7 @@ const CheckoutPage = () => {
                                                                         placeholder="Enter discount code"
                                                                         className={`${!discountLabelActive ? "cursor-pointer" : ""} text-[16px] lg:text-base peer h-full w-full rounded-none border-b border-gray-300 hover:border-gray-400 bg-transparent pt-4 pb-1.5 font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 placeholder-shown:text-[16px] focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100`}/>
                                                                     <label
+                                                                        htmlFor={"discountCode"}
                                                                         className={`${discountLabelHover ? "text-gray-700" : "text-gray-500"} after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-[14px] peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500`}>
                                                                         {discountLabelActive ? "Discount code" : "Have a discount code?"}
                                                                     </label>

@@ -6,39 +6,25 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import CustomBtn from "@/components/CustomBtn";
 import Image from "next/image";
+import {fetchProduct} from "@/utils/api-requests/fetchRequests";
 
-
-const fetchProduct = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/products/${id}`);
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
 
 const AccountOrdersItemProduct = ({product, index, orderSize}) => {
 
     const {dispatch} = useContext(GlobalContext);
     const quantity = 1;
     const addToCartHandler = async () => {
-        toast.success("Added To Cart")
         const item  = await fetchProduct(product.productId);
-        dispatch({
-            type: "ADD_TO_CART",
-            payload: {...item, quantity},
-        });
-        dispatch({type:"UPDATE_CART"});
-        dispatch({type: "SET_LOCAL_STORAGE"});
-    }
+        if (item) {
+            toast.success("Added To Cart");
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: {...item, quantity},
+            });
+            dispatch({type:"UPDATE_CART"});
+            dispatch({type: "SET_LOCAL_STORAGE"});
+        }
+    };
 
     return (
         <>

@@ -2,32 +2,9 @@
 
 import {useContext, useEffect, useState} from "react";
 import GlobalContext from "@/context/GlobalContext";
-import {signOut} from "next-auth/react";
 import toast from "react-hot-toast";
 import CustomBtn from "@/components/CustomBtn";
-
-
-const fetchUpdateUserCredentials = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/auth/credentials`, {
-            method: "PUT",
-            body: JSON.stringify(body),
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        // console.log(e);
-        return null;
-    }
-};
+import {fetchUpdateUserCredentials} from "@/utils/api-requests/fetchRequests"
 
 
 const AccountDetailsForm = () => {
@@ -47,14 +24,9 @@ const AccountDetailsForm = () => {
         }
     }, [name, email, user?.name, user?.email]);
 
-    const logoutUser = async () => {
-        await signOut();
-        dispatch({type: "RESET_STATE"});
-    };
 
     const submitAccountHandler = async (e) => {
         e.preventDefault();
-        // dispatch(setLoading(true));
         const body = {
             _id: user._id,
             name,
@@ -83,7 +55,7 @@ const AccountDetailsForm = () => {
                 <div className={"p-10"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 tracking-wide">Name
+                            <label htmlFor={"name"} className="text-sm font-medium text-gray-700 tracking-wide">Name
                             </label>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -96,7 +68,7 @@ const AccountDetailsForm = () => {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 tracking-wide">Email
+                            <label htmlFor={"email"} className="text-sm font-medium text-gray-700 tracking-wide">Email
                             </label>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -109,7 +81,7 @@ const AccountDetailsForm = () => {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
+                            <label htmlFor={"password"} className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
                                 Enter your password to update name and/or email
                             </label>
                             <input

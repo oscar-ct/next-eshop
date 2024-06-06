@@ -5,73 +5,7 @@ import {useContext, useEffect} from "react";
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
 import toast from "react-hot-toast";
-
-
-const fetchDiscountValidity = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/discount`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchPayOrder = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/orders/pay`, {
-            method: "PUT",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchVerifiedOrderDollarAmount = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/products/verifyusd`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
+import {fetchDiscountValidity, fetchPayOrder, fetchVerifiedOrderDollarAmount} from "@/utils/api-requests/fetchRequests";
 
 
 const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) => {
@@ -79,13 +13,12 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
     const { discountKey, cartItems, totalPrice } = useContext(GlobalContext);
     const router = useRouter();
 
-    const [{isPending}, paypalDispatch] = usePayPalScriptReducer();
+    const [{isPending}] = usePayPalScriptReducer();
 
     useEffect(() => {
         if (!isPending) {
             setSaveButtonDisabled(false);
         }
-
     },[isPending]);
 
     /// Paypal Actions ////
@@ -104,7 +37,6 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
                 validCode: existingOrder ? existingOrder.freeShipping : isDiscounted
             });
             totalPriceFromBackend = Number(totalPriceFromBackend);
-
 
             if (!existingOrder) {
                 if (totalPriceFromBackend !== Number(totalPrice)) {
@@ -151,9 +83,6 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
         console.log(error || error.data.message);
     };
 
-    // const onShippingChange = (data,actions) => {
-    //     return actions.resolve();
-    // }
 
     return (
         !isPending && (
@@ -164,8 +93,6 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
                 onError={onPaypalError}
                 onCancel={() => setSaveButtonDisabled(false)}
                 style={{shape: "rect", height: 40}}
-                // onShippingChange={onShippingChange}
-
             >
             </PayPalButtons>
         )

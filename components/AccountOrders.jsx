@@ -6,70 +6,7 @@ import AccountOrdersItem from "@/components/AccountOrdersItem";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import toast from "react-hot-toast";
 import Loading from "@/app/loading";
-
-
-const fetchUserOrders = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/orders/user/${id}`);
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-}
-
-
-const fetchCancelOrder = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/orders/${id}/cancel`, {
-            method: "DELETE",
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-
-const fetchCancelProduct = async (id, productId) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/orders/${id}/cancel/product/${productId}`, {
-            method: "DELETE",
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
+import {fetchCancelOrder, fetchCancelProduct, fetchUserOrders} from "@/utils/api-requests/fetchRequests";
 
 
 const AccountOrders = () => {

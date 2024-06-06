@@ -11,46 +11,7 @@ import stripe from "@/icons/stripe-logo.svg";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import Loading from "@/app/loading";
 import {toast} from "react-hot-toast";
-
-const fetchOrder = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/orders/${id}`);
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchCancelOrder = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/orders/${id}/cancel`, {
-            method: "DELETE",
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
+import {fetchCancelOrder, fetchOrder} from "@/utils/api-requests/fetchRequests";
 
 
 const OrderPage = () => {

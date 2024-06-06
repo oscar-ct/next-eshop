@@ -20,45 +20,8 @@ import Loading from "@/app/loading";
 import ProductItem from "@/components/ProductItem";
 import ReviewModal from "@/components/modals/ReviewModal";
 import ConfirmModal from "@/components/modals/ConfirmModal";
+import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchRequests";
 
-
-const fetchProduct = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/products/${id}`);
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchTopRatedProducts = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/products/toprated`);
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -81,7 +44,6 @@ const fetchDeleteProductReview = async (body, id, reviewId) => {
         return null;
     }
 };
-
 
 
 const ProductPage = () => {

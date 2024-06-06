@@ -31,12 +31,11 @@ const QuantitySelect = ({quantity, products, item}) => {
         dispatch({type: "SET_LOCAL_STORAGE"});
     };
 
-
     return (
         <div className={"rounded-md border-gray-200 border h-12 flex justify-start items-center px-2"}>
-            <label htmlFor={"qty"} className={"text-sm font-semibold pr-1"}>{quantityText}</label>
+            <label htmlFor={`${item._id}`} className={"text-sm font-semibold pr-1"}>{quantityText}</label>
             <select
-                id={"qty"}
+                id={`${item._id}`}
                 className="h-full w-full md:w-16 !outline-none text-sm bg-white cursor-pointer font-bold"
                 value={quantity}
                 onChange={(e) => addToCartHandler(item, Number(e.target.value))}

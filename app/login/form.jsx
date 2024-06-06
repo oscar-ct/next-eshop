@@ -7,23 +7,8 @@ import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import toast from "react-hot-toast";
 import GlobalContext from "@/context/GlobalContext";
+import {fetchUser} from "@/utils/api-requests/fetchRequests";
 
-const fetchUser = async (id) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/users/${id}`);
-        // if (!res.ok) {
-        //     throw new Error("Failed to fetch products data");
-        // }
-        return res.json()
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
 
 const LoginForm = () => {
 
@@ -55,10 +40,12 @@ const LoginForm = () => {
         });
         if (!response?.error) {
             const user = await fetchUser(email);
-            dispatch({type: "ADD_USER", payload: user})
-            dispatch({type: "SET_LOCAL_STORAGE"});
-            router.push("/");
-            router.refresh();
+            if (user) {
+                dispatch({type: "ADD_USER", payload: user})
+                dispatch({type: "SET_LOCAL_STORAGE"});
+                router.push("/");
+                router.refresh();
+            }
         }
         if (!response.ok) {
             toast.error("Invalid Credentials");
@@ -79,7 +66,7 @@ const LoginForm = () => {
                             </div>
                             <form onSubmit={submitLogin} className="space-y-5">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-600 tracking-wide">Email
+                                    <label htmlFor={"email"} className="text-sm font-medium text-gray-600 tracking-wide">Email
                                     </label>
                                     <input
                                         className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -93,7 +80,7 @@ const LoginForm = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
+                                    <label htmlFor={"password"} className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
                                         Password
                                     </label>
 

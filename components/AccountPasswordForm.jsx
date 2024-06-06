@@ -4,28 +4,8 @@ import {useContext, useState} from "react";
 import toast from "react-hot-toast";
 import GlobalContext from "@/context/GlobalContext";
 import CustomBtn from "@/components/CustomBtn";
+import {fetchUpdateUserCredentials} from "@/utils/api-requests/fetchRequests";
 
-const fetchUpdateUserCredentials = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/auth/credentials`, {
-            method: "PUT",
-            body: JSON.stringify(body),
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
 
 const AccountPasswordForm = () => {
 
@@ -43,7 +23,6 @@ const AccountPasswordForm = () => {
 
     const submitAccountHandler = async (e) => {
         e.preventDefault();
-        // dispatch(setLoading(true));
         const body = {
             _id: user._id,
             newPassword,
@@ -73,13 +52,13 @@ const AccountPasswordForm = () => {
                 <div className={"p-10"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 tracking-wide">
+                            <label htmlFor={"new-password"} className="text-sm font-medium text-gray-700 tracking-wide">
                                 New password
                             </label>
                             <span className={"text-xs pl-1"}>(must be at least 6 characters)</span>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
-                                autoComplete={"password"}
+                                autoComplete={"off"}
                                 placeholder={"New password"}
                                 type={"password"}
                                 id={"new-password"}
@@ -89,13 +68,13 @@ const AccountPasswordForm = () => {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
+                            <label htmlFor={"confirm-password"} className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
                                 Confirm new password
                             </label>
 
                             <input
                                 className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
-                                autoComplete={"password"}
+                                autoComplete={"off"}
                                 type={"password"}
                                 placeholder={"Confirm new password"}
                                 id={"confirm-password"}
@@ -105,11 +84,11 @@ const AccountPasswordForm = () => {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 tracking-wide">Current password
+                            <label htmlFor={"current-password"} className="text-sm font-medium text-gray-700 tracking-wide">Current password
                             </label>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
-                                autoComplete={"password"}
+                                autoComplete={"off"}
                                 placeholder={"Current password"}
                                 type={"password"}
                                 id={"current-password"}

@@ -6,116 +6,12 @@ import CustomBtn from "./CustomBtn";
 import {toast} from "react-hot-toast";
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
-
-const fetchDiscountValidity = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/discount`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchNewOrder = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/orders/add`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchStripePaymentIntent = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/stripe/paymentintent`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchPayOrder = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/orders/pay`, {
-            method: "PUT",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const fetchVerifiedOrderDollarAmount = async (body) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    if (!apiDomain) {
-        return null;
-    }
-    try {
-        const response = await fetch(`${apiDomain}/products/verifyusd`, {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
+import {
+    fetchDiscountValidity,
+    fetchNewOrder,
+    fetchPayOrder, fetchStripePaymentIntent,
+    fetchVerifiedOrderDollarAmount
+} from "@/utils/api-requests/fetchRequests";
 
 
 const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
