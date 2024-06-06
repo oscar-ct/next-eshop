@@ -17,7 +17,6 @@ export function GlobalProvider({ children }) {
         paymentMethod: null,
         discount: false,
         discountKey: "",
-        publishableKey: "",
         guestData: "",
         user: null,
         cancelIntentData: null
@@ -38,7 +37,6 @@ export function GlobalProvider({ children }) {
             paymentMethod: state.paymentMethod,
             discount: state.discount,
             discountKey: state.discountKey,
-            publishableKey: state.publishableKey,
             guestData: state.guestData,
             user: state.user,
             cancelIntentData: state.cancelIntentData,

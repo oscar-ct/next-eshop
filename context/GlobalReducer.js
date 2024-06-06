@@ -40,7 +40,6 @@ const globalReducer = (state, action) => {
                     paymentMethod: null,
                     discount: false,
                     discountKey: "",
-                    publishableKey: "",
                     guestData: ""
                 }
             }
@@ -78,7 +77,6 @@ const globalReducer = (state, action) => {
                 paymentMethod: null,
                 discount: false,
                 discountKey: "",
-                publishableKey: "",
                 guestData: "",
             };
         case "RESET_STATE":
@@ -93,7 +91,6 @@ const globalReducer = (state, action) => {
                 paymentMethod: null,
                 discount: false,
                 discountKey: "",
-                publishableKey: "",
                 guestData: "",
                 user: null,
                 cancelIntentData: null,
@@ -140,11 +137,6 @@ const globalReducer = (state, action) => {
                 ...state,
                 discount: false,
                 discountKey: ""
-            }
-        case "SET_PUBLISHABLE_KEY":
-            return {
-                ...state,
-                publishableKey: action.payload
             }
         case "SET_GUEST_DATA":
             return {
