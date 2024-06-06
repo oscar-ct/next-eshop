@@ -169,7 +169,7 @@ const ForgotPasswordPage = () => {
                                 </div>
 
                                 <div className={"flex justify-center"}>
-                                    <button disabled={password } type="submit"
+                                    <button type="submit"
                                             className="rounded-full btn btn-neutral btn-wide normal-case ibmplex text-base">
                                         Reset Password
                                     </button>

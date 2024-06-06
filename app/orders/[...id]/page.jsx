@@ -12,6 +12,7 @@ import ConfirmModal from "@/components/modals/ConfirmModal";
 import Loading from "@/app/loading";
 import {toast} from "react-hot-toast";
 import {fetchCancelOrder, fetchOrder} from "@/utils/api-requests/fetchRequests";
+import NotFound from "@/app/not-found";
 
 
 const OrderPage = () => {
@@ -518,6 +519,7 @@ const OrderPage = () => {
             </>
         )
     }
+    if (!loading && !order) return <NotFound/>
     return <Loading/>
 };
 

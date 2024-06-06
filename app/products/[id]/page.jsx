@@ -21,6 +21,7 @@ import ProductItem from "@/components/ProductItem";
 import ReviewModal from "@/components/modals/ReviewModal";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchRequests";
+import NotFound from "@/app/not-found";
 
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
@@ -658,6 +659,7 @@ const ProductPage = () => {
             </>
         )
     }
+    if (!product && !loading) return <NotFound/>
     return <Loading/>
 };
 
