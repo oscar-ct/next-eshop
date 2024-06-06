@@ -57,7 +57,7 @@ const Navbar = () => {
     const logoutHandler = async () => {
         try {
             dispatch({type: "RESET_STATE"})
-            await signOut();
+            await signOut({ callbackUrl: '/' });
             setUserDropdownActive(false);
         } catch (e) {
             console.log(e)
