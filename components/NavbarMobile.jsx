@@ -64,8 +64,10 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                         <div className={"flex items-center w-full"}>
                             <button className={"pl-1 pr-4 h-[3rem] flex items-center"} onClick={() => router.push("/")}>
                                 <Image
+                                    width={32}
+                                    height={32}
                                     priority
-                                    className={"w-4 md:w-5 h-6 mr-1 dark:invert"}
+                                    className={"w-4 md:w-5 h-auto mr-1 dark:invert"}
                                     src={logo}
                                     alt="eshopjs.com"
                                 />
