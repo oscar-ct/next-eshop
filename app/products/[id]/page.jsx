@@ -22,6 +22,7 @@ import ReviewModal from "@/components/modals/ReviewModal";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchRequests";
 import NotFound from "@/app/not-found";
+import {motion} from "framer-motion";
 
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
@@ -183,7 +184,11 @@ const ProductPage = () => {
 
     if (!loading && product && !loadingTopRated && productsTopRated) {
         return (
-            <>
+            <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+            >
                 <div className={"flex w-full"}>
                     <div className={"w-2/12 md:w-1/12"}>
                         <BackButton/>
@@ -655,8 +660,9 @@ const ProductPage = () => {
                     </div>
                 </div>
                 <ReviewModal productId={id} onPage={true} setProduct={setProduct}/>
-                <ConfirmModal title={"Are you sure you want to delete this review?"} initiateFunction={submitDeleteProductReview}/>
-            </>
+                <ConfirmModal title={"Are you sure you want to delete this review?"}
+                              initiateFunction={submitDeleteProductReview}/>
+            </motion.div>
         )
     }
     if (!product && !loading) return <NotFound/>
