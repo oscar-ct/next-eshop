@@ -1,3 +1,6 @@
+export const metadata = {
+    title: "e-shop | Loading...",
+};
 
 const Loading = () => {
     return (

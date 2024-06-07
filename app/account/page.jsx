@@ -4,6 +4,10 @@ import Link from "next/link";
 import AccountDetailsForm from "@/components/AccountDetailsForm";
 import AccountPasswordForm from "@/components/AccountPasswordForm";
 
+export const metadata = {
+    title: "e-shop | Account",
+};
+
 const AccountPage = async () => {
     const session = await getServerSession();
     if (!session) redirect("/");

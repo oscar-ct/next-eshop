@@ -3,6 +3,10 @@ import {redirect} from "next/navigation";
 import Link from "next/link";
 import AccountOrders from "@/components/AccountOrders";
 
+export const metadata = {
+    title: "e-shop | Orders",
+};
+
 const AccountOrdersPage = async () => {
     const session = await getServerSession();
     if (!session) redirect("/");

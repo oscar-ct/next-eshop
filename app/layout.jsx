@@ -8,8 +8,8 @@ import {GlobalProvider} from "@/context/GlobalContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "e-shop by Next.js",
-  description: "e-shop rebuilt with Next.js",
+    title: "e-shop by Oscar Castro",
+    description: "e-shop was developed by Oscar Castro, a software developer based in San Antonio, TX.",
 };
 
 export default async function RootLayout({children}) {

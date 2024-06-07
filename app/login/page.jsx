@@ -2,6 +2,10 @@ import LoginForm from "@/app/login/form";
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
+export const metadata = {
+    title: "e-shop | Login",
+};
+
 const LoginPage = async () => {
     const session = await getServerSession();
     if (session) {
