@@ -1,4 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+"use client";
+
+import {useContext, useEffect, useState} from 'react';
 import Link from "next/link";
 import {FaSearch} from "react-icons/fa";
 import CartIcon from "@/components/CartIcon";
@@ -6,6 +8,7 @@ import {signOut, useSession} from "next-auth/react";
 import {AnimatePresence, motion, useAnimation} from "framer-motion";
 import {useRouter} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
+import RevealMotion from "@/components/RevealMotion";
 
 const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrdersLink, cartItems, itemsPrice, shippingAddress, paymentMethod, windowInnerWidth }) => {
 
@@ -159,38 +162,42 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                             delay: 0.00
                         }}
                     >
-                        <div className={"px-2 flex justify-end"}>
-                            <button className={"text-black dark:text-white"} onClick={() => setSearchIsActive(false)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6"
-                                     viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                            </button>
-                        </div>
+                        <RevealMotion once={false} y={-50}>
+                            <div className={"px-2 flex justify-end"}>
+                                <button className={"text-black dark:text-white"} onClick={() => setSearchIsActive(false)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6"
+                                         viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </RevealMotion>
                         <div className={"flex flex-col justify-start h-full w-full"}>
                             <ul className="flex flex-col font-bold text-xl">
-                                <li className="pt-8 px-8">
-                                    <div style={shake === true ? {
-                                        animation: "shake 0.5s",
-                                        animationIterationCount: ".5"
-                                    } : {}} className={"flex items-center gap-4 w-full"}>
-                                        <FaSearch className={"cursor-pointer text-black dark:text-white"}
-                                                  fill={"currentColor"} onClick={submitSearch}/>
-                                        <input
-                                            id={"searchProducts"}
-                                            type={"search"}
-                                            autoComplete={"search"}
-                                            value={keyword}
-                                            onKeyPress={(e) => {
-                                                if (e.key === "Enter") {
-                                                    submitSearch();
-                                                }
-                                            }}
-                                            onChange={(e) => setKeyword(e.target.value)}
-                                            className={"w-full focus:outline-none bg-transparent text-3xl font-bold text-black dark:text-white"}
-                                            placeholder={"Search products"}
-                                        />
-                                    </div>
+                                <li className="pt-3 px-8">
+                                    <RevealMotion once={false} y={-50}>
+                                        <div style={shake === true ? {
+                                            animation: "shake 0.5s",
+                                            animationIterationCount: ".5"
+                                        } : {}} className={"flex items-center gap-4 w-full"}>
+                                            <FaSearch className={"cursor-pointer text-black dark:text-white"}
+                                                      fill={"currentColor"} onClick={submitSearch}/>
+                                            <input
+                                                id={"searchProducts"}
+                                                type={"search"}
+                                                autoComplete={"search"}
+                                                value={keyword}
+                                                onKeyPress={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        submitSearch();
+                                                    }
+                                                }}
+                                                onChange={(e) => setKeyword(e.target.value)}
+                                                className={"w-full focus:outline-none bg-transparent text-3xl font-bold text-black dark:text-white"}
+                                                placeholder={"Search products"}
+                                            />
+                                        </div>
+                                    </RevealMotion>
                                 </li>
                             </ul>
                         </div>
@@ -225,46 +232,58 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                         <div className={"flex flex-col justify-start h-full w-full"}>
                             <ul className="flex flex-col text-black dark:text-white font-bold text-xl">
                                 <li className="pb-2 px-8">
-                                    <Link onClick={() => setOpenNav(!openNav)} href={"/"}
-                                          className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
-                                        Home
-                                    </Link>
-                                </li>
-                                <li className="py-2 px-8">
-                                    <Link onClick={() => setOpenNav(!openNav)} href={latestProductsLink}
-                                          className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
-                                        All Products
-                                    </Link>
-                                </li>
-                                <li className="py-2 px-8">
-                                    <Link onClick={() => setOpenNav(!openNav)} href={topRatedLink}
-                                          className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
-                                        Top Rated Products
-                                    </Link>
-                                </li>
-                                <li className="py-2 px-8">
-                                    <div className={"flex items-center"}>
-                                        <Link onClick={() => setOpenNav(!openNav)} href={"/locator"}
-                                              className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case pr-3 antialiased hover:subpixel-antialiased"}>
-                                            Order Lookup
+                                    <RevealMotion once={false} y={-50}>
+                                        <Link onClick={() => setOpenNav(!openNav)} href={"/"}
+                                              className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                            Home
                                         </Link>
-                                        <FaSearch/>
-                                    </div>
+                                    </RevealMotion>
+                                </li>
+                                <li className="py-2 px-8">
+                                    <RevealMotion once={false} y={-50} delay={0.15}>
+                                        <Link onClick={() => setOpenNav(!openNav)} href={latestProductsLink}
+                                              className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                            All Products
+                                        </Link>
+                                    </RevealMotion>
+                                </li>
+                                <li className="py-2 px-8">
+                                    <RevealMotion once={false} y={-50} delay={0.20}>
+                                        <Link onClick={() => setOpenNav(!openNav)} href={topRatedLink}
+                                              className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                            Top Rated Products
+                                        </Link>
+                                    </RevealMotion>
+                                </li>
+                                <li className="py-2 px-8">
+                                    <RevealMotion once={false} y={-50} delay={0.25}>
+                                        <div className={"flex items-center"}>
+                                            <Link onClick={() => setOpenNav(!openNav)} href={"/locator"}
+                                                  className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case pr-3 antialiased hover:subpixel-antialiased"}>
+                                                Order Lookup
+                                            </Link>
+                                            <FaSearch/>
+                                        </div>
+                                    </RevealMotion>
                                 </li>
                                 {
                                     session && (
                                         <>
                                             <li className="py-2 px-8">
-                                                <Link onClick={() => setOpenNav(!openNav)} href={myAccountLink}
-                                                      className="w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased">
-                                                    My Account
-                                                </Link>
+                                                <RevealMotion once={false} y={-50} delay={0.30}>
+                                                    <Link onClick={() => setOpenNav(!openNav)} href={myAccountLink}
+                                                          className="w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased">
+                                                        My Account
+                                                    </Link>
+                                                </RevealMotion>
                                             </li>
                                             <li className="py-2 px-8">
-                                                <Link onClick={() => setOpenNav(!openNav)} href={myOrdersLink}
-                                                      className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
-                                                    My Orders
-                                                </Link>
+                                                <RevealMotion once={false} y={-50} delay={0.35}>
+                                                    <Link onClick={() => setOpenNav(!openNav)} href={myOrdersLink}
+                                                          className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                                        My Orders
+                                                    </Link>
+                                                </RevealMotion>
                                             </li>
                                         </>
                                     )
@@ -283,25 +302,31 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                 {
                                     session ? (
                                         <li onClick={() => setOpenNav(!openNav)} className="py-2 px-8">
-                                            <button
-                                                className={"w-fit cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case antialiased hover:subpixel-antialiased"}
-                                                onClick={logoutHandler}>
-                                                Logout
-                                            </button>
+                                            <RevealMotion once={false} y={-50} delay={0.40}>
+                                                <button
+                                                    className={"w-fit cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case antialiased hover:subpixel-antialiased"}
+                                                    onClick={logoutHandler}>
+                                                    Logout
+                                                </button>
+                                            </RevealMotion>
                                         </li>
                                     ) : (
                                         <>
                                             <li className="py-2 px-8">
-                                                <Link onClick={() => setOpenNav(!openNav)} href={"/login"}
-                                                      className="w-fit cursor-pointer text-3xl font-bold text-info flex items-center normal-case antialiased hover:subpixel-antialiased">
-                                                    Login
-                                                </Link>
+                                                <RevealMotion once={false} y={-50} delay={0.30}>
+                                                    <Link onClick={() => setOpenNav(!openNav)} href={"/login"}
+                                                          className="w-fit cursor-pointer text-3xl font-bold text-info flex items-center normal-case antialiased hover:subpixel-antialiased">
+                                                        Login
+                                                    </Link>
+                                                </RevealMotion>
                                             </li>
                                             <li className="py-2 px-8">
-                                                <Link onClick={() => setOpenNav(!openNav)} href={"/register"}
-                                                      className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case antialiased hover:subpixel-antialiased">
-                                                    Sign up
-                                                </Link>
+                                                <RevealMotion once={false} y={-50} delay={0.30}>
+                                                    <Link onClick={() => setOpenNav(!openNav)} href={"/register"}
+                                                          className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case antialiased hover:subpixel-antialiased">
+                                                        Sign up
+                                                    </Link>
+                                                </RevealMotion>
                                             </li>
                                         </>
                                     )

@@ -9,6 +9,7 @@ import Image from "next/image";
 import GlobalContext from "@/context/GlobalContext";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
+import RevealMotion from "@/components/RevealMotion";
 
 
 const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWidth}) => {
@@ -61,6 +62,10 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
 
     return (
         <div ref={cardRef} className={"w-6/12 sm:w-72 p-1 sm:p-3 cursor-pointer relative"}>
+            <RevealMotion
+                y={windowInnerWidth <= 768 ? 0 : 35}
+                isSmallScreen={windowInnerWidth <= 768}
+            >
                 <motion.div
                     transition={{duration: 0.25}}
                     whileHover={windowInnerWidth >= 768 ? {scale: 1.05} : {scale: 1}}
@@ -86,7 +91,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                         className={`card-body p-2 sm:px-4 items-start h-full flex flex-col ${!smallSize ? "justify-between" : "justify-start"}`}
                     >
                         <div
-                            className={`w-full h-full text-concat ${smallSize ? "max-height-2" : ""} text-sm font-semibold`}>
+                            className={`w-full h-14 text-concat ${smallSize ? "max-height-2" : ""} text-sm font-semibold`}>
                             {product.name}
                         </div>
                         <div className={`w-full text-xs ${!smallSize ? "sm:text-base" : " flex justify-between items-center"}`}>
@@ -126,6 +131,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                         }
                     </div>
                 </motion.div>
+            </RevealMotion>
         </div>
     );
 };
