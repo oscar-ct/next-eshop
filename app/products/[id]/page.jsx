@@ -237,10 +237,9 @@ const ProductPage = () => {
                                             priority
                                             src={product.images.length !== 0 ? product.images[imageIndex]?.url : "/images/sample.jpg"}
                                             alt={"product"}
-                                            height={0}
-                                            width={0}
+                                            height={448}
+                                            width={448}
                                             className={"w-auto cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}
-                                            sizes="100vw"
                                         />
                                     </div>
                                     <div className={"w-full flex justify-center pt-7 px-5"}>
@@ -252,10 +251,10 @@ const ProductPage = () => {
                                                          className={"px-1 cursor-pointer"}>
                                                         <Image
                                                             priority
-                                                            className={`w-full max-h-20 rounded-sm transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`}
+                                                            className={`w-full h-full max-h-20 object-cover rounded-sm transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`}
                                                             src={image?.url}
-                                                            height={75}
-                                                            width={75}
+                                                            height={80}
+                                                            width={80}
                                                             alt={"products"}
                                                         />
                                                     </div>

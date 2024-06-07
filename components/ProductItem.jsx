@@ -80,9 +80,8 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                                 src={product.images.length !== 0 ? product.images[imgIndex].url : "/images/sample.jpg"}
                                 alt="product"
                                 className="w-full bg-zinc-100/20 h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl"
-                                width={0}
-                                height={0}
-                                sizes={"100vw"}
+                                width={246}
+                                height={197}
                                 priority={true}
                             />
                         </figure>
