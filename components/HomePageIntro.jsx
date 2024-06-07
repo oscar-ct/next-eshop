@@ -16,17 +16,17 @@ import 'swiper/css/effect-fade';
 const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
 
     return (
-        <div className={"lg:pb-14 bg-white dark:bg-black md:bg-transparent"}>
+        <div className={"md:pb-14 bg-white dark:bg-black md:bg-transparent"}>
             {/*MOBILE*/}
             <motion.div
-                className={"lg:hidden w-full h-full relative"}
+                className={"lg:hidden w-full h-[37em] relative"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
             >
-                <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start"}>
+                <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-between"}>
                     <div className={"pt-20"}>
-                        <div className={"flex px-3"}>
+                        <div className={"flex px-3 md:px-10"}>
                             <div className={"w-2/3 flex flex-col"}>
                                 <span className={"font-bold text-3xl dark:text-white"}>Welcome to eshopjs.com</span>
                                 <p className={"pt-16 dark:text-white"}>
@@ -51,11 +51,11 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                         </Link>
                     </div>
                     <span className={"pt-16 pb-8 font-bold text-3xl dark:text-white"}>What do we sell?</span>
-
                 </div>
+
                 <Image
                     priority
-                    className={"dark:rotate-180 object-cover h-[35em] w-full"}
+                    className={"dark:rotate-180 absolute object-cover h-full w-full"}
                     width={500}
                     height={800}
                     src={"/images/bg.png"}

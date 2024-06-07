@@ -2,8 +2,8 @@ import ProductItem from "@/components/ProductItem";
 
 const HomePageProducts = ({ products, windowInnerWidth }) => {
     return (
-        <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black/90 md:bg-transparent`}>
-            <div className={"lg:h-12 md:bg-zinc-700"}>
+        <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black/90 dark:bg-black/90 md:bg-transparent`}>
+            <div className={"h-12 md:bg-zinc-700"}>
                 <div className={"flex justify-center items-center h-full w-full"}>
                     <h2 className={"hidden lg:block pl-3 text-2xl text-white"}>
                         Latest Products
