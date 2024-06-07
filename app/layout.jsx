@@ -17,7 +17,7 @@ export default async function RootLayout({children}) {
         <GlobalProvider>
             <AuthProvider>
                 <html lang="en">
-                    <body className={inter.className}>
+                    <body className={`${inter.className} bg-white`}>
                         <Toaster/>
                         <Navbar/>
                         <main className={"mt-[48px] md:mt-[80px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
