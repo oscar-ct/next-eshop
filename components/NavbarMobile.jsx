@@ -9,6 +9,8 @@ import {AnimatePresence, motion, useAnimation} from "framer-motion";
 import {useRouter} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
 import RevealMotion from "@/components/RevealMotion";
+import Image from "next/image";
+import logo from "@/icons/e.svg";
 
 const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrdersLink, cartItems, itemsPrice, shippingAddress, paymentMethod, windowInnerWidth }) => {
 
@@ -36,7 +38,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
         if (keyword.trim()) {
             setKeyword("");
             setSearchIsActive(false);
-            router.push(`/search/${keyword}`);
+            router.push(`/products/search/${keyword}/page/1`);
         } else {
             if (!shake) {
                 setShake(true);
@@ -56,20 +58,21 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
     return (
         <>
             <nav
-                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg text-black  dark:text-white dark:bg-black`}>
+                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg text-black  dark:text-white dark:bg-black border-b`}>
                 <div className="px-2 flex justify-between items-center">
                     <div className={"lg:hidden flex justify-between items-center w-full"}>
                         <div className={"flex items-center w-full"}>
                             <button className={"pl-1 pr-4 h-[3rem] flex items-center"} onClick={() => router.push("/")}>
-                                {/*<Logo className={"w-4 md:w-5 text-black dark:text-white"} fill={"currentColor"}/>*/}
+                                <Image
+                                    priority
+                                    className={"w-4 md:w-5 h-6 mr-1 dark:invert"}
+                                    src={logo}
+                                    alt="eshopjs.com"
+                                />
                             </button>
-
-                            <div className={"hidden sm:flex justify-between w-full lg:hidden text-xs md:text-sm"}>
-                                <Link href={topRatedLink} className={"antialiased hover:subpixel-antialiased"}>
-                                    Top Rated
-                                </Link>
+                            <div className={"hidden sm:flex justify-between w-full lg:hidden text-xs md:text-sm font-semibold"}>
                                 <Link href={latestProductsLink} className={"antialiased hover:subpixel-antialiased"}>
-                                    All Products
+                                    Latest Products
                                 </Link>
                                 <Link href={"/locator"} className={"flex items-center"}>
                                     <button className={"antialiased hover:subpixel-antialiased pr-1"}>
