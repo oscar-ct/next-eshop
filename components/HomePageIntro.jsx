@@ -50,12 +50,12 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                             </CustomBtn>
                         </Link>
                     </div>
-                    <span className={"pt-16 font-bold text-3xl dark:text-white"}>What do we sell?</span>
+                    <span className={"pt-16 pb-8 font-bold text-3xl dark:text-white"}>What do we sell?</span>
 
                 </div>
                 <Image
                     priority
-                    className={"dark:rotate-180 object-cover h-[35rem] w-full"}
+                    className={"dark:rotate-180 object-cover h-[35em] w-full"}
                     width={500}
                     height={800}
                     src={"/images/bg.png"}
