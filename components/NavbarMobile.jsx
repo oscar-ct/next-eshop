@@ -58,7 +58,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
     return (
         <>
             <nav
-                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg text-black  dark:text-white dark:bg-black sm:border-b`}>
+                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 mobileBlur text-black dark:text-white dark:bg-black sm:border-b`}>
                 <div className="px-2 flex justify-between items-center">
                     <div className={"lg:hidden flex justify-between items-center w-full"}>
                         <div className={"flex items-center w-full"}>
@@ -154,7 +154,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
             <div className={"lg:hidden"}>
                 <AnimatePresence>
                     <motion.div
-                        className={`z-30 bg-white/80 dark:bg-black/80 backdrop-blur-lg fixed top-0 w-full pt-3 h-screen`}
+                        className={`z-30 bg-white/80 dark:bg-black/80 mobileBlur fixed top-0 w-full pt-3 h-screen`}
                         variants={{
                             hiddenSearch: {opacity: 0, y: "calc(-100% - 58px)"},
                             visibleSearch: {opacity: 1, y: 0},
@@ -213,7 +213,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
             <nav>
                 <AnimatePresence>
                     <motion.div
-                        className={`sm:hidden z-30 bg-white/80 dark:bg-black/80 backdrop-blur-lg fixed top-0 w-full pt-3 h-screen`}
+                        className={`sm:hidden z-30 bg-white/80 dark:bg-black/80 mobileBlur fixed top-0 w-full pt-3 h-screen`}
                         variants={{
                             hiddenNav: {opacity: 0, y: "calc(-100% - 58px)"},
                             visibleNav: {opacity: 1, y: 0},

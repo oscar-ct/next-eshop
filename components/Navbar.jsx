@@ -78,7 +78,7 @@ const Navbar = () => {
     return mounted && (
         <>
             <nav
-                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg dark:bg-black  text-black border-b dark:text-white`}
+                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 mobileBlur dark:bg-black text-black border-b dark:text-white`}
             >
                 <div className="px-2 flex justify-between items-center">
                     <div className={"hidden lg:flex md:items-center cursor-pointer rounded-xl py-2 px-3"}>
