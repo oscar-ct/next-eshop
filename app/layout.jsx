@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import {Toaster} from "react-hot-toast";
 import AuthProvider from "@/components/AuthProvider";
 import {GlobalProvider} from "@/context/GlobalContext";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +18,13 @@ export default async function RootLayout({children}) {
         <GlobalProvider>
             <AuthProvider>
                 <html lang="en">
-                    <body className={`${inter.className} bg-white`}>
+                    <body className={`${inter.className} bg-white dark:bg-black`}>
                         <Toaster/>
                         <Navbar/>
-                        <main className={"mt-[48px] md:mt-[80px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
+                        <main className={"bg-white dark:bg-black mt-[48px] md:mt-[80px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
                             {children}
                         </main>
+                        <Footer/>
                     </body>
                 </html>
             </AuthProvider>
