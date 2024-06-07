@@ -50,12 +50,12 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                             </CustomBtn>
                         </Link>
                     </div>
-                    <span className={"pt-16 pb-8 font-bold text-3xl dark:text-white"}>What do we sell?</span>
+                    <span className={"pt-16 font-bold text-3xl dark:text-white"}>What do we sell?</span>
 
                 </div>
                 <Image
                     priority
-                    className={"dark:rotate-180 object-cover h-[34rem] w-full"}
+                    className={"dark:rotate-180 object-cover h-[35rem] w-full"}
                     width={500}
                     height={800}
                     src={"/images/bg.png"}
@@ -108,7 +108,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <div className={"w-1/2 2xl:w-5/12 h-full flex border rounded-md"}>
+                                            <div className={"w-1/2 2xl:w-5/12 h-full flex border border-gray-500 rounded-md"}>
                                                 <div className={"w-1/2"}>
                                                     <Image
                                                         priority
@@ -261,7 +261,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                 </div>
                                             </div>
 
-                                            <div className={"w-1/2 2xl:w-5/12 h-full flex border rounded-md"}>
+                                            <div className={"w-1/2 2xl:w-5/12 h-full flex border border-gray-500 rounded-md"}>
                                                 <div className={"w-1/2"}>
                                                     <Image
                                                         width={400}

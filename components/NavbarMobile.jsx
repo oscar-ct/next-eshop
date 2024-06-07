@@ -58,7 +58,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
     return (
         <>
             <nav
-                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg text-black  dark:text-white dark:bg-black border-b`}>
+                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 backdrop-blur-lg text-black  dark:text-white dark:bg-black sm:border-b`}>
                 <div className="px-2 flex justify-between items-center">
                     <div className={"lg:hidden flex justify-between items-center w-full"}>
                         <div className={"flex items-center w-full"}>
