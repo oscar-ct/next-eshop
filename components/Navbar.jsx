@@ -198,15 +198,15 @@ const Navbar = () => {
                                                     <div className="absolute right-0 z-10 mt-4 origin-top-right">
                                                         <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex-col w-full"}>
-                                                                <Link href={"/login"} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>Login</span>
+                                                                <Link href={"/login"} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap"}>Login</span>
                                                                 </Link>
-                                                                <Link href={"/register"} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>Create Account</span>
+                                                                <Link href={"/register"} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap"}>Create Account</span>
                                                                 </Link>
-                                                                <Link href={"/locator"} className={"flex items-center px-10 py-5 rounded-b-md hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap pr-2"}>Order Lookup</span>
-                                                                    <FaSearch className={""}/>
+                                                                <Link href={"/locator"} className={"flex items-center px-10 py-5 rounded-b-md hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap pr-2"}>Order Lookup</span>
+                                                                    <FaSearch/>
                                                                 </Link>
                                                             </div>
                                                         </div>
