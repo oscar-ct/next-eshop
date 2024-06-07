@@ -5,9 +5,8 @@ import Image from "next/image";
 import logo from "../icons/e.svg";
 import HomePageIntroCategories from "@/components/HomePageIntroCategories";
 import { Swiper, SwiperSlide} from "swiper/react";
-import {Autoplay, Pagination, EffectFade} from "swiper/modules";
+import {Autoplay, EffectFade} from "swiper/modules";
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 // import paypal from "@/icons/paypal-logo.svg";
@@ -25,38 +24,55 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
             >
-                <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
+                <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start"}>
                     <div className={"pt-20"}>
-                        <Image
-                            priority
-                            className={"w-[10em] h-[10em]"}
-                            src={logo}
-                            alt="e-shop-us.com"
-                        />
+                        <div className={"flex px-3"}>
+                            <div className={"w-2/3 flex flex-col"}>
+                                <span className={"font-bold text-3xl dark:text-white"}>Welcome to eshopjs.com</span>
+                                <p className={"pt-16 dark:text-white"}>
+                                    eshopjs.com is an online ecommerce store built and designed by Oscar Castro, a software developer based in San Antonio, TX.
+                                </p>
+                            </div>
+                            <div className={"w-1/3 flex justify-center"}>
+                                <Image
+                                    priority
+                                    className={"w-20 h-auto dark:invert"}
+                                    src={logo}
+                                    alt="e-shop-us.com"
+                                />
+                            </div>
+                        </div>
                     </div>
-
-                    <span className={"pt-20 text-3xl font-semibold text-black dark:text-white"}>Shop, Ship, & Enjoy.</span>
-                    <div className={"pt-20 z-10"}>
+                    <div className={"pt-16 z-10"}>
                         <Link href={"products/sort/latest/select/all/page/1"}>
                             <CustomBtn customClass={"!px-12 bg-zinc-700 text-lg"}>
                                 Shop Now
                             </CustomBtn>
                         </Link>
                     </div>
+                    <span className={"pt-16 pb-8 font-bold text-3xl dark:text-white"}>What do we sell?</span>
+
                 </div>
-                <img className={"fadeInEffect dark:rotate-180 object-cover h-[40em] w-full"} src={"/images/bg.png"} alt="colorful-art"/>
+                <Image
+                    priority
+                    className={"dark:rotate-180 object-cover h-[34rem] w-full"}
+                    width={500}
+                    height={800}
+                    src={"/images/bg.png"}
+                    alt="colorful-art"
+                />
             </motion.div>
 
+            <div className={"lg:hidden"}>
+                <HomePageIntroCategories
+                    productsCategory={productsCategory}
+                    windowInnerWidth={windowInnerWidth}
+                />
+            </div>
+
             <div className={"hidden lg:block w-full"}>
-                <div className={"flex h-[55em] w-full ibmplex"}>
-                    <div
-                        style={{
-                            backgroundImage: `url(/images/bg.png)`,
-                            backgroundPosition: "center",
-                            backgroundSize: "cover",
-                        }}
-                        className={"h-full w-full bg-zinc-800"}
-                    >
+                <div className={"flex h-[55em] w-full relative"}>
+
                         <div className={"w-full h-full flex flex-col items-center justify-between"}>
                             <div className={"flex h-[32em] w-full pt-10 px-3 xl:px-10 2xl:px-28"}>
                                 <Swiper
@@ -295,7 +311,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                     </SwiperSlide>
                                 </Swiper>
                             </div>
-                            <div className={"w-full flex flex-col items-center justify-center pb-2"}>
+                            <div className={"z-10 w-full flex flex-col items-center justify-center pb-2"}>
                                 <span className={"text-2xl font-bold py-1 text-white/80"}>Popular Categories</span>
                                 <HomePageIntroCategories
                                     productsCategory={productsCategory}
@@ -303,7 +319,14 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                 />
                             </div>
                         </div>
-                    </div>
+                    <Image
+                        priority
+                        alt={"gradient"}
+                        src={"/images/bg.png"}
+                        width={1000}
+                        height={700}
+                        className={"z-0 object-cover absolute h-full w-full bg-zinc-800"}
+                    />
                 </div>
             </div>
         </div>
