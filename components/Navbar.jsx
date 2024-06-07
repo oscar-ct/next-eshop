@@ -120,11 +120,11 @@ const Navbar = () => {
                                             <div className="absolute right-0 z-10 mt-4 origin-top-right">
                                                 <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                     <div className={"flex-col w-full"}>
-                                                        <Link href={latestProductsLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Latest Products</span>
+                                                        <Link href={latestProductsLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                            <span className={"w-full text-xl whitespace-nowrap"}>Latest Products</span>
                                                         </Link>
-                                                        <Link href={topRatedLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Top Rated</span>
+                                                        <Link href={topRatedLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                            <span className={"w-full text-xl whitespace-nowrap"}>Top Rated</span>
                                                         </Link>
                                                         {/*<Link href={latestProductsLink} className={"block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>*/}
                                                         {/*    <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>*/}
@@ -153,18 +153,18 @@ const Navbar = () => {
                                                     <div className="absolute right-0 z-10 mt-4 origin-top-right">
                                                         <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex-col w-full"}>
-                                                                <Link href={myAccountLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>Account</span>
+                                                                <Link href={myAccountLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap"}>Account</span>
                                                                 </Link>
-                                                                <Link href={myOrdersLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>My Orders</span>
+                                                                <Link href={myOrdersLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap"}>My Orders</span>
                                                                 </Link>
-                                                                <Link href={"/locator"} className={"flex px-10 py-5 hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap pr-2"}>Order Lookup</span>
+                                                                <Link href={"/locator"} className={"flex items-center px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap pr-2"}>Order Lookup</span>
                                                                     <FaSearch/>
                                                                 </Link>
-                                                                <button onClick={logoutHandler} className={"w-full text-start block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>
-                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"} >Logout</span>
+                                                                <button onClick={logoutHandler} className={"w-full text-start block px-10 py-5 rounded-b-md hover:bg-white/70 text-white hover:text-black"}>
+                                                                    <span className={"w-full text-xl whitespace-nowrap"} >Logout</span>
                                                                 </button>
 
                                                             </div>
@@ -174,7 +174,6 @@ const Navbar = () => {
                                             }
                                         </div>
                                     ) : (
-
                                         <div
                                             className="relative inline-block text-left py-4"
                                             onMouseEnter={() => setUserDropdownActive(true)}
