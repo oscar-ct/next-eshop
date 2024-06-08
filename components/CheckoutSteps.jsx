@@ -13,6 +13,14 @@ const CheckoutSteps = () => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
+    const [clientSecretExists, setClientSecretExists] = useState(false);
+    useEffect(() => {
+        const clientSecret = new URLSearchParams(window.location.search).get(
+            "payment_intent_client_secret"
+        );
+        if (clientSecret && !clientSecretExists) setClientSecretExists(true);
+    }, [clientSecretExists]);
+
     const step1name = "Cart"
     const step2name = "Shipping"
     const step3name = "Payment"
@@ -42,7 +50,11 @@ const CheckoutSteps = () => {
                         )
                     }
                     {
-                        paymentMethod ? (
+                        !paymentMethod && Object.keys(shippingAddress).length !== 0 ? (
+                            <Link data-content="✕" href={"/payment"} className={`step ${isPaymentPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                {step3name}
+                            </Link>
+                        ) : paymentMethod ? (
                             <Link data-content="✓" href={"/payment"} className={`step step-success ${isPaymentPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step3name}
                             </Link>
@@ -53,17 +65,20 @@ const CheckoutSteps = () => {
                         )
                     }
                     {
-                        Object.keys(shippingAddress).length !== 0 && paymentMethod ? (
+                        paymentMethod && Object.keys(shippingAddress).length !== 0 && !clientSecretExists ? (
+                            <Link data-content="✕" href={"/checkout"} className={`step  ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                {step4name}
+                            </Link>
+                        ) : paymentMethod && Object.keys(shippingAddress).length !== 0 && clientSecretExists ? (
                             <Link data-content="✓" href={"/checkout"} className={`step step-success ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step4name}
                             </Link>
-                        ) : (
+                            ) : (
                             <button data-content="✕" className={`step ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step4name}
                             </button>
                         )
                     }
-
                 </div>
             </div>
         );
