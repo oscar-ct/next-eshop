@@ -6,7 +6,7 @@ import {useState} from "react";
 import {loadStripe} from "@stripe/stripe-js/pure";
 
 
-const StripeCheckout = ({ existingOrder , setSaveButtonDisabled }) => {
+const StripeCheckout = ({ existingOrder , setSaveButtonDisabled, setOrder }) => {
 
     const [stripePromise] = useState(() => loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_PUBLISHABLE_KEY));
 
@@ -23,7 +23,7 @@ const StripeCheckout = ({ existingOrder , setSaveButtonDisabled }) => {
     return (
         stripePromise ? (
             <Elements stripe={stripePromise} options={options}>
-                <StripeCheckoutForm existingOrder={existingOrder} setSaveButtonDisabled={setSaveButtonDisabled}/>
+                <StripeCheckoutForm setOrder={setOrder} existingOrder={existingOrder} setSaveButtonDisabled={setSaveButtonDisabled}/>
             </Elements>
         ) : (
             "Loading..."
