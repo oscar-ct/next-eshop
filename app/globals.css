@@ -9,14 +9,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 .mobileBlur {
-    -webkit-backdrop-filter: blur(10 px) !important;
-    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px)!important;
+    backdrop-filter: blur(10px)!important;
 }
 input {
-    -webkit-appearance: none !important;
+    -webkit-appearance: none!important;
 }
 iframe {
-    z-index: 0 !important;
+    z-index: 0!important;
 }
 .closed {
     transform: rotate(0deg);

@@ -5,7 +5,7 @@ import RevealMotion from "@/components/RevealMotion";
 
 const HomePageIntroCategories = ({ productsCategory, windowInnerWidth }) => {
     return (
-        <div className={"dark:bg-black/90 bg-transparent w-full flex flex-wrap justify-center py-1 lg:py-6"}>
+        <div className={"dark:bg-black bg-transparent w-full flex flex-wrap justify-center py-1 lg:py-6"}>
             {
                 productsCategory.slice(0, windowInnerWidth >= 768 && windowInnerWidth < 900 ? 4 : windowInnerWidth >= 900 && windowInnerWidth < 1068 ? 5 : windowInnerWidth >= 1068 && windowInnerWidth < 1250 ? 6 : windowInnerWidth >= 1250 && windowInnerWidth < 1420 ? 7 : 8).map(function (product, index) {
                     return (
