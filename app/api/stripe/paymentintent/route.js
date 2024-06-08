@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import jwt from "jsonwebtoken";
 
 // POST api/stripe/paymentintent
 
@@ -21,8 +22,12 @@ export async function POST(req) {
             enabled: true,
         },
     });
+    const secret = process.env.JWT_SECERT + paymentIntent.client_secret;
+    const payload = {clientSecret: paymentIntent.client_secret}
+    const token = jwt.sign(payload, secret, {expiresIn: "15s"});
     return Response.json({
         clientSecret: paymentIntent.client_secret,
+        token,
     });
 }
 
