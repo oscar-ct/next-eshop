@@ -6,13 +6,13 @@ import GlobalContext from "@/context/GlobalContext";
 import Message from "@/components/Message";
 import OrderItem from "@/components/OrderItem";
 import StripeCheckout from "@/components/StripeCheckout";
-import Image from "next/image";
-import stripe from "@/icons/stripe-logo.svg";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import Loading from "@/app/loading";
 import {toast} from "react-hot-toast";
 import {fetchCancelOrder, fetchOrder} from "@/utils/api-requests/fetchRequests";
 import NotFound from "@/app/not-found";
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
+import PaypalCheckout from "@/components/PaypalCheckout";
 
 
 const OrderPage = () => {
@@ -69,10 +69,10 @@ const OrderPage = () => {
                 setLoading(false);
             }
         };
-        if (order === null) {
+        if (order === null && !searchParams.get("stripe") && !searchParams.get("paypal")) {
             fetchOrderData();
         }
-    }, [order]);
+    }, [order, searchParams]);
 
     const submitCancel = async () => {
         const updatedOrder = await fetchCancelOrder(orderId[0]);
@@ -83,7 +83,12 @@ const OrderPage = () => {
         toast.error("Please try again later");
     };
 
-
+    const initialOptions = {
+        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+        currency: "USD",
+        intent: "capture",
+        enableFunding: "venmo",
+    };
 
     if (!loading && order) {
         return  (
@@ -413,31 +418,18 @@ const OrderPage = () => {
 
                                                         <div className={"border-t-[1px] pb-10"}/>
 
-                                                        {/*{*/}
-                                                        {/*    order.paymentMethod === "PayPal / Credit Card" && (*/}
-                                                        {/*        <div className={"px-4"}>*/}
-                                                        {/*            <PaypalCheckout existingOrder={order}/>*/}
-                                                        {/*        </div>*/}
-                                                        {/*    )*/}
-                                                        {/*}*/}
+                                                        {
+                                                            order.paymentMethod === "PayPal / Credit Card" && (
+                                                                <div className={"px-4"}>
+                                                                    <PayPalScriptProvider options={initialOptions}>
+                                                                        <PaypalCheckout createNewOrder={() => createNewOrder()} setSaveButtonDisabled={() => null}/>
+                                                                    </PayPalScriptProvider>
+                                                                </div>
+                                                            )
+                                                        }
                                                         {
                                                             order.paymentMethod === "Stripe / Credit Card" && (
-                                                                <>
-                                                                    <div className={"pb-3 flex w-full justify-center items-center"}>
-                                                                        <div className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
-                                                                            <span className={"ibmplex text-sm text-[#4f3cff]"}>Powered by</span>
-                                                                            <Image
-                                                                                priority
-                                                                                className={"w-16 h-auto"}
-                                                                                src={stripe}
-                                                                                alt={"stripe"}
-                                                                                width={64}
-                                                                                height={30}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                    <StripeCheckout existingOrder={order} setSaveButtonDisabled={() => null}/>
-                                                                </>
+                                                                <StripeCheckout existingOrder={order} setSaveButtonDisabled={() => null} setOrder={setOrder}/>
                                                             )
                                                         }
                                                     </div>
