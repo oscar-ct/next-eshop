@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import {FaEdit} from "react-icons/fa";
 import CheckoutItem from "@/components/CheckoutItem";
-import Image from 'next/image';
-import stripe from "@/icons/stripe-logo.svg";
 import StripeCheckout from "@/components/StripeCheckout";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import Loading from "@/app/loading";
@@ -358,24 +356,7 @@ const CheckoutPage = () => {
                                                 }
                                                 {
                                                     paymentMethod === "Stripe / Credit Card" && (
-                                                        <>
-                                                            <div className={"pb-3 flex w-full justify-center items-center"}>
-                                                                <div
-                                                                    className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
-                                                                    <span className={"ibmplex text-sm text-[#4f3cff]"}>Powered by</span>
-                                                                    <Image
-                                                                        priority
-                                                                        className={"w-16 h-auto"}
-                                                                        src={stripe}
-                                                                        alt={"stripe"}
-                                                                        width={64}
-                                                                        height={30}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <StripeCheckout setSaveButtonDisabled={setSaveButtonDisabled}/>
-                                                        </>
-
+                                                        <StripeCheckout setSaveButtonDisabled={setSaveButtonDisabled}/>
                                                     )
                                                 }
                                             </div>
