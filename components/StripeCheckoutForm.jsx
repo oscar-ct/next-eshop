@@ -12,14 +12,18 @@ import {
     fetchPayOrder, fetchStripePaymentIntent,
     fetchVerifiedOrderDollarAmount
 } from "@/utils/api-requests/fetchRequests";
+import Image from "next/image";
+import stripelogo from "@/icons/stripe-logo.svg";
+import {motion} from "framer-motion";
 
 
-const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
+
+const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) => {
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const { user: userData, dispatch, discountKey, cartItems, totalPrice, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice, guestData } = useContext(GlobalContext);
+    const { user: userData, dispatch, discountKey, cartItems, totalPrice, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice, guestData, token } = useContext(GlobalContext);
 
     const router = useRouter();
 
@@ -29,7 +33,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
     const [clientHasSecret, setClientHasSecret] = useState(false);
     const [paymentFailed, setPaymentFailed] = useState(false);
 
-    const placeNewOrder = useCallback(async () => {
+    const placeNewOrder = useCallback(async (clientSecret, token) => {
         const res = await fetchDiscountValidity({discountKey: discountKey});
         let user;
         if (userData) {
@@ -54,12 +58,15 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
             taxPrice,
             totalPrice,
             validCode: res ? res.validCode : false,
+            clientSecret: clientSecret || "invalid",
+            token: token || "invalid",
         }
         const newOrder = await fetchNewOrder(body);
+        if (!newOrder) return null;
         return newOrder._id;
     }, [cartItems, discountKey, itemsPrice, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice, userData, guestData]);
 
-    useEffect(() => {
+    useEffect( () => {
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         );
@@ -77,24 +84,26 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
             stripe.retrievePaymentIntent(clientSecret).then(async ({paymentIntent}) => {
                 switch (paymentIntent.status) {
                     case "succeeded": {
-                        setMessage("Payment succeeded! 🎉");
                         const details = {
                             id: paymentIntent.id,
                             status: paymentIntent.status,
                             update_time: paymentIntent.created.toString(),
                         };
                         if (!existingOrder) {
-                            const orderId = await placeNewOrder();
-                            if (orderId) {
-                                const order = await fetchPayOrder({orderId: orderId, details});
-                                if (order) {
-                                    router.push(`/orders/${order._id}/payment?stripe=successful`);
-                                }
+                            const orderId = await placeNewOrder(clientSecret, token);
+                            if (!orderId) return router.push("/");
+                            setMessage("Your payment is processing...");
+                            const order = await fetchPayOrder({orderId: orderId, details, clientSecret, token});
+                            if (order) {
+                                setMessage("Payment succeeded! 🎉");
+                                router.push(`/orders/${order._id}/payment?stripe=successful`);
                             }
                         } else {
                             if (!existingOrder.isPaid) {
-                                await fetchPayOrder({orderId: existingOrder._id, details});
-                                router.refresh();
+                                const order = await fetchPayOrder({orderId: existingOrder._id, details, clientSecret, token});
+                                if (order) {
+                                    setOrder(order);
+                                }
                             }
                         }
                         break;
@@ -108,6 +117,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
                         setMessage("Your payment was not successful, please try again.");
                         break;
                     }
+
                     default: {
                         setMessage("Something went wrong.");
                         setPaymentFailed(true);
@@ -168,7 +178,10 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
                 return;
             }
         }
-        const {clientSecret} = await fetchStripePaymentIntent({totalPriceFromBackend});
+        const {clientSecret, token} = await fetchStripePaymentIntent({totalPriceFromBackend});
+
+        dispatch({type: "SET_TOKEN", payload: token});
+        dispatch({type: "SET_LOCAL_STORAGE"});
 
         // Confirm the PaymentIntent using the details collected by the Payment Element
         const {error} = await stripe.confirmPayment({
@@ -205,13 +218,33 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
             {
                 !clientHasSecret && (
                     <>
+                        <motion.div className={"pb-3 flex w-full justify-center items-center"}
+                                    initial={{opacity: 0}}
+                                    animate={{opacity: 1}}
+                                    transition={{delay: 1}}
+                                    exit={{opacity: 0}}
+                        >
+                            <div
+                                className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
+                                <span className={"ibmplex text-sm text-[#4f3cff]"}>Powered by</span>
+                                <Image
+                                    priority
+                                    className={"w-16 h-auto"}
+                                    src={stripelogo}
+                                    alt={"stripe"}
+                                    width={40}
+                                    height={10}
+                                />
+                            </div>
+                        </motion.div>
                         <LinkAuthenticationElement options={linkAuthenticationElementOptions} className={"pb-5"}/>
                         <PaymentElement className={"pb-3"} options={paymentElementOptions}/>
                         <div className={"flex justify-center"}>
                             <CustomBtn customClass={"w-full flex justify-center items-center my-3"} type={"submit"}
                                        isDisabled={loadingBtn || !stripe || !elements}>
                                 {
-                                    loadingBtn ? <span className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - ($${existingOrder ? existingOrder.totalPrice : totalPrice})`
+                                    loadingBtn ? <span
+                                        className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - ($${existingOrder ? existingOrder.totalPrice : totalPrice})`
                                 }
                             </CustomBtn>
                         </div>
@@ -220,7 +253,8 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled }) => {
             }
             {
                 (errorMessage || message) && (
-                    <div className={`text-center leading-[20px] text-lg py-4 ${errorMessage ? "text-red-600" : "font-bold"}`}>
+                    <div
+                        className={`text-center leading-[20px] text-lg py-4 ${errorMessage ? "text-red-600" : "font-bold"}`}>
                         {errorMessage || message}
                     </div>
                 )
