@@ -1,14 +1,14 @@
 import Stripe from "stripe";
 import connectDB from "@/config/db";
 import Order from "@/models/Order";
+import jwt from "jsonwebtoken";
 
 const stripe = new Stripe(process.env.STRIPE_API_SECRET_KEY);
 
 // api/orders/pay
 export async function PUT(req) {
-console.log("testing")
-    const { orderId, details } = await req.json();
-    console.log(orderId, details)
+
+    const { orderId, details, clientSecret, token } = await req.json();
     try {
         if (!orderId) {
             return new Response("No order found", {status: 404});
@@ -18,7 +18,9 @@ console.log("testing")
         const { totalPrice, orderItems, paymentMethod } = order;
 
         if (paymentMethod === "Stripe / Credit Card") {
+            const secret = process.env.JWT_SECERT + clientSecret;
             try {
+                jwt.verify(token, secret);
                 const stripeResponse = await stripe.paymentIntents.retrieve(details.id);
                 if (stripeResponse && stripeResponse.id === details.id) {
                     order.paidAmount = totalPrice;
@@ -27,9 +29,11 @@ console.log("testing")
                     order.paymentResult = details;
                 }
             } catch (e) {
-                console.log(e)
+                console.log(e);
+                return new Response("This action has been terminated", {status: 401});
             }
         }
+
         if (paymentMethod === "PayPal / Credit Card") {
             order.paidAmount = totalPrice;
             order.isPaid = true;
