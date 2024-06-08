@@ -78,6 +78,7 @@ const globalReducer = (state, action) => {
                 discount: false,
                 discountKey: "",
                 guestData: "",
+                token: "",
             };
         case "RESET_STATE":
             localStorage.removeItem("cart");
@@ -94,6 +95,7 @@ const globalReducer = (state, action) => {
                 guestData: "",
                 user: null,
                 cancelIntentData: null,
+                token: "",
             };
         case "SET_LOCAL_STORAGE":
             localStorage.setItem("cart", JSON.stringify(state));
@@ -102,6 +104,11 @@ const globalReducer = (state, action) => {
             return {
                 ...state,
                 user: action.payload
+            }
+        case "SET_TOKEN":
+            return {
+                ...state,
+                token: action.payload
             }
         case "UPDATE_CANCEL_INTENT_DATA":
             return {

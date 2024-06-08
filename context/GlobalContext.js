@@ -19,7 +19,8 @@ export function GlobalProvider({ children }) {
         discountKey: "",
         guestData: "",
         user: null,
-        cancelIntentData: null
+        cancelIntentData: null,
+        token: "",
     };
 
     const [state, dispatch] = useReducer(globalReducer, initialState);
@@ -40,6 +41,7 @@ export function GlobalProvider({ children }) {
             guestData: state.guestData,
             user: state.user,
             cancelIntentData: state.cancelIntentData,
+            token: state.token,
         }}>
             {children}
         </GlobalContext.Provider>
