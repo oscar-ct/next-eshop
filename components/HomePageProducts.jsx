@@ -5,10 +5,10 @@ const HomePageProducts = ({ products, windowInnerWidth }) => {
         <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black dark:bg-black md:bg-transparent`}>
             <div className={"h-12 md:bg-zinc-700"}>
                 <div className={"flex justify-center items-center h-full w-full"}>
-                    <h2 className={"hidden lg:block pl-3 text-2xl text-white"}>
+                    <h2 className={"hidden lg:block pl-3 font-bold text-2xl text-white"}>
                         Latest Products
                     </h2>
-                    <h2 className={"text-3xl font-bold text-white px-5"}>
+                    <h2 className={"lg:hidden text-3xl font-bold text-white px-5"}>
                         Latest Products
                     </h2>
                 </div>
