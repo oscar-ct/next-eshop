@@ -26,7 +26,7 @@ const StripeCheckout = ({ existingOrder , setSaveButtonDisabled, setOrder }) => 
                 <StripeCheckoutForm setOrder={setOrder} existingOrder={existingOrder} setSaveButtonDisabled={setSaveButtonDisabled}/>
             </Elements>
         ) : (
-            "Loading..."
+            "Loading Stripe..."
         )
     );
 };
