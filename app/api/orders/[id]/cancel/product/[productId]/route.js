@@ -3,7 +3,7 @@ import connectDB from "@/config/db";
 
 //  DELETE /api/orders/[id]/cancel/product/[productId]
 
-const SHIPPING_PRICE = 10;
+const SHIPPING_PRICE = 1000;
 const TAX_PERCENTAGE = 0.0825;
 
 export const DELETE = async (req, {params}) => {
@@ -22,8 +22,6 @@ export const DELETE = async (req, {params}) => {
                 item.isCanceled = true;
             }
         });
-        const newItemsPrice = order.itemsPrice - Number(canceledItem.price * canceledItem.quantity);
-        const newTaxPrice = TAX_PERCENTAGE * newItemsPrice;
 
         if (!isShipped && !isCanceled) {
             if (orderItems.length - 1 === canceledItems.length) {
@@ -38,12 +36,22 @@ export const DELETE = async (req, {params}) => {
                 canceledAt: Date.now(),
             }
             canceledItems.push(data);
-            if (!order.freeShipping && newItemsPrice < 100 && !order.isPaid) {
-                order.shippingPrice = SHIPPING_PRICE;
+
+            if (!order.isPaid) {
+                const newItemsPrice = order.itemsPrice - (canceledItem.price * canceledItem.quantity);
+                if (!order.freeShipping && newItemsPrice < 10000 ) {
+                    if (order.isCanceled) {
+                        order.shippingPrice = 0;
+                    } else {
+                        order.shippingPrice = SHIPPING_PRICE;
+                    }
+                }
+                const newTaxPrice = Math.round(TAX_PERCENTAGE * (newItemsPrice + order.shippingPrice));
+                order.itemsPrice = newItemsPrice;
+                order.taxPrice = newTaxPrice;
+                order.totalPrice = newItemsPrice + newTaxPrice + order.shippingPrice;
             }
-            order.itemsPrice = newItemsPrice.toFixed(2);
-            order.taxPrice = newTaxPrice.toFixed(2);
-            order.totalPrice = (newItemsPrice + newTaxPrice + order.shippingPrice).toFixed(2);
+
 
             const updatedOrder = await order.save();
             return Response.json(updatedOrder);

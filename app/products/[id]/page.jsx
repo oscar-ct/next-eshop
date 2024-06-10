@@ -23,6 +23,7 @@ import ConfirmModal from "@/components/modals/ConfirmModal";
 import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchRequests";
 import NotFound from "@/app/not-found";
 import {motion} from "framer-motion";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
@@ -293,7 +294,7 @@ const ProductPage = () => {
                                             </div>
                                         </div>
                                         <div className={"pb-4 sm:pt-4 flex justify-between"}>
-                                            <FormatPrice price={product.price} fontSize={"text-3xl"}>
+                                            <FormatPrice price={convertCentsToUSD(product.price).toString()} fontSize={"text-3xl"}>
                                                 /ea.
                                             </FormatPrice>
                                             <div className={"flex pt-2 md:hidden text-lg"}>
@@ -357,7 +358,7 @@ const ProductPage = () => {
                                         <div className={"py-2 sm:hidden"}>Buy Now</div>
                                         <div className={"flex py-2"}>
                                             <div className={"w-full flex justify-start items-start"}>
-                                                <FormatPrice price={product.price} fontSize={"text-2xl"}/>
+                                                <FormatPrice price={convertCentsToUSD(product.price).toString()} fontSize={"text-2xl"}/>
                                             </div>
                                         </div>
                                         {

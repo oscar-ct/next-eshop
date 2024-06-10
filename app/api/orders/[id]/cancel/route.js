@@ -9,7 +9,7 @@ export const DELETE = async (req, {params}) => {
         const order = await Order.findById(params.id);
         if (!order) return new Response("Order not found...", {status: 404});
 
-        const {isShipped, canceledItems, orderItems} = order;
+        const { isShipped, canceledItems, orderItems } = order;
         if (!isShipped) {
             order.isCanceled = true;
             order.canceledAt = Date.now();
@@ -27,21 +27,23 @@ export const DELETE = async (req, {params}) => {
                     item.isCanceled = true;
                 });
             } else {
-                orderItems.forEach(function (oItem) {
-                    oItem.isCanceled = true;
+                orderItems.forEach(function (item) {
+                    item.isCanceled = true;
                     const data = {
-                        productId: oItem.productId.toString(),
-                        productPrice: oItem.price,
-                        productQuantity: oItem.quantity,
+                        productId: item.productId.toString(),
+                        productPrice: item.price,
+                        productQuantity: item.quantity,
                         canceledAt: Date.now(),
                     }
                     canceledItems.push(data);
                 });
             }
-            order.itemsPrice = 0;
-            order.shippingPrice = 0;
-            order.taxPrice = 0;
-            order.totalPrice = 0;
+            if (!order.isPaid) {
+                order.itemsPrice = 0;
+                order.shippingPrice = 0;
+                order.taxPrice = 0;
+                order.totalPrice = 0;
+            }
             const updatedOrder = await order.save();
             return Response.json(updatedOrder);
         } else {
