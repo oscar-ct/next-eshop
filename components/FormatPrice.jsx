@@ -1,26 +1,14 @@
 const FormatPrice = ({children, price, fontSize}) => {
-    if (price.toString().indexOf(".")) {
-        return (
-            <div className={"flex items-end"}>
-                <div className={"flex"}>
-                    <span className={"text-xs pt-1"}>$</span>
-                    <span className={`${fontSize} font-bold`}>{price.toString().substring(0,  price.toString().indexOf("."))}</span>
-                    <span className={"text-xs pt-1"}>{price.toString().substring(price.toString().indexOf(".")+1, price.toString().length).substring(0, 2)}</span>
-                </div>
-                <span className={"text-xs pb-[2px]"}>{children}</span>
+    return (
+        <div className={"flex items-end"}>
+            <div className={"flex"}>
+                <span className={"text-xs pt-1"}>{price.substring(0, 1)}</span>
+                <span className={`${fontSize} font-bold`}>{price.substring(1, price.indexOf("."))}</span>
+                <span className={"text-xs pt-1"}>{price.substring(price.indexOf(".") + 1, price.length).substring(0, 2)}</span>
             </div>
-        )
-    } else {
-        return (
-            <div className={"flex items-end"}>
-                <div className={"flex"}>
-                    <span className={"text-xs pt-1"}>$</span>
-                    <span className={`${fontSize} font-bold`}>{price}</span>
-                </div>
-                <span className={"text-xs pb-[2px]"}>{children}</span>
-            </div>
-        )
-    }
+            <span className={"text-xs pb-[2px]"}>{children}</span>
+        </div>
+    )
 };
 
 export default FormatPrice;
