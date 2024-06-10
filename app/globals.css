@@ -50,6 +50,12 @@ iframe {
 .step-success:after { background-color: #7c3cfc!important; color: white!important; border: #7c3cfc solid 1px;}
 .step-success:before { background-color: #7c3cfc!important;}
 
+
+.mask1 {
+    mask-image: linear-gradient(black, transparent);
+    -webkit-mask-image: linear-gradient(black, transparent);
+}
+
 #GameBoard {
     position: relative;
     margin: auto;
