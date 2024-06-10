@@ -5,6 +5,7 @@ import FormatPrice from "@/components/FormatPrice";
 import Image from 'next/image';
 import {useContext} from "react";
 import GlobalContext from "@/context/GlobalContext";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 
 const CartItem = ( {item} ) => {
@@ -61,7 +62,7 @@ const CartItem = ( {item} ) => {
                                 </div>
                                 <div>
                                     <span className={"text-xs font-bold text-gray-500"}>List Price:</span>
-                                    <span className={"ml-1"}>${item.price}/ea.</span>
+                                    <span className={"ml-1"}>{convertCentsToUSD(item.price)}/ea.</span>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +70,7 @@ const CartItem = ( {item} ) => {
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                    <FormatPrice price={item.price * item.quantity} fontSize={"text-xl"}/>
+                    <FormatPrice price={convertCentsToUSD(item.price * item.quantity).toString()} fontSize={"text-xl"}/>
                     <QuantitySelect products={item.countInStock} quantity={item.quantity} item={item}/>
                     <div>
                         <button

@@ -9,10 +9,11 @@ import CustomBtn from "@/components/CustomBtn";
 import CartItem from "@/components/CartItem";
 import {useRouter} from "next/navigation";
 import CheckoutSteps from "@/components/CheckoutSteps";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 const CartPage = () => {
 
-    const { user, guestData, cartItems, itemsPrice, totalPrice } = useContext(GlobalContext);
+    const { user, guestData, cartItems, itemsPrice } = useContext(GlobalContext);
     const router = useRouter();
 
     const totalNumberOfItems = cartItems.reduce((acc, item) => {
@@ -62,7 +63,7 @@ const CartPage = () => {
                         <div className={"px-3 pt-4 flex flex-col items-center"}>
                             <div
                                 className={"text-3xl md:text-4xl font-semibold pt-3 md:pt-10 flex justify-center text-center"}>
-                                Your cart total is ${itemsPrice}
+                                Your cart total is {convertCentsToUSD(itemsPrice)}
                             </div>
                             <div className={"pt-8 md:pt-10 text-center text-sm"}>
                                 Taxes and shipping will be calculated at checkout
@@ -75,7 +76,7 @@ const CartPage = () => {
                         </div>
                         <div className={"pt-8 md:pt-10 px-3 sm:px-0"}>
                             {
-                                totalPrice > 100 ? (
+                                itemsPrice > 10000 ? (
                                     <div className={"pb-3 w-full"}>
                                         <Message variant={"success"}>
                                             <span className={"text-sm"}>Your order qualifies for FREE shipping!</span>
@@ -85,7 +86,7 @@ const CartPage = () => {
                                     <div className={"pb-3 w-full"}>
                                         <Message variant={"info"}>
                                             <span className={"text-sm"}>Add <span
-                                                className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.</span>
+                                                className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
                                         </Message>
                                     </div>
                                 )

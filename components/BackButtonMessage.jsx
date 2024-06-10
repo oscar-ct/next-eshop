@@ -1,6 +1,7 @@
 import Message from "./Message";
 import {useContext} from "react";
 import GlobalContext from "@/context/GlobalContext";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 const BackButtonMessage = ({width = ""}) => {
 
@@ -16,14 +17,14 @@ const BackButtonMessage = ({width = ""}) => {
                 )
             }
             {
-                cartItems.length !== 0 && itemsPrice < 100 && (
+                cartItems.length !== 0 && itemsPrice < 10000 && (
                     <Message variant={"info"} border={"h-12"}>
-                        <span className={"text-xs sm:text-sm"}>Add <span className={"font-bold"}>${(100 - itemsPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.</span>
+                        <span className={"text-xs sm:text-sm"}>Add <span className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
                     </Message>
                 )
             }
             {
-                cartItems.length !== 0 && itemsPrice >= 100 && (
+                cartItems.length !== 0 && itemsPrice >= 10000 && (
                     <Message variant={"success"} border={"h-12"}>
                         <span className={"text-xs sm:text-sm"}>Congratulations! Your order qualifies for FREE shipping.</span>
                     </Message>

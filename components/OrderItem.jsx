@@ -1,6 +1,7 @@
 import FormatPrice from "./FormatPrice";
 import Link from "next/link";
 import Image from "next/image";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 const OrderItem = ( {item, canceledItems, isCanceled} ) => {
 
@@ -41,14 +42,14 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                             </div>
                             <div>
                                 <span className={"text-gray-500 font-bold text-xs"}>Price:</span>
-                                <span className={`ml-1 text-sm ${strikethrough()}`}>${item.price}/ea.</span>
+                                <span className={`ml-1 text-sm ${strikethrough()}`}>{convertCentsToUSD(item.price)}/ea.</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
                     <div className={strikethrough()}>
-                        <FormatPrice price={item.price * item.quantity} fontSize={"text-xl"}/>
+                        <FormatPrice price={convertCentsToUSD(item.price * item.quantity).toString()} fontSize={"text-xl"}/>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import GlobalContext from "@/context/GlobalContext";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import RevealMotion from "@/components/RevealMotion";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 
 const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWidth}) => {
@@ -98,7 +99,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                             {
                                 smallSize && (
                                     <span className={"text-sm font-bold text-slate-500"}>
-                                        ${product.price}
+                                        {convertCentsToUSD(product.price)}
                                     </span>
                                 )
                             }
@@ -106,7 +107,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                         {
                             !smallSize && (
                                 <div className={"w-full flex flex-col sm:pt-2 justify-around"}>
-                                    <span className={"sm:text-xl font-bold text-slate-500"}>${product.price}</span>
+                                    <span className={"sm:text-xl font-bold text-slate-500"}>{convertCentsToUSD(product.price)}</span>
                                     <div ref={buttonRef} className={"my-2 w-10/12 h-full self-center"}>
                                         {
                                             product.countInStock !== 0 ? (

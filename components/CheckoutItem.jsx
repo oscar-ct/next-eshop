@@ -7,6 +7,7 @@ import Link from "next/link";
 import {useContext} from "react";
 import GlobalContext from "@/context/GlobalContext";
 import Image from 'next/image';
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 const CheckoutItem = ({ item, saveButtonDisabled }) => {
 
@@ -53,7 +54,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                             </div>
                             <div>
                                 <span className={"text-gray-500 font-bold text-xs"}>Price:</span>
-                                <span className={"ml-1 text-sm"}>${item.price}/ea.</span>
+                                <span className={"ml-1 text-sm"}>{convertCentsToUSD(item.price)}/ea.</span>
                             </div>
                         </div>
                         <div className={"w-6/12 flex justify-center items-end"}>
@@ -67,7 +68,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                     </div>
                 </div>
                 <div className={"w-1/12 flex flex-col items-end justify-between"}>
-                    <FormatPrice price={item.price * item.quantity} fontSize={"text-xl"}/>
+                    <FormatPrice price={convertCentsToUSD(item.price * item.quantity).toString()} fontSize={"text-xl"}/>
                     <div>
                         {
                             !saveButtonDisabled && (
