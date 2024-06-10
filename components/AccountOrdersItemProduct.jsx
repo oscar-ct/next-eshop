@@ -7,6 +7,7 @@ import Link from "next/link";
 import CustomBtn from "@/components/CustomBtn";
 import Image from "next/image";
 import {fetchProduct} from "@/utils/api-requests/fetchRequests";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 
 const AccountOrdersItemProduct = ({product, index, orderSize}) => {
@@ -50,7 +51,7 @@ const AccountOrdersItemProduct = ({product, index, orderSize}) => {
                                     {product.name}
                                 </Link>
                                 <div className={"flex pt-2"}>
-                                    <span className={"text-xs"}>${product.price}/ea</span>
+                                    <span className={"text-xs"}>{convertCentsToUSD(product.price)}/ea</span>
                                     <span className={"pl-10 text-xs"}>Qty: {product.quantity}</span>
                                 </div>
                                 <div className={"pt-4"}>

@@ -58,14 +58,18 @@ const AccountOrders = () => {
 
     if (!loading && orders) return (
         orders.length > 0 ? (
-            <div className="mt-5 mx-auto">
-                {
-                    orders.map(function (order, index) {
-                        return <AccountOrdersItem key={index} order={order} index={index} orderLength={orders.length}/>
-                    })
-                }
+            <>
+                <div className="mt-5 mx-auto">
+                    {
+                        orders.map(function (order, index) {
+                            return (
+                                <AccountOrdersItem key={index} order={order} index={index}/>
+                            )
+                        })
+                    }
+                </div>
                 <ConfirmModal title={"Are you sure you want to cancel this entire order? This cannot be undone."} initiateFunction={() => submitCancel()}/>
-            </div>
+            </>
         ) : (
             <h1 className={"mt-5 text-2xl font-bold text-center mx-auto"}>No Orders Found</h1>
         )
