@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import connectDB from "@/config/db";
 import Order from "@/models/Order";
 import jwt from "jsonwebtoken";
+import {checkIfNewTransaction, verifyPayPalPayment} from "@/utils/paypal";
 
 const stripe = new Stripe(process.env.STRIPE_API_SECRET_KEY);
 
@@ -10,11 +11,9 @@ export async function PUT(req) {
 
     const { orderId, details, clientSecret, token } = await req.json();
     try {
-        if (!orderId) {
-            return new Response("No order found", {status: 404});
-        }
         await connectDB();
         const order = await Order.findById(orderId);
+        if (!order) return new Response("No order found", {status: 404});
         const { totalPrice, orderItems, paymentMethod } = order;
 
         if (paymentMethod === "Stripe / Credit Card") {
@@ -35,6 +34,12 @@ export async function PUT(req) {
         }
 
         if (paymentMethod === "PayPal / Credit Card") {
+            const { verified, value } = await verifyPayPalPayment(details.id);
+            if (!verified) return new Response("Payment not verified", {status: 401});
+            const isNewTransaction = await checkIfNewTransaction(Order, details.id);
+            if (!isNewTransaction) return new Response("Transaction has been used before", {status: 401});
+            const paidCorrectAmount = Number(totalPrice / 100).toFixed(2) === value;
+            if (!paidCorrectAmount) return new Response("Incorrect amount paid", {status: 401});
             order.paidAmount = totalPrice;
             order.isPaid = true;
             order.paidAt = Date.now();
@@ -57,4 +62,3 @@ export async function PUT(req) {
         return new Response("Something went wrong...", {status: 500});
     }
 }
-
