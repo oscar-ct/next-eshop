@@ -14,6 +14,7 @@ import Loading from "@/app/loading";
 import PaypalCheckout from "@/components/PaypalCheckout";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {fetchDiscountValidity, fetchNewOrder} from "@/utils/api-requests/fetchRequests";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 
 const CheckoutPage = () => {
@@ -98,7 +99,7 @@ const CheckoutPage = () => {
 
 
     const createNewUnpaidOrder = async () => {
-        // dispatch(setLoading(true));
+        setLoading(true);
         const orderId = await createNewOrder();
         if (orderId) {
             router.push(`/orders/${orderId}/payment?${paymentMethod === "Stripe / Credit Card" ? "stripe" : "paypal"}=unsuccessful`);
@@ -246,7 +247,7 @@ const CheckoutPage = () => {
                                 </div>
                                 <div className={"pb-2 sm:p-3 lg:pt-7 lg:pl-5 lg:w-5/12 2xl:w-4/12"}>
                                     {
-                                        totalPrice > 100 || discount ? (
+                                        itemsPrice > 10000 || discount ? (
                                             <div className={"pb-3 px-2 sm:px-0"}>
                                                 <Message variant={"success"}>
                                                     <span
@@ -257,7 +258,7 @@ const CheckoutPage = () => {
                                             <div className={"pb-3 px-2 sm:px-0"}>
                                                 <Message variant={"info"}>
                                                     <span className={"text-sm"}>Add <span
-                                                        className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
+                                                        className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.
                                                     </span>
                                                 </Message>
                                             </div>
@@ -276,27 +277,27 @@ const CheckoutPage = () => {
                                                     <div className={"md:hidden mt-5 mb-3"}/>
                                                     <div className={"flex justify-between text-sm my-1"}>
                                                         <span>Items({totalNumberOfItems}):</span>
-                                                        <span className="pl-2">${itemsPrice}</span>
+                                                        <span className="pl-2">{convertCentsToUSD(itemsPrice)}</span>
                                                     </div>
                                                     <div className={"flex justify-between text-sm my-1"}>
                                                         <span>Shipping flat rate:</span>
-                                                        <span className="pl-2">${shippingPrice}</span>
+                                                        <span className="pl-2">{convertCentsToUSD(shippingPrice)}</span>
                                                     </div>
                                                     <span className={"self-end w-16 my-1 border-b-[1px] border-grey-500"}/>
                                                     <div className={"flex justify-between text-sm my-1"}>
                                                         <span>Total before tax:</span>
                                                         <span
-                                                            className="pl-2">${Number(itemsPrice + shippingPrice).toFixed(2)}</span>
+                                                            className="pl-2">{convertCentsToUSD(itemsPrice + shippingPrice)}</span>
                                                     </div>
                                                     <div className={"flex justify-between text-sm my-1"}>
                                                         <span>Estimated tax to be collected:</span>
-                                                        <span className="pl-2">${taxPrice}</span>
+                                                        <span className="pl-2">{convertCentsToUSD(taxPrice)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className={"flex justify-between font-semibold text-lg px-6 pt-5 pb-6"}>
                                                 <span className="text-red-600">Order Total:</span>
-                                                <span className="text-red-600">${totalPrice}</span>
+                                                <span className="text-red-600">{convertCentsToUSD(totalPrice)}</span>
                                             </div>
                                             <div className={"px-6 pb-4"}>
                                                 {
