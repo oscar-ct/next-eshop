@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import stripelogo from "@/icons/stripe-logo.svg";
 import {motion} from "framer-motion";
+import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 
 
 
@@ -161,14 +162,15 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
             const discount = await fetchDiscountValidity({discountKey: discountKey});
             isDiscounted = discount.validCode;
         }
-        let totalPriceFromBackend = await fetchVerifiedOrderDollarAmount({
+
+        const totalPriceFromBackend = await fetchVerifiedOrderDollarAmount({
             orderItems: existingOrder ? existingOrder.orderItems.filter((item) => !item.isCanceled) : cartItems,
             validCode : existingOrder ? existingOrder.freeShipping : isDiscounted,
         });
-        totalPriceFromBackend = Number(totalPriceFromBackend);
+
 
         if (!existingOrder) {
-            if (totalPriceFromBackend !== Number(totalPrice)) {
+            if (totalPriceFromBackend !== totalPrice) {
                 handlePriceError();
                 return;
             }
@@ -244,7 +246,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
                                        isDisabled={loadingBtn || !stripe || !elements}>
                                 {
                                     loadingBtn ? <span
-                                        className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - ($${existingOrder ? existingOrder.totalPrice : totalPrice})`
+                                        className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - (${existingOrder ? convertCentsToUSD(existingOrder.totalPrice) : convertCentsToUSD(totalPrice)})`
                                 }
                             </CustomBtn>
                         </div>

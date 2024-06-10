@@ -24,28 +24,26 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
     /// Paypal Actions ////
     const paypalPaymentIntent = async (data, actions) => {
             let isDiscounted = false;
-
             if (!existingOrder) {
                 const discount = await fetchDiscountValidity({discountKey: discountKey});
                 if (discount) {
                     isDiscounted = discount.validCode
                 }
             }
-
-            let totalPriceFromBackend = await fetchVerifiedOrderDollarAmount({
-                orderItems: existingOrder ? existingOrder.orderItems : cartItems,
+            const totalPriceFromBackend = await fetchVerifiedOrderDollarAmount({
+                orderItems: existingOrder ? existingOrder.orderItems.filter((item) => !item.isCanceled) : cartItems,
                 validCode: existingOrder ? existingOrder.freeShipping : isDiscounted
             });
-            totalPriceFromBackend = Number(totalPriceFromBackend);
 
             if (!existingOrder) {
-                if (totalPriceFromBackend !== Number(totalPrice)) {
-                    toast.error("Something went wrong, please try again later.");
+                if (totalPriceFromBackend !== totalPrice) {
+                    toast.error("Something went wrong, please try again later!.");
                     return;
                 }
             } else {
                 if (totalPriceFromBackend !== existingOrder.totalPrice) {
-                    toast.error("Something went wrong, please try again later.");
+
+                    toast.error("Something went wrong, please try again later!!!.");
                     return;
                 }
             }
@@ -54,12 +52,11 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
                 purchase_units: [
                     {
                         amount: {
-                            value: totalPriceFromBackend.toFixed(2),
+                            value: Number(totalPriceFromBackend / 100).toFixed(2),
                         }
                     }
                 ]
             });
-
     };
     const onPaypalApprove = (data, actions) => {
         return actions.order.capture().then(async function (details) {
@@ -67,7 +64,10 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
                 const orderId = await createNewOrder();
                 if (orderId) {
                     const paidOrder = await fetchPayOrder({orderId: orderId, details});
-                    if (paidOrder) {
+                    if (!paidOrder && orderId) {
+                        router.push(`/orders/${orderId}/payment?paypal=unsuccessful`);
+                    }
+                    if (paidOrder && orderId) {
                         router.push(`/orders/${orderId}/payment?paypal=successful`);
                     }
                 }
@@ -84,19 +84,17 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
     };
 
 
-    return (
-        !isPending && (
-            <PayPalButtons
-                forceReRender={[totalPrice]}
-                createOrder={paypalPaymentIntent}
-                onApprove={onPaypalApprove}
-                onError={onPaypalError}
-                onCancel={() => setSaveButtonDisabled(false)}
-                style={{shape: "rect", height: 40}}
-            >
-            </PayPalButtons>
-        )
+    if (!isPending) return (
+        <PayPalButtons
+            forceReRender={[totalPrice]}
+            createOrder={paypalPaymentIntent}
+            onApprove={onPaypalApprove}
+            onError={onPaypalError}
+            onCancel={() => setSaveButtonDisabled(false)}
+            style={{shape: "rect", height: 40}}
+        />
     );
+    return "Loading Paypal..."
 };
 
 export default PaypalCheckout;
