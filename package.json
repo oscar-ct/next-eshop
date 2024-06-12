@@ -13,6 +13,7 @@
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.4.1",
     "bcrypt": "^5.1.1",
+    "filestack-js": "^3.32.1",
     "framer-motion": "^11.2.6",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.3.0",
