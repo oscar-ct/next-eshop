@@ -190,6 +190,8 @@ const orderSchema = new Schema({
         type: Date,
     },
     reimbursedAmount: {
+        required: true,
+        default: 0,
         type: Number,
     },
 
