@@ -3,7 +3,7 @@ import Product from "@/models/Product";
 
 
 //  GET /api/products/categories
-
+export const revalidate=60;
 export const GET = async (req) => {
     let products = [];
     try {

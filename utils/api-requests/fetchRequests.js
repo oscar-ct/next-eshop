@@ -156,32 +156,9 @@ export const fetchProducts = async () => {
     return await getDataReturnJsonErrorNull(`/products/sort/latest/select/all/page/1`);
 };
 
-// export const fetchProductCategories = async () => {
-//     return await getDataReturnJsonErrorNull(`/products/categories`);
-// };
-
-
 export const fetchProductCategories = async () => {
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/products/categories`, {
-            next: { revalidate: 60 }
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            if (message === "Invalid resource id") return null;
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
+    return await getDataReturnJsonErrorNull(`/products/categories`);
 };
-
 
 /// admin only
 
