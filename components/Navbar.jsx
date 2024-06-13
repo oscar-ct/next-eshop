@@ -64,6 +64,7 @@ const Navbar = () => {
         }
     };
 
+    const dashboardLink = "/admin/dashboard/orders"
     const myOrdersLink = "/account/orders";
     const myAccountLink = "/account";
     const topRatedLink = "/products/sort/toprated/select/all/page/1";
@@ -216,28 +217,28 @@ const Navbar = () => {
                                         </div>
                                     )
                                 }
-                                {/*{*/}
-                                {/*    session?.user.name.userIsAdmin && (*/}
+                                {
+                                    session?.user.name.userIsAdmin && (
 
-                                {/*        <div className="relative inline-block text-left">*/}
-                                {/*            <div*/}
-                                {/*                onClick={() => navigate(adminOrdersLink)}*/}
-                                {/*                className={"cursor-pointer btn rounded-full btn-secondary normal-case flex items-center"}*/}
-                                {/*            >*/}
-                                {/*                <div className={"flex flex-col"}>*/}
-                                {/*                    <span>Dashboard</span>*/}
-                                {/*                </div>*/}
-                                {/*            </div>*/}
-                                {/*        </div>*/}
-                                {/*    )*/}
-                                {/*}*/}
+                                        <div className="relative inline-block text-left">
+                                            <div
+                                                onClick={() => router.push(dashboardLink)}
+                                                className={"cursor-pointer btn rounded-full btn-secondary normal-case flex items-center"}
+                                            >
+                                                <div className={"flex flex-col"}>
+                                                    <span>Dashboard</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <NavbarMobile latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress}/>
+            <NavbarMobile latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress} dashboardLink={dashboardLink}/>
         </>
     )
 };
