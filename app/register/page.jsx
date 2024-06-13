@@ -3,7 +3,7 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
 export const metadata = {
-    title: "e-shop | Register",
+    title: "eshopjs | Register",
 };
 
 const RegisterPage = async () => {

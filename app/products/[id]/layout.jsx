@@ -6,7 +6,7 @@ export async function generateMetadata({ params, searchParams }) {
     const id = params.id
     const product = await fetchProduct(id);
     return {
-        title: "e-shop | " + product.name,
+        title: "eshopjs | " + product.name,
         description: product.description,
     }
 }

@@ -5,7 +5,7 @@ import AccountDetailsForm from "@/components/AccountDetailsForm";
 import AccountPasswordForm from "@/components/AccountPasswordForm";
 
 export const metadata = {
-    title: "e-shop | Account",
+    title: "eshopjs | Account",
 };
 
 const AccountPage = async () => {

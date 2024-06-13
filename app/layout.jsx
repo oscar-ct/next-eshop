@@ -9,8 +9,8 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-    title: "e-shop by Oscar Castro",
-    description: "e-shop was developed by Oscar Castro, a software developer based in San Antonio, TX.",
+    title: "eshopjs by Oscar Castro",
+    description: "eshopjs was developed by Oscar Castro, a software developer based in San Antonio, TX.",
 };
 
 export default async function RootLayout({children}) {

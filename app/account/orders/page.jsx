@@ -4,7 +4,7 @@ import Link from "next/link";
 import AccountOrders from "@/components/AccountOrders";
 
 export const metadata = {
-    title: "e-shop | Orders",
+    title: "eshopjs | Orders",
 };
 
 const AccountOrdersPage = async () => {

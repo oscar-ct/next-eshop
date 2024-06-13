@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "e-shop | Existing Order",
+    title: "eshopjs | Existing Order",
 };
 
 export default function RootLayout({ children }) {
