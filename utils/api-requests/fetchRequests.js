@@ -161,11 +161,38 @@ export const fetchProductCategories = async () => {
 };
 
 
+/// admin only
 
 
+export const fetchAdminOrders = async () => {
+    return await getDataReturnJsonErrorNull(`/admin/orders`);
+};
 
+export const fetchAdminUpdateOrder = async (id, body) => {
+    return await putJsonReturnJsonErrorNull(`/admin/orders/${id}/edit`, body);
+};
 
-
+export const fetchAdminProducts = async () => {
+    return await getDataReturnJsonErrorNull(`/admin/products`);
+};
+export const fetchAdminCreateProduct = async (body) => {
+    return await postJsonReturnJsonErrorNull(`/admin/products/add`, body);
+};
+export const fetchAdminEncodeProductImg = async (body) => {
+    return await postJsonReturnJsonErrorNull(`/admin/products/encode`, body);
+};
+export const fetchAdminUpdateProduct = async (id, body) => {
+    return await putJsonReturnJsonErrorNull(`/admin/products/${id}/edit`, body);
+};
+export const fetchAdminDeleteProduct = async (id) => {
+    return await deleteDataReturnJsonErrorNull(`/admin/products/${id}/delete`);
+};
+export const fetchAdminDeleteProductImage = async (id, imageId) => {
+    return await deleteDataReturnJsonErrorNull(`/admin/products/${id}/image/${imageId}/delete`);
+};
+export const fetchAdminUsers = async () => {
+    return await getDataReturnJsonErrorNull(`/admin/users`);
+};
 
 
 
