@@ -121,6 +121,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                 </div>
                                                 <div className={"w-1/2"}>
                                                     <Image
+                                                        priority
                                                         src={"/images/katie-moum-7XGtYefMXiQ-unsplash.jpg"}
                                                         alt={"shopping"}
                                                         className={"w-full h-full object-cover rounded-br-md rounded-tr-md"}
@@ -331,8 +332,6 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
             </div>
         </div>
     );
-
-
 };
 
 export default HomePageIntro
