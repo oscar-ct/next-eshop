@@ -397,7 +397,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                         </div>
                         <div className={"flex justify-between gap-2"}>
                             <button
-                                className="w-full md:w-40 bg-base-200 text-black font-semibold p-2 text-sm rounded-lg leading-none h-14 flex flex-col md:flex-row items-center justify-between md:h-10 ">
+                                className="w-full md:w-40 bg-base-200 font-semibold p-2 text-sm rounded-lg leading-none h-14 flex flex-col md:flex-row items-center justify-between md:h-10 ">
                                 <span className={"text-neutral-500"}>Disabled: </span>
                                 <select
                                     name={"isDisabled"}
@@ -406,7 +406,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         !editActive && setEditActive(true);
                                     }}
                                     value={isDisabled}
-                                    className="bg-transparent focus:outline-none focus:shadow-primary">
+                                    className="bg-transparent text-neutral-500 dark:text-neutral-300 focus:outline-none focus:shadow-primary">
                                     <option value={"true"}>
                                         yes
                                     </option>

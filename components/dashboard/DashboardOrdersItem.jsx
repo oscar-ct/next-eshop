@@ -174,7 +174,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                                         setIsShipped(e.target.value);
                                         !editActive && setEditActive(true);
                                     }}
-                                    className="bg-transparent focus:outline-none focus:shadow-primary">
+                                    className="bg-transparent text-neutral-500 dark:text-neutral-300 focus:outline-none focus:shadow-primary">
                                     <option value={"true"}>
                                         yes
                                     </option>
@@ -193,7 +193,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                                         setIsDelivered(e.target.value);
                                         !editActive && setEditActive(true);
                                     }}
-                                    className="bg-transparent focus:outline-none focus:shadow-primary">
+                                    className="bg-transparent text-neutral-500 dark:text-neutral-300 focus:outline-none focus:shadow-primary">
                                     <option value={"true"}>
                                         yes
                                     </option>
@@ -215,7 +215,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                             }
                         </div>
 
-                        <div className={"stat-value"}>
+                        <div className={"stat-value dark:text-neutral-300"}>
                             $
                             <input
                                 name={"reimbursedAmount"}
@@ -240,7 +240,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                                         setIsReimbursed(e.target.value);
                                         !editActive && setEditActive(true);
                                     }}
-                                    className="bg-transparent focus:outline-none focus:shadow-primary">
+                                    className="bg-transparent text-neutral-500 dark:text-neutral-300 focus:outline-none focus:shadow-primary">
                                     <option value={"true"}>
                                         yes
                                     </option>

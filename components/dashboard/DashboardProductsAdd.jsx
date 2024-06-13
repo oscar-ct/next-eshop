@@ -103,7 +103,7 @@ const DashboardProductsAdd = () => {
 
     return (
         <>
-        <div className={"bg-white h-full w-full"}>
+        <div className={"bg-white h-full w-full px-5 lg:px-0"}>
             <h2 className={"pt-5 lg:pt-0 text-2xl font-bold flex items-center"}>
                 Step 1.
                 {
