@@ -74,7 +74,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                 >
                     <div
                         onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))}
-                        onMouseLeave={() => (windowInnerWidth >= 500 && product.image.length > 1) && setImageIndex(0)}
+                        onMouseLeave={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(0)}
                     >
                         <figure className="p-2">
                             <Image
