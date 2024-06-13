@@ -5,7 +5,7 @@ import {getServerSession} from "next-auth";
 
 //  GET /api/admin/products
 
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 export const GET = async (req) => {
     try {
         const session = await getServerSession();
