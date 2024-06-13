@@ -30,7 +30,7 @@ const handler = NextAuth({
                 const passwordCorrect =  await bcrypt.compare(credentials?.password || "", user.password);
                 if (passwordCorrect) {
                     return {
-                        id: user._id,
+                        image: user._id,
                         email: user.email,
                         name: {username: user.name, userIsAdmin: user.isAdmin}
                     }

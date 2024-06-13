@@ -1,23 +1,25 @@
 import connectDB from "@/config/db";
 import Product from "@/models/Product";
+import {getServerSession} from "next-auth";
 
 
 // POST api/product/[id]/edit
 
 export async function PUT(req, {params}) {
-    const { name,
-        model,
-        brand,
-        color,
-        countInStock,
-        category,
-        description,
-        isDisabled,
-        price,
-        image,
-    } = await req.json();
-
     try {
+        const session = await getServerSession();
+        if (!session.user.name.userIsAdmin) return new Response("This action is forbidden", {status: 403});
+        const { name,
+            model,
+            brand,
+            color,
+            countInStock,
+            category,
+            description,
+            isDisabled,
+            price,
+            image,
+        } = await req.json();
         await connectDB();
         const product = await Product.findById(params.id);
         if (!product) return new Response("Product not found...", {status: 404});
