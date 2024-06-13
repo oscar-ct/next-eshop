@@ -1,11 +1,11 @@
 import connectDB from "@/config/db";
 import Order from "@/models/Order";
 import {getServerSession} from "next-auth";
-// import {getServerSession} from "next-auth";
 
 
 //  GET /api/admin/orders
 
+export const dynamic = 'force-dynamic'
 export const GET = async (req) => {
     try {
         const session = await getServerSession();
