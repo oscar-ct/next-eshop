@@ -28,7 +28,7 @@ const getDataReturnJsonErrorNull = async (pathName) => {
         if (!apiDomain) {
             return null;
         }
-        const res = await fetch(`${apiDomain}${pathName}`, {next: {revalidate: 30}});
+        const res = await fetch(`${apiDomain}${pathName}`, {cache:"no-cache"});
         if (!res.ok) {
             const message = await res.text();
             if (message === "Invalid resource id") return null;
