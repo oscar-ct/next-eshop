@@ -1,5 +1,6 @@
 import connectDB from "@/config/db";
 import Order from "@/models/Order";
+import {getServerSession} from "next-auth";
 
 
 const calculateOrderAmountInCents = (dollarAmount) => {
@@ -13,13 +14,14 @@ const calculateOrderAmountInCents = (dollarAmount) => {
 // POST api/orders/[id]/edit
 
 export async function PUT(req, {params}) {
-    const { isShipped,
-        isDelivered,
-        isReimbursed,
-        reimbursedAmount,
-        trackingNumber, } = await req.json();
-
     try {
+        const session = await getServerSession();
+        if (!session.user.name.userIsAdmin) return new Response("This action is forbidden", {status: 403});
+        const { isShipped,
+            isDelivered,
+            isReimbursed,
+            reimbursedAmount,
+            trackingNumber, } = await req.json();
         await connectDB();
         const order = await Order.findById(params.id);
         if (!order) return new Response("Order not found...", {status: 404});

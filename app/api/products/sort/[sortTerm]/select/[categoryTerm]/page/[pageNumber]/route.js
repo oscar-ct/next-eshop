@@ -1,6 +1,5 @@
 import connectDB from "@/config/db";
 import Product from "@/models/Product";
-export const dynamic = 'force-dynamic'
 
 const capitalizeFirstChar = (string) => {
     return string.substring(0, 1).toUpperCase() + string.substring(1, string.length);

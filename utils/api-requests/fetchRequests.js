@@ -172,37 +172,9 @@ export const fetchAdminUpdateOrder = async (id, body) => {
     return await putJsonReturnJsonErrorNull(`/admin/orders/${id}/edit`, body);
 };
 
-
-
-// export const fetchAdminProducts = async () => {
-//     return await getDataReturnJsonErrorNull(`/admin/products`);
-// };
-
 export const fetchAdminProducts = async () => {
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/admin/products`, {
-            next: {
-                tags: ['blog'],
-            }
-        });
-        if (!res.ok) {
-            const message = await res.text();
-            if (message === "Invalid resource id") return null;
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
+    return await getDataReturnJsonErrorNull(`/admin/products`);
 };
-
-
-
 export const fetchAdminCreateProduct = async (body) => {
     return await postJsonReturnJsonErrorNull(`/admin/products/add`, body);
 };
