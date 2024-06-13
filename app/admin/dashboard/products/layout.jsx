@@ -1,6 +1,5 @@
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
-export const fetchCache = 'force-no-store';
 
 export const metadata = {
     title: "eshopjs | Dashboard: Products",
