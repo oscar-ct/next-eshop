@@ -11,6 +11,7 @@ import {
 import {FaXmark} from "react-icons/fa6";
 import Image from "next/image";
 import ConfirmModal from "@/components/modals/ConfirmModal";
+import {images} from "next/dist/build/webpack/config/blocks/images";
 
 const DashboardProductsAdd = () => {
 
@@ -103,8 +104,8 @@ const DashboardProductsAdd = () => {
 
     return (
         <>
-        <div className={"bg-white h-full w-full px-5 lg:px-0"}>
-            <h2 className={"pt-5 lg:pt-0 text-2xl font-bold flex items-center"}>
+        <div className={"bg-white dark:bg-base-200 h-full w-full px-5 lg:px-0"}>
+            <h2 className={"pt-5 lg:pt-0 text-2xl font-bold flex items-center dark:text-white"}>
                 Step 1.
                 {
                     !productCreated ? (
@@ -259,10 +260,10 @@ const DashboardProductsAdd = () => {
                     </CustomBtn>
                 </div>
             </form>
-            <h2 className={"py-5 text-2xl font-bold flex items-center"}>
+            <h2 className={"py-5 text-2xl font-bold flex items-center dark:text-white"}>
                 Step 2.
                 {
-                    !productCreated ? (
+                    !productCreated && images.length !== 0 ? (
                         <div className={"pl-3 text-gray-500 text-base font-semibold"}>
                             Add images to your listing
                         </div>
@@ -295,7 +296,7 @@ const DashboardProductsAdd = () => {
                 }
             </div>
             <div className={"px-5 sm:px-0 py-5 w-full flex flex-col lg:flex-row lg:justify-between lg:items-end"}>
-                <p className={"text-xs text-gray-500 font-normal pb-2 text-center"}>
+                <p className={"text-xs text-gray-500 font-normal pb-2 text-center dark:text-white"}>
                     Note: the first uploaded image will be the cover image
                 </p>
                 <CustomBtn isDisabled={!productCreated || productImages.length >= 7} onClick={openPicker} customClass={"w-full lg:w-48"}>
