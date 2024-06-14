@@ -89,32 +89,38 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                     <SwiperSlide>
                                         <div className={"w-full h-full flex"}>
                                             <div className={"w-1/2 2xl:w-7/12 h-full bg-transparent"}>
-                                                <div className={"w-full h-full flex flex-col items-center justify-center"}>
+                                                <div
+                                                    className={"w-full h-full flex flex-col items-center justify-center"}>
                                                     <div className={"font-bold text-white/80 text-4xl text-center"}>
-                                                        Welcome to e-shop
+                                                        Welcome to eshopjs.com
                                                     </div>
-                                                    <div className={"relative pb-10 px-3 w-full flex flex-col justify-center items-center"}>
-                                                        <div className={"font-bold text-white/80 text-2xl text-center pt-10"}>
-                                                            Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
+                                                    <div
+                                                        className={"relative pb-10 px-3 w-full flex flex-col justify-center items-center"}>
+                                                        <div
+                                                            className={"font-bold text-white/80 text-2xl text-center pt-10"}>
+                                                            Enjoy online shopping with <span
+                                                            className={"font-bold text-violet-600"}>FREE</span> shipping!
                                                         </div>
                                                         <div className={"text-xs text-zinc-300 font-light"}>
                                                             when you spend over $100
                                                         </div>
                                                     </div>
-                                                    <Link className={"pt-8"} href={"/products/sort/latest/select/all/page/1"}>
+                                                    <Link className={"pt-8"}
+                                                          href={"/products/sort/latest/select/all/page/1"}>
                                                         <CustomBtn customClass={""}>
                                                             Shop Now
                                                         </CustomBtn>
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <div className={"w-1/2 2xl:w-5/12 h-full flex border border-gray-500 rounded-md"}>
+                                            <div
+                                                className={"w-1/2 2xl:w-5/12 h-full flex border-gray-500 rounded-lg"}>
                                                 <div className={"w-1/2"}>
                                                     <Image
                                                         priority
                                                         src={"/images/tim-mossholder-JfO62I4YRnY-unsplash.jpg"}
                                                         alt={"shopping"}
-                                                        className={"w-full h-full object-cover rounded-bl-md rounded-tl-md"}
+                                                        className={"w-full h-full object-cover rounded-bl-lg rounded-tl-lg"}
                                                         width={400}
                                                         height={600}
                                                     />
@@ -124,7 +130,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                         priority
                                                         src={"/images/katie-moum-7XGtYefMXiQ-unsplash.jpg"}
                                                         alt={"shopping"}
-                                                        className={"w-full h-full object-cover rounded-br-md rounded-tr-md"}
+                                                        className={"w-full h-full object-cover rounded-br-lg rounded-tr-lg"}
                                                         width={400}
                                                         height={600}
                                                     />
@@ -136,7 +142,8 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                     <SwiperSlide>
                                         <div className={"w-full h-full flex"}>
                                             <div className={"w-1/2 2xl:w-7/12 h-full bg-transparent"}>
-                                                <div className={"w-full h-full flex flex-col items-center justify-center"}>
+                                                <div
+                                                    className={"w-full h-full flex flex-col items-center justify-center"}>
                                                     <div className={"font-bold text-white/80 text-4xl text-center px-10"}>
                                                         Shop securely with Paypal & Stripe
                                                     </div>
@@ -262,18 +269,17 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                 </div>
                                             </div>
 
-                                            <div className={"w-1/2 2xl:w-5/12 h-full flex border border-gray-500 rounded-md"}>
+                                            <div className={"w-1/2 2xl:w-5/12 h-full flex rounded-lg"}>
                                                 <div className={"w-1/2"}>
                                                     <Image
                                                         width={400}
                                                         height={510}
                                                         src={"/images/ben-kolde-bs2Ba7t69mM-unsplash.jpg"}
                                                         alt={"shopping"}
-                                                        className={"w-full h-full object-cover rounded-bl-md rounded-tl-md"}
+                                                        className={"w-full h-full object-cover rounded-bl-lg rounded-tl-lg"}
                                                     />
                                                 </div>
-                                                <div className={"w-1/2"}>
-
+                                                <div className={"w-1/2 border-b border-t border-r border-gray-500 rounded-br-lg rounded-tr-lg"}>
                                                     <div
                                                         className={"w-full h-full flex flex-col items-center justify-evenly"}>
                                                         <div className={"pt-3 w-full flex justify-center"}>

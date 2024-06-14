@@ -19,7 +19,7 @@ const HomePageIntroCategories = ({ productsCategory, windowInnerWidth }) => {
                                     transition={{ duration: 0.2 }}
                                     whileHover={windowInnerWidth > 640 ? { scale: 1.1} : {scale: 1}}
                                     whileTap={windowInnerWidth > 640 ? { scale: 0.9} : {scale: 1}}
-                                    className={`rounded-sm flex flex-col items-center bg-white md:shadow-md h-full w-full`}
+                                    className={`rounded-lg flex flex-col items-center bg-white md:shadow-md h-full w-full`}
                                 >
                                     <div className="p-2 flex justify-center">
                                         <Image

@@ -70,7 +70,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                 <motion.div
                     transition={{duration: 0.25}}
                     whileHover={windowInnerWidth >= 768 ? {scale: 1.05} : {scale: 1}}
-                    className={`${cardWidth} rounded-2xl border border-gray-300 flex flex-col bg-white h-full md:shadow-md`}
+                    className={`${cardWidth} rounded-xl border border-gray-300 flex flex-col bg-white h-full md:shadow-md`}
                 >
                     <div
                         onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))}
