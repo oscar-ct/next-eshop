@@ -118,8 +118,8 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                 <div className={"w-1/2"}>
                                                     <Image
                                                         priority
-                                                        src={"/images/tim-mossholder-JfO62I4YRnY-unsplash.jpg"}
-                                                        alt={"shopping"}
+                                                        src={"/images/alexander-shatov-DHl49oyrn7Y-unsplash.jpg"}
+                                                        alt={"greeting"}
                                                         className={"w-full h-full object-cover rounded-bl-lg rounded-tl-lg"}
                                                         width={400}
                                                         height={600}
@@ -129,7 +129,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                                     <Image
                                                         priority
                                                         src={"/images/katie-moum-7XGtYefMXiQ-unsplash.jpg"}
-                                                        alt={"shopping"}
+                                                        alt={"greeting"}
                                                         className={"w-full h-full object-cover rounded-br-lg rounded-tr-lg"}
                                                         width={400}
                                                         height={600}
