@@ -162,9 +162,9 @@ const ShippingPage = () => {
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                         {
                             useNewAddress ? (
-                                <h1>Enter your Shipping Address</h1>
+                                <h1>Enter your shipping address</h1>
                             ) : (
-                                <h1>Select your Shipping Address</h1>
+                                <h1>Select your shipping address</h1>
                             )
                         }
 
@@ -172,11 +172,11 @@ const ShippingPage = () => {
                     {
                         useNewAddress ? (
                             <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
-                                Enter your Shipping Address
+                                Enter your shipping address
                             </h1>
                         ) : (
                             <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
-                                Select your Shipping Address
+                                Select your shipping address
                             </h1>
                         )
                     }
@@ -272,7 +272,7 @@ const ShippingPage = () => {
                                             </div>
                                             <div className={"w-4/12 md:w-6/12 pl-2"}>
                                                 <label htmlFor={"postalCode"} className="text-sm font-medium text-gray-700 tracking-wide">
-                                                    ZIP Code
+                                                    Zip Code
                                                 </label>
                                                 <input
                                                     className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
@@ -313,7 +313,7 @@ const ShippingPage = () => {
                                                 {
                                                     user.shippingAddresses?.length !== 0 && (
                                                         <div className={"py-3 w-6/12 flex items-center"}>
-                                                            <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use Saved Address</span>
+                                                            <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use saved address</span>
                                                         </div>
                                                     )
                                                 }
@@ -330,7 +330,7 @@ const ShippingPage = () => {
                                             isDisabled={!isValidShippingData || ( user ? false : !emailRegex.test(guestEmail))}
                                             type={"submit"}
                                         >
-                                            Save and Continue
+                                            Save and continue
                                         </CustomBtn>
                                     </div>
                                 </form>
@@ -375,11 +375,11 @@ const ShippingPage = () => {
                                         })
                                     }
                                     <div className={"py-3"}>
-                                        <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-end link link-primary"}>Use New Address</span>
+                                        <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-end link link-primary"}>Use new address</span>
                                     </div>
                                     <div className={"pt-5 w-full flex justify-end"}>
                                         <CustomBtn isDisabled={radioId === ""} type={"submit"}>
-                                            Save and Continue
+                                            Save and continue
                                         </CustomBtn>
                                     </div>
                                 </form>

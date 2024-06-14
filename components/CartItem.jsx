@@ -28,12 +28,11 @@ const CartItem = ( {item} ) => {
                     <Link className={"bg-zinc-100/70 rounded-md max-w-[175px] max-h-[160px]"} href={`/products/${item._id}`}>
                         <Image
                             priority
-                            src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"}
+                            src={item.images?.length !== 0 ? item.images[0].url : "/images/sample.jpg"}
                             alt={"cartItem"}
-                            width={0}
-                            height={0}
-                            className={"rounded-md w-full h-auto"}
-                            sizes="100vw"
+                            width={100}
+                            height={100}
+                            className={"rounded-md w-full h-auto object-scale-down"}
                         />
                     </Link>
                 </div>

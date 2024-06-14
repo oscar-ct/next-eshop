@@ -232,7 +232,7 @@ const ProductPage = () => {
                             {/*<div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white md:border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-5"}>*/}
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap"}>
                                 <div className={"flex flex-col lg:w-6/12 xl:w-5/12 2xl:w-4/12"}>
-                                    <div className={"w-full flex justify-center sm:border-none bg-stone-100"}
+                                    <div className={"w-full flex justify-center sm:border-none bg-stone-100 rounded-lg"}
                                          onClick={() => setFullScreen(true)}>
                                         <Image
                                             priority
@@ -240,7 +240,7 @@ const ProductPage = () => {
                                             alt={"product"}
                                             height={448}
                                             width={448}
-                                            className={"w-auto cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}
+                                            className={"w-auto cursor-pointer rounded-lg object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}
                                         />
                                     </div>
                                     <div className={"w-full flex justify-center pt-7 px-5"}>
@@ -252,7 +252,7 @@ const ProductPage = () => {
                                                          className={"px-1 cursor-pointer"}>
                                                         <Image
                                                             priority
-                                                            className={`w-full h-full max-h-20 object-cover rounded-sm transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`}
+                                                            className={`w-full h-full max-h-20 object-scale-down rounded-sm transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`}
                                                             src={image?.url}
                                                             height={80}
                                                             width={80}
@@ -362,7 +362,7 @@ const ProductPage = () => {
                                             </div>
                                         </div>
                                         {
-                                            product.price > 100 && (
+                                            product.price > 10000 && (
                                                 <div className={"flex py-2"}>
                                                     <span><span
                                                         className={"pr-1 text-lg font-semibold text-green-400"}>FREE</span>3-day shipping </span>

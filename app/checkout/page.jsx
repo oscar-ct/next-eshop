@@ -130,10 +130,10 @@ const CheckoutPage = () => {
                                 <div className={"lg:w-7/12 2xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                     <div className={"pt-3 md:pt-7"}>
                                         <h1 className={"hidden md:block py-2 text-center font-semibold text-2xl ibmplex bg-zinc-700 text-white"}>
-                                            Review your Order Information
+                                            Review your order
                                         </h1>
                                         <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
-                                            Review your Order Information
+                                            Review your order
                                         </h1>
                                     </div>
                                     <div className={"md:shadow-lg bg-white md:border px-4 sm:px-7 py-4"}>
@@ -194,7 +194,7 @@ const CheckoutPage = () => {
                                                 <div
                                                     className={"w-3/12 sm:w-4/12 xl:w-4/12 flex items-center 2xl:items-start"}>
                                                     <h3 className={"font-semibold pr-5"}>
-                                                        Payment Service:
+                                                        Payment Method:
                                                     </h3>
                                                 </div>
                                                 <div className={"w-9/12 sm:w-8/12 xl:w-8/12"}>
