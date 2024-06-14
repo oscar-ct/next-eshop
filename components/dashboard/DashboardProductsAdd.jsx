@@ -11,7 +11,6 @@ import {
 import {FaXmark} from "react-icons/fa6";
 import Image from "next/image";
 import ConfirmModal from "@/components/modals/ConfirmModal";
-import {images} from "next/dist/build/webpack/config/blocks/images";
 
 const DashboardProductsAdd = () => {
 
@@ -263,7 +262,7 @@ const DashboardProductsAdd = () => {
             <h2 className={"py-5 text-2xl font-bold flex items-center dark:text-white"}>
                 Step 2.
                 {
-                    !productCreated && images.length !== 0 ? (
+                    !productCreated && productImages.length !== 0 ? (
                         <div className={"pl-3 text-gray-500 text-base font-semibold"}>
                             Add images to your listing
                         </div>
