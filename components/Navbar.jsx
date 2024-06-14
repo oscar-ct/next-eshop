@@ -2,7 +2,7 @@
 
 import {useContext, useEffect, useState} from "react";
 import {FaUser, FaChevronDown, FaSearch} from "react-icons/fa";
-import { signOut, useSession } from "next-auth/react";
+import {getSession, signOut, useSession} from "next-auth/react";
 import Link from "next/link";
 import {motion} from "framer-motion";
 import logo from "../icons/e.svg";
@@ -16,7 +16,8 @@ import NavbarSearchBox from "@/components/NavbarSearchBox";
 
 const Navbar = () => {
 
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
+
     const router = useRouter();
 
     const { user, cartItems, itemsPrice, shippingAddress, paymentMethod, dispatch } = useContext(GlobalContext);
@@ -30,7 +31,6 @@ const Navbar = () => {
     const [productsDropdownActive, setProductsDropdownActive] = useState(false);
     const [userDropdownActive, setUserDropdownActive] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(typeof window !== "undefined" && window.innerWidth);
-
 
     useEffect(function () {
         const setInnerWindowWidth = () => {
@@ -48,7 +48,15 @@ const Navbar = () => {
         }
     }, [openNav, searchIsActive]);
 
-
+    useEffect(() => {
+        if (user) {
+            if (status !== "loading") {
+                if (status === "unauthenticated") {
+                    dispatch({type: "RESET_STATE"})
+                }
+            }
+        }
+    }, [user, status, dispatch]);
 
     const rotateChevron = (action) => {
         return action ? "open" : "closed";
@@ -137,7 +145,7 @@ const Navbar = () => {
                                     }
                                 </div>
                                 {
-                                    session ? (
+                                    user ? (
                                         <div
                                             className="relative inline-block text-left py-4"
                                             onMouseEnter={() => setUserDropdownActive(true)}
@@ -218,7 +226,7 @@ const Navbar = () => {
                                     )
                                 }
                                 {
-                                    session?.user.name.userIsAdmin && (
+                                    user?.isAdmin && (
 
                                         <div className="relative inline-block text-left">
                                             <div
@@ -238,7 +246,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <NavbarMobile latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress} dashboardLink={dashboardLink}/>
+            <NavbarMobile user={user} latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress} dashboardLink={dashboardLink}/>
         </>
     )
 };

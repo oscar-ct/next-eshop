@@ -12,7 +12,7 @@ import RevealMotion from "@/components/RevealMotion";
 import Image from "next/image";
 import logo from "@/icons/e.svg";
 
-const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrdersLink, cartItems, itemsPrice, shippingAddress, paymentMethod, windowInnerWidth, dashboardLink }) => {
+const NavbarMobile = ({ user, topRatedLink, latestProductsLink,  myAccountLink, myOrdersLink, cartItems, itemsPrice, shippingAddress, paymentMethod, windowInnerWidth, dashboardLink }) => {
 
     const [openNav, setOpenNav] = useState(false);
     const [searchIsActive, setSearchIsActive] = useState(false);
@@ -83,7 +83,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                     <FaSearch className={"pl-[2px]"}/>
                                 </Link>
                                 {
-                                    session ? (
+                                    user ? (
                                         <>
                                             <Link href={myAccountLink}
                                                   className={"antialiased hover:subpixel-antialiased"}>
@@ -107,14 +107,14 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                     )
                                 }
                                 {
-                                    session?.user.name.userIsAdmin && (
+                                    user?.isAdmin && (
                                         <Link href={dashboardLink} className={"antialiased hover:subpixel-antialiased"}>
                                             Dashboard
                                         </Link>
                                     )
                                 }
                                 {
-                                    session && (
+                                    user && (
                                         <button onClick={logoutHandler}
                                                 className={"antialiased hover:subpixel-antialiased"}>
                                             Logout
@@ -275,7 +275,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                     </RevealMotion>
                                 </li>
                                 {
-                                    session && (
+                                    user && (
                                         <>
                                             <li className="py-2 px-8">
                                                 <RevealMotion once={false} y={-50} delay={0.30}>
@@ -297,7 +297,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                     )
                                 }
                                 {
-                                    session?.user.name.userIsAdmin && (
+                                    user?.isAdmin && (
                                         <RevealMotion once={false} y={-50} delay={0.35}>
                                             <li className="py-2 px-8">
                                                 <Link onClick={() => setOpenNav(!openNav)} href={dashboardLink} className={"w-fit cursor-pointer text-3xl font-bold text-secondary flex items-center normal-case antialiased hover:subpixel-antialiased"}>
@@ -308,7 +308,7 @@ const NavbarMobile = ({ topRatedLink, latestProductsLink,  myAccountLink, myOrde
                                     )
                                 }
                                 {
-                                    session ? (
+                                    user ? (
                                         <li onClick={() => setOpenNav(!openNav)} className="py-2 px-8">
                                             <RevealMotion once={false} y={-50} delay={0.40}>
                                                 <button
