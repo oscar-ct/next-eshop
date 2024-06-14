@@ -1,8 +1,8 @@
 "use client";
 
 import {useContext, useEffect, useState} from "react";
-import {FaUser, FaChevronDown, FaSearch} from "react-icons/fa";
-import {getSession, signOut, useSession} from "next-auth/react";
+import {FaChevronDown, FaSearch, FaUser} from "react-icons/fa";
+import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
 import {motion} from "framer-motion";
 import logo from "../icons/e.svg";
@@ -12,14 +12,13 @@ import GlobalContext from "@/context/GlobalContext";
 import NavbarMobile from "@/components/NavbarMobile";
 import Image from 'next/image';
 import NavbarSearchBox from "@/components/NavbarSearchBox";
+import {fetchUser} from "@/utils/api-requests/fetchRequests";
 
 
 const Navbar = () => {
 
     const { data: session, status } = useSession();
-
     const router = useRouter();
-
     const { user, cartItems, itemsPrice, shippingAddress, paymentMethod, dispatch } = useContext(GlobalContext);
 
     const totalCartItems = cartItems.reduce((acc, item) => {
@@ -48,15 +47,28 @@ const Navbar = () => {
         }
     }, [openNav, searchIsActive]);
 
+
     useEffect(() => {
-        if (user) {
-            if (status !== "loading") {
+        const fetchUserData = async (email) => {
+            return await fetchUser(email);
+        };
+        if (status !== "loading") {
+            if (user) {
                 if (status === "unauthenticated") {
                     dispatch({type: "RESET_STATE"})
+                }
+            } else {
+                if (status === "authenticated") {
+                    fetchUserData(session.user.email).then((user) => {
+                        dispatch({type: "ADD_USER", payload: user});
+                        dispatch({type: "SET_LOCAL_STORAGE"});
+                    });
                 }
             }
         }
     }, [user, status, dispatch]);
+
+
 
     const rotateChevron = (action) => {
         return action ? "open" : "closed";
