@@ -103,8 +103,8 @@ const DashboardProductsAdd = () => {
 
     return (
         <>
-        <div className={"bg-white dark:bg-base-200 h-full w-full px-5 lg:px-0"}>
-            <h2 className={"pt-5 lg:pt-0 text-2xl font-bold flex items-center dark:text-white"}>
+        <div className={"bg-white h-full w-full px-5 lg:px-0"}>
+            <h2 className={"pt-5 lg:pt-0 text-2xl font-bold flex items-center"}>
                 Step 1.
                 {
                     !productCreated ? (
@@ -123,7 +123,7 @@ const DashboardProductsAdd = () => {
                                 Title
                             </label>
                             <textarea
-                                className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                 autoComplete={"off"}
                                 placeholder={"e.g. Brand, model name, color, and size"}
                                 id={"name"}
@@ -138,7 +138,7 @@ const DashboardProductsAdd = () => {
                                 Description
                             </label>
                             <textarea
-                                className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                 autoComplete={"off"}
                                 placeholder={"Tell customers more details about the product"}
                                 id={"description"}
@@ -158,7 +158,7 @@ const DashboardProductsAdd = () => {
                                         Brand
                                     </label>
                                     <input
-                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                         autoComplete={"off"}
                                         type={"text"}
                                         placeholder={"e.g. Sony"}
@@ -174,7 +174,7 @@ const DashboardProductsAdd = () => {
                                         Model Number
                                     </label>
                                     <input
-                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                         autoComplete={"off"}
                                         type={"text"}
                                         placeholder={"e.g. KDL-32BX330"}
@@ -190,7 +190,7 @@ const DashboardProductsAdd = () => {
                                         Category
                                     </label>
                                     <select
-                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                         autoComplete={"off"}
                                         id={"category"}
                                         onChange={onMutate}
@@ -208,7 +208,7 @@ const DashboardProductsAdd = () => {
                                             Qty In Stock
                                         </label>
                                         <input
-                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                             autoComplete={"off"}
                                             type={"number"}
                                             id={"countInStock"}
@@ -223,7 +223,7 @@ const DashboardProductsAdd = () => {
                                         <label htmlFor={"price"} className="text-sm font-medium text-gray-700 tracking-wide">List Price
                                         </label>
                                         <input
-                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                             autoComplete={"off"}
                                             type={"number"}
                                             id={"price"}
@@ -238,7 +238,7 @@ const DashboardProductsAdd = () => {
                                     <label htmlFor={"color"} className="text-sm font-medium text-gray-700 tracking-wide">Color
                                     </label>
                                     <input
-                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 ${productCreated ? "bg-gray-100 font-semibold text-gray-300" : "bg-gray-100/40 "}`}
+                                        className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
                                         autoComplete={"off"}
                                         type={"text"}
                                         placeholder={"e.g. Silver"}
@@ -259,7 +259,7 @@ const DashboardProductsAdd = () => {
                     </CustomBtn>
                 </div>
             </form>
-            <h2 className={"py-5 text-2xl font-bold flex items-center dark:text-white"}>
+            <h2 className={"py-5 text-2xl font-bold flex items-center"}>
                 Step 2.
                 {
                     !productCreated && productImages.length !== 0 ? (
@@ -295,7 +295,7 @@ const DashboardProductsAdd = () => {
                 }
             </div>
             <div className={"px-5 sm:px-0 py-5 w-full flex flex-col lg:flex-row lg:justify-between lg:items-end"}>
-                <p className={"text-xs text-gray-500 font-normal pb-2 text-center dark:text-white"}>
+                <p className={"text-xs text-gray-500 font-normal pb-2 text-center"}>
                     Note: the first uploaded image will be the cover image
                 </p>
                 <CustomBtn isDisabled={!productCreated || productImages.length >= 7} onClick={openPicker} customClass={"w-full lg:w-48"}>

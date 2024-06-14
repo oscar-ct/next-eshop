@@ -261,7 +261,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={price}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full"}
+                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                         type={"number"}
                                     />
                                 </div>
@@ -278,7 +278,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
 
                                         value={countInStock}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full"}
+                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                         type={"number"}
                                     />
                                 </div>
@@ -296,7 +296,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={brand}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full"}
+                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                         type={"text"}
                                     />
                                 </div>
@@ -312,7 +312,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={model}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full"}
+                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                         type={"text"}
                                     />
                                 </div>
@@ -330,7 +330,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={category}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full"}
+                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                         type={"text"}
                                     />
                                 </div>
@@ -346,7 +346,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={color}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full"}
+                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                         type={"text"}
                                     />
                                 </div>
@@ -374,7 +374,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                 }}
                                 value={description}
                                 autoComplete={"off"}
-                                className={"text-neutral-700 text-sm w-full"}
+                                className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                 rows={width < 768 ? 6 : 4}
                             />
                         </div>
@@ -390,7 +390,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                 }}
                                 value={name}
                                 autoComplete={"off"}
-                                className={"text-neutral-700 text-sm w-full"}
+                                className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
                                 rows={width < 768 ? 4 : 2}
                             />
 
@@ -417,7 +417,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                             </button>
                             <button
                                 onClick={openPicker}
-                                className="btn btn-sm h-14 md:h-10 whitespace-normal w-min md:w-40">
+                                className="btn btn-sm h-14 md:h-10 whitespace-normal w-min md:w-40 dark:text-neutral-300">
                                 Add Image
                             </button>
                         </div>

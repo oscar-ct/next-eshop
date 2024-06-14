@@ -202,7 +202,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                                     </option>
                                 </select>
                             </button>
-                            <button onClick={() => setTrackingInputVisible(prevState => !prevState)} className="btn btn-sm h-14 md:h-10 whitespace-normal">Edit Tracking</button>
+                            <button onClick={() => setTrackingInputVisible(prevState => !prevState)} className="btn btn-sm h-14 md:h-10 whitespace-normal dark:text-neutral-300">Edit Tracking</button>
                         </div>
                     </div>
                     <div className="stat">
