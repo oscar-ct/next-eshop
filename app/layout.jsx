@@ -21,7 +21,7 @@ export default async function RootLayout({children}) {
                     <body className={`${inter.className} bg-white dark:bg-black`}>
                         <Toaster/>
                         <Navbar/>
-                        <main className={"bg-white mt-[48px] md:mt-[80px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
+                        <main className={"bg-white mt-[48px] md:mt-[68px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-212px)]"}>
                             {children}
                         </main>
                         <Footer/>
