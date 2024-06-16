@@ -117,7 +117,6 @@ const Navbar = () => {
                             />
                         </motion.div>
                     </div>
-
                     <div className={"hidden lg:flex justify-end"}>
                         <div className={"flex justify-end"}>
                             <div className="ml-auto flex items-center gap-1 lg:gap-2">
@@ -126,19 +125,18 @@ const Navbar = () => {
                                     <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} totalCartItems={totalCartItems} subtotalPrice={itemsPrice} windowInnerWidth={windowInnerWidth}/>
                                 </div>
                                 <div
-                                    className="relative inline-block text-left py-4"
+                                    className="relative inline-block text-left py-2.5"
                                     onMouseEnter={() => setProductsDropdownActive(true)}
                                     onMouseLeave={() => setProductsDropdownActive(false)}>
-                                    <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
-                                        <span className={"font-normal text-base"}>Shop</span>
+                                    <div className={"cursor-pointer px-2 h-[3rem] flex items-center"}>
+                                        <span className={"font-normal text-sm pr-1.5"}>Shop</span>
                                         <div className={`${rotateChevron(productsDropdownActive)}`}>
-                                            <FaChevronDown/>
+                                            <FaChevronDown className={"w-2.5"}/>
                                         </div>
-
                                     </div>
                                     {
                                         productsDropdownActive && (
-                                            <div className="absolute right-0 z-10 mt-4 origin-top-right">
+                                            <div className="absolute right-0 z-10 mt-2.5 origin-top-right">
                                                 <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                     <div className={"flex-col w-full"}>
                                                         <Link href={latestProductsLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
@@ -159,19 +157,19 @@ const Navbar = () => {
                                 {
                                     user ? (
                                         <div
-                                            className="relative inline-block text-left py-4"
+                                            className="relative inline-block text-left py-2.5"
                                             onMouseEnter={() => setUserDropdownActive(true)}
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
-                                            <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
-                                                <span className={"font-normal text-base"}>{user?.name.substring(0, 32)}</span>
+                                            <div className={"cursor-pointer pl-2 pr-4 h-[3rem] flex items-center"}>
+                                                <span className={"font-normal text-sm pr-1.5"}>{user?.name.substring(0, 32)}</span>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
-                                                    <FaChevronDown/>
+                                                    <FaChevronDown className={"w-2.5"}/>
                                                 </div>
                                             </div>
                                             {
                                                 userDropdownActive && (
-                                                    <div className="absolute right-0 z-10 mt-4 origin-top-right">
+                                                    <div className="absolute right-0 z-10 mt-2.5 origin-top-right">
                                                         <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex-col w-full"}>
                                                                 <Link href={myAccountLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
@@ -187,7 +185,6 @@ const Navbar = () => {
                                                                 <button onClick={logoutHandler} className={"w-full text-start block px-10 py-5 rounded-b-md hover:bg-white/70 text-white hover:text-black"}>
                                                                     <span className={"w-full text-xl whitespace-nowrap"} >Logout</span>
                                                                 </button>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,7 +197,6 @@ const Navbar = () => {
                                             onMouseEnter={() => setUserDropdownActive(true)}
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
-
                                             <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
                                                 <Link href={"/login"}>
                                                     <div
@@ -257,7 +253,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-
             <NavbarMobile user={user} latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress} dashboardLink={dashboardLink}/>
         </>
     )
