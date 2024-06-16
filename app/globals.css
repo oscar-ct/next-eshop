@@ -91,3 +91,17 @@ iframe {
         opacity: 100%;
     }
 }
+
+.categoriesBg {
+
+}
+
+@media (min-width: 1024px) {
+    .categoriesBg {
+        background-image: linear-gradient(45deg, transparent 20%, rgba(0, 0, 0, 0.42) 25%, transparent 25%),
+        linear-gradient(-45deg, transparent 20%, rgba(0, 0, 0, 0.47) 25%, transparent 25%),
+        linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.42) 80%, transparent 0),
+        radial-gradient(rgba(0, 0, 0, 0.47) 2px, transparent 0);
+        background-size: 30px 30px, 30px 30px;
+    }
+}
