@@ -72,7 +72,7 @@ const Page = () => {
                             className={"w-full h-[28em] flex flex-col items-center justify-evenly"}>
                             <div className={"pt-3 w-full flex flex-col justify-center items-center"}>
                                 <div
-                                    className={"text-3xl font-bold text-center"}>
+                                    className={"text-3xl font-bold text-center dark:text-white"}>
                                     Oscar Castro
                                 </div>
                                 <div className={"text-sm text-gray-500 font-semibold"}>
@@ -91,7 +91,7 @@ const Page = () => {
                             </div>
                             <div
                                 className={"flex w-full flex-col items-center"}>
-                                <a className={"link link-white hover:text-primary pb-5"}
+                                <a className={"link link-white hover:text-primary pb-5 dark:text-white"}
                                    href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
                                 <a aria-label="portfolio" href={"https://oscar-ct.com/"}
                                    target="_blank"
