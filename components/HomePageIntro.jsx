@@ -89,58 +89,67 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                                     </div>
                                     <div className={"w-full h-min"}>
 
-                                    <Swiper
-                                        slidesPerView={1}
-                                        autoplay={{
-                                            delay: 10500,
-                                            disableOnInteraction: false
-                                        }}
-                                        modules={[EffectFade, Autoplay]}
-                                        effect={"fade"}
-                                        fadeEffect={{crossFade: true}}
-                                    >
-                                        <SwiperSlide>
-                                            <div className={"px-3 w-full flex flex-col justify-center items-center text-xl text-gray-600 font-semibold"}>
-                                                <p className={"h-[78px] 2xl:h-20 font-light"}> eshopjs.com
-                                                    is an online ecommerce store built and designed by <span className={"font-extrabold text-violet-700 cursor-pointer"} onClick={openModal}>Oscar Castro</span>, a
-                                                    software
-                                                    developer based in San Antonio, TX.</p>
-                                                <div className={"flex w-full justify-evenly items-center"}>
-                                                    <p className={"py-5 text-3xl text-black font-bold flex flex-col"}>
-                                                        Enjoy online shopping with free shipping!
-                                                        <span className={"text-center text-gray-500 text-sm font-light"}>when you spend over $100</span>
-                                                    </p>
-                                                    <CreditCards/>
-                                                </div>
-                                            </div>
-                                        </SwiperSlide>
-
-                                        <SwiperSlide>
-                                            <div
-                                                className={"px-3 w-full flex flex-col justify-center items-center text-xl text-gray-600 font-light"}>
-                                            <p className={"h-[78px] 2xl:h-20 font-light text-center"}>eshopjs has partnered with reputable internet financial service providers to handle credit card transactions, and we do not store credit card information on eshopjs servers.
-                                                </p>
-                                                <div className={"flex w-full justify-evenly items-center"}>
-                                                    <div className={"flex"}>
-                                                        <p className={"py-6 text-3xl text-black font-bold text-nowrap"}>Shop
-                                                            securely with
+                                        <Swiper
+                                            slidesPerView={1}
+                                            autoplay={{
+                                                delay: 10500,
+                                                disableOnInteraction: false
+                                            }}
+                                            modules={[EffectFade, Autoplay]}
+                                            effect={"fade"}
+                                            fadeEffect={{crossFade: true}}
+                                        >
+                                            <SwiperSlide>
+                                                <div
+                                                    className={"px-3 w-full flex flex-col justify-center items-center text-xl text-gray-600 font-semibold"}>
+                                                    <p className={"h-[78px] 2xl:h-20 font-light"}> eshopjs.com
+                                                        is an online ecommerce store built and designed by <span
+                                                            className={"font-extrabold text-violet-700 cursor-pointer"}
+                                                            onClick={openModal}>Oscar Castro</span>, a
+                                                        software
+                                                        developer based in San Antonio, TX.</p>
+                                                    <div className={"flex w-full justify-evenly items-center"}>
+                                                        <p className={"py-5 text-3xl text-black font-bold flex flex-col"}>
+                                                            Enjoy online shopping with free shipping!
+                                                            <span
+                                                                className={"text-center text-gray-500 text-sm font-light"}>when you spend over $100</span>
                                                         </p>
-                                                        <div
-                                                            className={"w-full flex items-center justify-start"}>
-                                                            <Image priority src={stripe} alt={"stripe"} width={80}
-                                                                   height={40} className={"h-[40px] w-[80px]"}/>
-                                                            <div className={"text-3xl font-bold text-black pl-1 pr-3"}>
-                                                                &
-                                                            </div>
-                                                            <Image src={paypal} alt={"paypal"} height={40} width={40} className={"h-[40px] w-[40px]"}/>
-                                                        </div>
+                                                        <CreditCards/>
                                                     </div>
-
-                                                    <CreditCards/>
                                                 </div>
-                                            </div>
-                                        </SwiperSlide>
-                                    </Swiper>
+                                            </SwiperSlide>
+
+                                            <SwiperSlide>
+                                                <div
+                                                    className={"px-3 w-full flex flex-col justify-center items-center text-xl text-gray-600 font-light"}>
+                                                    <p className={"h-[78px] 2xl:h-20 font-light text-center"}>eshopjs
+                                                        has partnered with reputable internet financial service
+                                                        providers to handle credit card transactions, and we do not
+                                                        store credit card information on eshopjs servers.
+                                                    </p>
+                                                    <div className={"flex w-full justify-evenly items-center"}>
+                                                        <div className={"flex"}>
+                                                            <p className={"py-6 text-3xl text-black font-bold text-nowrap"}>Shop
+                                                                securely with
+                                                            </p>
+                                                            <div
+                                                                className={"w-full flex items-center justify-start"}>
+                                                                <Image priority src={stripe} alt={"stripe"} width={80}
+                                                                       height={40} className={"h-[40px] w-[80px]"}/>
+                                                                <div
+                                                                    className={"text-3xl font-bold text-black pl-1 pr-3"}>
+                                                                    &
+                                                                </div>
+                                                                <Image src={paypal} alt={"paypal"} height={40}
+                                                                       width={40} className={"h-[40px] w-[40px]"}/>
+                                                            </div>
+                                                        </div>
+
+                                                        <CreditCards/>
+                                                    </div>
+                                                </div>
+                                            </SwiperSlide>
+                                        </Swiper>
                                     </div>
                                     <motion.div
                                         initial={{opacity: 0, x: -300}}
@@ -157,12 +166,20 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                             </div>
                         </div>
                     </div>
-                    <div className={"z-10 w-full flex flex-col items-center justify-center"}>
-                        <span className={"text-xl text-gray-600 font-semibold pb-2"}>What do we sell?</span>
+                    <span className={"text-xl text-gray-600 font-semibold pb-2"}>What do we sell?</span>
+                    <div className={"w-full flex flex-col items-center justify-center relative"}>
                         <HomePageIntroCategories
                             productsCategory={productsCategory}
                             windowInnerWidth={windowInnerWidth}
                         />
+                        <motion.div
+                            className={"z-0 absolute h-full w-full categoriesBg"}
+                            initial={{opacity: 0, x: -300}}
+                            exit={{opacity: 0}}
+                            animate={{opacity: 1, x: 0}}
+                            transition={{delay: .0, duration: 1}}
+                        >
+                        </motion.div>
                     </div>
                 </div>
             </div>
