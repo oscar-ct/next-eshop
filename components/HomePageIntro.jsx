@@ -173,7 +173,7 @@ const HomePageIntro = ({ productsCategory, windowInnerWidth }) => {
                             windowInnerWidth={windowInnerWidth}
                         />
                         <motion.div
-                            className={"z-0 absolute h-full w-full categoriesBg"}
+                            className={"hidden lg:block z-0 absolute h-full w-full categoriesBg"}
                             initial={{opacity: 0, x: -300}}
                             exit={{opacity: 0}}
                             animate={{opacity: 1, x: 0}}
