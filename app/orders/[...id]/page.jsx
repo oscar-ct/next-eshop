@@ -366,7 +366,7 @@ const OrderPage = () => {
 
                         </div>
 
-                        <div className={"flex flex-col md:shadow-lg"}>
+                        <div className={"flex flex-col"}>
 
                             {/*ORDER SUMMARY*/}
                             {
@@ -390,7 +390,7 @@ const OrderPage = () => {
                                                 )
                                             }
                                         </h1>
-                                        <div className="bg-white md:border">
+                                        <div className="bg-white md:shadow-lg md:border">
                                             <div className="pt-0 px-3 md:px-6">
                                                 <div className={"flex flex-col md:pt-6"}>
                                                     <div className={"md:hidden mt-5 mb-3"}/>
@@ -457,7 +457,7 @@ const OrderPage = () => {
                                         <h1 className={"md:hidden pt-5 text-center font-semibold text-3xl bg-white px-2"}>
                                             Refund Summary
                                         </h1>
-                                        <div className="bg-white md:border pt-0 px-3 md:px-6">
+                                        <div className="bg-white md:border pt-0 px-3 md:px-6 md:shadow-lg">
                                             <div className={"flex flex-col md:pt-6"}>
                                                 <div className={"md:hidden mt-5 mb-3"}/>
                                                 <div className={"flex justify-between text-sm my-1"}>
