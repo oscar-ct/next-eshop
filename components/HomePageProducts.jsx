@@ -2,7 +2,7 @@ import ProductItem from "@/components/ProductItem";
 
 const HomePageProducts = ({ products, windowInnerWidth }) => {
     return (
-        <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black dark:bg-black md:bg-transparent`}>
+        <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black dark:bg-black md:bg-transparent 2xl:container 2xl:mx-auto`}>
             <div className={"h-12 md:bg-zinc-700"}>
                 <div className={"flex justify-center items-center h-full w-full"}>
                     <h2 className={"hidden lg:block pl-3 font-bold text-2xl text-white"}>
