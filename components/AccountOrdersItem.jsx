@@ -47,7 +47,7 @@ const AccountOrdersItem = ({order, index}) => {
     return (
         <RevealMotion y={-50}>
             <div className={`mb-5 sm:mb-0 px-3 sm:px-8 lg:px-14 xl:px-24 ${index !== 0 && "pt-16"}`}>
-                <div className={"bg-white w-full flex flex-col"}>
+                <div className={"md:shadow-lg bg-white w-full flex flex-col"}>
                     <div className={"p-6 flex flex-row bg-zinc-700"}>
                         <div className={"w-full flex justify-between"}>
                             <div className={"flex text-white"}>

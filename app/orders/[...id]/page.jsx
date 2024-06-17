@@ -366,7 +366,7 @@ const OrderPage = () => {
 
                         </div>
 
-                        <div className={"flex flex-col"}>
+                        <div className={"flex flex-col md:shadow-lg"}>
 
                             {/*ORDER SUMMARY*/}
                             {
