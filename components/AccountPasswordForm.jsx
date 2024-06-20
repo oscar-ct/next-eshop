@@ -24,7 +24,7 @@ const AccountPasswordForm = () => {
     const submitAccountHandler = async (e) => {
         e.preventDefault();
         const body = {
-            _id: user._id,
+            id: user.id,
             newPassword,
             password,
         }
