@@ -111,7 +111,7 @@ const CartPage = () => {
                             {
                                 cartItems.map(function (item) {
                                     return (
-                                        <CartItem item={item} key={item._id}/>
+                                        <CartItem item={item} key={item.id}/>
                                     )
                                 })
                             }
