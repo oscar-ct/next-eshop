@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "@/models/User";
 import bcrypt from "bcrypt";
-import connectDB from "@/config/db";
+import prisma from "@/lib/prisma";
 
 const handler = NextAuth({
     providers: [
@@ -25,14 +24,17 @@ const handler = NextAuth({
             },
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
-                await connectDB();
-                const user = await User.findOne({email: credentials?.email});
-                const passwordCorrect =  await bcrypt.compare(credentials?.password || "", user.password);
+                const user = await prisma.user.findFirst({
+                    where: {
+                        email: credentials?.email
+                    }
+                })
+                const passwordCorrect =  await bcrypt.compare(credentials?.password || "", user?.password);
                 if (passwordCorrect) {
                     return {
-                        image: user._id,
-                        email: user.email,
-                        name: {username: user.name, userIsAdmin: user.isAdmin}
+                        image: user?.id,
+                        email: user?.email,
+                        name: {username: user?.name, userIsAdmin: user?.isAdmin}
                     }
                 }
                 return null;
