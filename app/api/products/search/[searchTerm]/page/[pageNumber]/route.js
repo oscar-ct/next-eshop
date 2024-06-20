@@ -1,6 +1,4 @@
-import connectDB from "@/config/db";
-import Product from "@/models/Product";
-
+import prisma from "@/lib/prisma";
 
 //  GET /api/products/search/[searchTerm]/page/[pageNumber]
 
@@ -10,18 +8,36 @@ export const GET = async (req, {params}) => {
     try {
         const page = pageNumber || 1;
         const pageSize = 6;
-
-        await connectDB();
-
-        const sortTermQuery = {createdAt: -1};
-        const filterTerm = { name: {$regex: searchTerm, $options: "i"}, isDisabled: false};
-
-        const count = await Product.countDocuments({...filterTerm});
-        const products = await Product
-            .find({...filterTerm})
-            .sort({...sortTermQuery})
-            .limit(pageSize)
-            .skip(pageSize * (page-1));
+        const count = await prisma.product.count({
+            where: {
+                isDisabled: false,
+                name: {
+                    search: searchTerm
+                },
+                category: {
+                    search: searchTerm
+                }
+            },
+        });
+        const products = await prisma.product.findMany({
+            skip: pageSize * (page-1),
+            take: pageSize,
+            where: {
+                isDisabled: false,
+                name: {
+                    search: searchTerm
+                },
+                category: {
+                    search: searchTerm
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                images: true
+            }
+        });
         return Response.json(
             {
                 products,

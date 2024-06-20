@@ -1,5 +1,4 @@
-import connectDB from "@/config/db";
-import Product from "@/models/Product";
+import prisma from "@/lib/prisma";
 
 const capitalizeFirstChar = (string) => {
     return string.substring(0, 1).toUpperCase() + string.substring(1, string.length);
@@ -7,9 +6,9 @@ const capitalizeFirstChar = (string) => {
 
 //  GET /api/products/sort/[sortTerm]/select/[categoryTerm]/page/[pageNumber]
 
+
 export const GET = async (req, {params}) => {
     const { sortTerm, categoryTerm, pageNumber } = params;
-
     try {
         let products;
         const sortTermString = sortTerm || "";
@@ -18,7 +17,7 @@ export const GET = async (req, {params}) => {
         const page = pageNumber || 1;
         const pageSize = 16;
 
-        const validQueries = ["toprated", "latest", "price-asc","price-dec"];
+        const validQueries = ["toprated", "latest", "price-asc","price-desc"];
 
         if (!validQueries.includes(sortTerm)) {
             return Response.json({
@@ -29,23 +28,32 @@ export const GET = async (req, {params}) => {
                 products: []
             });
         }
-        await connectDB();
-        const sortTermQuery = sortTerm === "toprated" ? {rating: -1} : sortTerm === "latest" ? {createdAt: -1} : sortTerm === "price-asc" ? {price: +1} : sortTerm === "price-dsc" ? {price: -1} : {createdAt: -1};
-        const filterTerm = sortTerm === "toprated" ? {rating: {$gt: 0}, isDisabled: false} : {isDisabled: false};
+        const sortTermQuery = sortTerm === "toprated" ? {rating: 'desc'} : sortTerm === "latest" ? {createdAt: 'desc'} : sortTerm === "price-asc" ? {price: "asc"} : sortTerm === "price-desc" ? {price: 'desc'} : {createdAt: 'desc'};
 
         let count;
         if (categoryTerm && categoryTerm !== "all") {
-            count = await Product
-                .countDocuments({...filterTerm})
-                .where("category")
-                .equals(capitalizeFirstChar(categoryTerm));
-            products = await Product
-                .find({...filterTerm})
-                .where("category")
-                .equals(capitalizeFirstChar(categoryTerm))
-                .sort({...sortTermQuery})
-                .limit(pageSize)
-                .skip(pageSize * (page-1));
+            count = await prisma.product.count({
+                where: {
+                    isDisabled: false,
+                    category: {
+                        equals: capitalizeFirstChar(categoryTerm)
+                    }
+                },
+            });
+            products = await prisma.product.findMany({
+                skip: pageSize * (page-1),
+                take: pageSize,
+                where: {
+                    isDisabled: false,
+                    category: {
+                        equals: capitalizeFirstChar(categoryTerm)
+                    }
+                },
+                orderBy: sortTermQuery,
+                include: {
+                    images: true
+                }
+            });
             // return JSON to api call
             return Response.json(
                 {
@@ -57,13 +65,20 @@ export const GET = async (req, {params}) => {
                 }
             );
         }
-
-        count = await Product.countDocuments({...filterTerm});
-        products = await Product
-            .find({...filterTerm})
-            .sort({...sortTermQuery})
-            .limit(pageSize)
-            .skip(pageSize * (page-1));
+        const query = {
+            skip: pageSize * (page-1),
+            take: pageSize,
+            where: {
+                isDisabled: false
+            },
+            orderBy: sortTermQuery,
+        };
+        products = await prisma.product.findMany({...query, include: {images: true} })
+        count = await prisma.product.count({
+            where: {
+                isDisabled: false
+            },
+        })
         return Response.json(
             {
                 products,
