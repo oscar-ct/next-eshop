@@ -1,33 +1,32 @@
-import User from "@/models/User";
-import connectDB from "@/config/db";
-
+import prisma from "@/lib/prisma";
 
 //  PUT /api/users/[id]/updateaddress
 
 export const PUT = async (req, {params}) => {
-    const { name, address, city, postalCode, state, country } = await req.json();
-    await connectDB();
     try {
-        const user = await User.findById(params.id);
+        const { name, address, city, postalCode, state, country } = await req.json();
+        const user = await prisma.user.update({
+            where: {
+                id: params.id
+            },
+            data: {
+                shippingAddresses: {
+                    create: {
+                        name: name,
+                        address: address,
+                        city: city,
+                        postalCode: postalCode,
+                        state: state,
+                        country: country
+                    }
+                }
+            },
+            include: {
+                shippingAddresses : true
+            }
+        })
         if (!user) return new Response("User not found...", {status: 404});
-        const shippingAddress = {
-            name,
-            address,
-            city,
-            postalCode,
-            state,
-            country
-        };
-        if (user.shippingAddresses.length === 0) {
-            user.shippingAddresses = [shippingAddress]
-            const updatedUser = await user.save();
-            return Response.json(updatedUser.shippingAddresses);
-        } else {
-            user.shippingAddresses = [...user.shippingAddresses, shippingAddress];
-            const updatedUser = await user.save();
-            await user.save();
-            return Response.json(updatedUser.shippingAddresses);
-        }
+        return Response.json(user.shippingAddresses);
     } catch (e) {
         console.log(e);
         return new Response("Something went wrong...", {status: 500});
