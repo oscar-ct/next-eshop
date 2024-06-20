@@ -16,7 +16,7 @@ const HomePageProducts = ({ products, windowInnerWidth }) => {
             <div className={"bg-black dark:bg-black md:bg-white pt-14 lg:pt-10 md:border md:py-8 w-full flex flex-wrap justify-center"}>
             {
                     products.products.map(function (product) {
-                        return <ProductItem key={product._id} product={product} windowInnerWidth={windowInnerWidth}/>
+                        return <ProductItem key={product.id} product={product} windowInnerWidth={windowInnerWidth}/>
                     })
                 }
             </div>
