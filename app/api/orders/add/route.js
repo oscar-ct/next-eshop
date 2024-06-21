@@ -46,7 +46,7 @@ export async function POST(req) {
         const formattedOrderItems = orderItemsFromClientWithMutatedPriceFromDb.map((item) => {
             return {
                 productId: item.id,
-                imageUrls: item.images.map((img) => img.url),
+                imageUrl: item.images[0].url,
                 name: item.name,
                 brand: item.brand,
                 quantity: item.quantity,

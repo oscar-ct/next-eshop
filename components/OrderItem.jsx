@@ -20,7 +20,7 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                     <Link className={"rounded-md bg-zinc-100/70 w-full h-full flex justify-center items-center"} href={`/product/${item.productId}`}>
                         <Image
                             priority
-                            src={item.imageUrls.length !== 0 ? item.imageUrls[0] : ""}
+                            src={item.imageUrl}
                             alt={"cartItem"}
                             width={100}
                             height={100}
