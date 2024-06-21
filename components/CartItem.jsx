@@ -25,10 +25,10 @@ const CartItem = ( {item} ) => {
         <>
             <div className={"flex w-full"}>
                 <div className={"w-3/12 flex justify-center items-center"}>
-                    <Link className={"bg-zinc-100/70 rounded-md max-w-[175px] max-h-[160px]"} href={`/products/${item._id}`}>
+                    <Link className={"bg-zinc-100/70 rounded-md max-w-[175px] max-h-[160px]"} href={`/products/${item.id}`}>
                         <Image
                             priority
-                            src={item.images?.length !== 0 ? item.images[0].url : "/images/sample.jpg"}
+                            src={item.images?.length !== 0 ? item.images[0].url : ""}
                             alt={"cartItem"}
                             width={100}
                             height={100}
@@ -39,7 +39,7 @@ const CartItem = ( {item} ) => {
 
                 <div className={"w-7/12"}>
                     <div className={"flex flex-col px-5"}>
-                        <Link href={`/products/${item._id}`} className={"lg:text-lg font-bold hover:link hover:link-primary"}>
+                        <Link href={`/products/${item.id}`} className={"lg:text-lg font-bold hover:link hover:link-primary"}>
                             {item.name}
                         </Link>
 
@@ -73,7 +73,7 @@ const CartItem = ( {item} ) => {
                     <QuantitySelect products={item.countInStock} quantity={item.quantity} item={item}/>
                     <div>
                         <button
-                            onClick={() => removeFromCartHandler(item._id)}
+                            onClick={() => removeFromCartHandler(item.id)}
                             className={"btn-glass btn-xs rounded-full"}
                         >
                             <FaTrash className={"text-sm text-red-500"}/>
