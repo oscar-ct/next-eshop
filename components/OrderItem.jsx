@@ -18,15 +18,13 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
             >
                 <div className={"w-2/12"}>
                     <Link className={"rounded-md bg-zinc-100/70 w-full h-full flex justify-center items-center"} href={`/product/${item.productId}`}>
-                        {/*<img className={"max-h-[160px] object-scale-down rounded-md"} src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"} alt={"cartItem"}/>*/}
                         <Image
                             priority
-                            src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"}
+                            src={item.imageUrls.length !== 0 ? item.imageUrls[0] : ""}
                             alt={"cartItem"}
-                            width={0}
-                            height={0}
+                            width={100}
+                            height={100}
                             className={"rounded-md w-full h-auto"}
-                            sizes="100vw"
                         />
                     </Link>
                 </div>
@@ -71,7 +69,6 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
             }
             <div className={"mt-5 border-b-[1px] border-gray-300"}/>
         </>
-
     );
 };
 
