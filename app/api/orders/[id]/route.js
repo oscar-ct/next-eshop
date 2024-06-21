@@ -10,7 +10,8 @@ export const GET = async (req, {params}) => {
             },
             include: {
                 orderItems: true,
-                orderPayment: true
+                orderPayment: true,
+                user: true
             }
         })
         if (!order) return new Response("Order not found...", {status: 404});

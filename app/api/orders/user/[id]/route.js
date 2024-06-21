@@ -10,6 +10,9 @@ export const GET = async (req, {params}) => {
             },
             include: {
                 orderItems: true
+            },
+            orderBy: {
+                createdAt: "desc"
             }
         });
         if (!orders) return new Response("User orders not found...", {status: 404});
