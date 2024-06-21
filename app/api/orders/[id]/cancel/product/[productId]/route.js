@@ -1,5 +1,3 @@
-import Order from "@/models/Order";
-import connectDB from "@/config/db";
 import prisma from "@/lib/prisma";
 
 //  DELETE /api/orders/[id]/cancel/product/[productId]
@@ -20,15 +18,12 @@ export const DELETE = async (req, {params}) => {
         if (!order) return new Response("Order not found...", {status: 404});
 
         if (!order.isShipped && !order.isCanceled) {
-
             const canceledItem = order.orderItems.find((item) => {
                 return params.productId === item.id
             });
-
             const existingCanceledItems = order.orderItems.filter((item) => {
                 return item.isCanceled
             });
-
             const newItemsPrice = order.itemsPrice - (canceledItem.price * canceledItem.quantity);
             let newShippingPrice = order.shippingPrice;
             if (!order.freeShipping && newItemsPrice < 10000) {
@@ -41,7 +36,6 @@ export const DELETE = async (req, {params}) => {
             if (order.orderItems.length - 1 === existingCanceledItems.length) {
                 orderRequiresCancellation = true;
             }
-
             const updatedOrder = await prisma.order.update({
                 where: {
                     id: params.id
