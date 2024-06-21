@@ -6,7 +6,7 @@ import AccountOrdersItem from "@/components/AccountOrdersItem";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import toast from "react-hot-toast";
 import Loading from "@/app/loading";
-import {fetchCancelOrder, fetchCancelProduct, fetchUserOrders} from "@/utils/api-requests/fetchRequests";
+import {fetchCancelProduct, fetchUserOrders} from "@/utils/api-requests/fetchRequests";
 
 
 const AccountOrders = () => {
@@ -18,7 +18,7 @@ const AccountOrders = () => {
     useEffect(() => {
         const fetchUserOrdersData = async () => {
             try {
-                const orders = await fetchUserOrders(user._id);
+                const orders = await fetchUserOrders(user.id);
                 setOrders(orders);
             } catch (e) {
                 console.log(e);
@@ -32,25 +32,15 @@ const AccountOrders = () => {
 
     const submitCancel = async () => {
         if (cancelIntentData) {
-            if (cancelIntentData.orderItemsLength === 1 && !cancelIntentData.isCanceled) {
-                const updatedOrder = await fetchCancelOrder(cancelIntentData.orderId);
-                if (updatedOrder) {
-                    const updatedOrders = orders.map((order) => {
-                        return order._id === cancelIntentData.orderId ? updatedOrder : order;
-                    });
-                    setOrders(updatedOrders);
-                    return;
-                }
-            } else {
-                const updatedOrder = await fetchCancelProduct(cancelIntentData.orderId, cancelIntentData.productId);
-                if (updatedOrder) {
-                    const updatedOrders = orders.map((order) => {
-                        return order._id === cancelIntentData.orderId ? updatedOrder : order;
-                    });
-                    setOrders(updatedOrders);
-                    return;
-                }
+            const updatedOrder = await fetchCancelProduct(cancelIntentData.orderId, cancelIntentData.productId);
+            if (updatedOrder) {
+                const updatedOrders = orders.map((order) => {
+                    return order.id === cancelIntentData.orderId ? updatedOrder : order;
+                });
+                setOrders(updatedOrders);
+                return;
             }
+
         }
         toast.error("Please try again later");
     };
