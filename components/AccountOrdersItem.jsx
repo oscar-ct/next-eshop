@@ -21,8 +21,7 @@ const AccountOrdersItem = ({order, index}) => {
     const [copyMessage, setCopyMessage] = useState("copy to clipboard");
 
     const cancelOrderItemHandler = async (productId) => {
-        const data = {orderId: order._id, canceledItems: order.canceledItems, orderItemsLength: order.orderItems.length, isCanceled: order.isCanceled, productId: productId};
-        // router.push(`/account/orders?id=${order._id}&product=${productId}`, {scroll: false})
+        const data = {orderId: order.id, productId: productId};
         dispatch({type: "UPDATE_CANCEL_INTENT_DATA", payload: data});
         // dispatch({type: "SET_LOCAL_STORAGE"});
         window.confirm_modal.showModal();
