@@ -42,6 +42,10 @@ const AccountOrdersItem = ({order, index}) => {
         setMaskEnabled(true);
     };
 
+    const canceledItems = order.orderItems.filter((item) => {
+        return item.isCanceled
+    });
+
 
     return (
         <RevealMotion y={-50}>
@@ -61,14 +65,14 @@ const AccountOrdersItem = ({order, index}) => {
                                 <div className={"flex flex-col pl-3 lg:pr-3"}>
                                     <span className={"text-xs font-bold text-center sm:text-start"}>SHIP TO</span>
                                     <div className="tooltip tooltip-bottom"
-                                         data-tip={`${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}`}>
-                                        <span className={"cursor-default text-info text-sm"}>{order.user.name}</span>
+                                         data-tip={`${order.address}, ${order.city}, ${order.state} ${order.postalCode}`}>
+                                        <span className={"cursor-default text-info text-sm"}>{order.name}</span>
                                     </div>
                                 </div>
                             </div>
                             <div className={"flex flex-col pl-3 lg:pr-3 text-white"}>
-                                <span className={"hidden md:flex text-xs font-bold text-end"}>ORDER # {order._id}</span>
-                                <Link href={`/orders/${order._id}`} className={"text-end link link-info text-sm"}>
+                                <span className={"hidden md:flex text-xs font-bold text-end"}>ORDER # {order.id}</span>
+                                <Link href={`/orders/${order.id}`} className={"text-end link link-info text-sm"}>
                                     View order details
                                 </Link>
                             </div>
@@ -76,7 +80,7 @@ const AccountOrdersItem = ({order, index}) => {
                     </div>
                     <div className={"border"}>
                         {
-                            !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
+                            !order.isPaid && (!order.isCanceled || order.orderItems.length !== canceledItems.length) && (
                                 <div className={"pt-3 px-10"}>
                                     <div className={"w-full"}>
                                         <Message variant={"warning"}>
@@ -100,19 +104,18 @@ const AccountOrdersItem = ({order, index}) => {
 
                                     <div
                                         className={`flex flex-col lg:flex-row ${order.orderItems.length > 2 && index + 1 === 2 && maskEnabled ? "mask1" : ""}`}
-                                        key={product.productId}>
+                                        key={product.id}>
                                         <div className={"w-full lg:w-8/12 flex flex-col"}>
                                             {
                                                 order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled ? (
                                                     <div className={"py-5 px-5"}>
-                                                        <span
-                                                            className={"text-2xl text-green-500 font-bold"}>Delivered</span>
+                                                        <span className={"text-2xl text-green-500 font-bold"}>Delivered</span>
                                                     </div>
-                                                ) : order.canceledItems.some(e => e.productId === product.productId) || order.isCanceled ? (
+                                                ) : canceledItems.some(e => e.id === product.id) || order.isCanceled ? (
                                                     <div className={"py-5 px-5"}>
                                                         <span className={"text-red-500 text-2xl font-bold"}>Canceled</span>
                                                     </div>
-                                                ) : order.isPaid && !order.isShipped && !order.canceledItems.some(e => e.productId === product.productId) && !order.isCanceled ? (
+                                                ) : order.isPaid && !order.isShipped && !canceledItems.some(e => e.id === product.id) && !order.isCanceled ? (
                                                     <div className={"py-5 px-5"}>
                                                         <span className={"text-2xl font-bold"}>Processing</span>
                                                     </div>
@@ -161,9 +164,9 @@ const AccountOrdersItem = ({order, index}) => {
                                                     )
                                                 }
                                                 {
-                                                    !order.isShipped && !order.isDelivered && !order.isCanceled && !order.canceledItems.some(e => e.productId === product.productId) && (
+                                                    !order.isShipped && !order.isDelivered && !order.isCanceled && !canceledItems.some(e => e.id === product.id) && (
                                                         <div className={"py-2 px-1 w-full"}>
-                                                            <button onClick={() => cancelOrderItemHandler(product.productId)}
+                                                            <button onClick={() => cancelOrderItemHandler(product.id)}
                                                                     className={"btn normal-case text-xs btn-sm w-full rounded-full"}>
                                                                 Cancel Item
                                                             </button>
