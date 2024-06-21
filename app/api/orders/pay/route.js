@@ -1,31 +1,60 @@
 import Stripe from "stripe";
-import connectDB from "@/config/db";
-import Order from "@/models/Order";
 import jwt from "jsonwebtoken";
 import {checkIfNewTransaction, verifyPayPalPayment} from "@/utils/paypal";
+import prisma from "@/lib/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_API_SECRET_KEY);
 
 // api/orders/pay
 export async function PUT(req) {
-
-    const { orderId, details, clientSecret, token } = await req.json();
     try {
-        await connectDB();
-        const order = await Order.findById(orderId);
+        const { orderId, details, clientSecret, token } = await req.json();
+        const order = await prisma.order.findFirst({
+            where: {
+                id: orderId
+            }
+        });
         if (!order) return new Response("No order found", {status: 404});
-        const { totalPrice, orderItems, paymentMethod } = order;
 
-        if (paymentMethod === "Stripe / Credit Card") {
+        if (order.paymentMethod === "Stripe / Credit Card") {
             const secret = process.env.JWT_SECERT + clientSecret;
             try {
                 jwt.verify(token, secret);
                 const stripeResponse = await stripe.paymentIntents.retrieve(details.id);
                 if (stripeResponse && stripeResponse.id === details.id) {
-                    order.paidAmount = totalPrice;
-                    order.isPaid = true;
-                    order.paidAt = Date.now();
-                    order.paymentResult = details;
+
+                    const updatedOrder = await prisma.order.update({
+                        where: {
+                            id: orderId
+                        },
+                        data: {
+                            paidAmount: order.totalPrice,
+                            isPaid: true,
+                            paidAt: new Date(),
+                            orderPayment: {
+                                create: {
+                                    transaction_id: details.id,
+                                    status: details.status,
+                                    update_time: details.update_time.toString(),
+                                }
+                            },
+                            orderItems : {
+                                updateMany: {
+                                    where: {
+                                        isCanceled: false
+                                    },
+                                    data: {
+                                        isPaid: true
+                                    }
+                                }
+                            }
+                        },
+                        include: {
+                            orderItems: true,
+                            orderPayment: true
+                        }
+                    });
+                    return Response.json(updatedOrder);
                 }
             } catch (e) {
                 console.log(e);
@@ -33,30 +62,48 @@ export async function PUT(req) {
             }
         }
 
-        if (paymentMethod === "PayPal / Credit Card") {
+        if (order.paymentMethod === "PayPal / Credit Card") {
             const { verified, value } = await verifyPayPalPayment(details.id);
             if (!verified) return new Response("Payment not verified", {status: 401});
-            const isNewTransaction = await checkIfNewTransaction(Order, details.id);
+            const isNewTransaction = await checkIfNewTransaction(details.id);
             if (!isNewTransaction) return new Response("Transaction has been used before", {status: 401});
-            const paidCorrectAmount = Number(totalPrice / 100).toFixed(2) === value;
+            const paidCorrectAmount = Number(order.totalPrice / 100).toFixed(2) === value;
             if (!paidCorrectAmount) return new Response("Incorrect amount paid", {status: 401});
-            order.paidAmount = totalPrice;
-            order.isPaid = true;
-            order.paidAt = Date.now();
-            order.paymentResult = {
-                id: details.id,
-                status: details.status,
-                update_time: details.update_time,
-                email_address: details.payer.email_address,
-            };
+            const updatedOrder = await prisma.order.update({
+                where: {
+                    id: orderId
+                },
+                data: {
+                    paidAmount: order.totalPrice,
+                    isPaid: true,
+                    paidAt: new Date(),
+                    orderPayment: {
+                        create: {
+                            transaction_id: details.id,
+                            status: details.status,
+                            update_time: details.update_time.toString(),
+                            email_address: details.payer.email_address,
+                        }
+                    },
+                    orderItems : {
+                        updateMany: {
+                            where: {
+                                isCanceled: false
+                            },
+                            data: {
+                                isPaid: true
+                            }
+                        }
+                    },
+                    include: {
+                        orderItems: true,
+                        orderPayment: true
+                    }
+                }
+            });
+            return Response.json(updatedOrder);
         }
-        orderItems.forEach((item) => {
-            if (!item.isCanceled) {
-                item.isPaid = true;
-            }
-        });
-        const updatedOrder = await order.save();
-        return Response.json(updatedOrder);
+        return new Response("Payment method not recognized...", {status: 401});
     } catch (e) {
         console.log(e);
         return new Response("Something went wrong...", {status: 500});
