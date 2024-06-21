@@ -114,6 +114,7 @@ model Order {
   userId String?
   orderItems OrderItem[]
   orderPayment OrderPayment?
+  email String?
 }
 
 model OrderPayment {
