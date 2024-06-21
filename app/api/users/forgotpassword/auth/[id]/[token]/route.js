@@ -1,19 +1,19 @@
-import connectDB from "@/config/db";
-import User from "@/models/User";
+import prisma from "@/lib/prisma";
 import jwt from "jsonwebtoken";
 
 // api/users/forgotpassword/auth/[id]/[token]
 
 export const GET = async (req, {params}) => {
     const { id, token } = params;
-    await connectDB();
     try {
-        const user = await User.findById(id);
+        const user = await prisma.user.findFirst({
+            where: {
+                id: id
+            }
+        });
         if (!user) return new Response("User not found", {status: 404});
         if (user) {
-            const { password } = user;
-            const secret = process.env.JWT_SECERT + password;
-
+            const secret = process.env.JWT_SECERT + user.password;
             try {
                 jwt.verify(token, secret);
                 return new Response({status: 200});
