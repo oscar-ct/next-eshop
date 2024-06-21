@@ -71,12 +71,9 @@ const CheckoutPage = () => {
         if (userData) {
             user = {
                 id: userData.id,
-                name: userData.name,
-                email: userData.email,
             };
         } else {
             user = {
-                name: shippingAddress.name,
                 email: guestData,
             };
         }
