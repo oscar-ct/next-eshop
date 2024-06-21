@@ -115,6 +115,7 @@ model Order {
   orderItems OrderItem[]
   orderPayment OrderPayment?
   email String?
+  deliveredAt DateTime?
 }
 
 model OrderPayment {
@@ -130,7 +131,7 @@ model OrderPayment {
 model OrderItem {
   id String @id @default(uuid())
   productId String
-  imageUrls String[]
+  imageUrl String
   name String
   brand String
   quantity Int
