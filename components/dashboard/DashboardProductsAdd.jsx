@@ -44,7 +44,6 @@ const DashboardProductsAdd = () => {
                 const res = await fetch(`https://www.filestackapi.com/api/file/${handle}?key=${process.env.NEXT_PUBLIC_FILESTACK_TOKEN}&policy=${policy}&signature=${signature}`, {
                     method: "DELETE"
                 });
-
             }
         }
     };
@@ -73,8 +72,8 @@ const DashboardProductsAdd = () => {
         if (product) {
             toast.success("Successfully created new listing!")
             setProductCreated(true);
-            setProductId(product._id);
-            setProductImages(product.images);
+            setProductId(product.id);
+            // setProductImages(product.images);
         }
     };
     const filePickerOptions = {
@@ -95,9 +94,9 @@ const DashboardProductsAdd = () => {
             url,
             handle,
         };
-        const updatedProduct = await fetchAdminUpdateProduct(productId, {image});
-        if (updatedProduct) {
-            setProductImages(updatedProduct.images);
+        const updatedImages = await fetchAdminUpdateProduct(productId, {image});
+        if (updatedImages) {
+            setProductImages(updatedImages);
         }
     };
 
@@ -278,7 +277,7 @@ const DashboardProductsAdd = () => {
                     productCreated && productImages.length !== 0 && productImages.map(function (img, index) {
                         return (
                             <div key={index} className={"p-3"}>
-                                <div onClick={() => submitProductImageDelete(img._id, img.handle)} className="indicator">
+                                <div onClick={() => submitProductImageDelete(img.id, img.handle)} className="indicator">
                                     <span className="cursor-pointer indicator-item badge badge-error px-1 hover:bg-red-800"><FaXmark
                                         className={"w-3 text-white"}/></span>
                                     <Image
