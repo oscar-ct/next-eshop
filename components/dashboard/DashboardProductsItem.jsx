@@ -53,6 +53,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
             isDisabled: product.isDisabled.toString(),
             price: product.price.toString(),
         };
+
         return Object.entries(b).filter(([key, val]) => a[key] !== val && key in a).reduce((a, [key, v]) => ({
             ...a,
             [key]: v
@@ -71,20 +72,12 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
     };
 
     const onSave = () => {
-        const updated = confirmChanges();
-        if (updated) {
+        const updatedProperty = confirmChanges();
+        if (updatedProperty) {
             setProductData({
-                productId: product._id,
-                message: convertToString(updated),
-                name,
-                model,
-                brand,
-                color,
-                countInStock,
-                category,
-                description,
-                isDisabled,
-                price
+                ...updatedProperty,
+                productId: product.id,
+                message: convertToString(updatedProperty),
             });
             window.confirm_modal.showModal();
         } else {
@@ -133,9 +126,9 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
             url,
             handle,
         };
-        const updatedProduct = await fetchAdminUpdateProduct(product._id, {image});
-        if (updatedProduct) {
-            setImages(updatedProduct.images);
+        const updatedImages = await fetchAdminUpdateProduct(product.id, {image});
+        if (updatedImages) {
+            setImages(updatedImages);
             setSuccessfullyUpdatedOrder(true);
         }
     };
@@ -144,7 +137,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
         const confirm = window.confirm("Are you sure you want to delete this image?");
         if (!confirm) return;
         setLoading(true);
-        const updatedImages = await fetchAdminDeleteProductImage(product._id, imageId);
+        const updatedImages = await fetchAdminDeleteProductImage(product.id, imageId);
         if (updatedImages) {
             setImages(updatedImages);
             setSuccessfullyUpdatedOrder(true);
@@ -163,7 +156,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
         const confirm = window.confirm("Are you sure you want to delete this product?");
         if (!confirm) return;
         setLoading(true);
-        const res = await fetchAdminDeleteProduct(product._id);
+        const res = await fetchAdminDeleteProduct(product.id);
         if (res && product.images.length !== 0) {
             await Promise.all(product.images.map(async (img) => {
                 const policyAndSignature = await fetchAdminEncodeProductImg({handle: img.handle});
@@ -213,7 +206,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                     className="font-semibold ml-1 badge badge-md">{product.createdAt.substring(5, 10) + "-" + product.createdAt.substring(2, 4)}</span>
                             </h3>
                             <h3 className="text-gray-500">
-                                <Link href={`/products/${product._id}`}
+                                <Link href={`/products/${product.id}`}
                                       className="link link-primary font-semibold ml-1 badge badge-md">{product.name.substring(0, width < 500 ? 26 : width >= 500 && width < 640 ? 32 : width >= 640 && width < 768 ? 52 : width >= 768 && width < 1024 ? 72 : width >= 1024 && width < 1280 ? 72 : width >= 1280 && width < 1536 ? 96 : product.name.length)}...
                                 </Link>
                             </h3>
@@ -229,7 +222,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                 images.length !== 0 ? images.map((item, index) => {
                                     return (
                                         <div className="indicator" key={index}>
-                                            <span onClick={() => submitProductImageDelete(item._id, item.handle)}
+                                            <span onClick={() => submitProductImageDelete(item.id, item.handle)}
                                                   className="cursor-pointer indicator-item badge badge-error px-1 hover:bg-red-800"><FaXmark
                                                 className={"w-3 text-white"}/></span>
                                             <Image
