@@ -42,10 +42,10 @@ const DashboardOrders = () => {
         if (updatedOrder) {
             setSuccessfullyUpdatedOrder(true);
             const updatedOrders = filteredOrders.map((order) => {
-                return order._id === updatedOrder._id ? updatedOrder : order
+                return order.id === updatedOrder.id ? updatedOrder : order
             });
             const updatedOrders2 = orders.map((order) => {
-                return order._id === updatedOrder._id ? updatedOrder : order
+                return order.id === updatedOrder.id ? updatedOrder : order
             });
             setFilteredOrders(updatedOrders);
             setOrders(updatedOrders2);
@@ -143,7 +143,7 @@ const DashboardOrders = () => {
                         <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
                             <div className="w-full stats shadow border">
                                 <div className="stat">
-                                    <div className="stat-title h-14">Total Profit</div>
+                                    <div className="stat-title h-14 whitespace-normal">Total Commission</div>
                                     <div className="stat-value text-green-600 text-2xl">{convertCentsToUSD(totalSalesCentAmount - totalReimbursedCentAmount - totalPendingReimbursementCentAmount)}</div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@ const DashboardOrders = () => {
             <section>
                 {
                     filteredOrders.map((order) => {
-                        return <DashboardOrdersItem successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} setOrderData={setOrderData} order={order} key={order._id}/>
+                        return <DashboardOrdersItem successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} setOrderData={setOrderData} order={order} key={order.id}/>
                     })
                 }
             </section>

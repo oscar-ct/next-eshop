@@ -1,6 +1,5 @@
-import connectDB from "@/config/db";
-import Order from "@/models/Order";
 import {getServerSession} from "next-auth";
+import prisma from "@/lib/prisma";
 
 
 const calculateOrderAmountInCents = (dollarAmount) => {
@@ -22,37 +21,32 @@ export async function PUT(req, {params}) {
             isReimbursed,
             reimbursedAmount,
             trackingNumber, } = await req.json();
-        await connectDB();
-        const order = await Order.findById(params.id);
+        const order = await prisma.order.findFirst({
+            where: {
+                id: params.id
+            }
+        });
         if (!order) return new Response("Order not found...", {status: 404});
-
-        order.trackingNumber = trackingNumber || order.trackingNumber;
-        if (isShipped) {
-            order.isShipped = isShipped === "true";
-        }
-        if (isDelivered) {
-            if (isDelivered === "true") {
-                order.isDelivered = true;
-                order.deliveredAt = Date.now();
-            } else {
-                order.isDelivered = false;
+        const updatedOrder = await prisma.order.update({
+            where: {
+                id: params.id
+            },
+            data: {
+                trackingNumber: trackingNumber ? trackingNumber : order.trackingNumber,
+                isShipped: isShipped ? isShipped === "true" : order.isShipped,
+                isDelivered: isDelivered ? isDelivered === "true" : order.isDelivered,
+                deliveredAt: !isDelivered ? order.deliveredAt : isDelivered === "true" ? new Date() : null,
+                isReimbursed: isReimbursed ? isReimbursed === "true" : order.isReimbursed,
+                reimbursedAt: !isReimbursed ? order.reimbursedAt : isReimbursed === "true" ? new Date() : null,
+                reimbursedAmount: !reimbursedAmount ? order.reimbursedAmount : Number(reimbursedAmount) !== 0 ? calculateOrderAmountInCents(Number(reimbursedAmount)) : null,
+            },
+            include: {
+                orderItems: true,
+                user: true
             }
-        }
-        if (isReimbursed) {
-            if (isReimbursed  === "true") {
-                order.isReimbursed = true;
-                order.reimbursedAt = Date.now();
-            } else {
-                order.isReimbursed = false;
-            }
-        }
-        if (reimbursedAmount) {
-            order.reimbursedAmount = calculateOrderAmountInCents(Number(reimbursedAmount));
-        }
-
-        const newOrder = await order.save();
-        return Response.json(newOrder);
-
+        });
+        if (!updatedOrder) return new Response("Order not updated...", {status: 404});
+        return Response.json(updatedOrder);
     } catch (e) {
         console.log(e);
         return new Response("Something went wrong...", {status: 500});
