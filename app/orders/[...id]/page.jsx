@@ -31,21 +31,30 @@ const OrderPage = () => {
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
     }, 0);
-    const totalNumberOfCanceledItems = order?.canceledItems.length > 0 ? order?.canceledItems.reduce(function (acc, item) {
-        return (acc + item.productQuantity);
-    }, 0) : 0;
-    const canceledItemsThatRequireRefund = order?.canceledItems.filter(function (item) {
+    const canceledItems = order?.orderItems.filter((item) => {
+        return item.isCanceled;
+    });
+    const notCanceledItems = order?.orderItems.filter((item) => {
+        return !item.isCanceled;
+    });
+    const totalNumberOfCanceledItems = canceledItems?.reduce(function (acc, item) {
+        return (acc + item.quantity);
+    }, 0);
+    // const totalNumberOfNotCanceledItems = notCanceledItems?.reduce(function (acc, item) {
+    //     return (acc + item.quantity);
+    // }, 0);
+    const canceledItemsThatRequireRefund = canceledItems?.filter(function (item) {
         return item.canceledAt > order.paidAt;
     });
-    const totalNumberOfCanceledItemsThatRequireRefund = order && canceledItemsThatRequireRefund.length > 0 ? canceledItemsThatRequireRefund.reduce(function (acc, item) {
-        return (acc + item.productQuantity);
+    const totalNumberOfCanceledItemsThatRequireRefund = canceledItemsThatRequireRefund?.length > 0 ? canceledItemsThatRequireRefund.reduce(function (acc, item) {
+        return (acc + item.quantity);
     }, 0) : 0;
 
-    const totalDollarAmountOfCanceledItemsThatRequireRefund = order && canceledItemsThatRequireRefund.length > 0 ? canceledItemsThatRequireRefund.reduce(function (acc, item) {
-        return (acc + item.productPrice * item.productQuantity);
+    const totalDollarAmountOfCanceledItemsThatRequireRefund = canceledItemsThatRequireRefund?.length > 0 ? canceledItemsThatRequireRefund.reduce(function (acc, item) {
+        return (acc + item.price * item.quantity);
     }, 0) : 0;
 
-    const totalDollarAmountOfShippingRefund = order && canceledItemsThatRequireRefund.length > 0 && (order?.freeShipping || totalDollarAmountOfCanceledItemsThatRequireRefund > 10000) ? 0 : 1000;
+    const totalDollarAmountOfShippingRefund = canceledItemsThatRequireRefund?.length > 0 && (order?.freeShipping || totalDollarAmountOfCanceledItemsThatRequireRefund > 10000) ? 0 : 1000;
 
     const totalTaxDollarAmountThatRequiresRefund = order?.isCanceled ? Math.round( TAX_PERCENTAGE * (totalDollarAmountOfCanceledItemsThatRequireRefund + totalDollarAmountOfShippingRefund)) : Math.round( TAX_PERCENTAGE * totalDollarAmountOfCanceledItemsThatRequireRefund);
 
@@ -57,7 +66,7 @@ const OrderPage = () => {
         return (acc + item.price * item.quantity);
     }, 0);
     const totalDollarAmountOfFees =
-        order?.canceledItems.length > 0 && !order?.freeShipping && totalDollarAmountOfOrderItemsPaidAndNotCanceled >= 10000 ? 0 : order?.freeShipping || order?.isCanceled || order?.shippingPrice === 1000 ? 0 : 1000;
+        totalNumberOfCanceledItems > 0 && !order?.freeShipping && totalDollarAmountOfOrderItemsPaidAndNotCanceled >= 10000 ? 0 : order?.freeShipping || order?.isCanceled || order?.shippingPrice === 1000 ? 0 : 1000;
 
 
     useEffect(() => {
@@ -106,7 +115,7 @@ const OrderPage = () => {
             <>
                 <div className={"p-5 lg:pt-10 lg:pb-5"}>
                     {
-                        order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
+                        order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && totalNumberOfCanceledItems !== totalNumberOfItems ? (
                             <h1 className={"text-4xl font-bold"}>
                                 Payment successful! Order is now being processed. You can come back to this page to view future order updates.
                             </h1>
@@ -118,15 +127,15 @@ const OrderPage = () => {
                             <h1 className={"text-4xl font-bold "}>
                                 Your order has been delivered, thank you!
                             </h1>
-                        ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered && !order.isReimbursed ? (
+                        ) : (order.isCanceled || totalNumberOfCanceledItems === totalNumberOfItems) && order.isPaid && !order.isShipped && !order.isDelivered && !order.isReimbursed ? (
                             <h1 className={"text-4xl font-bold"}>
                                 Your order has been canceled and your refund process has begun.
                             </h1>
-                        ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered && order.isReimbursed ? (
+                        ) : (order.isCanceled || totalNumberOfCanceledItems === totalNumberOfItems) && order.isPaid && !order.isShipped && !order.isDelivered && order.isReimbursed ? (
                             <h1 className={"text-4xl font-bold"}>
                                 Your order has been canceled and your refund has been issued.
                             </h1>
-                        ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && !order.isShipped && !order.isDelivered ? (
+                        ) : (order.isCanceled || totalNumberOfCanceledItems === totalNumberOfItems) && !order.isShipped && !order.isDelivered ? (
                             <h1 className={"text-4xl font-bold"}>
                                 Your order has been canceled.
                             </h1>
@@ -145,7 +154,7 @@ const OrderPage = () => {
                         <div className={"pt-5 md:pt-0 pb-5 lg:pb-5 lg:flex"}>
 
                             <h1 className={"lg:mx-auto text-2xl font-semibold text-center"}>
-                                Order # {order._id}
+                                Order # {order.id}
                             </h1>
                         </div>
                         <div className={"pb-3"}>
@@ -161,7 +170,7 @@ const OrderPage = () => {
                             </div>
                             <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
                                 <div className={"flex flex-col text-sm"}>
-                                    <span>{order.user.email}</span>
+                                    <span>{order.email || order.user.email}</span>
                                 </div>
                             </div>
                         </div>
@@ -173,10 +182,10 @@ const OrderPage = () => {
                             </div>
                             <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                 <div className={"flex flex-col text-sm"}>
-                                    <span>{order.shippingAddress.name}</span>
-                                    <span>{order.shippingAddress.address}</span>
-                                    <span>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}</span>
-                                    <span>{order.shippingAddress.country}</span>
+                                    <span>{order.name}</span>
+                                    <span>{order.address}</span>
+                                    <span>{order.city}, {order.state} {order.postalCode}</span>
+                                    <span>{order.country}</span>
                                 </div>
                             </div>
                         </div>
@@ -195,19 +204,19 @@ const OrderPage = () => {
                                                     <span className={"font-semibold"}>Paypal, Inc.</span>
                                                     <span>(includes: Paypal, Venmo, Credit Card, etc.)</span>
                                                 </>
-                                            ) :  order.paymentMethod === "Stripe / Credit Card" ? (
+                                            ) : order.paymentMethod === "Stripe / Credit Card" && (
                                                 <>
                                                     <span className={"font-semibold"}>Stripe, Inc.</span>
                                                     <span>(includes: Cash App, Afterpay, Credit Card, etc.)</span>
                                                 </>
-                                            ) : ""
+                                            )
                                         }
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {
-                            order.paymentResult && (
+                            order.orderPayment && (
                                 <div className={"flex border-b-[1px] border-gray-300 py-4"}>
                                     <div className={"w-4/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
                                         <h3 className={"font-semibold"}>
@@ -216,7 +225,7 @@ const OrderPage = () => {
                                     </div>
                                     <div className={"w-8/12 sm:w-7/12 lg:w-8/12 lex items-center"}>
                                 <span className={"text-xs sm:text-sm px-1"}>
-                                    {order.paymentResult.id}
+                                    {order.orderPayment.transaction_id}
                                 </span>
                                     </div>
                                 </div>
@@ -231,24 +240,24 @@ const OrderPage = () => {
                             <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                 <div className={"flex flex-col text-sm pb-3"}>
                                     {
-                                        order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
+                                        order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
                                             <Message variant={"info"}>
                                                 <span className={"text-start"}>Processing order</span>
                                             </Message>
-                                        ) : order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
+                                        ) : order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
                                             <Message variant={"success"}>
                                                 <div className={"flex"}>
                                                     <span className={"text-start truncate"}>Delivered on</span>
                                                     <span className={"font-bold pl-1"}>{order.deliveredAt.substring(0, 10)}</span>
                                                 </div>
                                             </Message>
-                                        ) : order.isPaid && order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
+                                        ) : order.isPaid && order.isShipped && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
                                             <Message variant={"info"}>
                                                 <div className={"flex flex-col"}>
                                                     <span className={"text-start"}>Shipped</span>
                                                 </div>
                                             </Message>
-                                        ) : order.isCanceled || order.orderItems.length === order.canceledItems?.length ? (
+                                        ) : order.isCanceled || order.orderItems.length === canceledItems?.length ? (
                                             <Message variant={"error"}>
                                                 <div className={"flex"}>
                                                     <span className={"text-start"}>Canceled on</span>
@@ -282,7 +291,7 @@ const OrderPage = () => {
                                 </div>
 
                                 {
-                                    order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) &&
+                                    order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || canceledItems.length > 0) &&
                                     (
                                         <div className={"flex items-center text-sm"}>
                                             {
@@ -328,7 +337,7 @@ const OrderPage = () => {
                                 {
                                     order.orderItems.map(function (item) {
                                         return (
-                                            <OrderItem canceledItems={order.canceledItems} item={item} isCanceled={order.isCanceled} paidAt={order.paidAt} key={item.productId}/>
+                                            <OrderItem canceledItems={canceledItems} item={item} isCanceled={order.isCanceled} paidAt={order.paidAt} key={item.productId}/>
                                         )
                                     })
                                 }
@@ -341,7 +350,7 @@ const OrderPage = () => {
                         <div className={"pt-5 lg:pt-0 pb-5"}>
                             {/*CANCEL OPTIONS*/}
                             {
-                                !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
+                                !order.isShipped && !order.isDelivered && !order.isCanceled && canceledItems.length !== order.orderItems.length ? (
                                     <div className={"px-3 w-full flex justify-end"}>
                                         <button
                                             onClick={() => window.confirm_modal.showModal()}
@@ -354,7 +363,7 @@ const OrderPage = () => {
                                     <h5 className={"text-center"}>
                                         Refunds can take up 5-7 business to process.
                                     </h5>
-                                ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) || order.isDelivered  ? (
+                                ) : (order.isCanceled || canceledItems?.length === order.orderItems.length) || order.isDelivered  ? (
                                     ""
                                 ) : (
                                     <h5 className={"text-center"}>
@@ -420,7 +429,7 @@ const OrderPage = () => {
 
                                             {/*PAYMENT OPTIONS*/}
                                             {
-                                                !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
+                                                !order.isPaid && (!order.isCanceled || order.orderItems.length !== canceledItems.length) && (
                                                     <div className={"px-3 md:px-6 pb-5"}>
 
                                                         <div className={"border-t-[1px] pb-10"}/>
@@ -448,7 +457,7 @@ const OrderPage = () => {
                             }
                             {/*REFUND SUMMARY*/}
                             {
-                                order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
+                                order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || canceledItems.length > 0) && (
 
                                     <div className={"mt-5"}>
                                         <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>

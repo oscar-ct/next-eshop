@@ -22,13 +22,13 @@ const ShippingPage = () => {
     // const [updateUserAddress] = useUpdateUserAddressMutation();
 
     const matchingAddress = user?.shippingAddresses.filter((address) => {
-        return address._id === shippingAddress._id;
+        return address.id === shippingAddress.id;
     })
 
     const locateExistingAddress = () => {
         if (user) {
             if (Object.keys(shippingAddress).length !== 0) {
-                return !Object.hasOwnProperty.call(shippingAddress, "_id");
+                return !Object.hasOwnProperty.call(shippingAddress, "id");
             }
             return user.shippingAddresses.length === 0;
         }
@@ -37,7 +37,7 @@ const ShippingPage = () => {
         }
     };
 
-    const [radioId, setRadioId] = useState(Object.hasOwnProperty.call(shippingAddress, "_id") ? matchingAddress[0]._id : "");
+    const [radioId, setRadioId] = useState(Object.hasOwnProperty.call(shippingAddress, "id") ? matchingAddress[0].id : "");
     const [savePaymentData, setSavePaymentData] = useState(false);
     const [useNewAddress, setUseNewAddress] = useState(locateExistingAddress());
     const [guestEmail, setGuestEmail] = useState(guestData ? guestData : "");
@@ -54,7 +54,7 @@ const ShippingPage = () => {
 
 
     useEffect(() => {
-        if (Object.keys(shippingAddress).length !== 0 && Object.hasOwnProperty.call(shippingAddress,"_id")) {
+        if (Object.keys(shippingAddress).length !== 0 && Object.hasOwnProperty.call(shippingAddress,"id")) {
             return;
         }
         if (Object.keys(shippingAddress).length !== 0) {
@@ -106,7 +106,7 @@ const ShippingPage = () => {
     };
 
     const radioSelectAddress = user?.shippingAddresses?.filter(function (x) {
-        return x._id === radioId;
+        return x.id === radioId;
     });
 
     const submitShippingData = async (e) => {
@@ -121,7 +121,7 @@ const ShippingPage = () => {
                     state,
                     country
                 }
-                const userAddresses = await fetchUserAddress(user._id, body);
+                const userAddresses = await fetchUserAddress(user.id, body);
                 const userAddressWithObjectId = userAddresses.filter(function (x) {
                     return x.name === name && x.address === address && x.city === city && x.postalCode === postalCode && x.country === country;
                 });
@@ -339,8 +339,8 @@ const ShippingPage = () => {
                                     {
                                         user?.shippingAddresses.map(function(item, index) {
                                             return (
-                                                <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
-                                                    <div className={`w-full rounded-md shadow-sm border cursor-pointer ${item._id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
+                                                <div key={index} className="my-5" onClick={() => setRadioId(item.id)}>
+                                                    <div className={`w-full rounded-md shadow-sm border cursor-pointer ${item.id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
                                                         <div className={"w-full flex p-6"}>
                                                             <div className={"text-sm w-10/12 flex flex-col justify-center"}>
                                                              <span className={"truncate"}>
@@ -362,10 +362,10 @@ const ShippingPage = () => {
                                                                     type="radio"
                                                                     name="address"
                                                                     id={index.toString()}
-                                                                    value={item._id}
+                                                                    value={item.id}
                                                                     className="radio radio-primary"
                                                                     onChange={(e) => {setRadioId(e.target.value)}}
-                                                                    checked={item._id === radioId}
+                                                                    checked={item.id === radioId}
                                                                 />
                                                             </div>
                                                         </div>

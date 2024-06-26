@@ -1,4 +1,5 @@
 const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET, PAYPAL_API_URL } = process.env;
+import prisma from "@/lib/prisma";
 
 async function getPayPalAccessToken() {
     // Authorization header requires base64 encoding
@@ -22,15 +23,16 @@ async function getPayPalAccessToken() {
     return paypalData.access_token;
 }
 
-export async function checkIfNewTransaction(orderModel, paypalTransactionId) {
+export async function checkIfNewTransaction(paypalTransactionId) {
     try {
         // Find all documents where Order.paymentResult.id is the same as the id passed paypalTransactionId
-        const orders = await orderModel.find({
-            'paymentResult.id': paypalTransactionId,
+        const order = await prisma.orderPayment.findFirst({
+            where: {
+                transaction_id: paypalTransactionId
+            }
         });
-
         // If there are no such orders, then it's a new transaction.
-        return orders.length === 0;
+       return !order;
     } catch (err) {
         console.error(err);
     }

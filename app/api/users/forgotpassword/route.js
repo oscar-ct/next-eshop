@@ -1,5 +1,4 @@
-import connectDB from "@/config/db";
-import User from "@/models/User";
+import prisma from "@/lib/prisma";
 import jwt from "jsonwebtoken";
 import {MailtrapClient} from "mailtrap";
 
@@ -8,14 +7,17 @@ import {MailtrapClient} from "mailtrap";
 export async function POST(req) {
     try {
         const { email } = await req.json();
-        await connectDB();
-        const user = await User.findOne({email: email});
+        const user = await prisma.user.findFirst({
+            where: {
+                email: email
+            }
+        });
         if (!user) {
             return new Response("User not found", {status: 400});
         } else {
-            const {password, _id} = user;
+            const {password, id} = user;
             const secret = process.env.JWT_SECERT + password;
-            const payload = {_id}
+            const payload = {id}
             const token = jwt.sign(payload, secret, {expiresIn: "3m"});
             let domain;
             if (process.env.NODE_ENV !== "development") {
@@ -23,7 +25,7 @@ export async function POST(req) {
             } else {
                 domain = "http://localhost:3000"
             }
-            const link = `${domain}/forgotpassword/${_id}/${token}`
+            const link = `${domain}/forgotpassword/${id}/${token}`
 
             const client = new MailtrapClient({ token: process.env.MAILTRAP_TOKEN });
             const sender = { name: "eshopjs.com", email: "resetpassword@eshopjs.com" };
@@ -35,7 +37,7 @@ export async function POST(req) {
                     text: link,
                 })
                 .then(console.log)
-                .catch(console.error);
+                .catch(console.error)
             return new Response("Recovery link has been sent", {status: 200});
         }
     } catch (e) {

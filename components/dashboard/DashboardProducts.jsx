@@ -37,7 +37,7 @@ const DashboardProducts = ({ width }) => {
         if (updatedProduct) {
             setSuccessfullyUpdatedOrder(true);
             const updatedProducts = products.map((product) => {
-                return product._id === updatedProduct._id ? updatedProduct : product
+                return product.id === updatedProduct.id ? updatedProduct : product
             });
             setProducts(updatedProducts);
             toast.success("Product updated!");
@@ -49,7 +49,7 @@ const DashboardProducts = ({ width }) => {
             <section>
             {
                 products.map((product) => {
-                    return <DashboardProductsItem setProductData={setProductData} successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} width={width} product={product} key={product._id}/>
+                    return <DashboardProductsItem setProductData={setProductData} successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} width={width} product={product} key={product.id}/>
                 })
             }
             </section>

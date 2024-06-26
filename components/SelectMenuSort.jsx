@@ -10,7 +10,7 @@ const SelectMenuSort = ({sortTerm, categoryTerm, pageNumber, customStyles}) => {
         {value: "toprated", label: "Top Rated"},
         {value: "latest", label: "Most Recent"},
         {value: "price-asc", label: "Price: Low To High"},
-        {value: "price-dsc", label: "Price: High To Low"},
+        {value: "price-desc", label: "Price: High To Low"},
     ];
     const placeHolder = () => {
         if (sortTerm === "toprated") {
@@ -19,7 +19,7 @@ const SelectMenuSort = ({sortTerm, categoryTerm, pageNumber, customStyles}) => {
             return "Most Recent"
         } else if (sortTerm === "price-asc") {
             return "Price: Low To High"
-        } else if (sortTerm === "price-dsc") {
+        } else if (sortTerm === "price-desc") {
             return "Price: High To Low"
         }
     };

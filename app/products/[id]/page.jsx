@@ -117,7 +117,7 @@ const ProductPage = () => {
 
     const submitDeleteProductReview = async () => {
         const body = {
-            sessionUserId: user._id,
+            sessionUserId: user.id,
             reviewUserId: reviewData.reviewUserId
         }
         const res = await fetchDeleteProductReview(body, id, reviewData.reviewId);
@@ -125,7 +125,7 @@ const ProductPage = () => {
             setProduct(res);
             // const productReviews = [...product.reviews];
             // const updatedProductReviews = productReviews.filter((review) => {
-            //     return review._id !== reviewData.reviewId;
+            //     return review.id !== reviewData.reviewId;
             // });
             // let updatedProduct = {...product}
             // delete updatedProduct.reviews
@@ -604,9 +604,9 @@ const ProductPage = () => {
                                                                     <div
                                                                         className={"pb-2 text-xs text-neutral-500 flex items-center"}>
                                                                         {
-                                                                            user?._id === review.user && (
+                                                                            user?.id === review.user && (
                                                                                 <button
-                                                                                    onClick={() => openConfirmModalAndSetReviewData(review._id, review.user)}
+                                                                                    onClick={() => openConfirmModalAndSetReviewData(review.id, review.user)}
                                                                                     className={"pl-2"}>
                                                                                     <FaTrash fill={"red"}/>
                                                                                 </button>

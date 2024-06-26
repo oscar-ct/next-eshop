@@ -29,7 +29,7 @@ const DashboardUsers = () => {
             <section className={"flex justify-evenly flex-wrap"}>
                 {
                     users.map(function (user) {
-                        return <DashboardUsersItem user={user} key={user._id}/>
+                        return <DashboardUsersItem user={user} key={user.id}/>
                     })
                 }
             </section>

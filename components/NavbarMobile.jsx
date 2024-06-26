@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from 'react';
 import Link from "next/link";
 import {FaSearch} from "react-icons/fa";
 import CartIcon from "@/components/CartIcon";
-import {signOut, useSession} from "next-auth/react";
+import {signOut} from "next-auth/react";
 import {AnimatePresence, motion, useAnimation} from "framer-motion";
 import {useRouter} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
@@ -19,7 +19,6 @@ const NavbarMobile = ({ user, topRatedLink, latestProductsLink,  myAccountLink, 
     const [keyword, setKeyword] = useState("");
     const [shake, setShake] = useState(false);
 
-    const { data: session } = useSession();
     const router = useRouter();
 
     const totalNumberOfItems = cartItems.reduce((acc, item) => {
@@ -29,9 +28,10 @@ const NavbarMobile = ({ user, topRatedLink, latestProductsLink,  myAccountLink, 
     const { dispatch } = useContext(GlobalContext);
 
     const logoutHandler = async () => {
+        await signOut({ callbackUrl: '/' });
         dispatch({type: "RESET_STATE"});
         setOpenNav(false);
-        await signOut();
+
     };
 
     const submitSearch = () => {

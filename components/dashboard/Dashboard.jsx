@@ -72,7 +72,7 @@ const Dashboard = () => {
                                 <div className={"flex flex-col gap-3.5 text-sm font-semibold text-gray-800 py-3"}>
                                     <div className={"flex items-center"}>
                                         <FaDollarSign className={"w-5 h-5"}/><span
-                                        className={"pl-2"}>Payment complete</span>
+                                        className={"pl-2"}>Payment verified</span>
                                     </div>
                                     <div className={"flex items-center"}>
                                         <FaSackXmark className={"w-5 h-5"}/><span className={"pl-2"}>Pending payment</span>

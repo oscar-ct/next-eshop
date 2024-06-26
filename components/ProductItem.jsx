@@ -53,12 +53,12 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
     useEffect(() => {
         const handleCardClick = (event) => {
             if (!buttonRef?.current?.contains(event.target) && cardRef?.current?.contains(event.target)) {
-                router.push(`/products/${product._id}`);
+                router.push(`/products/${product.id}`);
             }
         };
         window.addEventListener("click", handleCardClick);
         return () => window.removeEventListener("click", handleCardClick);
-    }, [router, product._id]);
+    }, [router, product.id]);
 
 
     return (

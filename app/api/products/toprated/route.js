@@ -1,13 +1,18 @@
-import connectDB from "@/config/db";
-import Product from "@/models/Product";
-
+import prisma from "@/lib/prisma";
 
 //  GET /api/products/toprated
 
 export const GET = async (req) => {
     try {
-        await connectDB();
-        const products = await Product.find({}).sort({rating: -1}).limit(5);
+        const products = await prisma.product.findMany({
+            take: 5,
+            orderBy: {
+                rating: "desc"
+            },
+            include: {
+                images: true
+            }
+        })
         return Response.json(products);
     } catch (e) {
         console.log(e);

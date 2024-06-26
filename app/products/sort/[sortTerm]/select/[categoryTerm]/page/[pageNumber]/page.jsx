@@ -103,7 +103,7 @@ const ProductsPage = () => {
                             products.products.length !== 0 ? (
                                 products.products.map(function (product) {
                                     return (
-                                        <ProductItem key={product._id} product={product}
+                                        <ProductItem key={product.id} product={product}
                                                      windowInnerWidth={windowInnerWidth}/>
                                     )
                                 })

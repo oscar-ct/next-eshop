@@ -70,13 +70,10 @@ const CheckoutPage = () => {
         let user;
         if (userData) {
             user = {
-                id: userData._id,
-                name: userData.name,
-                email: userData.email,
+                id: userData.id,
             };
         } else {
             user = {
-                name: shippingAddress.name,
                 email: guestData,
             };
         }
@@ -94,7 +91,7 @@ const CheckoutPage = () => {
         }
         const newOrder = await fetchNewOrder(body);
         if (!newOrder) return null;
-        return newOrder._id;
+        return newOrder.id;
     };
 
 
@@ -237,7 +234,7 @@ const CheckoutPage = () => {
                                                 {
                                                     cartItems.map(function (item) {
                                                         return (
-                                                            <CheckoutItem saveButtonDisabled={saveButtonDisabled} item={item} key={item._id}/>
+                                                            <CheckoutItem saveButtonDisabled={saveButtonDisabled} item={item} key={item.id}/>
                                                         )
                                                     })
                                                 }

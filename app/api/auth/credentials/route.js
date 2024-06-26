@@ -1,27 +1,41 @@
 import bcrypt from "bcrypt";
-import connectDB from "@/config/db";
-import User from "@/models/User";
-
+import prisma from "@/lib/prisma";
 export async function PUT(req) {
     try {
-        const { _id, name, email, password, newPassword } = await req.json();
-        await connectDB();
-        const user = await User.findById(_id);
+        const { id, name, email, password, newPassword } = await req.json();
+
+        const user = await prisma.user.findFirst({
+            where: {
+                id: id
+            },
+        })
         if (!user) {
             return new Response("User does not exist", {status: 400});
         }
 
         const bcryptMatchPassword = await bcrypt.compare(password, user.password);
         if (bcryptMatchPassword) {
-            user.name = name || user.name;
-            user.email = email || user.email;
+            let hashedPassword;
             if (newPassword) {
                 const salt = await bcrypt.genSalt(10);
-                user.password = await bcrypt.hash(newPassword, salt);
+                hashedPassword = await bcrypt.hash(newPassword, salt);
             }
-            const updatedUser = await user.save();
+            const updatedUser = await prisma.user.update({
+                where: {
+                    id: id
+                },
+                data: {
+                    name: name || user.name,
+                    email: email || user.email,
+                    password: newPassword ? hashedPassword : user.password
+                },
+                include: {
+                    shippingAddresses: true
+                }
+            });
+
             return Response.json({
-                _id: updatedUser.id,
+                id: updatedUser.id,
                 name: updatedUser.name,
                 email: updatedUser.email,
                 isAdmin: updatedUser.isAdmin,

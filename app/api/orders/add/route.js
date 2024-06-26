@@ -1,16 +1,13 @@
-import connectDB from "@/config/db";
-import Order from "@/models/Order";
-import Product from "@/models/Product";
 import {calculatePrices} from "@/utils/calculatePrices";
 import jwt from "jsonwebtoken";
+import prisma from "@/lib/prisma";
 
 // POST api/orders/add
 
 export async function POST(req) {
-    const { orderItems, shippingAddress, paymentMethod, validCode, user, clientSecret, token } = await req.json();
-
     try {
-        await connectDB();
+        const { orderItems, shippingAddress, paymentMethod, validCode, user, clientSecret, token } = await req.json();
+
         if (orderItems?.length === 0) {
             return new Response("No order found", {status: 404});
         }
@@ -24,37 +21,65 @@ export async function POST(req) {
                     return new Response("This action has been terminated", {status: 401});
                 }
             }
-
         }
-        const itemsFromDB = await Product.find({
-            _id: { $in: orderItems.map((x) => x._id) },
+        const orderItemIds = orderItems.map((item) => {
+            return item.id;
         });
-        const orderItemsFromDB = orderItems.map((itemFromBody) => {
-            const matchingItemFromDB = itemsFromDB.find(
-                (item) => item._id.toString() === itemFromBody._id
+        const orderItemsFromDbMatchingClientOrderItems = await prisma.product.findMany({
+            where: {
+                id: {
+                    in: orderItemIds
+                }
+            }
+        });
+        const orderItemsFromClientWithMutatedPriceFromDb = orderItems.map((itemFromClient) => {
+            const matchingItem = orderItemsFromDbMatchingClientOrderItems.find(
+                (item) => item.id === itemFromClient.id
             );
             return {
-                ...itemFromBody,
-                productId: itemFromBody._id,
-                price: matchingItemFromDB.price,
-                _id: null,
+                ...itemFromClient,
+                price: matchingItem.price,
             };
         });
-        const { itemsPrice, shippingPrice, taxPrice, totalPrice } = calculatePrices(orderItemsFromDB, validCode);
-        const order = new Order({
-            user,
-            orderItems: orderItemsFromDB,
-            freeShipping: !!validCode,
-            shippingAddress: shippingAddress,
-            paymentMethod: paymentMethod,
-            itemsPrice: itemsPrice,
-            taxPrice: taxPrice,
-            shippingPrice: shippingPrice,
-            totalPrice: totalPrice,
-        });
-        const newOrder = await order.save();
-        return Response.json(newOrder);
 
+        const { itemsPrice, shippingPrice, taxPrice, totalPrice } = calculatePrices(orderItemsFromClientWithMutatedPriceFromDb, validCode);
+        const formattedOrderItems = orderItemsFromClientWithMutatedPriceFromDb.map((item) => {
+            return {
+                productId: item.id,
+                imageUrl: item.images[0].url,
+                name: item.name,
+                brand: item.brand,
+                quantity: item.quantity,
+                price: item.price,
+            }
+        });
+        const newOrder = await prisma.order.create({
+            data: {
+                name: shippingAddress.name,
+                address: shippingAddress.address,
+                city: shippingAddress.city,
+                postalCode: shippingAddress.postalCode,
+                state: shippingAddress.state,
+                country: shippingAddress.country,
+                itemsPrice: itemsPrice,
+                taxPrice: taxPrice,
+                shippingPrice: shippingPrice,
+                totalPrice: totalPrice,
+                paymentMethod: paymentMethod,
+                freeShipping: !!validCode,
+                userId: user.id ? user.id : undefined,
+                email: user.email ? user.email : undefined,
+                orderItems: {
+                    createMany: {
+                        data: formattedOrderItems,
+                    }
+                }
+            },
+            include: {
+                orderItems: true
+            }
+        });
+        return Response.json(newOrder);
     } catch (e) {
         console.log(e);
         return new Response("Something went wrong...", {status: 500});

@@ -113,7 +113,7 @@ const ForgotPasswordPage = () => {
                     <div className="sm:mt-10 md:mb-10 w-full flex justify-center self-center">
                         <div className="bg-white border p-12 mx-auto sm:w-96 w-full">
                             <div className="mb-4">
-                                <h3 className="font-bold text-2xl">Reset Your Password
+                                <h3 className="font-bold text-2xl">Reset your password
                                 </h3>
                                 <p className="text-gray-500 text-sm">Password must be at least 6 characters
                                 </p>
@@ -187,7 +187,6 @@ const ForgotPasswordPage = () => {
                     </div>
                 </div>
             </div>
-
         );
     }
     if (loading) return <Loading/>

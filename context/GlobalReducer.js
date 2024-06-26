@@ -3,13 +3,13 @@ const globalReducer = (state, action) => {
         case "ADD_TO_CART":
             const itemUserAddedToCart = action.payload;
             const cartItem = state.cartItems.find(function (cartItem) {
-                return itemUserAddedToCart._id === cartItem._id;
+                return itemUserAddedToCart.id === cartItem.id;
             });
             if (cartItem) {
                 return {
                     ...state,
                     cartItems: state.cartItems.map((item) => {
-                       return itemUserAddedToCart._id === item._id ? {...itemUserAddedToCart} : item
+                       return itemUserAddedToCart.id === item.id ? {...itemUserAddedToCart} : item
                     }),
                 }
             } else {
@@ -22,7 +22,7 @@ const globalReducer = (state, action) => {
             const itemUserRemovedFromCart = action.payload;
             if (state.cartItems.length !== 1) {
                 const cart = state.cartItems.filter(function (item) {
-                    return item._id !== itemUserRemovedFromCart;
+                    return item.id !== itemUserRemovedFromCart;
                 });
                 return {
                     ...state,

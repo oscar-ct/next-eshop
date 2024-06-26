@@ -1,5 +1,4 @@
-import connectDB from "@/config/db";
-import Product from "@/models/Product";
+import prisma from "@/lib/prisma";
 import {getServerSession} from "next-auth";
 
 
@@ -10,9 +9,15 @@ export const GET = async (req) => {
     try {
         const session = await getServerSession();
         if (!session.user.name.userIsAdmin) return new Response("This action is forbidden", {status: 403});
-        await connectDB();
-        const orders = await Product.find({}).sort({createdAt: -1});
-        return Response.json(orders);
+        const products = await prisma.product.findMany({
+            orderBy: {
+                createdAt: "desc"
+            },
+            include: {
+                images: true
+            }
+        });
+        return Response.json(products);
     } catch (e) {
         console.log(e);
         return new Response("Something went wrong...", {status: 500});

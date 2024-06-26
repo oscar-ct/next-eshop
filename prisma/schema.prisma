@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email String @unique
+  name String
+  password String
+  isAdmin Boolean @default(false)
+  shippingAddresses Address[]
+  products Product[]
+  reviews Review[]
+  orders Order[]
+}
+
+model Address {
+  id String @id @default(uuid())
+  name String
+  address String
+  city String
+  country String
+  state String
+  postalCode String
+  user User @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Product {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  brand String
+  model String
+  color String
+  category String
+  description String
+  rating Int @default(0)
+  numReviews Int @default(0)
+  price Int
+  countInStock Int
+  isDisabled Boolean @default(true)
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  reviews Review[]
+  images Image[]
+}
+
+model Image {
+  id String @id @default(uuid())
+  url String
+  handle String
+  product Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model Review {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  title String
+  rating Int
+  comment String
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  product Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model Order {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  address String
+  city String
+  postalCode String
+  state String
+  country String
+  itemsPrice Int
+  taxPrice Int
+  shippingPrice Int
+  totalPrice Int
+  paymentMethod String
+  isCanceled Boolean @default(false)
+  isPaid Boolean @default(false)
+  isDelivered Boolean @default(false)
+  isShipped Boolean @default(false)
+  isReimbursed Boolean @default(false)
+  freeShipping Boolean
+  trackingNumber String @default("")
+  paidAmount Int?
+  paidAt DateTime?
+  reimbursedAmount Int?
+  reimbursedAt DateTime?
+  canceledAt DateTime?
+  user User? @relation(fields: [userId], references: [id])
+  userId String?
+  orderItems OrderItem[]
+  orderPayment OrderPayment?
+  email String?
+  deliveredAt DateTime?
+}
+
+model OrderPayment {
+  id String @id @default(uuid())
+  transaction_id String
+  status String
+  update_time String?
+  email_address String?
+  order Order @relation(fields: [orderId], references: [id])
+  orderId String @unique
+}
+
+model OrderItem {
+  id String @id @default(uuid())
+  productId String
+  imageUrl String
+  name String
+  brand String
+  quantity Int
+  price Int
+  isCanceled Boolean @default(false)
+  canceledAt DateTime?
+  isPaid Boolean @default(false)
+  order Order @relation(fields: [orderId], references: [id])
+  orderId String
+}

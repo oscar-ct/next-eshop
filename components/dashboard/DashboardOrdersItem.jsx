@@ -18,7 +18,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
     const [isDelivered, setIsDelivered] = useState(order.isDelivered.toString());
     const [isShipped, setIsShipped] = useState(order.isShipped.toString());
     const [isReimbursed, setIsReimbursed] = useState(order.isReimbursed.toString());
-    const [reimbursedAmount, setReimbursedAmount] = useState(order.isReimbursed ? (order.reimbursedAmount / 100).toFixed(2) : "0.00");
+    const [reimbursedAmount, setReimbursedAmount] = useState(order.reimbursedAmount ? (order.reimbursedAmount / 100).toFixed(2) : order.reimbursedAmount);
     const [trackingNumber, setTrackingNumber] = useState(order.trackingNumber.toString());
     const [trackingInputVisible, setTrackingInputVisible] = useState(false);
     const [editActive, setEditActive] = useState(false);
@@ -49,7 +49,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
             isDelivered: order.isDelivered.toString(),
             isReimbursed: order.isReimbursed.toString(),
             trackingNumber: order.trackingNumber,
-            reimbursedAmount: (order.reimbursedAmount / 100).toFixed(2),
+            reimbursedAmount: order.reimbursedAmount ? (order.reimbursedAmount / 100).toFixed(2) : order.reimbursedAmount,
 
         };
         return Object.entries(b).filter(([key, val]) => a[key] !== val && key in a).reduce((a, [key, v]) => ({
@@ -70,16 +70,12 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
     };
 
     const onSave = () => {
-        const updated = confirmChanges();
-        if (updated) {
+        const updatedOrderData = confirmChanges();
+        if (updatedOrderData) {
             setOrderData({
-                message: convertToString(updated),
-                orderId: order._id,
-                isShipped,
-                isDelivered,
-                isReimbursed,
-                reimbursedAmount,
-                trackingNumber,
+                ...updatedOrderData,
+                message: convertToString(updatedOrderData),
+                orderId: order.id,
             });
             window.confirm_modal.showModal();
         } else {
@@ -106,7 +102,6 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
     };
 
     return (
-
         <details ref={ref} className={`collapse my-3 ${order.isPaid && !order.isCanceled ? "bg-green-200" : !order.isPaid ? "bg-orange-200" : order.isCanceled && "bg-red-200"}`}>
             <summary className="collapse-title pe-4">
                 <div className={"flex justify-between"}>
@@ -124,8 +119,8 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                             <span className="font-semibold ml-1 badge badge-md">{order.user.name}</span>
                             </h3>
                             <h3 className="text-gray-500">
-                                <Link href={`/orders/${order._id}`}
-                                      className="link link-primary font-semibold ml-1 badge badge-md">{order._id.substring(order._id.length - 6, order._id.length)}</Link>
+                                <Link href={`/orders/${order.id}`}
+                                      className="link link-primary font-semibold ml-1 badge badge-md">{order.id.substring(order.id.length - 6, order.id.length)}</Link>
                             </h3>
                         </div>
                     </div>
@@ -144,7 +139,6 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
 
             </summary>
             <div className="collapse-content">
-
                 <div className="w-full stats text-primary-content">
                     <div className="stat">
                         <div className={"flex flex-wrap gap-2"}>
@@ -153,7 +147,7 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                                     return (
                                         <Image
                                             key={index}
-                                            src={item.images[0].url}
+                                            src={item.imageUrl}
                                             alt={"product"}
                                             width={50}
                                             height={50}
@@ -284,7 +278,6 @@ const DashboardOrdersItem = ({ order, setOrderData, successfullyUpdatedOrder, se
                         )
                     }
                 </div>
-
             </div>
         </details>
     );

@@ -75,13 +75,9 @@ const Navbar = () => {
     };
 
     const logoutHandler = async () => {
-        try {
-            dispatch({type: "RESET_STATE"})
-            await signOut({ callbackUrl: '/' });
-            setUserDropdownActive(false);
-        } catch (e) {
-            console.log(e)
-        }
+        await signOut({ callbackUrl: '/' });
+        dispatch({type: "RESET_STATE"})
+        setUserDropdownActive(false);
     };
 
     const dashboardLink = "/admin/dashboard/orders"
@@ -193,26 +189,26 @@ const Navbar = () => {
                                         </div>
                                     ) : (
                                         <div
-                                            className="relative inline-block text-left py-4"
+                                            className="relative inline-block text-left py-2.5"
                                             onMouseEnter={() => setUserDropdownActive(true)}
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
-                                            <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
+                                            <div className={"cursor-pointer px-2 h-[3rem] flex items-center"}>
                                                 <Link href={"/login"}>
                                                     <div
                                                         className="flex items-center"
                                                     >
                                                         <FaUser/>
-                                                        <span className={"pl-2 font-normal text-base"}>Login</span>
+                                                        <span className={"px-1.5 font-normal text-sm"}>Login</span>
                                                     </div>
                                                 </Link>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
-                                                    <FaChevronDown/>
+                                                    <FaChevronDown className={"w-2.5"}/>
                                                 </div>
                                             </div>
                                             {
                                                 userDropdownActive && (
-                                                    <div className="absolute right-0 z-10 mt-4 origin-top-right">
+                                                    <div className="absolute right-0 z-10 mt-2.5 origin-top-right">
                                                         <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex-col w-full"}>
                                                                 <Link href={"/login"} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
@@ -235,7 +231,6 @@ const Navbar = () => {
                                 }
                                 {
                                     user?.isAdmin && (
-
                                         <div className="relative inline-block text-left">
                                             <div
                                                 onClick={() => router.push(dashboardLink)}

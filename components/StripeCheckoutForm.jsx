@@ -39,13 +39,10 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
         let user;
         if (userData) {
             user = {
-                id: userData._id,
-                name: userData.name,
-                email: userData.email,
+                id: userData.id,
             };
         } else {
             user = {
-                name: shippingAddress.name,
                 email: guestData,
             };
         }
@@ -64,7 +61,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
         }
         const newOrder = await fetchNewOrder(body);
         if (!newOrder) return null;
-        return newOrder._id;
+        return newOrder.id;
     }, [cartItems, discountKey, itemsPrice, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice, userData, guestData]);
 
     useEffect( () => {
@@ -97,15 +94,16 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
                             const order = await fetchPayOrder({orderId: orderId, details, clientSecret, token});
                             if (order) {
                                 setMessage("Payment succeeded! 🎉");
-                                router.push(`/orders/${order._id}/payment?stripe=successful`);
+                                router.push(`/orders/${order.id}/payment?stripe=successful`);
                             }
                         } else {
                             if (!existingOrder.isPaid) {
-                                const order = await fetchPayOrder({orderId: existingOrder._id, details, clientSecret, token});
+                                const order = await fetchPayOrder({orderId: existingOrder.id, details, clientSecret, token});
                                 if (order) {
                                     setOrder(order);
                                 }
                             }
+
                         }
                         break;
                     }
@@ -167,8 +165,6 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
             orderItems: existingOrder ? existingOrder.orderItems.filter((item) => !item.isCanceled) : cartItems,
             validCode : existingOrder ? existingOrder.freeShipping : isDiscounted,
         });
-
-
         if (!existingOrder) {
             if (totalPriceFromBackend !== totalPrice) {
                 handlePriceError();
@@ -190,7 +186,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
             elements,
             clientSecret,
             confirmParams: {
-                return_url: existingOrder ? `${window.location.origin}/orders/${existingOrder._id}` : `${window.location.origin}/checkout`,
+                return_url: existingOrder ? `${window.location.origin}/orders/${existingOrder.id}` : `${window.location.origin}/checkout`,
             },
         });
         if (error) {
@@ -266,7 +262,7 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
                     <div className={"pt-6"}>
                         <CustomBtn customClass={"w-full"} type={"button"} onClick={(e) => {
                             e.preventDefault();
-                            window.location.href = existingOrder ? `${window.location.origin}/order/${existingOrder._id}` : `${window.location.origin}/checkout`
+                            window.location.href = existingOrder ? `${window.location.origin}/order/${existingOrder.id}` : `${window.location.origin}/checkout`
                         }}>
                             Try Again
                         </CustomBtn>

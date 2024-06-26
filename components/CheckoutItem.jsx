@@ -26,10 +26,10 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
         <>
             <div className={"flex w-full mt-5"}>
                 <div className={"w-2/12"}>
-                    <Link className={"bg-zinc-100/70 rounded-md w-full h-full flex justify-center items-center"} href={`/products/${item._id}`}>
+                    <Link className={"bg-zinc-100/70 rounded-md w-full h-full flex justify-center items-center"} href={`/products/${item.id}`}>
                         <Image
                             priority
-                            src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"}
+                            src={item.images.length !== 0 ? item.images[0].url : ""}
                             alt={"checkoutItem"}
                             width={0}
                             height={0}
@@ -39,7 +39,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                     </Link>
                 </div>
                 <div className={"w-9/12 flex flex-col px-3 sm:px-5"}>
-                    <Link href={`/products/${item._id}`} className={"sm:text-lg font-bold hover:link hover:link-primary"}>
+                    <Link href={`/products/${item.id}`} className={"sm:text-lg font-bold hover:link hover:link-primary"}>
                         {item.name}
                     </Link>
                     <div className={"flex w-full"}>
