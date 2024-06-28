@@ -50,8 +50,6 @@ model Product {
   color String
   category String
   description String
-  rating Int @default(0)
-  numReviews Int @default(0)
   price Int
   countInStock Int
   isDisabled Boolean @default(true)
@@ -59,6 +57,7 @@ model Product {
   userId String
   reviews Review[]
   images Image[]
+  rating Int @default(0)
 }
 
 model Image {
