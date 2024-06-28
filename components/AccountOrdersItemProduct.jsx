@@ -37,7 +37,7 @@ const AccountOrdersItemProduct = ({product, index, orderSize}) => {
                                 <Link href={`/products/${product.productId}`} className="bg-zinc-100/20 rounded-md w-full h-full flex items-center justify-center">
                                     <Image
                                         priority
-                                        src={product.imageUrls.length !== 0 ? product.imageUrls[0] : ""}
+                                        src={product.imageUrl}
                                         alt={"order item"}
                                         width={0}
                                         height={0}
