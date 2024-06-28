@@ -34,9 +34,9 @@ const OrderPage = () => {
     const canceledItems = order?.orderItems.filter((item) => {
         return item.isCanceled;
     });
-    const notCanceledItems = order?.orderItems.filter((item) => {
-        return !item.isCanceled;
-    });
+    // const notCanceledItems = order?.orderItems.filter((item) => {
+    //     return !item.isCanceled;
+    // });
     const totalNumberOfCanceledItems = canceledItems?.reduce(function (acc, item) {
         return (acc + item.quantity);
     }, 0);
@@ -110,6 +110,7 @@ const OrderPage = () => {
         enableFunding: "venmo",
     };
 
+
     if (!loading && order) {
         return  (
             <>
@@ -170,7 +171,7 @@ const OrderPage = () => {
                             </div>
                             <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
                                 <div className={"flex flex-col text-sm"}>
-                                    <span>{order.email || order.user.email}</span>
+                                    <span>{order.email || order.user?.email}</span>
                                 </div>
                             </div>
                         </div>
