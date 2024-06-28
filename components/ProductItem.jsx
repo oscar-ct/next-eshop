@@ -1,7 +1,6 @@
 "use client";
 
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
-// import { useRouter } from 'next/navigation'
 import {motion} from "framer-motion";
 import CustomBtn from "@/components/CustomBtn";
 import ProductItemRating from "@/components/ProductItemRating";
@@ -95,7 +94,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                             {product.name}
                         </div>
                         <div className={`w-full text-xs ${!smallSize ? "sm:text-base" : " flex justify-between items-center"}`}>
-                            <ProductItemRating rating={product.rating} text={`(${product.numReviews})`}/>
+                            <ProductItemRating rating={product.rating} text={`(${product.reviews.length})`}/>
                             {
                                 smallSize && (
                                     <span className={"text-sm font-bold text-slate-500"}>
