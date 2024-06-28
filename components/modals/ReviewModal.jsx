@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import {toast} from "react-hot-toast";
 import CustomBtn from "@/components/CustomBtn";
 import GlobalContext from "@/context/GlobalContext";
-
+import Image from "next/image";
 
 const fetchReviewProduct = async (body, id) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -28,8 +28,7 @@ const fetchReviewProduct = async (body, id) => {
     }
 };
 
-
-const ReviewModal = ({ productId, onPage, setProduct}) => {
+const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
 
     const { user } = useContext(GlobalContext);
 
@@ -37,6 +36,7 @@ const ReviewModal = ({ productId, onPage, setProduct}) => {
     const [title, setTitle] = useState("");
     const [reviewBody, setReviewBody] = useState("");
     const [errorReviewMessage, setErrorReviewMessage] = useState("");
+    const [loadingButton, setLoadingButton] = useState(false);
 
     const closeReviewModal = () => {
         setErrorReviewMessage("");
@@ -46,45 +46,68 @@ const ReviewModal = ({ productId, onPage, setProduct}) => {
 
     const submitProductReview = async (e) => {
         e.preventDefault();
+        setLoadingButton(true);
         if (rating === "0") {
             setErrorReviewMessage("Please select a rating");
-            return
+            setLoadingButton(false);
+            return;
         }
         if (!reviewBody || !title) {
             setErrorReviewMessage("Please fill out all text fields");
-            return
+            setLoadingButton(false);
+            return;
         }
         const body = {
             username: user.name,
-            userId: user._id,
+            userId: user.id,
             rating,
             title,
             comment: reviewBody,
-        }
-        const res = await fetchReviewProduct(body, productId);
-        if (onPage && res) {
-            setProduct(res);
+        };
+        const product = await fetchReviewProduct(body, productId);
+        if (onPage && product) {
+            setProduct(product);
             toast.success("Review added!");
         }
         setErrorReviewMessage("");
         setReviewBody("");
         // setRating("0");
         setTitle("");
+        setLoadingButton(false);
         window.review_modal.close();
     };
 
     return (
         <dialog id="review_modal" className="modal modal-bottom sm:modal-middle">
             <form method="dialog" className="modal-box bg-white">
-                <div className={"flex justify-between items-center"}>
+                <div className={"flex justify-center items-center"}>
                     <h3 className="p-4 font-bold text-xl">Review Product</h3>
+                </div>
+                <div className={"flex justify-center"}>
+                    <Image
+                        alt={"product"}
+                        src={productImageUrl}
+                        className={"h-100 w-100"}
+                        width={100}
+                        height={100}
+                    />
+                </div>
+
+                <div className={"px-4 flex flex-col label"}>
+                    <span className={"label-text py-2"}>Select your rating</span>
                     <div className="rating rating-lg">
-                        <input type="radio" value={"0"} name="rating-2" className="rating-hidden" defaultChecked onChange={(e) => setRating(e.target.value)}/>
-                        <input type="radio"  value={"1"} name="rating-2" className="mask mask-star-2 bg-orange-300" onChange={(e) => setRating(e.target.value)}/>
-                        <input type="radio"  value={"2"} name="rating-2" className="mask mask-star-2 bg-orange-300" onChange={(e) => setRating(e.target.value)}/>
-                        <input type="radio"  value={"3"} name="rating-2" className="mask mask-star-2 bg-orange-300" onChange={(e) => setRating(e.target.value)}/>
-                        <input type="radio"  value={"4"} name="rating-2" className="mask mask-star-2 bg-orange-300" onChange={(e) => setRating(e.target.value)}/>
-                        <input type="radio"  value={"5"} name="rating-2" className="mask mask-star-2 bg-orange-300" onChange={(e) => setRating(e.target.value)}/>
+                        <input type="radio" value={"0"} name="rating-2" className="rating-hidden" defaultChecked
+                               onChange={(e) => setRating(e.target.value)}/>
+                        <input type="radio" value={"1"} name="rating-2" className="mask mask-star-2 bg-orange-300"
+                               onChange={(e) => setRating(e.target.value)}/>
+                        <input type="radio" value={"2"} name="rating-2" className="mask mask-star-2 bg-orange-300"
+                               onChange={(e) => setRating(e.target.value)}/>
+                        <input type="radio" value={"3"} name="rating-2" className="mask mask-star-2 bg-orange-300"
+                               onChange={(e) => setRating(e.target.value)}/>
+                        <input type="radio" value={"4"} name="rating-2" className="mask mask-star-2 bg-orange-300"
+                               onChange={(e) => setRating(e.target.value)}/>
+                        <input type="radio" value={"5"} name="rating-2" className="mask mask-star-2 bg-orange-300"
+                               onChange={(e) => setRating(e.target.value)}/>
                     </div>
                 </div>
 
@@ -93,7 +116,9 @@ const ReviewModal = ({ productId, onPage, setProduct}) => {
                         <label htmlFor={"title"} className="label">
                             <span className="label-text">Add a headline</span>
                         </label>
-                        <input id="title" type="text" placeholder="What's most important to know?" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" value={title} onChange={(e) => {
+                        <input id="title" type="text" placeholder="What's most important to know?"
+                               className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                               value={title} onChange={(e) => {
                             setTitle(e.target.value);
                         }}/>
                     </div>
@@ -101,7 +126,8 @@ const ReviewModal = ({ productId, onPage, setProduct}) => {
                         <label htmlFor={"reviewbody"} className="label">
                             <span className="label-text">Add a review</span>
                         </label>
-                        <textarea id="reviewbody" value={reviewBody} placeholder="What did you like or dislike? What did you use this product for?" className="h-20 bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" onChange={(e) => {
+                        <textarea id="reviewbody" value={reviewBody}
+                                  placeholder="What did you like or dislike? What did you use this product for?" className="h-20 bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" onChange={(e) => {
                             setReviewBody(e.target.value);
                         }}/>
                     </div>
@@ -116,8 +142,11 @@ const ReviewModal = ({ productId, onPage, setProduct}) => {
                 </div>
                 <div className="modal-action">
                     <button onClick={closeReviewModal} className={"btn btn-neutral rounded-full normal-case"}>Cancel</button>
-                    <CustomBtn type={"submit"} onClick={submitProductReview} customClass={"text-sm"}>
-                        Submit
+                    <CustomBtn isDisabled={loadingButton} type={"submit"} onClick={submitProductReview} customClass={"w-28 flex justify-center items-center py-3"}>
+                        {
+                            loadingButton ? <span
+                                className="flex items-center loading loading-bars loading-sm"/> : `Submit`
+                        }
                     </CustomBtn>
                 </div>
             </form>
