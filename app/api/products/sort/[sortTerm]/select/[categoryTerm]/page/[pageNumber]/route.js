@@ -51,7 +51,8 @@ export const GET = async (req, {params}) => {
                 },
                 orderBy: sortTermQuery,
                 include: {
-                    images: true
+                    images: true,
+                    reviews: true
                 }
             });
             // return JSON to api call
@@ -73,7 +74,7 @@ export const GET = async (req, {params}) => {
             },
             orderBy: sortTermQuery,
         };
-        products = await prisma.product.findMany({...query, include: {images: true} })
+        products = await prisma.product.findMany({...query, include: {images: true, reviews: true} })
         count = await prisma.product.count({
             where: {
                 isDisabled: false

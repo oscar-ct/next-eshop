@@ -3,7 +3,6 @@ import prisma from "@/lib/prisma";
 //  GET /api/products/[id]
 
 export const GET = async (req, {params}) => {
-
     try {
         const product = await prisma.product.findFirst({
             where: {

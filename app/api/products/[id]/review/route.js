@@ -1,38 +1,54 @@
-import connectDB from "@/config/db";
-import Product from "@/models/Product";
+import prisma from "@/lib/prisma";
 
 
 // POST api/products/[id]/review
-
 export async function POST(req, {params}) {
-    const {username, userId, rating, comment, title} = await req.json();
     try {
-        await connectDB();
-        console.log(params.id);
-        const product = await Product.findById(params.id);
-        if (!product) {
-            return new Response("No product found", {status: 404});
-        }
-        const alreadyReviewed = product.reviews.find(function(review) {
-            return review.user.toString() === userId.toString();
+        const {username, userId, rating, comment, title} = await req.json();
+        const review = await prisma.review.findFirst({
+            where: {
+                userId: userId,
+                productId: params.id
+            },
+            select: {
+                id: true
+            },
         });
-        if (alreadyReviewed) {
-            return new Response("You already reviewed this product!", {status: 406});
-        }
-        const review = {
-            name: username,
-            title,
-            rating: Number(rating),
-            comment,
-            user: userId,
-        }
-        product.reviews.push(review);
-        product.numReviews = product.reviews.length;
-        const totalRatings = product.reviews.reduce(function (acc, review) {
-            return acc + review.rating;
+        if (review)  return new Response("You already reviewed this product!", {status: 406});
+        const newReview = await prisma.review.create({
+            data: {
+                productId: params.id,
+                userId: userId,
+                name: username,
+                title: title,
+                rating: Number(rating),
+                comment: comment
+            },
+        });
+        if (!newReview)  return new Response("Something went wrong with this review", {status: 406});
+        const ratings = await prisma.review.findMany({
+            where: {
+                productId: params.id
+            },
+            select: {
+                rating: true
+            }
+        });
+        const totalRatings = ratings.reduce((acc, x) => {
+            return acc + x.rating;
         }, 0);
-        product.rating = totalRatings/product.reviews.length;
-        const updatedProduct = await product.save();
+        const updatedProduct = await prisma.product.update({
+            where: {
+                id: params.id
+            },
+            data: {
+                rating: (totalRatings / ratings.length)
+            },
+            include: {
+                reviews: true,
+                images: true
+            }
+        });
         return Response.json(updatedProduct);
     } catch (e) {
         console.log(e);

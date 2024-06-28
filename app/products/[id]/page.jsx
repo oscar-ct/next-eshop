@@ -8,7 +8,6 @@ import 'swiper/css/zoom';
 import 'swiper/css';
 import ProductItemRating from "@/components/ProductItemRating";
 import {FaPen, FaTrash} from "react-icons/fa";
-import {useSession} from "next-auth/react";
 import FormatPrice from "@/components/FormatPrice";
 import CustomBtn from "@/components/CustomBtn";
 import toast from "react-hot-toast";
@@ -24,6 +23,7 @@ import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchReq
 import NotFound from "@/app/not-found";
 import {motion} from "framer-motion";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
+import RatingPlaceholder from "@/components/RatingPlaceholder";
 
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
@@ -51,14 +51,16 @@ const fetchDeleteProductReview = async (body, id, reviewId) => {
 
 const ProductPage = () => {
 
-    const { data: session } = useSession();
-    const router = useRouter();
 
+    const router = useRouter();
     const { dispatch, user } = useContext(GlobalContext);
 
     const {id} = useParams();
+
+
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [loadingDelete, setLoadingDelete] = useState(false);
     const [productsTopRated, setProductsTopRated] = useState(null);
     const [loadingTopRated, setLoadingTopRated] = useState(true);
     const [imageIndex, setImageIndex] = useState(0);
@@ -116,29 +118,29 @@ const ProductPage = () => {
     };
 
     const submitDeleteProductReview = async () => {
+        setLoadingDelete(true);
         const body = {
             sessionUserId: user.id,
-            reviewUserId: reviewData.reviewUserId
+            reviewUserId: reviewData.userId
         }
-        const res = await fetchDeleteProductReview(body, id, reviewData.reviewId);
-        if (res) {
-            setProduct(res);
-            // const productReviews = [...product.reviews];
-            // const updatedProductReviews = productReviews.filter((review) => {
-            //     return review.id !== reviewData.reviewId;
-            // });
+        const product = await fetchDeleteProductReview(body, id, reviewData.reviewId);
+        if (product) {
+            setProduct(product);
             // let updatedProduct = {...product}
             // delete updatedProduct.reviews
             // const finalProduct = {...updatedProduct, reviews: updatedProductReviews}
             // setProduct(finalProduct);
             toast.success("Review deleted!");
+            setLoadingDelete(false);
         }
     };
 
-    const openConfirmModalAndSetReviewData = (reviewId, reviewUserId) => {
-        setReviewData({reviewId, reviewUserId});
+    const deleteReviewModal = (reviewId, userId) => {
+        setReviewData({reviewId, userId});
         window.confirm_modal.showModal();
     };
+
+
 
     if (!loading && fullScreen && product) {
         return (
@@ -183,6 +185,11 @@ const ProductPage = () => {
         )
     }
 
+
+
+
+
+
     if (!loading && product && !loadingTopRated && productsTopRated) {
         return (
             <motion.div
@@ -209,12 +216,12 @@ const ProductPage = () => {
                                         </div>
                                         <div onClick={executeScroll}
                                              className={"pl-4 text-sm font-semibold link-primary cursor-pointer"}>
-                                            {product.numReviews !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
+                                            {product.reviews.length !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
                                         </div>
                                         <div className={"pl-6 flex"}>
                                             <button
                                                 onClick={() => {
-                                                    session ? window.review_modal.showModal() : router.push("/login")
+                                                    user ? window.review_modal.showModal() : router.push("/login")
                                                 }}
                                                 className={"pb-[1px] flex border-b border-gray-400"}
                                             >
@@ -224,12 +231,8 @@ const ProductPage = () => {
                                             </button>
                                         </div>
                                     </div>
-
-                                    {/*<button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>*/}
-                                    {/*</button>*/}
                                 </div>
                             </div>
-                            {/*<div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white md:border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-5"}>*/}
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap"}>
                                 <div className={"flex flex-col lg:w-6/12 xl:w-5/12 2xl:w-4/12"}>
                                     <div className={"w-full flex justify-center sm:border-none bg-stone-100 rounded-lg"}
@@ -264,26 +267,21 @@ const ProductPage = () => {
                                         }
                                     </div>
                                 </div>
-                                <div
-                                    className={"px-2 lg:px-0 lg:w-6/12 xl:w-7/12 2xl:w-8/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
-
-                                    <div
-                                        className={"bg-white lg:bg-transparent px-2 md:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min"}>
-
+                                <div className={"px-2 lg:px-0 lg:w-6/12 xl:w-7/12 2xl:w-8/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
+                                    <div className={"bg-white lg:bg-transparent px-2 md:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min"}>
                                         <div className={"hidden sm:block pb-3"}>
-                                        <span
-                                            className={"text-2xl lg:text-xl 2xl:text-2xl font-semibold"}>{product.name}</span>
+                                            <span className={"text-2xl lg:text-xl 2xl:text-2xl font-semibold"}>{product.name}</span>
                                             <div className={"flex items-center pt-2"}>
                                                 <div>
                                                     <ProductItemRating rating={product.rating}/>
                                                 </div>
                                                 <div className={"pl-4 text-sm font-semibold"}>
-                                                    {product.numReviews !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
+                                                    {product.reviews.length !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
                                                 </div>
                                                 <div className={"pl-6 flex lg:hidden"}>
                                                     <button
                                                         onClick={() => {
-                                                            session ? window.review_modal.showModal() : router.push("/login")
+                                                            user ? window.review_modal.showModal() : router.push("/login")
                                                         }}
                                                         className={"pb-[1px] flex border-b border-gray-400"}
                                                     >
@@ -300,11 +298,9 @@ const ProductPage = () => {
                                             <div className={"flex pt-2 md:hidden text-lg"}>
                                                 {
                                                     product.countInStock > 0 ? (
-                                                        <span
-                                                            className={"font-semibold"}>Remaining in stock: {product.countInStock}</span>
+                                                        <span className={"font-semibold"}>Remaining in stock: {product.countInStock}</span>
                                                     ) : (
-                                                        <span
-                                                            className={"text-red-600 w-full font-semibold flex justify-start"}>Out of stock</span>
+                                                        <span className={"text-red-600 w-full font-semibold flex justify-start"}>Out of stock</span>
                                                     )
                                                 }
                                             </div>
@@ -444,15 +440,15 @@ const ProductPage = () => {
                             <div className={"w-full lg:w-6/12 pr-2 lg:pr-3"}>
                                 <div className={"h-full"}>
                                     <div
-                                        className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex md:bg-zinc-700 md:text-white`}>
+                                        className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl md:bg-zinc-700 md:text-white md:font-semibold`}>
                                         <h2>Customer Reviews
                                             <span
-                                                className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
+                                                className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
                                         </h2>
                                         <div className={"hidden md:flex pr-3"}>
                                             <button
                                                 onClick={() => {
-                                                    session ? window.review_modal.showModal() : router.push("/login")
+                                                    user ? window.review_modal.showModal() : router.push("/login")
                                                 }}
                                                 className={"pb-[1px] flex items-center border-b border-gray-400"}
                                             >
@@ -469,7 +465,7 @@ const ProductPage = () => {
                                             product.reviews.length !== 0 && (
                                                 <div className={"md:hidden w-full flex justify-center"}>
                                                     <button
-                                                        onClick={() => session ? window.review_modal.showModal() : router.push("/login")}
+                                                        onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
                                                         className={"btn btn-neutral btn-sm rounded-full normal-case"}>
                                                         Write a review
                                                     </button>
@@ -480,107 +476,16 @@ const ProductPage = () => {
                                         {
                                             product.reviews.length === 0 && (
                                                 <>
-                                                    <div className={"py-8 md:pt-4 md:pb-8 px-4 flex justify-center"}>
-                                                        <span className={"text-2xl font-light text-center"}>This product does not have any reviews yet</span>
-                                                    </div>
-                                                    <div
-                                                        className={"hidden md:flex w-full px-4 flex-col gap-4 justify-center items-center"}>
-                                                        <div className={"flex items-center"}>
-                                                            <div className="rating rating-sm pr-5">
-                                                                <input disabled type="radio" name="rating-5"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-5"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-5"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-5"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled checked type="radio" name="rating-5"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                            </div>
-                                                            <progress
-                                                                className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                                                                value={0} max="100"/>
-                                                        </div>
-                                                        <div className={"flex items-center"}>
-                                                            <div className="rating rating-sm pr-5">
-                                                                <input disabled type="radio" name="rating-4"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-4"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-4"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled checked type="radio" name="rating-4"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-4"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                            </div>
-                                                            <progress
-                                                                className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                                                                value={0} max="100"/>
-                                                        </div>
-                                                        <div className={"flex items-center"}>
-                                                            <div className="rating rating-sm pr-5">
-                                                                <input disabled type="radio" name="rating-3"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-3"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled checked type="radio" name="rating-3"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-3"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-3"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                            </div>
-                                                            <progress
-                                                                className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                                                                value={0} max="100"/>
-                                                        </div>
-                                                        <div className={"flex items-center"}>
-                                                            <div className="rating rating-sm pr-5">
-                                                                <input disabled type="radio" name="rating-2"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled checked type="radio" name="rating-2"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-2"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-2"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-2"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                            </div>
-                                                            <progress
-                                                                className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                                                                value={0} max="100"/>
-                                                        </div>
-                                                        <div className={"flex items-center"}>
-                                                            <div className="rating rating-sm pr-5">
-                                                                <input disabled checked type="radio" name="rating-1"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-1"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-1"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-1"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                                <input disabled type="radio" name="rating-1"
-                                                                       className="mask mask-star-2 bg-warning"/>
-                                                            </div>
-                                                            <progress
-                                                                className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                                                                value={0} max="100"/>
-                                                        </div>
-                                                    </div>
-
+                                                    <RatingPlaceholder/>
                                                     <div className={"md:hidden w-full flex justify-center pb-8"}>
                                                         <button
-                                                            onClick={() => session ? window.review_modal.showModal() : router.push("/login")}
+                                                            onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
                                                             className={"btn btn-neutral btn-sm rounded-full normal-case"}>
                                                             Write a review
                                                         </button>
                                                     </div>
-
                                                 </>
+
                                             )
                                         }
                                         {
@@ -592,30 +497,31 @@ const ProductPage = () => {
                                                                 <div className={"flex justify-between"}>
                                                                     <div className={"flex items-center"}>
                                                                         <div className="avatar placeholder">
-                                                                            <div
-                                                                                className="bg-neutral-400 text-neutral-content rounded-full w-6">
-                                                                            <span
-                                                                                className="text-xs">{review.name.substring(0, 1).toUpperCase()}</span>
+                                                                            <div className="bg-neutral-400 text-neutral-content rounded-full w-6">
+                                                                                <span className="text-xs">{review.name.substring(0, 1).toUpperCase()}</span>
                                                                             </div>
                                                                         </div>
-                                                                        <span
-                                                                            className={"pl-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
+                                                                        <span className={"pl-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
                                                                     </div>
-                                                                    <div
-                                                                        className={"pb-2 text-xs text-neutral-500 flex items-center"}>
+                                                                    <div className={"pb-2 text-xs text-neutral-500 flex items-center"}>
                                                                         {
-                                                                            user?.id === review.user && (
+                                                                            user?.id === review.userId && !loadingDelete && (
                                                                                 <button
-                                                                                    onClick={() => openConfirmModalAndSetReviewData(review.id, review.user)}
+                                                                                    onClick={() => deleteReviewModal(review.id, review.userId)}
                                                                                     className={"pl-2"}>
                                                                                     <FaTrash fill={"red"}/>
                                                                                 </button>
                                                                             )
                                                                         }
+                                                                        {
+                                                                            loadingDelete && (
+                                                                                <span className="loading loading-bars loading-xs"/>
+                                                                            )
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 <div className={"pt-2 flex items-start"}>
-                                                                    <ProductItemRating rating={review.rating}/>
+                                                                    <ProductItemRating rating={product.rating}/>
                                                                 </div>
                                                             </div>
                                                             <p className={"pt-2 text-sm font-bold"}>
@@ -631,6 +537,7 @@ const ProductPage = () => {
                                                         </div>
                                                     )
                                                 })
+
                                             )
                                         }
                                     </div>
@@ -639,7 +546,7 @@ const ProductPage = () => {
                             <div className={"hidden lg:pr-3 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
                                 <div className={"flex flex-col"}>
                                     <div className={"py-2 px-5 pl-3 bg-zinc-700"}>
-                                        <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
+                                        <h2 className={"text-2xl text-white font-semibold"}>You might also like</h2>
                                     </div>
                                     <div
                                         className={"shadow-lg bg-white sm:px-3 sm:pb-2 flex overflow-x-auto h-full border"}>
@@ -650,7 +557,8 @@ const ProductPage = () => {
                                                     product={product}
                                                     smallSize={true}
                                                     cardWidth={"w-[12em] sm:w-56"}
-                                                    windowInnerWidth={768}/>
+                                                    windowInnerWidth={768}
+                                                />
                                             })
                                         }
                                     </div>
@@ -659,7 +567,7 @@ const ProductPage = () => {
                         </div>
                     </div>
                 </div>
-                <ReviewModal productId={id} onPage={true} setProduct={setProduct}/>
+                <ReviewModal productId={id} onPage={true} setProduct={setProduct} productImageUrl={product.images[0].url}/>
                 <ConfirmModal title={"Are you sure you want to delete this review?"}
                               initiateFunction={submitDeleteProductReview}/>
             </motion.div>
