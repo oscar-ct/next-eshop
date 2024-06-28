@@ -142,7 +142,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                 </div>
                 <div className="modal-action">
                     <button onClick={closeReviewModal} className={"btn btn-neutral rounded-full normal-case"}>Cancel</button>
-                    <CustomBtn isDisabled={loadingButton} type={"submit"} onClick={submitProductReview} customClass={"w-28 flex justify-center items-center py-3"}>
+                    <CustomBtn isDisabled={loadingButton} type={"submit"} onClick={submitProductReview} customClass={"w-28 text-sm flex justify-center items-center py-3"}>
                         {
                             loadingButton ? <span
                                 className="flex items-center loading loading-bars loading-sm"/> : `Submit`
