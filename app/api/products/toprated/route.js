@@ -10,7 +10,8 @@ export const GET = async (req) => {
                 rating: "desc"
             },
             include: {
-                images: true
+                images: true,
+                reviews: true
             }
         })
         return Response.json(products);
