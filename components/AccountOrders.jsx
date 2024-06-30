@@ -61,7 +61,7 @@ const AccountOrders = () => {
                 <ConfirmModal title={"Are you sure you want to cancel? This cannot be undone."} initiateFunction={() => submitCancel()}/>
             </>
         ) : (
-            <h1 className={"mt-5 text-2xl font-bold text-center mx-auto"}>No Orders Found</h1>
+            <h1 className={"mt-5 text-3xl sm:text-2xl sm:font-bold text-center mx-auto"}>No Orders Found</h1>
         )
     );
     return <Loading/>

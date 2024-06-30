@@ -15,15 +15,17 @@ const AccountOrdersPage = async () => {
         <div className={"pt-10 sm:pb-5 flex justify-center"}>
             <div className={"grow max-w-[72rem] flex flex-col"}>
                 <div className={"pb-5 flex justify-center"}>
-                    <div className="bg-zinc-100 tabs tabs-boxed">
+                    <div role="tablist" className="tabs tabs-bordered">
                         <Link
+                            role="tab"
                             href={"/account"}
-                            className={`tab text-black`}>
+                            className={`tab`}>
                             Account
                         </Link>
                         <Link
+                            role="tab"
                             href={"/account/orders"}
-                            className={`tab tab-active !bg-zinc-700 !text-white}`}>
+                            className={`tab tab-active`}>
                             Your Orders
                         </Link>
                     </div>

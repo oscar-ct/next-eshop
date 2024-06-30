@@ -43,9 +43,9 @@ const AccountPasswordForm = () => {
     return (
         <div className="pt-10 sm:pt-12 lg:pt-4 mx-auto sm:w-96 w-full">
             <div className="py-2 sm:bg-zinc-700">
-                <div className="hidden sm:block pl-3 text-xl text-white ibmplex text-center">Update Your Password
+                <div className="hidden sm:block pl-3 text-2xl text-white font-semibold text-center">Update Password
                 </div>
-                <div className="sm:hidden text-3xl text-center">Update Your Password
+                <div className="sm:hidden text-3xl text-center">Update Password
                 </div>
             </div>
             <div className={"md:shadow-lg bg-white sm:border"}>

@@ -46,16 +46,16 @@ const AccountDetailsForm = () => {
     return (
         <div className="h-max sm:pt-4 mx-auto sm:w-96 w-full">
             <div className="py-2 sm:bg-zinc-700">
-                <div className="hidden sm:block pl-3 text-xl text-white ibmplex text-center">User Information
+                <div className="hidden sm:block pl-3 text-2xl font-semibold text-white text-center">Update Email/Username
                 </div>
-                <div className="sm:hidden text-3xl text-center">User Information
+                <div className="sm:hidden text-3xl text-center">Update Email/Username
                 </div>
             </div>
-            <div className={"md:shadow-lg sm:border bg-white"}>
+            <div className={"md:shadow-lg sm:border bg-white border-b-2 sm:border-none"}>
                 <div className={"p-10"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">
-                            <label htmlFor={"name"} className="text-sm font-medium text-gray-700 tracking-wide">Name
+                            <label htmlFor={"name"} className="text-sm font-medium text-gray-700 tracking-wide">Username
                             </label>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -82,7 +82,7 @@ const AccountDetailsForm = () => {
                         </div>
                         <div className="space-y-2">
                             <label htmlFor={"password"} className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
-                                Enter your password to update name and/or email
+                                Confirm password to apply updates
                             </label>
                             <input
                                 className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
