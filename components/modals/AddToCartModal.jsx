@@ -24,16 +24,16 @@ const AddToCartModal = () => {
             <div className="modal-box">
                 <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
                 </form>
-                <div className={"flex items-center pb-3 border-b "}>
-                    <h3 className="font-bold text-lg ">Item has been added to your cart </h3>
+                <div className={"flex items-center pb-3 border-b"}>
+                    <h3 className="font-bold text-lg dark:text-white">Item has been added to your cart </h3>
                     <div className={"ml-2 bg-green-500 rounded-full h-5 w-5 flex items-center justify-center"}>
                         <FaCheck className={"text-white w-2.5"}/>
                     </div>
                 </div>
 
-                <div className={"py-3 flex justify-center gap-3"}>
+                <div className={"py-6 flex justify-center gap-3"}>
                     {
                         cartItems.length !== 0 && (
                             <Image
@@ -46,7 +46,7 @@ const AddToCartModal = () => {
                         )
                     }
                     <div className={"flex flex-col gap-3"}>
-                        <span>{lastCartItem?.name}</span>
+                        <span className={"dark:text-white"}>{lastCartItem?.name}</span>
                     </div>
                 </div>
                 <div className={"flex flex-col sm:flex-row sm:justify-between gap-3"}>
