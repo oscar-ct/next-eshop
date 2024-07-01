@@ -8,6 +8,7 @@ const globalReducer = (state, action) => {
             if (cartItem) {
                 return {
                     ...state,
+                    addToCartId: itemUserAddedToCart.id,
                     cartItems: state.cartItems.map((item) => {
                        return itemUserAddedToCart.id === item.id ? {...itemUserAddedToCart} : item
                     }),
@@ -15,6 +16,7 @@ const globalReducer = (state, action) => {
             } else {
                 return {
                     ...state,
+                    addToCartId: itemUserAddedToCart.id,
                     cartItems: [...state.cartItems, itemUserAddedToCart],
                 }
             }

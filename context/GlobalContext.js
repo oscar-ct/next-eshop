@@ -21,6 +21,7 @@ export function GlobalProvider({ children }) {
         user: null,
         cancelIntentData: null,
         token: "",
+        addToCartId: null,
     };
 
     const [state, dispatch] = useReducer(globalReducer, initialState);
@@ -42,6 +43,7 @@ export function GlobalProvider({ children }) {
             user: state.user,
             cancelIntentData: state.cancelIntentData,
             token: state.token,
+            addToCartId: state.addToCartId,
         }}>
             {children}
         </GlobalContext.Provider>
