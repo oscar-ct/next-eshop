@@ -5,6 +5,7 @@ import {Toaster} from "react-hot-toast";
 import AuthProvider from "@/components/AuthProvider";
 import {GlobalProvider} from "@/context/GlobalContext";
 import Footer from "@/components/Footer";
+import AddToCartModal from "@/components/modals/AddToCartModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({children}) {
                         <main className={"bg-white mt-[48px] md:mt-[68px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-212px)]"}>
                             {children}
                         </main>
+                        <AddToCartModal/>
                         <Footer/>
                     </body>
                 </html>
