@@ -37,8 +37,8 @@ const CartItem = ( {item} ) => {
                     </Link>
                 </div>
 
-                <div className={"w-7/12"}>
-                    <div className={"flex flex-col px-5"}>
+                <div className={"w-6/12 sm:w-7/12"}>
+                    <div className={"flex flex-col pl-4 pr-0 sm:pr-5 sm:pl-5"}>
                         <Link href={`/products/${item.id}`} className={"lg:text-lg font-bold hover:link hover:link-primary"}>
                             {item.name}
                         </Link>
@@ -68,7 +68,7 @@ const CartItem = ( {item} ) => {
                     </div>
                 </div>
 
-                <div className={"w-2/12 flex flex-col items-end justify-between"}>
+                <div className={"w-3/12 sm:w-2/12 flex flex-col items-end justify-between"}>
                     <FormatPrice price={convertCentsToUSD(item.price * item.quantity).toString()} fontSize={"text-xl"}/>
                     <QuantitySelect products={item.countInStock} quantity={item.quantity} item={item}/>
                     <div>
