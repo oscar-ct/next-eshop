@@ -6,7 +6,6 @@ import CustomBtn from "@/components/CustomBtn";
 import ProductItemRating from "@/components/ProductItemRating";
 import Image from "next/image";
 import GlobalContext from "@/context/GlobalContext";
-import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import RevealMotion from "@/components/RevealMotion";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
@@ -30,10 +29,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
         });
         dispatch({type:"UPDATE_CART"});
         dispatch({type: "SET_LOCAL_STORAGE"});
-
-        toast.success(() => {
-            return <span>Added To Cart</span>
-        });
+        window.add_to_cart_modal.showModal();
     }, [dispatch, product, quantity]);
 
 

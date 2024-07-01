@@ -112,9 +112,7 @@ const ProductPage = () => {
         });
         dispatch({type: "UPDATE_CART"});
         dispatch({type: "SET_LOCAL_STORAGE"});
-        toast.success(() => {
-            return <span>Added To Cart</span>
-        });
+        window.add_to_cart_modal.showModal();
     };
 
     const submitDeleteProductReview = async () => {
