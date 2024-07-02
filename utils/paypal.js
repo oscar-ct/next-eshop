@@ -8,9 +8,9 @@ async function getPayPalAccessToken() {
     );
     const url = `${PAYPAL_API_URL}/v1/oauth2/token`;
     const headers = {
-        Accept: 'application/json',
+        'Content-Type': 'application/json',
         'Accept-Language': 'en_US',
-        Authorization: `Basic ${auth}`,
+        'Authorization': `Basic ${auth}`,
     };
     const body = 'grant_type=client_credentials';
     const response = await fetch(url, {
@@ -50,7 +50,6 @@ export async function verifyPayPalPayment(paypalTransactionId) {
         }
     );
     if (!paypalResponse.ok) throw new Error('Failed to verify payment');
-
     const paypalData = await paypalResponse.json();
     return {
         verified: paypalData.status === 'COMPLETED',
