@@ -95,10 +95,10 @@ export async function PUT(req) {
                             }
                         }
                     },
-                    include: {
-                        orderItems: true,
-                        orderPayment: true
-                    }
+                },
+                include: {
+                    orderItems: true,
+                    orderPayment: true
                 }
             });
             return Response.json(updatedOrder);
