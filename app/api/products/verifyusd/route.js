@@ -5,13 +5,20 @@ import prisma from "@/lib/prisma";
 
 export async function POST(req) {
     try {
-        const { orderItems, validCode } = await req.json();
+        const { orderItems, validCode, isNewOrder } = await req.json();
         if (orderItems?.length === 0) {
             return new Response("No products found", {status: 404});
         }
-        const orderItemsIds = orderItems.map((item) => {
-            return item.id || item.productId;
-        })
+        let orderItemsIds;
+        if (isNewOrder) {
+            orderItemsIds = orderItems.map((item) => {
+                return item.id;
+            });
+        } else {
+            orderItemsIds = orderItems.map((item) => {
+                return item.productId;
+            });
+        }
         const itemsFromDB = await prisma.product.findMany({
             where: {
                 id: {
@@ -23,7 +30,12 @@ export async function POST(req) {
             delete itemFromBody.images
             delete itemFromBody.price
             const matchingItemFromDB = itemsFromDB.find((item) => {
-                    const productId = itemFromBody.id || itemFromBody.productId
+                    let productId;
+                    if (isNewOrder) {
+                        productId = itemFromBody.id;
+                    } else {
+                        productId = itemFromBody.productId;
+                    }
                     return item.id === productId;
                 }
             );
