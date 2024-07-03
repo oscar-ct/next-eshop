@@ -73,7 +73,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                         {
                             !saveButtonDisabled && (
                                 <button
-                                    onClick={() => removeFromCartHandler(item._id)}
+                                    onClick={() => removeFromCartHandler(item.id)}
                                     className={"btn-glass btn-xs rounded-full"}
                                 >
                                     <FaTrash className={"text-red-500 text-md"}/>
