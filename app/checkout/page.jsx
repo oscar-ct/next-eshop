@@ -130,7 +130,7 @@ const CheckoutPage = () => {
                                             Review your order
                                         </h1>
                                         <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
-                                            Review your order
+                                            Review and pay
                                         </h1>
                                     </div>
                                     <div className={"md:shadow-lg bg-white md:border px-4 sm:px-7 py-4"}>
@@ -181,7 +181,6 @@ const CheckoutPage = () => {
                                                                     </Link>
                                                                 )
                                                             }
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -263,9 +262,9 @@ const CheckoutPage = () => {
                                     }
                                     <div className={""}>
                                         <h3 className={"md:hidden pt-5 pb-0 md:py-2 text-3xl font-semibold text-center"}>
-                                            Place Order
+                                            Order Summary
                                         </h3>
-                                        <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
+                                        <h3 className={"hidden md:block py-2 text-2xl bg-zinc-700 text-white font-semibold text-center"}>
                                             Place Order
                                         </h3>
                                         <div className={"md:border md:shadow-lg bg-white"}>
