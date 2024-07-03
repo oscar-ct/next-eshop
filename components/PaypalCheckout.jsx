@@ -32,7 +32,8 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
             }
             const totalPriceFromBackend = await fetchVerifiedOrderDollarAmount({
                 orderItems: existingOrder ? existingOrder.orderItems.filter((item) => !item.isCanceled) : cartItems,
-                validCode: existingOrder ? existingOrder.freeShipping : isDiscounted
+                validCode: existingOrder ? existingOrder.freeShipping : isDiscounted,
+                isNewOrder: !existingOrder
             });
 
             if (!existingOrder) {
@@ -42,7 +43,6 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
                 }
             } else {
                 if (totalPriceFromBackend !== existingOrder.totalPrice) {
-
                     toast.error("Something went wrong, please try again later!!!.");
                     return;
                 }
@@ -72,7 +72,7 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
                     }
                 }
             } else {
-                await fetchPayOrder({orderId: existingOrder._id, details});
+                await fetchPayOrder({orderId: existingOrder.id, details});
                 router.refresh();
             }
         });
@@ -82,7 +82,6 @@ const PaypalCheckout = ({createNewOrder, existingOrder, setSaveButtonDisabled}) 
         toast.error(error.message);
         console.log(error || error.data.message);
     };
-
 
     if (!isPending) return (
         <PayPalButtons
