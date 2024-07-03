@@ -8,7 +8,7 @@ async function getPayPalAccessToken() {
     );
     const url = `${PAYPAL_API_URL}/v1/oauth2/token`;
     const headers = {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Accept-Language': 'en_US',
         'Authorization': `Basic ${auth}`,
     };
@@ -25,13 +25,11 @@ async function getPayPalAccessToken() {
 
 export async function checkIfNewTransaction(paypalTransactionId) {
     try {
-        // Find all documents where Order.paymentResult.id is the same as the id passed paypalTransactionId
         const order = await prisma.orderPayment.findFirst({
             where: {
                 transaction_id: paypalTransactionId
             }
         });
-        // If there are no such orders, then it's a new transaction.
        return !order;
     } catch (err) {
         console.error(err);
@@ -45,12 +43,12 @@ export async function verifyPayPalPayment(paypalTransactionId) {
         {
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${accessToken}`,
+                'Authorization': 'Bearer ' + accessToken,
             },
         }
     );
-    if (!paypalResponse.ok) throw new Error('Failed to verify payment');
     const paypalData = await paypalResponse.json();
+    if (!paypalResponse.ok) throw new Error('Failed to verify payment');
     return {
         verified: paypalData.status === 'COMPLETED',
         value: paypalData.purchase_units[0].amount.value,
