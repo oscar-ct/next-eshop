@@ -16,15 +16,15 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
             <div
                 className={`flex w-full mt-5 ${(canceledItems.some(e => e.productId === item.productId) || isCanceled) && "opacity-70"}`}
             >
-                <div className={"w-2/12"}>
-                    <Link className={"rounded-md bg-zinc-100/70 w-full h-full flex justify-center items-center"} href={`/product/${item.productId}`}>
+                <div className={"w-2/12 flex justify-center items-center"}>
+                    <Link className={"rounded-md bg-zinc-100/70 max-w-[175px] max-h-[160px]"} href={`/product/${item.productId}`}>
                         <Image
                             priority
                             src={item.imageUrl}
-                            alt={"cartItem"}
+                            alt={"item"}
                             width={100}
                             height={100}
-                            className={"rounded-md w-full h-auto"}
+                            className={"rounded-md w-full h-auto object-scale-down"}
                         />
                     </Link>
                 </div>

@@ -25,16 +25,15 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
     return (
         <>
             <div className={"flex w-full mt-5"}>
-                <div className={"w-2/12"}>
-                    <Link className={"bg-zinc-100/70 rounded-md w-full h-full flex justify-center items-center"} href={`/products/${item.id}`}>
+                <div className={"w-2/12 flex justify-center items-center"}>
+                    <Link className={"bg-zinc-100/70 rounded-md max-w-[175px] max-h-[160px]"} href={`/products/${item.id}`}>
                         <Image
                             priority
                             src={item.images.length !== 0 ? item.images[0].url : ""}
-                            alt={"checkoutItem"}
-                            width={0}
-                            height={0}
+                            alt={"item"}
+                            width={100}
+                            height={100}
                             className={"rounded-md w-full h-auto"}
-                            sizes="100vw"
                         />
                     </Link>
                 </div>
