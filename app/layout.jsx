@@ -19,10 +19,10 @@ export default async function RootLayout({children}) {
         <GlobalProvider>
             <AuthProvider>
                 <html lang="en">
-                    <body className={`${inter.className} bg-white dark:bg-black`}>
+                    <body className={`${inter.className} bg-zinc-50 dark:bg-black`}>
                         <Toaster/>
                         <Navbar/>
-                        <main className={"bg-white mt-[48px] md:mt-[68px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-212px)]"}>
+                        <main className={"mt-[48px] mx-auto min-h-[calc(100vh-292px)] md:mt-[68px] md:min-h-[calc(100vh-212px)]"}>
                             {children}
                         </main>
                         <AddToCartModal/>
