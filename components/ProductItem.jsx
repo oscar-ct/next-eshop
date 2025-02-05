@@ -18,7 +18,6 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
     const quantity = 1;
 
     const router = useRouter();
-
     const buttonRef = useRef();
     const cardRef = useRef();
 
@@ -57,7 +56,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
 
 
     return (
-        <div ref={cardRef} className={"w-6/12 sm:w-72 p-1 sm:p-3 cursor-pointer relative"}>
+        <div ref={cardRef} className={"w-6/12 p-1 sm:p-3 sm:w-72"}>
             <RevealMotion
                 y={windowInnerWidth <= 768 ? 0 : 35}
                 isSmallScreen={windowInnerWidth <= 768}
@@ -65,7 +64,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                 <motion.div
                     transition={{duration: 0.25}}
                     whileHover={windowInnerWidth >= 768 ? {scale: 1.05} : {scale: 1}}
-                    className={`${cardWidth} rounded-xl border border-gray-300 flex flex-col bg-white h-full md:shadow-md`}
+                    className={`${cardWidth} cursor-pointer rounded-xl border border-gray-300 flex flex-col bg-white h-full sm:shadow-md dark:bg-slate-600 dark:border-none`}
                 >
                     <div
                         onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))}
@@ -75,21 +74,18 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                             <Image
                                 src={product.images.length !== 0 ? product.images[imgIndex].url : "/images/sample.jpg"}
                                 alt="product"
-                                className="w-full bg-zinc-100/20 h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl"
+                                className="w-full bg-zinc-50 h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl dark:bg-white"
                                 width={246}
                                 height={197}
                                 priority={true}
                             />
                         </figure>
                     </div>
-                    <div
-                        className={`card-body p-2 sm:px-4 items-start h-full flex flex-col ${!smallSize ? "justify-between" : "justify-start"}`}
-                    >
-                        <div
-                            className={`w-full h-14 text-concat ${smallSize ? "max-height-2" : ""} text-sm font-semibold`}>
+                    <div className={`card-body p-2 items-start h-full flex flex-col sm:px-4 ${!smallSize ? "justify-between" : "justify-start"}`}>
+                        <div className={`w-full h-14 text-concat text-sm font-semibold dark:text-white ${smallSize ? "max-height-2" : ""} `}>
                             {product.name}
                         </div>
-                        <div className={`w-full text-xs ${!smallSize ? "sm:text-base" : " flex justify-between items-center"}`}>
+                        <div className={`w-full text-xs dark:text-white ${!smallSize ? "sm:text-base" : " flex justify-between items-center"}`}>
                             <ProductItemRating rating={product.rating} text={`(${product.reviews.length})`}/>
                             {
                                 smallSize && (
@@ -101,18 +97,19 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                         </div>
                         {
                             !smallSize && (
-                                <div className={"w-full flex flex-col sm:pt-2 justify-around"}>
-                                    <span className={"sm:text-xl font-bold text-slate-500"}>{convertCentsToUSD(product.price)}</span>
+                                <div className={"w-full flex flex-col justify-around sm:pt-2"}>
+                                    <span
+                                        className={"font-bold text-slate-500 sm:text-xl dark:text-white"}>{convertCentsToUSD(product.price)}</span>
                                     <div ref={buttonRef} className={"my-2 w-10/12 h-full self-center"}>
                                         {
                                             product.countInStock !== 0 ? (
                                                 <motion.button
                                                     whileTap={{scale: 0.9}}
-                                                    className={`w-full relative rounded-full px-5 py-2 text-base overflow-hidden group bg-zinc-600 md:hover:bg-gradient-to-r md:hover:from-violet-600 md:hover:to-violet-500 text-white md:hover:ring-2 md:hover:ring-offset-0 md:hover:ring-violet-500 md:transition-all md:ease-out md:duration-300"}`}
+                                                    className={`w-full relative rounded-full px-5 py-2 text-base overflow-hidden group bg-slate-800 text-white sm:hover:bg-gradient-to-r sm:hover:from-violet-600 sm:hover:to-violet-500 sm:hover:ring-2 sm:hover:ring-offset-0 sm:hover:ring-violet-500 sm:transition-all sm:ease-out sm:duration-300"}`}
                                                     type={"button"}
                                                 >
-                                                    <span className={"md:absolute md:right-0 md:w-8 md:h-32 md:-mt-12 md:transition-all md:duration-500 md:transform md:translate-x-12 md:bg-white md:opacity-10 md:rotate-12 md:group-hover:-translate-x-40 md:ease"}/>
-                                                    <span className={"relative ibmplex text-sm"}>Add To Cart</span>
+                                                    <span className={"sm:absolute sm:right-0 sm:w-8 sm:h-32 sm:-mt-12 sm:transition-all sm:duration-500 sm:transform sm:translate-x-12 sm:bg-white sm:opacity-10 sm:rotate-12 sm:group-hover:-translate-x-40 sm:ease"}/>
+                                                    <span className={"text-sm"}>Add To Cart</span>
                                                 </motion.button>
                                             ) : (
                                                 <CustomBtn isDisabled={true} customClass={"py-2 text-sm w-full"}>
