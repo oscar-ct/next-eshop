@@ -45,19 +45,26 @@ const HomePageSwiper = () => {
                         store any credit card information.
                     </h2>
                     <div className={"flex flex-col w-full justify-evenly items-center gap-4 lg:flex-row"}>
-                        <div className={"text-center font-bold py-5 flex flex-col gap-2 sm:flex-row lg:text-start dark:text-white"}>
-                            <div className={"flex gap-2"}>
-                                <div className={"flex items-center gap-1"}>
-                                    Cash App Pay
-                                    <SiCashapp fill={"#58DA14"}/>
+                        <div
+                            className={"font-bold py-5 text-black text-3xl flex flex-col gap-2 sm:flex-row lg:text-start dark:text-white"}>
+                            <div className={"flex flex-col items-center gap-1 lg:flex-row lg:gap-2"}>
+                                <div className={"flex gap-2"}>
+                                    <div className={"flex items-center gap-2"}>
+                                        Cash App Pay
+                                        <SiCashapp fill={"#58DA14"}/>
+                                    </div>
+                                    <h5>and</h5>
                                 </div>
-                                <span>&</span>
-                                <div className={"flex items-center gap-1"}>
-                                    Afterpay
-                                    <SiAfterpay fill={"#9FF5D6"}/>
+                                <div className={"flex gap-2"}>
+                                    <div className={"flex items-center gap-2"}>
+                                        Afterpay
+                                        <SiAfterpay fill={"#9FF5D6"}/>
+                                    </div>
+                                    <h5>available.</h5>
                                 </div>
+
+
                             </div>
-                            <h5>services available.</h5>
                         </div>
                         <CreditCards/>
                     </div>
