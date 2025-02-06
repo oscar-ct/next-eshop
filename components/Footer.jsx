@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <footer className="bg-zinc-50 h-72 px-4 mx-auto max-w-screen-2xl md:h-56">
             <div className={"h-full flex flex-col items-center justify-evenly opacity-60 md:flex-row md:pt-10"}>
-                <div className={"h-20 w-full md:w-7/12 lg:w-6/12 flex flex-col items-center justify-between md:items-start"}>
+                <div className={"h-28 w-full md:w-7/12 lg:w-6/12 flex flex-col items-center justify-between md:items-start md:h-20"}>
                     <Link href={"/"}>
                         <Image
                             width={36}
@@ -18,7 +18,7 @@ const Footer = () => {
                             alt="eshopjs.com"
                         />
                     </Link>
-                    <div className={"uppercase font-bold flex gap-1"}>
+                    <div className={"uppercase font-bold flex flex-col justify-center items-center  md:flex-row gap-1"}>
                         Designed and developed by
                         <a
                             aria-label="portfolio"
