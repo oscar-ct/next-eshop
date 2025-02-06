@@ -25,27 +25,8 @@ const Navbar = () => {
         return acc + item.quantity
     }, 0);
 
-    const [searchIsActive, setSearchIsActive] = useState(false);
-    const [openNav, setOpenNav] = useState(false);
     const [productsDropdownActive, setProductsDropdownActive] = useState(false);
     const [userDropdownActive, setUserDropdownActive] = useState(false);
-    const [windowInnerWidth, setWindowInnerWidth] = useState(typeof window !== "undefined" && window.innerWidth);
-
-    useEffect(function () {
-        const setInnerWindowWidth = () => {
-            setWindowInnerWidth(window.innerWidth);
-            if (window.innerWidth >= 768 && openNav) {
-                setOpenNav(false);
-            }
-            if (window.innerWidth >= 768 && searchIsActive) {
-                setSearchIsActive(false);
-            }
-        };
-        window.addEventListener("resize", setInnerWindowWidth);
-        return () => {
-            window.removeEventListener("resize", setInnerWindowWidth)
-        }
-    }, [openNav, searchIsActive]);
 
 
     useEffect(() => {
@@ -86,64 +67,83 @@ const Navbar = () => {
     const topRatedLink = "/products/sort/toprated/select/all/page/1";
     const latestProductsLink = "/products/sort/latest/select/all/page/1";
 
-
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);
     }, []);
 
+
     return mounted && (
         <>
-            <nav
-                className={`fixed inset-0 z-30 block h-max w-full rounded-none py-0 bg-white/70 mobileBlur dark:bg-black text-black border-b dark:text-white`}
-            >
-                <div className="px-2 flex justify-between items-center">
-                    <div className={"hidden lg:flex md:items-center cursor-pointer rounded-xl py-2 px-3"}>
+            <div className={"z-40 fixed right-0 top-0 flex md:hidden"}>
+                <NavbarMobile
+                    user={user}
+                    links={{latestProductsLink, myAccountLink, myOrdersLink, topRatedLink, dashboardLink}}
+                />
+            </div>
+            <nav className={"fixed h-12 inset-0 border-b bg-zinc-50 z-30 w-full md:h-16"}>
+                <div className="h-full w-full flex justify-between items-center relative">
+                    <div className={"flex cursor-pointer px-3"}>
                         <motion.div
                             onClick={() => router.push("/")}
                             className={"text-xl flex items-center"}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 1.0 }}
+                            whileHover={{scale: 1.1}}
+                            whileTap={{scale: 1.0}}
                         >
                             <Image
                                 priority
-                                className={"w-6 h-6 mr-1"}
+                                className={"w-6 h-6"}
                                 src={logo}
                                 alt="e-shop-us.com"
                             />
                         </motion.div>
                     </div>
-                    <div className={"hidden lg:flex justify-end"}>
-                        <div className={"flex justify-end"}>
-                            <div className="ml-auto flex items-center gap-1 lg:gap-2">
+
+
+                    <div className={"absolute right-12 md:hidden"}>
+                        <CartIcon
+                            isValidShippingAddress={Object.keys(shippingAddress).length !== 0}
+                            isValidPaymentMethod={paymentMethod !== null}
+                            totalCartItems={totalCartItems}
+                            subtotalPrice={itemsPrice}
+                        />
+                    </div>
+
+
+                    <div className={"hidden md:flex justify-end"}>
+                        <div className={"pr-3"}>
+                            <div className="flex items-center gap-6">
                                 <NavbarSearchBox/>
-                                <div className="flex-none">
-                                    <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} totalCartItems={totalCartItems} subtotalPrice={itemsPrice} windowInnerWidth={windowInnerWidth}/>
-                                </div>
-                                <div
-                                    className="relative inline-block text-left py-2.5"
-                                    onMouseEnter={() => setProductsDropdownActive(true)}
-                                    onMouseLeave={() => setProductsDropdownActive(false)}>
-                                    <div className={"cursor-pointer px-2 h-[3rem] flex items-center"}>
-                                        <span className={"font-normal text-sm pr-1.5"}>Shop</span>
+                                <CartIcon
+                                    isValidShippingAddress={Object.keys(shippingAddress).length !== 0}
+                                    isValidPaymentMethod={paymentMethod !== null}
+                                    totalCartItems={totalCartItems}
+                                    subtotalPrice={itemsPrice}
+                                />
+                                <div className={"relative h-16"}
+                                     onMouseEnter={() => setProductsDropdownActive(true)}
+                                     onMouseLeave={() => setProductsDropdownActive(false)}>
+                                    <div className={"cursor-pointer h-16 flex items-center"}>
+                                        <span className={"font-semibold pr-1.5"}>Shop</span>
                                         <div className={`${rotateChevron(productsDropdownActive)}`}>
                                             <FaChevronDown className={"w-2.5"}/>
                                         </div>
                                     </div>
                                     {
                                         productsDropdownActive && (
-                                            <div className="absolute right-0 z-10 mt-2.5 origin-top-right">
-                                                <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                            <div className="absolute right-0 z-10 origin-top-right">
+                                                <div
+                                                    className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                     <div className={"flex-col w-full"}>
-                                                        <Link href={latestProductsLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                        <Link href={latestProductsLink}
+                                                              className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
                                                             <span className={"w-full text-xl whitespace-nowrap"}>Latest Products</span>
                                                         </Link>
-                                                        <Link href={topRatedLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
-                                                            <span className={"w-full text-xl whitespace-nowrap"}>Top Rated</span>
+                                                        <Link href={topRatedLink}
+                                                              className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
+                                                            <span
+                                                                className={"w-full text-xl whitespace-nowrap"}>Top Rated</span>
                                                         </Link>
-                                                        {/*<Link href={latestProductsLink} className={"block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>*/}
-                                                        {/*    <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>*/}
-                                                        {/*</Link>*/}
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,33 +153,47 @@ const Navbar = () => {
                                 {
                                     user ? (
                                         <div
-                                            className="relative inline-block text-left py-2.5"
+                                            className="relative h-16"
                                             onMouseEnter={() => setUserDropdownActive(true)}
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
-                                            <div className={"cursor-pointer pl-2 pr-4 h-[3rem] flex items-center"}>
-                                                <span className={"font-normal text-sm pr-1.5"}>{user?.name.substring(0, 32)}</span>
+                                            <div className={"cursor-pointer h-16 flex items-center"}>
+                                                <span
+                                                    className={"font-semibold pr-1.5"}>{user?.name.substring(0, 12)}</span>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
                                                     <FaChevronDown className={"w-2.5"}/>
                                                 </div>
                                             </div>
                                             {
                                                 userDropdownActive && (
-                                                    <div className="absolute right-0 z-10 mt-2.5 origin-top-right">
-                                                        <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                                    <div className="absolute right-0 z-10 origin-top-right">
+                                                        <div
+                                                            className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex-col w-full"}>
-                                                                <Link href={myAccountLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap"}>Account</span>
+                                                                <Link
+                                                                    href={myAccountLink}
+                                                                    className={"block px-10 py-5 text-white text-xl whitespace-nowrap hover:bg-white/70 hover:text-black"}
+                                                                >
+                                                                    Account
                                                                 </Link>
-                                                                <Link href={myOrdersLink} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap"}>My Orders</span>
+                                                                <Link
+                                                                    href={myOrdersLink}
+                                                                    className={"block px-10 py-5 text-white text-xl whitespace-nowrap hover:bg-white/70 hover:text-black"}
+                                                                >
+                                                                    My Orders
                                                                 </Link>
-                                                                <Link href={"/locator"} className={"flex items-center px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap pr-2"}>Order Lookup</span>
-                                                                    <FaSearch/>
+                                                                <Link
+                                                                    href={"/locator"}
+                                                                    className={"flex items-center px-10 py-5 hover:bg-white/70 text-white hover:text-black text-xl whitespace-nowrap"}
+                                                                >
+                                                                    <span className={"pr-2"}>Order Lookup</span>
+                                                                    <FaSearch size={14}/>
                                                                 </Link>
-                                                                <button onClick={logoutHandler} className={"w-full text-start block px-10 py-5 rounded-b-md hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap"} >Logout</span>
+                                                                <button
+                                                                    onClick={logoutHandler}
+                                                                    className={"text-start w-full px-10 py-5 text-white text-xl whitespace-nowrap rounded-b-md hover:bg-white/70 hover:text-black"}
+                                                                >
+                                                                    Logout
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -189,17 +203,17 @@ const Navbar = () => {
                                         </div>
                                     ) : (
                                         <div
-                                            className="relative inline-block text-left py-2.5"
+                                            className="relative h-16"
                                             onMouseEnter={() => setUserDropdownActive(true)}
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                         >
-                                            <div className={"cursor-pointer px-2 h-[3rem] flex items-center"}>
+                                            <div className={"cursor-pointer h-16 flex items-center"}>
                                                 <Link href={"/login"}>
                                                     <div
                                                         className="flex items-center"
                                                     >
                                                         <FaUser/>
-                                                        <span className={"px-1.5 font-normal text-sm"}>Login</span>
+                                                        <span className={"px-1.5 font-semibold"}>Login</span>
                                                     </div>
                                                 </Link>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
@@ -208,18 +222,28 @@ const Navbar = () => {
                                             </div>
                                             {
                                                 userDropdownActive && (
-                                                    <div className="absolute right-0 z-10 mt-2.5 origin-top-right">
-                                                        <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                                    <div className="absolute right-0 z-10 origin-top-right">
+                                                        <div
+                                                            className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex-col w-full"}>
-                                                                <Link href={"/login"} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap"}>Login</span>
+                                                                <Link
+                                                                    href={"/login"}
+                                                                    className={"block px-10 py-5 text-white text-xl whitespace-nowrap hover:bg-white/70 hover:text-black"}
+                                                                >
+                                                                    Login
                                                                 </Link>
-                                                                <Link href={"/register"} className={"block px-10 py-5 hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap"}>Create Account</span>
+                                                                <Link
+                                                                    href={"/register"}
+                                                                    className={"block px-10 py-5 text-white text-xl whitespace-nowrap hover:bg-white/70 hover:text-black"}
+                                                                >
+                                                                    Create Account
                                                                 </Link>
-                                                                <Link href={"/locator"} className={"flex items-center px-10 py-5 rounded-b-md hover:bg-white/70 text-white hover:text-black"}>
-                                                                    <span className={"w-full text-xl whitespace-nowrap pr-2"}>Order Lookup</span>
-                                                                    <FaSearch/>
+                                                                <Link
+                                                                    href={"/locator"}
+                                                                    className={"flex items-center px-10 py-5 text-white text-xl whitespace-nowrap rounded-b-md hover:bg-white/70 hover:text-black"}
+                                                                >
+                                                                    <span className={"pr-2"}>Order Lookup</span>
+                                                                    <FaSearch size={14}/>
                                                                 </Link>
                                                             </div>
                                                         </div>
@@ -231,16 +255,14 @@ const Navbar = () => {
                                 }
                                 {
                                     user?.isAdmin && (
-                                        <div className="relative inline-block text-left">
-                                            <div
-                                                onClick={() => router.push(dashboardLink)}
-                                                className={"cursor-pointer btn rounded-full btn-secondary normal-case flex items-center"}
-                                            >
-                                                <div className={"flex flex-col"}>
-                                                    <span>Dashboard</span>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        <Link
+                                            href={dashboardLink}
+                                            className={"cursor-pointer btn rounded-full btn-secondary normal-case flex items-center"}
+                                        >
+                                            Dashboard
+                                        </Link>
+
                                     )
                                 }
                             </div>
@@ -248,7 +270,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <NavbarMobile user={user} latestProductsLink={latestProductsLink} myAccountLink={myAccountLink} myOrdersLink={myOrdersLink} topRatedLink={topRatedLink} windowInnerWidth={windowInnerWidth} cartItems={cartItems} itemsPrice={itemsPrice} paymentMethod={paymentMethod} shippingAddress={shippingAddress} dashboardLink={dashboardLink}/>
+
         </>
     )
 };
