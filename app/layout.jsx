@@ -22,7 +22,7 @@ export default async function RootLayout({children}) {
                     <body className={`${inter.className} bg-zinc-50 dark:bg-black`}>
                         <Toaster/>
                         <Navbar/>
-                        <main className={"mt-[48px] mx-auto min-h-[calc(100vh-292px)] md:mt-[68px] md:min-h-[calc(100vh-212px)]"}>
+                        <main className={"mt-12 mx-auto min-h-[calc(100vh-336px)] md:mt-16 md:min-h-[calc(100vh-288px)]"}>
                             {children}
                         </main>
                         <AddToCartModal/>
