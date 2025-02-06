@@ -2,16 +2,23 @@
 
 import {useState} from "react";
 import {useParams, useRouter} from "next/navigation";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
 
-const SearchBox = () => {
+const SearchBox = ({ toggle }) => {
 
     const router = useRouter();
     const {searchTerm} = useParams();
     const [shake, setShake] = useState(false);
     const [keyword, setKeyword] = useState(searchTerm || "");
+
+    const {width} = useWindowDimensions();
+
     const submitSearch = () => {
         if (keyword.trim()) {
             router.push(`/products/search/${keyword}/page/1`);
+            if (width < 768) {
+                toggle();
+            }
         } else {
             if (!shake) {
                 setShake(true);
