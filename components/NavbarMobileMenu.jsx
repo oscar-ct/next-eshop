@@ -21,7 +21,7 @@ const NavbarMobileMenu = ({ toggle, links, user }) => {
     return (
         <motion.ul className={"z-50 absolute top-14 w-72"} variants={variants}>
             <NavbarMobileMenuItem>
-                <NavbarSearchBox/>
+                <NavbarSearchBox toggle={toggle}/>
             </NavbarMobileMenuItem>
             <NavbarMobileMenuItem>
                 <Link href={"/"} onClick={() => toggle()}>Home</Link>
