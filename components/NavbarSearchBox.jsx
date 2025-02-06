@@ -22,14 +22,18 @@ const SearchBox = () => {
         }
     };
     return (
-        <div className="relative mx-auto" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
+        <div className="relative" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
             <input
-                autoComplete={"off"} className="bg-neutral/50 h-10 pl-5 pr-10 md:w-60 lg:w-72 rounded-full text-[16px] md:text-sm focus:outline-none text-white placeholder-white/70"
-                type="search" name="search" placeholder="Search products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
+                autoComplete={"off"}
+                className="w-full bg-slate-800/70 h-10 pl-5 rounded-full text-base text-white placeholder-white/70 focus:outline-none md:w-72"
+                type="search"
+                name="search"
+                placeholder="Search products"
+                value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
                     e.key === "Enter" && submitSearch()
-            }}
+                }}
             />
-            <button aria-label="search" onClick={submitSearch} type="button" className="absolute right-0 top-0 mt-3 mr-4">
+            <button aria-label="search" onClick={submitSearch} type="button" className="absolute right-0 top-0 flex justify-center items-center h-full w-10 rounded-tr-full rounded-br-full">
                 <svg className="text-white h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                       version="1.1" id="SearchTerm" x="0px" y="0px"
                      viewBox="0 0 56.966 56.966"
@@ -39,7 +43,6 @@ const SearchBox = () => {
                 </svg>
             </button>
         </div>
-
     );
 };
 
