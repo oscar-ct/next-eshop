@@ -76,7 +76,7 @@ const HomePageIntro = () => {
 
         <div className={"bg-opacity-85 sm:mt-10 rounded-2xl bg-zinc-50 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
             <div className={"h-full relative lg:pb-10"}>
-                <h1 className={"py-16 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
+                <h1 className={"py-14 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
                     Welcome to eshopjs.com
                 </h1>
                 <div className={"w-full h-min"}>
@@ -98,7 +98,7 @@ const HomePageIntro = () => {
                         className={"w-full object-cover"}
                     />
                 </motion.div>
-                <h2 className={"py-10 text-center text-xl text-gray-600 font-semibold translate-y-8 lg:py-0 dark:text-white"}>What do we sell?</h2>
+                <h2 className={"py-10 text-center text-xl text-gray-600 font-semibold translate-y-5 lg:py-0 dark:text-white"}>What do we sell?</h2>
             </div>
             <div className={"pt-5 pb-12 w-full flex flex-col items-center justify-center relative lg:h-64 lg:py-0"}>
                 <HomePageIntroCategories/>
