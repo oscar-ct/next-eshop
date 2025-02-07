@@ -1,6 +1,6 @@
 "use client";
 
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams, useRouter, useSearchParams} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
 import Message from "@/components/Message";
@@ -14,6 +14,8 @@ import NotFound from "@/app/not-found";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 import PaypalCheckout from "@/components/PaypalCheckout";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
+import {IoInformationCircleOutline} from "react-icons/io5";
+import {FcDeleteDatabase} from "react-icons/fc";
 
 
 const OrderPage = () => {
@@ -148,40 +150,47 @@ const OrderPage = () => {
                     }
                 </div>
                 {/*TITLE*/}
-                <div className={"lg:pt-5 flex-col flex lg:flex-row w-full md:px-3 lg:pr-0 2xl:container mx-auto"}>
+                <div className={"z-20 px-2 w-full flex-col flex items-center max-w-screen-2xl mx-auto gap-2 sm:gap-8 sm:pt-10 xl:flex-row xl:items-start xl:justify-center"}>
 
                     {/*ORDER DETAILS*/}
-                    <div className={"lg:w-7/12 bg-white md:border h-min px-4 md:p-7"}>
-                        <div className={"pt-5 md:pt-0 pb-5 lg:pb-5 lg:flex"}>
+                    <div
+                        className={"bg-zinc-50 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
+                        <h1 className={"w-full h-16 flex items-start text-center justify-center font-semibold text-3xl"}>
+                            Order Details
+                        </h1>
 
-                            <h1 className={"lg:mx-auto text-2xl font-semibold text-center"}>
-                                Order # {order.id}
-                            </h1>
-                        </div>
-                        <div className={"pb-3"}>
-                            <Message variant={"warning"}>
-                                Please save this order number, you can use it to locate and track your order using our order locator<span className={"link link-primary pl-1"} onClick={() => router.push("/locator")}>tool.</span>
-                            </Message>
-                        </div>
-                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                        {/*<Message variant={"warning"}>*/}
+                        {/*    Please save this order number, you can use it to locate and track your order using our order locator<span className={"link link-primary pl-1"} onClick={() => router.push("/locator")}>tool.</span>*/}
+                        {/*</Message>*/}
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                            <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                 <h3 className={"font-semibold"}>
-                                    Customer Email:
+                                    Order #
                                 </h3>
                             </div>
-                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
+                            <div className={"w-full sm:w-8/12"}>
+                                <span className={"text-sm"}>{order.id}</span>
+                            </div>
+                        </div>
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                            <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                <h3 className={"font-semibold"}>
+                                    Customer Email
+                                </h3>
+                            </div>
+                            <div className={"w-full sm:w-8/12"}>
                                 <div className={"flex flex-col text-sm"}>
                                     <span>{order.email || order.user?.email}</span>
                                 </div>
                             </div>
                         </div>
-                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                            <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                 <h3 className={"font-semibold"}>
-                                    Ship To:
+                                    Ship To Address
                                 </h3>
                             </div>
-                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
+                            <div className={"w-full sm:w-8/12"}>
                                 <div className={"flex flex-col text-sm"}>
                                     <span>{order.name}</span>
                                     <span>{order.address}</span>
@@ -190,14 +199,14 @@ const OrderPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
-                                <h3 className={"font-semibold pr-5"}>
-                                    Payment Method:
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                            <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                <h3 className={"font-semibold"}>
+                                    Payment Method
                                 </h3>
                             </div>
-                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
-                                <div className={"flex items-center xl:items-start"}>
+                            <div className={"w-full sm:w-8/12"}>
+                                <div className={"flex items-center"}>
                                     <div className={"flex flex-col text-sm"}>
                                         {
                                             order.paymentMethod === "PayPal / Credit Card" ? (
@@ -218,56 +227,56 @@ const OrderPage = () => {
                         </div>
                         {
                             order.orderPayment && (
-                                <div className={"flex border-b-[1px] border-gray-300 py-4"}>
-                                    <div className={"w-4/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                                <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                                    <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                         <h3 className={"font-semibold"}>
                                             Transaction #
                                         </h3>
                                     </div>
-                                    <div className={"w-8/12 sm:w-7/12 lg:w-8/12 lex items-center"}>
-                                <span className={"text-xs sm:text-sm px-1"}>
-                                    {order.orderPayment.transaction_id}
-                                </span>
+                                    <div className={"w-full sm:w-8/12"}>
+                                        <span className={"text-sm"}>
+                                            {order.orderPayment.transaction_id}
+                                        </span>
                                     </div>
                                 </div>
                             )
                         }
-                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-start"}>
-                                <h3 className={"font-semibold pr-2"}>
-                                    Order Position:
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                            <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                <h3 className={"font-semibold"}>
+                                    Order Position
                                 </h3>
                             </div>
-                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
-                                <div className={"flex flex-col text-sm pb-3"}>
+                            <div className={"w-full sm:w-8/12"}>
+                                <div className={"flex flex-col text-sm py-3"}>
                                     {
                                         order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
                                             <Message variant={"info"}>
-                                                <span className={"text-start"}>Processing order</span>
+                                                Processing order
                                             </Message>
                                         ) : order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
                                             <Message variant={"success"}>
-                                                <div className={"flex"}>
-                                                    <span className={"text-start truncate"}>Delivered on</span>
-                                                    <span className={"font-bold pl-1"}>{order.deliveredAt.substring(0, 10)}</span>
+                                                <div className={"flex gap-1"}>
+                                                    <span>Delivered on</span>
+                                                    <span>{order.deliveredAt.substring(0, 10)}</span>
                                                 </div>
                                             </Message>
                                         ) : order.isPaid && order.isShipped && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
                                             <Message variant={"info"}>
                                                 <div className={"flex flex-col"}>
-                                                    <span className={"text-start"}>Shipped</span>
+                                                    Shipped
                                                 </div>
                                             </Message>
                                         ) : order.isCanceled || order.orderItems.length === canceledItems?.length ? (
                                             <Message variant={"error"}>
-                                                <div className={"flex"}>
-                                                    <span className={"text-start"}>Canceled on</span>
-                                                    <span className={"font-bold pl-1"}>{order.canceledAt.substring(0, 10)}</span>
+                                                <div className={"flex gap-1"}>
+                                                    <span>Canceled on</span>
+                                                    <span>{order.canceledAt.substring(0, 10)}</span>
                                                 </div>
                                             </Message>
                                         ) : (
                                             <Message variant={"warning"}>
-                                                <span className={"text-start"}>Order is awaiting payment, please pay now.</span>
+                                                Order is awaiting payment, please pay now.
                                             </Message>
                                         )
                                     }
@@ -276,16 +285,16 @@ const OrderPage = () => {
                                     {
                                         order.isPaid ? (
                                             <Message variant={"success"}>
-                                                <div className={"flex flex-wrap items-center"}>
-                                                    <span className={"pr-1"}>Paid</span>
-                                                    <span className={"pr-1 font-bold"}>{convertCentsToUSD(order.paidAmount)}</span>
-                                                    <span className={"pr-1"}>on </span>
-                                                    <span className={"font-bold"}>{order.paidAt.substring(0, 10)}</span>
+                                                <div className={"flex flex-wrap items-center gap-1"}>
+                                                    <span>Paid</span>
+                                                    <span>{convertCentsToUSD(order.paidAmount)}</span>
+                                                    <span>on</span>
+                                                    <span>{order.paidAt.substring(0, 10)}</span>
                                                 </div>
                                             </Message>
                                         ) : (
                                             <Message variant={"error"}>
-                                                <span className={"text-start"}>Not Paid</span>
+                                                Not Paid
                                             </Message>
                                         )
                                     }
@@ -294,20 +303,20 @@ const OrderPage = () => {
                                 {
                                     order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || canceledItems.length > 0) &&
                                     (
-                                        <div className={"flex items-center text-sm"}>
+                                        <div className={"flex items-center text-sm pb-3"}>
                                             {
                                                 order.isReimbursed ? (
                                                     <Message variant={"success"}>
-                                                        <div className={"flex flex-wrap items-center"}>
-                                                            <span className={"pr-1"}>Refunded</span>
-                                                            <span className={"font-bold pr-1"}>{convertCentsToUSD(order.reimbursedAmount)}</span>
-                                                            <span className={"pr-1"}>on </span>
-                                                            <span className={"font-bold"}>{order.reimbursedAt.substring(0, 10)}</span>
+                                                        <div className={"flex flex-wrap items-center gap-1"}>
+                                                            <span>Refunded</span>
+                                                            <span>{convertCentsToUSD(order.reimbursedAmount)}</span>
+                                                            <span>on </span>
+                                                            <span>{order.reimbursedAt.substring(0, 10)}</span>
                                                         </div>
                                                     </Message>
                                                 ) : (
                                                     <Message variant={"info"}>
-                                                        <span className={"text-start"}>Processing refund</span>
+                                                        Processing refund
                                                     </Message>
                                                 )
                                             }
@@ -318,27 +327,29 @@ const OrderPage = () => {
                         </div>
                         {
                             order.isShipped && (
-                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
-                                        <h3 className={"font-semibold pr-2"}>
+                                <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                                    <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                        <h3 className={"font-semibold"}>
                                             Tracking #
                                         </h3>
                                     </div>
-                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
+                                    <div className={"w-full sm:w-8/12"}>
                                         <span className={"text-sm"}>{order.trackingNumber}</span>
                                     </div>
                                 </div>
                             )
                         }
                         <div className={"py-3"}>
-                            <h3 className={"font-semibold"}>
-                                Order Item(s):
+                            <h3 className={"text-center font-semibold sm:text-start"}>
+                                Order Item(s)
                             </h3>
                             <div>
                                 {
                                     order.orderItems.map(function (item) {
                                         return (
-                                            <OrderItem canceledItems={canceledItems} item={item} isCanceled={order.isCanceled} paidAt={order.paidAt} key={item.productId}/>
+                                            <OrderItem canceledItems={canceledItems} item={item}
+                                                       isCanceled={order.isCanceled} paidAt={order.paidAt}
+                                                       key={item.productId}/>
                                         )
                                     })
                                 }
@@ -346,185 +357,161 @@ const OrderPage = () => {
                         </div>
                     </div>
 
-                    <div className={"pt-5 lg:pt-0 px-3 pb-5 lg:pl-5 lg:w-5/12 flex flex-col-reverse md:flex-col"}>
-
-                        <div className={"pt-5 lg:pt-0 pb-5"}>
-                            {/*CANCEL OPTIONS*/}
+                    <div className={"flex flex-col items-center gap-4 w-full sm:max-w-lg"}>
+                        <div
+                            className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
                             {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && canceledItems.length !== order.orderItems.length ? (
-                                    <div className={"px-3 w-full flex justify-end"}>
+                                    <div className={"text-center flex items-center gap-2"}>
+                                        Cancel order
                                         <button
                                             onClick={() => window.confirm_modal.showModal()}
-                                            className={"btn btn-outline bg-white btn-error normal-case btn-sm w-40 md:w-full rounded-full"}
+                                            className={"btn btn-sm rounded-full normal-case"}
                                         >
-                                            Cancel This Order
+                                            <FcDeleteDatabase size={24}/>
                                         </button>
+
                                     </div>
                                 ) : (order.isCanceled || totalNumberOfCanceledItemsThatRequireRefund > 0) && order.isPaid && !order.isReimbursed ? (
-                                    <h5 className={"text-center"}>
+                                    <p className={"text-center text-wrap"}>
                                         Refunds can take up 5-7 business to process.
-                                    </h5>
-                                ) : (order.isCanceled || canceledItems?.length === order.orderItems.length) || order.isDelivered  ? (
-                                    ""
+                                    </p>
+                                ) : (order.isCanceled || canceledItems?.length === order.orderItems.length) || order.isDelivered ? (
+                                    <p className={"text-center text-wrap"}>
+                                        Thank you for checking out eshopjs.com
+                                    </p>
                                 ) : (
-                                    <h5 className={"text-center"}>
+                                    <p className={"text-center text-wrap"}>
                                         This order has shipped and can no longer be canceled.
-                                    </h5>
+                                    </p>
                                 )
                             }
-                            {/*CANCEL OPTIONS*/}
-
                         </div>
 
-                        <div className={"flex flex-col"}>
 
                             {/*ORDER SUMMARY*/}
                             {
                                 order.totalPrice !== 0 && (
-                                    <>
-                                        <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
-                                            {
-                                                order.isPaid ? (
-                                                    "Payment Summary"
-                                                ) : (
-                                                    "Pay Order"
-                                                )
-                                            }
-                                        </h3>
-                                        <h1 className={"md:hidden text-center pt-3 font-semibold text-3xl bg-white px-2"}>
-                                            {
-                                                order.isPaid ? (
-                                                    "Payment Summary"
-                                                ) : (
-                                                    "Pay Order"
-                                                )
-                                            }
+                                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
+                                        <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl"}>
+                                            {order.isPaid ? "Payment Summary" : "Place Order"}
                                         </h1>
-                                        <div className="bg-white md:shadow-lg md:border">
-                                            <div className="pt-0 px-3 md:px-6">
-                                                <div className={"flex flex-col md:pt-6"}>
-                                                    <div className={"md:hidden mt-5 mb-3"}/>
-                                                    <div className={"flex justify-between text-sm my-1"}>
-                                                        <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
-                                                        <span className="pl-2">{convertCentsToUSD(order.itemsPrice)}</span>
-                                                    </div>
-                                                    <div className={"flex justify-between text-sm my-1"}>
-                                                        <span>Shipping & handling:</span>
-                                                        <span className="pl-2">{convertCentsToUSD(order.shippingPrice)}</span>
-                                                    </div>
-                                                    <span className={"self-end w-16 my-1 border-b-[1px] border-grey-500"}/>
-                                                    <div className={"flex justify-between text-sm my-1"}>
-                                                        <span>Total before tax:</span>
-                                                        <span className="pl-2">{convertCentsToUSD(order.itemsPrice + order.shippingPrice)}</span>
-                                                    </div>
-                                                    <div className={"flex justify-between text-sm my-1"}>
-                                                        <span>Estimated tax to be collected:</span>
-                                                        <span className="pl-2">{convertCentsToUSD(order.taxPrice)}</span>
-                                                    </div>
+
+                                        <div className="flex flex-col gap-8">
+
+                                            <div className={"flex flex-col text-sm gap-2"}>
+                                                <div className={"flex justify-between"}>
+                                                    <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
+                                                    <span>{convertCentsToUSD(order.itemsPrice)}</span>
+                                                </div>
+                                                <div className={"flex justify-between"}>
+                                                    <span>Shipping & handling:</span>
+                                                    <span>{convertCentsToUSD(order.shippingPrice)}</span>
+                                                </div>
+                                                <span className={"self-end w-16 my-1 border-b border-grey-700"}/>
+                                                <div className={"flex justify-between"}>
+                                                    <span>Total before tax:</span>
+                                                    <span>{convertCentsToUSD(order.itemsPrice + order.shippingPrice)}</span>
+                                                </div>
+                                                <div className={"flex justify-between"}>
+                                                    <span>Estimated tax to be collected:</span>
+                                                    <span>{convertCentsToUSD(order.taxPrice)}</span>
                                                 </div>
                                             </div>
-                                            <div className={"flex justify-between font-semibold text-lg px-3 md:px-6 pt-6 pb-8"}>
-                                                <span className="text-red-600">Order Total:</span>
-                                                <span className="text-red-600">{convertCentsToUSD(order.taxPrice + order.shippingPrice + order.itemsPrice)}</span>
+                                            <div className={"flex justify-between font-semibold text-lg text-red-600"}>
+                                                <span>Order Total:</span>
+                                                <span>{convertCentsToUSD(order.taxPrice + order.shippingPrice + order.itemsPrice)}</span>
                                             </div>
 
                                             {/*PAYMENT OPTIONS*/}
                                             {
                                                 !order.isPaid && (!order.isCanceled || order.orderItems.length !== canceledItems.length) && (
-                                                    <div className={"px-3 md:px-6 pb-5"}>
-
-                                                        <div className={"border-t-[1px] pb-10"}/>
-
+                                                    <>
                                                         {
                                                             order.paymentMethod === "PayPal / Credit Card" && (
                                                                 <div className={"px-4"}>
                                                                     <PayPalScriptProvider options={initialOptions}>
-                                                                        <PaypalCheckout createNewOrder={() => createNewOrder()} setSaveButtonDisabled={() => null} existingOrder={order}/>
+                                                                        <PaypalCheckout createNewOrder={() => createNewOrder()}
+                                                                                        setSaveButtonDisabled={() => null}
+                                                                                        existingOrder={order}/>
                                                                     </PayPalScriptProvider>
                                                                 </div>
                                                             )
                                                         }
                                                         {
                                                             order.paymentMethod === "Stripe / Credit Card" && (
-                                                                <StripeCheckout existingOrder={order} setSaveButtonDisabled={() => null} setOrder={setOrder}/>
+                                                                <StripeCheckout existingOrder={order}
+                                                                                setSaveButtonDisabled={() => null}
+                                                                                setOrder={setOrder}/>
                                                             )
                                                         }
-                                                    </div>
+                                                    </>
                                                 )
                                             }
-                                        </div>
-                                    </>
-                                )
-                            }
-                            {/*REFUND SUMMARY*/}
-                            {
-                                order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || canceledItems.length > 0) && (
-
-                                    <div className={"mt-5"}>
-                                        <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
-                                            Refund Summary
-                                        </h3>
-                                        <h1 className={"md:hidden pt-5 text-center font-semibold text-3xl bg-white px-2"}>
-                                            Refund Summary
-                                        </h1>
-                                        <div className="bg-white md:border pt-0 px-3 md:px-6 md:shadow-lg">
-                                            <div className={"flex flex-col md:pt-6"}>
-                                                <div className={"md:hidden mt-5 mb-3"}/>
-                                                <div className={"flex justify-between text-sm my-1"}>
-                                                    <span>Items ({totalNumberOfCanceledItemsThatRequireRefund}):</span>
-                                                    <span className="pl-2">{convertCentsToUSD(totalDollarAmountOfCanceledItemsThatRequireRefund)}</span>
-                                                </div>
-                                                {
-                                                    order.isCanceled && (
-                                                        <div className={"flex justify-between text-sm my-1"}>
-                                                            <span>Shipping & handling:</span>
-                                                            <span className="pl-2">{convertCentsToUSD(totalDollarAmountOfShippingRefund)}</span>
-                                                        </div>
-                                                    )
-                                                }
-                                                <div className={"flex justify-between text-sm my-1"}>
-                                                    <span>Tax collected:</span>
-                                                    <span className="pl-2">{convertCentsToUSD(totalTaxDollarAmountThatRequiresRefund)}</span>
-                                                </div>
-                                                <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
-                                                <div className={"flex justify-between text-sm my-1"}>
-                                                    <span>Refund subtotal:</span>
-                                                    <span className="pl-2">
-                                                        {convertCentsToUSD(subtotalDollarAmountThatRequiresRefund)}
-                                                    </span>
-                                                </div>
-                                                {
-                                                    totalDollarAmountOfFees !== 0 && (
-                                                        <div className={"flex text-red-700 justify-between text-sm my-1"}>
-                                                            <div className={"flex items-center"}>
-                                                                <div className="tooltip tooltip-right" data-tip="
-                                                        Non-fundable shipping fee on orders under $100 USD">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                         viewBox="0 0 24 24"
-                                                                         className="stroke-current shrink-0 w-4 h-4">
-                                                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                                                              strokeWidth="2"
-                                                                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                                                    </svg>
-                                                                </div>
-                                                                <span className={"pl-1 "}>Shipping Fee:</span>
-                                                            </div>
-                                                            <span
-                                                                className="pl-2">- {convertCentsToUSD(totalDollarAmountOfFees)}</span>
-                                                        </div>
-                                                    )
-                                                }
-                                                <div className={"flex justify-between font-semibold text-lg pt-6 pb-8"}>
-                                                    <span className="text-green-500">Total Estimated Refund:</span>
-                                                    <span
-                                                        className="text-green-500">{convertCentsToUSD(subtotalDollarAmountThatRequiresRefund - totalDollarAmountOfFees)}</span>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 )
                             }
-                        </div>
+
+
+
+                        {/*REFUND SUMMARY*/}
+                        {
+                            order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || canceledItems.length > 0) && (
+                                <div
+                                    className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
+                                    <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl"}>
+                                        Refund Summary
+                                    </h1>
+                                    <div className="flex flex-col gap-8">
+                                        <div className={"flex flex-col text-sm gap-2"}>
+                                            <div className={"flex justify-between"}>
+                                                <span>Items ({totalNumberOfCanceledItemsThatRequireRefund}):</span>
+                                                <span>{convertCentsToUSD(totalDollarAmountOfCanceledItemsThatRequireRefund)}</span>
+                                            </div>
+                                            {
+                                                order.isCanceled && (
+                                                    <div className={"flex justify-between"}>
+                                                        <span>Shipping & handling:</span>
+                                                        <span>{convertCentsToUSD(totalDollarAmountOfShippingRefund)}</span>
+                                                    </div>
+                                                )
+                                            }
+                                            <span className={"self-end w-16 my-1 border-b border-grey-700"}/>
+                                            <div className={"flex justify-between"}>
+                                                <span>Tax collected:</span>
+                                                <span>{convertCentsToUSD(totalTaxDollarAmountThatRequiresRefund)}</span>
+                                            </div>
+                                            <div className={"flex justify-between"}>
+                                                <span>Refund subtotal:</span>
+                                                <span>{convertCentsToUSD(subtotalDollarAmountThatRequiresRefund)}</span>
+                                            </div>
+                                            {
+                                                totalDollarAmountOfFees !== 0 && (
+                                                    <div className={"flex text-red-700 justify-between"}>
+                                                        <div className={"flex gap-1 items-center"}>
+                                                            <div
+                                                                className="tooltip tooltip-right"
+                                                                data-tip="Non-fundable shipping fee on orders under $100 USD"
+                                                            >
+                                                                <IoInformationCircleOutline size={16}/>
+                                                            </div>
+                                                            <span>Shipping Fee:</span>
+                                                        </div>
+                                                        <span>- {convertCentsToUSD(totalDollarAmountOfFees)}</span>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+                                        <div
+                                            className={"flex justify-between font-semibold text-lg text-green-500"}>
+                                            <span>Estimated Refund:</span>
+                                            <span>{convertCentsToUSD(subtotalDollarAmountThatRequiresRefund - totalDollarAmountOfFees)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
                 <ConfirmModal
