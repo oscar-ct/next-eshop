@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import NavbarMobileMenuItem from "@/components/NavbarMobileMenuItem";
 import Link from "next/link";
 import NavbarSearchBox from "@/components/NavbarSearchBox";
+import {signOut} from "next-auth/react";
+import {useContext} from "react";
+import GlobalContext from "@/context/GlobalContext";
 
-const NavbarMobileMenu = ({ toggle, links, user }) => {
+const NavbarMobileMenu = ({ toggle, links, session }) => {
 
     const variants = {
         open: {
@@ -16,7 +19,14 @@ const NavbarMobileMenu = ({ toggle, links, user }) => {
         }
     };
 
+    const { dispatch } = useContext(GlobalContext);
     const { latestProductsLink, myOrdersLink, myAccountLink, dashboardLink, topRatedLink } = links;
+
+    const logoutHandler = async () => {
+        await signOut({ callbackUrl: '/' });
+        dispatch({type: "RESET_STATE"});
+        toggle();
+    };
 
     return (
         <motion.ul className={"z-50 absolute top-14 w-72"} variants={variants}>
@@ -42,7 +52,7 @@ const NavbarMobileMenu = ({ toggle, links, user }) => {
                 </Link>
             </NavbarMobileMenuItem>
             {
-                user ? (
+                session ? (
                     <>
                         <NavbarMobileMenuItem>
                             <Link href={myAccountLink} onClick={() => toggle()}>
@@ -71,7 +81,7 @@ const NavbarMobileMenu = ({ toggle, links, user }) => {
                 )
             }
             {
-                user?.isAdmin && (
+                session?.user.name.userIsAdmin && (
                     <NavbarMobileMenuItem>
                         <Link href={dashboardLink} onClick={() => toggle()}>
                             Dashboard
@@ -80,9 +90,9 @@ const NavbarMobileMenu = ({ toggle, links, user }) => {
                 )
             }
             {
-                user && (
+                session && (
                     <NavbarMobileMenuItem>
-                        <button onClick={() => toggle()}>
+                        <button onClick={logoutHandler}>
                             Logout
                         </button>
                     </NavbarMobileMenuItem>
