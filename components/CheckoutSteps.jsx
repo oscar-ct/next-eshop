@@ -7,7 +7,7 @@ import {usePathname} from "next/navigation";
 
 const CheckoutSteps = () => {
 
-    const {shippingAddress, paymentMethod} = useContext(GlobalContext);
+    const {cartItems, shippingAddress, paymentMethod} = useContext(GlobalContext);
     const pathname = usePathname();
 
     const [mounted, setMounted] = useState(false);
@@ -35,18 +35,30 @@ const CheckoutSteps = () => {
         return (
             <div className={"flex justify-center pt-5 text-xs sm:text-sm font-semibold"}>
                 <div className={"steps w-full"}>
-                    <Link href={"/cart"} data-content="✓" className={`step step-success ${isCartPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
-                        {step1name}
-                    </Link>
                     {
-                        Object.keys(shippingAddress).length !== 0 ? (
+                        cartItems.length !== 0 ? (
+                            <Link href={"/cart"} data-content="✓" className={`step step-success ${isCartPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                {step1name}
+                            </Link>
+                        ) : (
+                            <button data-content="✕" className={`cursor-default step ${isCartPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                {step1name}
+                            </button>
+                        )
+                    }
+                    {
+                        cartItems.length !== 0 && Object.keys(shippingAddress).length !== 0 ? (
                             <Link data-content="✓" href={"/shipping"} className={`step step-success ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step2name}
                             </Link>
-                        ) : (
+                        ) : cartItems.length !== 0 && Object.keys(shippingAddress).length === 0 ? (
                             <Link data-content="✕" href={"/shipping"} className={`step ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step2name}
                             </Link>
+                        ) : (
+                            <button data-content="✕" className={`cursor-default step ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                {step2name}
+                            </button>
                         )
                     }
                     {
@@ -59,7 +71,7 @@ const CheckoutSteps = () => {
                                 {step3name}
                             </Link>
                         ) : (
-                            <button data-content="✕" className={`step ${isPaymentPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                            <button data-content="✕" className={`cursor-default step ${isPaymentPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step3name}
                             </button>
                         )
@@ -74,7 +86,7 @@ const CheckoutSteps = () => {
                                 {step4name}
                             </Link>
                             ) : (
-                            <button data-content="✕" className={`step ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                            <button data-content="✕" className={`cursor-default step ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                 {step4name}
                             </button>
                         )
