@@ -2,27 +2,21 @@
 
 import {useContext, useEffect, useState} from 'react';
 import GlobalContext from "@/context/GlobalContext";
-import BackButton from "@/components/BackButton";
-import Message from "@/components/Message";
-import Link from "next/link";
 import CustomBtn from "@/components/CustomBtn";
 import CartItem from "@/components/CartItem";
 import {useRouter} from "next/navigation";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
+import {LuPartyPopper} from "react-icons/lu";
 
 const CartPage = () => {
 
     const { user, guestData, cartItems, itemsPrice } = useContext(GlobalContext);
     const router = useRouter();
 
-    const totalNumberOfItems = cartItems.reduce((acc, item) => {
-        return acc + item.quantity
-    }, 0);
-
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
-        setMounted(true)
+        setMounted(true);
     }, []);
 
     const checkoutHandler = () => {
@@ -35,89 +29,66 @@ const CartPage = () => {
         }
     };
 
-
-    if (mounted && cartItems.length === 0) {
-        return (
-            <>
-                <BackButton/>
-                <div className={"px-2"}>
-                    <div className={"pt-16 md:pt-20 px-2"}>
-                        <div className={"text-4xl pb-10 flex justify-center"}>
-                            Shopping Cart (0)
-                        </div>
-                        <Message variant={"info"}>
-                            You have no items in your cart.  Click <Link href={"/products/sort/latest/select/all/page/1"} className={"link link-primary"}>here</Link> to continue shopping.
-                        </Message>
-                    </div>
-                </div>
-            </>
-        )
-    }
-
-    if (mounted && cartItems.length !== 0) {
+    if (mounted) {
         return (
             <>
                 <CheckoutSteps/>
-                <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 2xl:container mx-auto"}>
-                    <div className={"lg:w-full h-min"}>
-                        <div className={"px-3 pt-4 flex flex-col items-center"}>
-                            <div
-                                className={"text-3xl md:text-4xl font-semibold pt-3 md:pt-10 flex justify-center text-center"}>
-                                Your cart total is {convertCentsToUSD(itemsPrice)}
+                {
+                    cartItems.length === 0 ? (
+                        <div className={"px-2 flex m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
+                            <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg"}>
+                                <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
+                                    Your cart is empty.
+                                </div>
+                                <CustomBtn onClick={() =>  router.push("/")}>
+                                    Continue Shopping
+                                </CustomBtn>
                             </div>
-                            <div className={"pt-8 md:pt-10 text-center text-sm"}>
-                                Taxes and shipping will be calculated at checkout
-                            </div>
-                            <div className={"pt-8 md:pt-10"}>
+                        </div>
+                    ) : (
+                        <div className={"px-2 flex flex-col gap-6 m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
+                            <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg"}>
+                                <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
+                                    Your cart total is {convertCentsToUSD(itemsPrice)}
+                                </div>
+                                <div className={"text-center text-sm"}>
+                                    Taxes and shipping will be calculated at checkout
+                                </div>
                                 <CustomBtn onClick={checkoutHandler}>
                                     Proceed To Checkout
                                 </CustomBtn>
                             </div>
-                        </div>
-                        <div className={"pt-8 md:pt-10 px-3 sm:px-0"}>
-                            {
-                                itemsPrice > 10000 ? (
-                                    <div className={"pb-3 w-full"}>
-                                        <Message variant={"success"}>
-                                            <span className={"text-sm"}>Your order qualifies for FREE shipping!</span>
-                                        </Message>
-                                    </div>
-                                ) : (
-                                    <div className={"pb-3 w-full"}>
-                                        <Message variant={"info"}>
-                                            <span className={"text-sm"}>Add <span
-                                                className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
-                                        </Message>
-                                    </div>
-                                )
-                            }
-                        </div>
-                        <div>
-                            <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white font-semibold"}>
-                                Shopping Cart (
-                                <span className={"text-2xl md:text-xl md:font-light"}>
-                                    {totalNumberOfItems}
-                                    {
-                                        totalNumberOfItems === 1 ? (
-                                            " Item"
-                                        ) : (
-                                            " Items"
-                                        )
-                                    }</span>
-                                )
-                            </h1>
-                        </div>
-                        <div className={"md:shadow-lg bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
-                            {
-                                cartItems.map(function (item) {
-                                    return (
-                                        <CartItem item={item} key={item.id}/>
+                            <div className={"z-20 bg-opacity-70 bg-zinc-50 sm:bg-opacity-70 mx-auto w-full h-20 rounded-2xl flex justify-center items-center sm:bg-white sm:shadow-lg"}>
+                                {
+                                    itemsPrice > 10000 ? (
+                                        <div className={"text-center flex items-center gap-2"}>
+                                            Your order qualifies for FREE shipping!
+                                            <LuPartyPopper size={30}/>
+                                        </div>
+                                    ) : (
+                                        <p className={"text-center flex gap-1"}>
+                                            Add
+                                            <span className={"font-bold"}>
+                                                {convertCentsToUSD(10000 - itemsPrice)}
+                                            </span>
+                                            to your order to qualify for FREE shipping.
+                                        </p>
                                     )
-                                })
-                            }
+                                }
+                            </div>
+                            <div
+                                className={"z-20 bg-zinc-50 border p-8 rounded-2xl overflow-y sm:border-none sm:bg-white sm:shadow-lg"}>
+                                {
+                                    cartItems.map(function (item) {
+                                        return (
+                                            <CartItem item={item} key={item.id}/>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    )
+                }
                 <dialog id="checkout_modal" className="modal modal-bottom sm:modal-middle">
                     <form method="dialog" className="modal-box bg-white">
                         <div className="p-3">
