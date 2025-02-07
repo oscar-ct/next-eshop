@@ -58,8 +58,8 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
     return (
         <div ref={cardRef} className={"w-6/12 p-1 sm:p-3 sm:w-72"}>
             <RevealMotion
-                y={windowInnerWidth <= 768 ? 0 : 35}
-                isSmallScreen={windowInnerWidth <= 768}
+                y={35}
+                isSmallScreen={false}
             >
                 <motion.div
                     transition={{duration: 0.25}}
