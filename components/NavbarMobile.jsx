@@ -7,7 +7,7 @@ import NavbarMobileMenuToggle from "@/components/NavbarMobileMenuToggle";
 import NavbarMobileMenu from "@/components/NavbarMobileMenu";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
-const NavbarMobile = ({ links, user }) => {
+const NavbarMobile = ({ session, links }) => {
     const sidebar = {
         open: (height = 1000) => ({
             clipPath: `circle(${height * 2 + 200}px at 265px 25px)`,
@@ -49,7 +49,7 @@ const NavbarMobile = ({ links, user }) => {
             className={"w-72"}
         >
             <motion.div className={`fixed top-0 right-0 bottom-0 w-72 bg-zinc-200 bg-opacity-95 dark:bg-slate-800`} variants={sidebar} />
-            <NavbarMobileMenu user={user} links={links} toggle={() => toggleOpen()}/>
+            <NavbarMobileMenu session={session} links={links} toggle={() => toggleOpen()}/>
             <NavbarMobileMenuToggle toggle={() => toggleOpen()} />
         </motion.nav>
     );
