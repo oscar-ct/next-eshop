@@ -66,13 +66,9 @@ const CartPage = () => {
                                             <LuPartyPopper size={30}/>
                                         </div>
                                     ) : (
-                                        <p className={"text-center flex gap-1"}>
-                                            Add
-                                            <span className={"font-bold"}>
-                                                {convertCentsToUSD(10000 - itemsPrice)}
-                                            </span>
-                                            to your order to qualify for FREE shipping.
-                                        </p>
+                                        <div className={"text-center"}>
+                                            <span>Add <span className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
+                                        </div>
                                     )
                                 }
                             </div>

@@ -244,14 +244,15 @@ const CheckoutPage = () => {
                                         <LuPartyPopper size={30}/>
                                     </div>
                                 ) : (
-                                    <p className={"text-center flex gap-1 text-wrap"}>
-                                        Add<span className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span>
-                                        to your order to qualify for FREE shipping.
-                                    </p>
+                                    <div className={"text-center"}>
+                                        <span>Add <span
+                                            className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
+                                    </div>
                                 )
                             }
                         </div>
-                        <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
+                        <div
+                            className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
                             <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl"}>
                                 Place Order
                             </h1>
