@@ -3,7 +3,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
-import {useSession} from "next-auth/react";
 import CustomBtn from "@/components/CustomBtn";
 import Select from "react-select";
 import {customStyles} from "@/utils/selectCustomStyles";
@@ -14,7 +13,6 @@ import {fetchUserAddress} from "@/utils/api-requests/fetchRequests";
 
 const ShippingPage = () => {
 
-    const { data: session } = useSession();
     const router = useRouter();
 
     const { user, shippingAddress, cartItems, guestData, dispatch } = useContext(GlobalContext);

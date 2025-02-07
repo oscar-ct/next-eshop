@@ -8,8 +8,6 @@ import stripe from "@/icons/stripe-logo.svg";
 import Image from "next/image";
 import CustomBtn from "@/components/CustomBtn";
 import CheckoutSteps from "@/components/CheckoutSteps";
-import Loading from "@/app/loading";
-
 
 const PaymentPage = () => {
 
