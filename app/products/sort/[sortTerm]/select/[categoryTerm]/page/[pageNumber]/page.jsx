@@ -78,18 +78,18 @@ const ProductsPage = () => {
                         </div>
                         <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
                     </div>
-                    <div className={"pt-14 lg:pt-0"}>
+                    <div className={"pt-20 lg:pt-14"}>
                         <div className={"flex justify-between"}>
                             <div className={"w-full p-1 flex items-center"}>
                                 <div className={"flex w-full"}>
                                     <div className={"flex flex-col justify-between items-center w-6/12"}>
-                                        <p className={"p-1 pr-2 text-sm"}>Category</p>
+                                        <p className={"p-1 text-sm"}>Category</p>
                                         <div className={"px-2 w-full lg:w-96"}>
                                             <SelectMenuCategory sortTerm={sortTerm} categoryTerm={categoryTerm} pageNumber={pageNumber} customStyles={customStyles}/>
                                         </div>
                                     </div>
                                     <div className={"flex flex-col justify-between items-center w-6/12"}>
-                                        <p className={"p-1 pr-2 text-sm"}>Sort By</p>
+                                        <p className={"p-1 text-sm"}>Sort By</p>
                                         <div className={"px-2 w-full lg:w-96"}>
                                             <SelectMenuSort sortTerm={sortTerm} categoryTerm={categoryTerm} pageNumber={pageNumber} customStyles={customStyles}/>
                                         </div>
@@ -98,7 +98,7 @@ const ProductsPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"w-full flex flex-wrap justify-center pt-3"}>
+                    <div className={"w-full flex flex-wrap justify-center pt-6"}>
                         {
                             products.products.length !== 0 ? (
                                 products.products.map(function (product) {
