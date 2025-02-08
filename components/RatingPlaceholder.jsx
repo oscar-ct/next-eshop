@@ -1,96 +1,80 @@
+import {IoStarSharp} from "react-icons/io5";
 
 const RatingPlaceholder = () => {
+
+    const fill = "gold";
+    const size = 20;
+    const opacity = 0.4;
+
     return (
         <>
-            <div className={"py-8 md:pt-4 md:pb-8 px-4 flex justify-center"}>
-                <span className={"text-xl font-light text-center"}>This product does not have any reviews</span>
-            </div>
+            <h2 className={"py-4 text-xl font-light text-center"}>This product does not have any reviews yet</h2>
             <div
-                className={"hidden md:flex w-full px-4 flex-col gap-4 justify-center items-center"}>
-                <div className={"flex items-center"}>
-                    <div className="rating rating-sm pr-5">
-                        <input disabled type="radio" name="rating-5"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-5"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-5"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-5"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled checked type="radio" name="rating-5"
-                               className="mask mask-star-2 bg-warning"/>
+                className={"flex w-full px-4 flex-col gap-4 justify-center items-center"}>
+                <div className={"w-full flex items-center gap-4"}>
+                    <div className="flex">
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                        value={0} max="100"/>
+                        className="progress progress-warning w-full"
+                        value={0} max="100"
+                    />
                 </div>
-                <div className={"flex items-center"}>
-                    <div className="rating rating-sm pr-5">
-                        <input disabled type="radio" name="rating-4"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-4"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-4"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled checked type="radio" name="rating-4"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-4"
-                               className="mask mask-star-2 bg-warning"/>
+                <div className={"w-full flex items-center gap-4"}>
+                    <div className="flex">
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                        value={0} max="100"/>
+                        className="progress progress-warning w-full"
+                        value={0} max="100"
+                    />
                 </div>
-                <div className={"flex items-center"}>
-                    <div className="rating rating-sm pr-5">
-                        <input disabled type="radio" name="rating-3"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-3"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled checked type="radio" name="rating-3"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-3"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-3"
-                               className="mask mask-star-2 bg-warning"/>
+                <div className={"w-full flex items-center gap-4"}>
+                    <div className="flex">
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                        value={0} max="100"/>
+                        className="progress progress-warning w-full"
+                        value={0} max="100"
+                    />
                 </div>
-                <div className={"flex items-center"}>
-                    <div className="rating rating-sm pr-5">
-                        <input disabled type="radio" name="rating-2"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled checked type="radio" name="rating-2"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-2"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-2"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-2"
-                               className="mask mask-star-2 bg-warning"/>
+                <div className={"w-full flex items-center gap-4"}>
+                    <div className="flex">
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                        value={0} max="100"/>
+                        className="progress progress-warning w-full"
+                        value={0} max="100"
+                    />
                 </div>
-                <div className={"flex items-center"}>
-                    <div className="rating rating-sm pr-5">
-                        <input disabled checked type="radio" name="rating-1"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-1"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-1"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-1"
-                               className="mask mask-star-2 bg-warning"/>
-                        <input disabled type="radio" name="rating-1"
-                               className="mask mask-star-2 bg-warning"/>
+                <div className={"w-full flex items-center gap-4"}>
+                    <div className="flex">
+                        <IoStarSharp fill={fill} size={size}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
+                        <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]"
-                        value={0} max="100"/>
+                        className="progress progress-warning w-full"
+                        value={0} max="100"
+                    />
                 </div>
             </div>
         </>
