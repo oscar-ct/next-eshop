@@ -16,12 +16,10 @@ import BackButton from "@/components/BackButton";
 import BackButtonMessage from "@/components/BackButtonMessage";
 import Image from "next/image";
 import Loading from "@/app/loading";
-import ProductItem from "@/components/ProductItem";
 import ReviewModal from "@/components/modals/ReviewModal";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchRequests";
 import NotFound from "@/app/not-found";
-import {motion} from "framer-motion";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import RatingPlaceholder from "@/components/RatingPlaceholder";
 

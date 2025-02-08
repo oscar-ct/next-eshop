@@ -1,4 +1,4 @@
-export async function generateMetadata({ params, searchParams }) {
+export async function generateMetadata({ params }) {
     const sortTerm = params.sortTerm
     const categoryTerm = params.categoryTerm
     return {

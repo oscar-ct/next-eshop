@@ -15,7 +15,7 @@ export const GET = async (req, {params}) => {
         const categoryTermString = categoryTerm || "";
 
         const page = pageNumber || 1;
-        const pageSize = 16;
+        const pageSize = 15;
 
         const validQueries = ["toprated", "latest", "price-asc","price-desc"];
 
