@@ -56,7 +56,7 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
 
 
     return (
-        <div ref={cardRef} className={"w-6/12 p-1 sm:p-3 sm:w-72"}>
+        <div ref={cardRef} className={"z-20 w-6/12 p-1 sm:p-3 sm:w-72"}>
             <RevealMotion
                 y={35}
                 isSmallScreen={false}
