@@ -44,10 +44,10 @@ const PaymentPage = () => {
             <CheckoutSteps/>
             <div className={"px-2 w-full flex justify-center sm:pt-10"}>
                 <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
-                    <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl text-center"}>
+                    <h1 className={"h-20 flex items-start justify-center font-semibold text-3xl text-center sm:h-16"}>
                         Select your payment method
                     </h1>
-                    <form onSubmit={submitPaymentMethod} className={"pt-5 space-y-5"}>
+                    <form onSubmit={submitPaymentMethod} className={"pt-3 space-y-5"}>
                         <div
                             className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "PayPal / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
                             onClick={() => setPaymentMeth("PayPal / Credit Card")}
