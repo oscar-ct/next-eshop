@@ -21,7 +21,7 @@ const Navbar = async () => {
 
     return (
         <>
-            <div className={"z-40 fixed right-0 top-0 flex md:hidden"}>
+            <div className={"z-50 fixed right-0 top-0 flex md:hidden"}>
                 <NavbarMobile
                     session={session}
                     links={{latestProductsLink,
@@ -31,7 +31,7 @@ const Navbar = async () => {
                     dashboardLink}}
                 />
             </div>
-            <div className={"fixed h-12 inset-0 border-b bg-zinc-50 z-30 w-full md:h-16"}>
+            <div className={"z-40 fixed h-12 inset-0 border-b bg-zinc-50 w-full md:h-16"}>
                 <div className="h-full w-full flex justify-between items-center relative">
                     <div className={"flex cursor-pointer px-3"}>
                         <Link
