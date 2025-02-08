@@ -5,6 +5,7 @@ export const customStyles = {
         borderRadius: 0,
         cursor: "pointer",
         fontSize: "16px",
+        zIndex: 30
     }),
     option: (base, {isDisabled, isFocused, isSelected}) => {
         return {
@@ -30,11 +31,12 @@ export const customStyles = {
         ...base,
         cursor: "pointer",
         borderRadius: 0,
+        zIndex: 30
     }),
     menuList: base => ({
         ...base,
         padding: 0,
         cursor: "pointer",
-        fontSize: "16px"
+        fontSize: "16px",
     })
 };
