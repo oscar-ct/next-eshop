@@ -46,7 +46,7 @@ const CartPage = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className={"px-2 flex flex-col gap-6 m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
+                        <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-6 sm:pt-10 lg:px-8"}>
                             <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg"}>
                                 <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
                                     Your cart total is {convertCentsToUSD(itemsPrice)}
