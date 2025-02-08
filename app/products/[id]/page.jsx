@@ -22,6 +22,7 @@ import {fetchProduct, fetchTopRatedProducts} from "@/utils/api-requests/fetchReq
 import NotFound from "@/app/not-found";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import RatingPlaceholder from "@/components/RatingPlaceholder";
+import {MdOutlineRateReview} from "react-icons/md";
 
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
@@ -192,8 +193,8 @@ const ProductPage = () => {
                     <div className={"bg-zinc-50 z-20 px-4 py-8 w-full flex-col flex items-center rounded-2xl gap-4 sm:gap-4 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none md:max-w-3xl"}>
                         <div className={"flex flex-col gap-4"}>
                             <h2 className={"text-2xl text-center sm:text-3xl"}>{product.name}</h2>
-                            <div className={"flex items-center gap-6"}>
-                                <div className={"flex"}>
+                            <div className={"flex items-center justify-between"}>
+                                <div className={"flex gap-2"}>
                                     <ProductItemRating rating={product.rating}/>
                                     <div onClick={executeScroll}
                                          className={"text-sm font-semibold link-primary cursor-pointer"}>
@@ -244,15 +245,15 @@ const ProductPage = () => {
                                 }
                             </div>
                         </div>
-                        <div className={"flex flex-col gap-4"}>
+                        <div className={"flex flex-col gap-6"}>
                             <div className={"flex justify-between"}>
                                 <FormatPrice
                                     price={convertCentsToUSD(product.price).toString()}
-                                    fontSize={"text-3xl"}
+                                    fontSize={"text-4xl"}
                                 >
                                     /ea.
                                 </FormatPrice>
-                                <div className={"text-lg font-semibold"}>
+                                <div className={"text-lg"}>
                                     {
                                         product.countInStock > 0 ? (
                                             <div>
@@ -266,8 +267,8 @@ const ProductPage = () => {
                                     }
                                 </div>
                             </div>
-                            <h6 className={"text-lg font-bold"}>
-                                Specifications --
+                            <h6 className={"text-lg"}>
+                                About this product --
                             </h6>
                             <div className={"text-sm flex flex-col w-full gap-4 md:gap-0 md:flex-row"}>
                                 <div className={"flex flex-col w-full gap-4 md:w-6/12"}>
@@ -335,8 +336,8 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <h6 className={"text-lg font-bold"}>
-                                About this product --
+                            <h6 className={"text-lg"}>
+                                Description --
                             </h6>
                             <div className={"xl:hidden flex flex-col"}>
                                 <p>
@@ -470,14 +471,14 @@ const ProductPage = () => {
                                 <span className={"pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
                             </h2>
                             <div>
-                            {/*<div className={"lg:max-h-96 lg:overflow-y-auto"}>*/}
+                                {/*<div className={"lg:max-h-96 lg:overflow-y-auto"}>*/}
                                 {
                                     product.reviews.length !== 0 && (
                                         <div className={"w-full flex justify-center"}>
                                             <button
                                                 onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
-                                                className={"btn btn-sm rounded-full normal-case"}>
-                                                Write a review
+                                                className={"btn btn-sm btn-neutral rounded-full"}>
+                                                <MdOutlineRateReview size={26}/>
                                             </button>
                                         </div>
                                     )
@@ -488,8 +489,8 @@ const ProductPage = () => {
                                             <div className={"w-full flex justify-center"}>
                                                 <button
                                                     onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
-                                                    className={"btn btn-sm rounded-full normal-case"}>
-                                                    Write a review
+                                                    className={"btn btn-sm btn-neutral rounded-full"}>
+                                                    <MdOutlineRateReview size={26}/>
                                                 </button>
                                             </div>
                                             <RatingPlaceholder/>
