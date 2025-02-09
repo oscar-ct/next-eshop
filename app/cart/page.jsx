@@ -73,7 +73,7 @@ const CartPage = () => {
                                 }
                             </div>
                             <div
-                                className={"z-20 bg-zinc-50 border p-8 rounded-2xl overflow-y sm:border-none sm:bg-white sm:shadow-lg"}>
+                                className={"z-20 bg-zinc-50 p-8 rounded-2xl overflow-y sm:border-none sm:bg-white sm:shadow-lg"}>
                                 {
                                     cartItems.map(function (item) {
                                         return (

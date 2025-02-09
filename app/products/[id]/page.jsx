@@ -253,21 +253,21 @@ const ProductPage = () => {
                                 >
                                     /ea.
                                 </FormatPrice>
-                                <div className={"text-lg"}>
+                                <div className={"text-lg flex items-end"}>
                                     {
                                         product.countInStock > 0 ? (
-                                            <div>
+                                            <div className={"text-green-500 font-semibold"}>
                                                 Remaining in stock: {product.countInStock}
                                             </div>
                                         ) : (
-                                            <div className={"text-red-600"}>
+                                            <div className={"text-red-600 font-semibold"}>
                                                 Out of Stock
                                             </div>
                                         )
                                     }
                                 </div>
                             </div>
-                            <h6 className={"text-lg"}>
+                            <h6 className={"text-lg font-semibold"}>
                                 About this product --
                             </h6>
                             <div className={"text-sm flex flex-col w-full gap-4 md:gap-0 md:flex-row"}>
@@ -336,7 +336,7 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <h6 className={"text-lg"}>
+                            <h6 className={"text-lg font-semibold"}>
                                 Description --
                             </h6>
                             <div className={"xl:hidden flex flex-col"}>

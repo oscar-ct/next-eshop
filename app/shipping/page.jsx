@@ -234,47 +234,44 @@ const ShippingPage = () => {
                                         required
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <div className={"flex w-full"}>
-                                        <div className={"w-8/12 md:w-6/12 pr-2"}>
-                                        <span className="text-sm font-medium text-gray-700 tracking-wide">
-                                            State
-                                        </span>
-                                            <Select placeholder={"Select State"}
-                                                    options={states}
-                                                    styles={{
-                                                        ...customStyles, control: (base) => ({
-                                                            ...base,
-                                                            padding: "2px",
-                                                            borderRadius: 6,
-                                                            cursor: "pointer",
-                                                            fontSize: "16px",
-                                                        }),
-                                                    }}
-                                                    id={state}
-                                                    value={states.filter(obj => obj.value === shippingData.state)}
-                                                    onChange={onChangeSelect}
-                                            />
-                                        </div>
-                                        <div className={"w-4/12 md:w-6/12 pl-2"}>
-                                            <label htmlFor={"postalCode"}
-                                                   className="text-sm font-medium text-gray-700 tracking-wide">
-                                                Zip Code
-                                            </label>
-                                            <input
-                                                className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
-                                                autoComplete={"locality"}
-                                                type={"text"}
-                                                placeholder={"78205"}
-                                                id={"postalCode"}
-                                                value={postalCode}
-                                                onChange={onChange}
-                                                required
-                                            />
-                                        </div>
+                                <div className={"flex w-full gap-4"}>
+                                    <div className={"w-8/12 md:w-6/12 space-y-2"}>
+                                    <span className="text-sm font-medium text-gray-700 tracking-wide">
+                                        State
+                                    </span>
+                                        <Select placeholder={"Select State"}
+                                                options={states}
+                                                styles={{
+                                                    ...customStyles, control: (base) => ({
+                                                        ...base,
+                                                        padding: "2px",
+                                                        borderRadius: 6,
+                                                        cursor: "pointer",
+                                                        fontSize: "16px",
+                                                    }),
+                                                }}
+                                                id={state}
+                                                value={states.filter(obj => obj.value === shippingData.state)}
+                                                onChange={onChangeSelect}
+                                        />
+                                    </div>
+                                    <div className={"w-4/12 md:w-6/12 space-y-2"}>
+                                        <label htmlFor={"postalCode"}
+                                               className="text-sm font-medium text-gray-700 tracking-wide">
+                                            Zip Code
+                                        </label>
+                                        <input
+                                            className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                            autoComplete={"locality"}
+                                            type={"text"}
+                                            placeholder={"78205"}
+                                            id={"postalCode"}
+                                            value={postalCode}
+                                            onChange={onChange}
+                                            required
+                                        />
                                     </div>
                                 </div>
-
                                 <div className="space-y-2">
                                 <span className="text-sm font-medium text-gray-700 tracking-wide">Country
                                 </span>
