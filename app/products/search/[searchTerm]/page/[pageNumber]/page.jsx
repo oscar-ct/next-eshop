@@ -3,7 +3,6 @@
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import BackButton from "@/components/BackButton";
-import {FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp} from "react-icons/fa";
 import toast from "react-hot-toast";
 import ProductItem from "@/components/ProductItem";
 import Snake from "@/components/Snake";

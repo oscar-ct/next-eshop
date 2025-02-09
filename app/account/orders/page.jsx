@@ -2,8 +2,6 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 import Link from "next/link";
 import AccountOrders from "@/components/AccountOrders";
-import AccountDetailsForm from "@/components/AccountDetailsForm";
-import AccountPasswordForm from "@/components/AccountPasswordForm";
 
 export const metadata = {
     title: "eshopjs | Orders",

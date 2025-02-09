@@ -11,7 +11,7 @@ import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import RevealMotion from "@/components/RevealMotion";
 
 
-const AccountOrdersItem = ({order, index}) => {
+const AccountOrdersItem = ({order}) => {
 
     const router = useRouter();
     const { dispatch } = useContext(GlobalContext);

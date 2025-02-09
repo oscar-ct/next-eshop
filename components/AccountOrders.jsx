@@ -52,7 +52,7 @@ const AccountOrders = () => {
                 {
                     orders.map(function (order, index) {
                         return (
-                            <AccountOrdersItem key={index} order={order} index={index}/>
+                            <AccountOrdersItem key={index} order={order}/>
                         )
                     })
                 }
