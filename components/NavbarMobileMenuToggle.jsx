@@ -4,16 +4,15 @@ const NavbarMobileMenuToggle = ({toggle}) => {
 
     const Path = (props) => (
         <motion.path
-            fill="transparent"
             strokeWidth="3"
-            stroke="hsl(0, 0%, 18%)"
+            stroke="currentColor"
             strokeLinecap="round"
             {...props}
         />
     );
 
     return (
-        <button className={"flex justify-center items-center rounded-full cursor-pointer w-10 h-10 absolute top-1 right-1"} onClick={toggle}>
+        <button className={"flex justify-center items-center rounded-full cursor-pointer w-10 h-10 absolute top-1 right-1 dark:text-white"} onClick={toggle}>
             <svg width="23" height="23" viewBox="0 0 23 23">
                 <Path
                     variants={{

@@ -36,38 +36,35 @@ const CartItem = ( {item} ) => {
                         />
                     </Link>
                 </div>
-
                 <div className={"w-6/12 sm:w-7/12"}>
                     <div className={"flex flex-col pl-4 pr-0 sm:pr-5 sm:pl-5"}>
-                        <Link href={`/products/${item.id}`} className={"lg:text-lg font-bold hover:link hover:link-primary"}>
+                        <Link href={`/products/${item.id}`} className={"lg:text-lg font-bold hover:link hover:link-primary dark:text-white"}>
                             {item.name}
                         </Link>
-
                         <div className={"flex flex-col lg:pt-3"}>
                             <div className={"flex flex-col text-xs sm:text-sm"}>
                                 <div className={"pb-1"}>
                                     <span className={"text-xs font-bold text-gray-500"}>Brand:</span>
-                                    <span className={"ml-1"}>{item.brand}</span>
+                                    <span className={"ml-1 dark:text-white"}>{item.brand}</span>
                                 </div>
                                 <div className={"pb-1"}>
                                     <span className={"text-xs font-bold text-gray-500"}>Model:</span>
-                                    <span className={"ml-1 "}>{item.model}</span>
+                                    <span className={"ml-1 dark:text-white"}>{item.model}</span>
                                 </div>
                             </div>
                             <div className={"flex flex-col text-xs sm:text-sm"}>
                                 <div className={"flex items-center pb-1"}>
                                      <span className={"text-xs font-bold text-gray-500"}>Remaining In Stock:</span>
-                                    <span className={"ml-1"}>{item.countInStock}</span>
+                                    <span className={"ml-1 dark:text-white"}>{item.countInStock}</span>
                                 </div>
                                 <div>
                                     <span className={"text-xs font-bold text-gray-500"}>List Price:</span>
-                                    <span className={"ml-1"}>{convertCentsToUSD(item.price)}/ea.</span>
+                                    <span className={"ml-1 dark:text-white"}>{convertCentsToUSD(item.price)}/ea.</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div className={"w-3/12 sm:w-2/12 flex flex-col items-end justify-between"}>
                     <FormatPrice price={convertCentsToUSD(item.price * item.quantity).toString()} fontSize={"text-xl"}/>
                     <QuantitySelect products={item.countInStock} quantity={item.quantity} item={item}/>

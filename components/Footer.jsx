@@ -5,7 +5,7 @@ import logo from "@/icons/e.svg";
 
 const Footer = () => {
     return (
-        <footer className="bg-zinc-50 h-72 px-4 mx-auto max-w-screen-2xl md:h-56">
+        <footer className="bg-zinc-50 h-72 px-4 mx-auto max-w-screen-2xl md:h-56 dark:bg-slate-800">
             <div className={"h-full flex flex-col items-center justify-evenly opacity-60 md:flex-row md:pt-10"}>
                 <div className={"h-28 w-full md:w-7/12 lg:w-6/12 flex flex-col items-center justify-between md:items-start md:h-20"}>
                     <Link href={"/"}>

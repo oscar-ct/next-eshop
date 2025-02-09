@@ -46,8 +46,8 @@ const CartPage = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-6 sm:pt-10 lg:px-8"}>
-                            <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg"}>
+                        <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-4 sm:pt-10 lg:px-8"}>
+                            <div className={"z-20 bg-red-500 mx-auto max-w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:text-white dark:bg-slate-800"}>
                                 <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
                                     Your cart total is {convertCentsToUSD(itemsPrice)}
                                 </div>
@@ -73,7 +73,7 @@ const CartPage = () => {
                                 }
                             </div>
                             <div
-                                className={"z-20 bg-zinc-50 p-8 rounded-2xl overflow-y sm:border-none sm:bg-white sm:shadow-lg"}>
+                                className={"z-20 bg-zinc-50 p-8 rounded-2xl overflow-y sm:border-none sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
                                 {
                                     cartItems.map(function (item) {
                                         return (

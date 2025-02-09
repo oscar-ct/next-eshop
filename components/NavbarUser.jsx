@@ -60,7 +60,7 @@ const NavbarUser = ({ session, myAccountLink, myOrdersLink, dashboardLink }) => 
                         onMouseLeave={() => setUserDropdownActive(false)}
                     >
                         <div className={"cursor-pointer h-16 flex items-center"}>
-                            <h5 className={"font-semibold pr-1.5"}>{session?.user.name.username.substring(0, 12)}</h5>
+                            <h5 className={"font-semibold pr-1.5 dark:text-white"}>{session?.user.name.username.substring(0, 12)}</h5>
                             <div className={`${rotateChevron(userDropdownActive)}`}>
                                 <FaChevronDown className={"w-2.5"}/>
                             </div>
@@ -114,7 +114,7 @@ const NavbarUser = ({ session, myAccountLink, myOrdersLink, dashboardLink }) => 
                                     className="flex items-center"
                                 >
                                     <FaUser/>
-                                    <h5 className={"px-1.5 font-semibold"}>Login</h5>
+                                    <h5 className={"px-1.5 font-semibold dark:text-white"}>Login</h5>
                                 </div>
                             </Link>
                             <div className={`${rotateChevron(userDropdownActive)}`}>

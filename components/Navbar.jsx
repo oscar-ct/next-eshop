@@ -31,12 +31,12 @@ const Navbar = async () => {
                     dashboardLink}}
                 />
             </div>
-            <div className={"z-40 fixed h-12 inset-0 border-b bg-zinc-50 w-full md:h-16"}>
+            <div className={"z-40 fixed h-12 inset-0 border-b bg-zinc-50 w-full md:h-16 dark:bg-slate-800"}>
                 <div className="h-full w-full flex justify-between items-center relative">
                     <div className={"flex cursor-pointer px-3"}>
                         <Link
                             href={"/"}
-                            className={"text-xl flex items-center hover:scale-110"}
+                            className={"text-xl flex items-center hover:scale-110 dark:text-white"}
                         >
                             <Image
                                 priority
@@ -46,7 +46,7 @@ const Navbar = async () => {
                             />
                         </Link>
                     </div>
-                    <div className={"absolute right-14 md:hidden"}>
+                    <div className={"absolute right-16 md:hidden"}>
                         <CartIcon/>
                     </div>
                     <div className={"hidden md:flex justify-end"}>

@@ -43,8 +43,8 @@ const PaymentPage = () => {
         <>
             <CheckoutSteps/>
             <div className={"px-2 w-full flex justify-center sm:pt-10"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
-                    <h1 className={"h-20 flex items-start justify-center font-semibold text-3xl text-center sm:h-16"}>
+                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none !bg-slate-800"}>
+                    <h1 className={"h-20 flex items-start justify-center font-semibold text-3xl text-center sm:h-16 dark:text-white"}>
                         Select your payment method
                     </h1>
                     <form onSubmit={submitPaymentMethod} className={"pt-3 space-y-5"}>
@@ -63,7 +63,7 @@ const PaymentPage = () => {
                                     />
                                 </div>
                                 <div className={"w-9/12 flex items-center"}>
-                                     <span className={"px-3"}>
+                                     <span className={"px-3 dark:text-white"}>
                                         PayPal, Venmo, and Credit Card.
                                     </span>
                                 </div>
@@ -95,7 +95,7 @@ const PaymentPage = () => {
                                     />
                                 </div>
                                 <div className={"w-9/12 flex items-center"}>
-                                    <span className={"px-3 py-4"}>
+                                    <span className={"px-3 py-4 dark:text-white"}>
                                        Credit Card, Cash App, After Pay, and more.
                                     </span>
                                 </div>

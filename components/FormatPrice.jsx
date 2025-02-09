@@ -1,6 +1,6 @@
 const FormatPrice = ({children, price, fontSize}) => {
     return (
-        <div className={"flex items-end"}>
+        <div className={"flex items-end dark:text-white"}>
             <div className={"flex"}>
                 <span className={"text-xs pt-1"}>{price.substring(0, 1)}</span>
                 <span className={`${fontSize} font-bold`}>{price.substring(1, price.indexOf("."))}</span>

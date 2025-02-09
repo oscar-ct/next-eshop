@@ -16,7 +16,7 @@ const NavbarProducts = ({ latestProductsLink, topRatedLink }) => {
              onMouseEnter={() => setProductsDropdownActive(true)}
              onMouseLeave={() => setProductsDropdownActive(false)}>
             <div className={"cursor-pointer h-16 flex items-center"}>
-                <h5 className={"font-semibold pr-1.5"}>Shop</h5>
+                <h5 className={"font-semibold pr-1.5 dark:text-white"}>Shop</h5>
                 <div className={`${rotateChevron(productsDropdownActive)}`}>
                     <FaChevronDown className={"w-2.5"}/>
                 </div>

@@ -121,14 +121,14 @@ const CheckoutPage = () => {
         return (
             <>
                 <CheckoutSteps/>
-                <div className={"z-20 px-2 w-full flex-col flex items-center max-w-screen-2xl mx-auto gap-2 sm:gap-8 sm:pt-10 xl:flex-row xl:items-start xl:justify-center"}>
-                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
-                        <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl"}>
+                <div className={"z-20 px-2 w-full flex-col flex items-center max-w-screen-2xl mx-auto gap-2 sm:gap-4 sm:pt-10 xl:flex-row xl:items-start xl:justify-center"}>
+                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                        <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl dark:text-white"}>
                             Review your order
                         </h1>
                         {
                             !userData && guestData && (
-                                <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                                <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
                                     <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                         <h3 className={"font-semibold"}>
                                             Customer Email
@@ -151,7 +151,7 @@ const CheckoutPage = () => {
                                 </div>
                             )
                         }
-                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
                             <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                 <h3 className={"font-semibold"}>
                                     Ship To Address
@@ -175,7 +175,7 @@ const CheckoutPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row"}>
+                        <div className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
                             <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                 <h3 className={"font-semibold"}>
                                     Payment Method
@@ -215,7 +215,7 @@ const CheckoutPage = () => {
                             </div>
                         </div>
                         <div className={"py-3"}>
-                            <h3 className={"text-center font-semibold sm:text-start"}>
+                            <h3 className={"text-center font-semibold sm:text-start dark:text-white"}>
                                 Order Item(s)
                             </h3>
                             <div>
@@ -235,7 +235,7 @@ const CheckoutPage = () => {
 
 
 
-                    <div className={"flex flex-col items-center gap-4 w-full sm:max-w-lg"}>
+                    <div className={"flex flex-col items-center gap-2 w-full sm:max-w-lg"}>
                         <div className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
                             {
                                 itemsPrice > 10000 ? (
@@ -252,11 +252,11 @@ const CheckoutPage = () => {
                             }
                         </div>
                         <div
-                            className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
-                            <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl"}>
+                            className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                            <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl dark:text-white"}>
                                 Place Order
                             </h1>
-                            <div className="flex flex-col gap-8">
+                            <div className="flex flex-col gap-8 dark:text-white">
                                 <div className={"flex flex-col text-sm gap-2"}>
                                     <div className={"flex justify-between"}>
                                         <span>Items({totalNumberOfItems}):</span>

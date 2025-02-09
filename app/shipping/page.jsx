@@ -156,8 +156,8 @@ const ShippingPage = () => {
         <>
             <CheckoutSteps/>
             <div className={"px-2 w-full flex justify-center sm:pt-10"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
-                    <h1 className={"h-20 flex items-start justify-center font-semibold text-3xl text-center sm:h-16"}>
+                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                    <h1 className={"h-20 flex items-start justify-center font-semibold text-3xl text-center sm:h-16 dark:text-white"}>
                         Confirm your shipping address
                     </h1>
                     {
@@ -188,7 +188,7 @@ const ShippingPage = () => {
                                 }
                                 <div className="space-y-2">
                                     <label htmlFor={"name"}
-                                           className="text-sm font-medium text-gray-700 tracking-wide">
+                                           className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                                         Recipient&apos;s Name
                                     </label>
                                     <input
@@ -204,7 +204,7 @@ const ShippingPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor={"address"}
-                                           className="text-sm font-medium text-gray-700 tracking-wide">
+                                           className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                                         Street Address
                                     </label>
                                     <input
@@ -220,7 +220,7 @@ const ShippingPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor={"city"}
-                                           className="text-sm font-medium text-gray-700 tracking-wide">
+                                           className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                                         City
                                     </label>
                                     <input
@@ -236,7 +236,7 @@ const ShippingPage = () => {
                                 </div>
                                 <div className={"flex w-full gap-4"}>
                                     <div className={"w-8/12 md:w-6/12 space-y-2"}>
-                                    <span className="text-sm font-medium text-gray-700 tracking-wide">
+                                    <span className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                                         State
                                     </span>
                                         <Select placeholder={"Select State"}
@@ -257,7 +257,7 @@ const ShippingPage = () => {
                                     </div>
                                     <div className={"w-4/12 md:w-6/12 space-y-2"}>
                                         <label htmlFor={"postalCode"}
-                                               className="text-sm font-medium text-gray-700 tracking-wide">
+                                               className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                                             Zip Code
                                         </label>
                                         <input
@@ -273,7 +273,7 @@ const ShippingPage = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                <span className="text-sm font-medium text-gray-700 tracking-wide">Country
+                                <span className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">Country
                                 </span>
                                     <Select
                                         placeholder={"Select Country"}
@@ -328,7 +328,7 @@ const ShippingPage = () => {
                                 {
                                     user?.shippingAddresses.map(function (item, index) {
                                         return (
-                                            <div key={index} className="my-5" onClick={() => setRadioId(item.id)}>
+                                            <div key={index} className="my-5 dark:text-white" onClick={() => setRadioId(item.id)}>
                                                 <div
                                                     className={`w-full rounded-md shadow-sm border cursor-pointer ${item.id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
                                                     <div className={"w-full flex p-6"}>
