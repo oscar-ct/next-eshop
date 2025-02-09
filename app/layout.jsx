@@ -19,7 +19,7 @@ export default async function RootLayout({children}) {
         <GlobalProvider>
             <AuthProvider>
                 <html lang="en">
-                    <body className={`${inter.className} bg-zinc-50 dark:bg-black`}>
+                    <body className={`${inter.className} bg-zinc-50 dark:bg-slate-800`}>
                         <Toaster/>
                         <Navbar/>
                         <main className={"mt-12 mx-auto min-h-[calc(100vh-336px)] md:mt-16 md:min-h-[calc(100vh-288px)]"}>
