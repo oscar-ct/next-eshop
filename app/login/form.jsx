@@ -108,8 +108,8 @@ const LoginForm = () => {
 
     return (
         <>
-            <div className="h-full flex flex-row justify-center px-2 py-10 sm:px-0">
-                <div className="sm:mt-10 md:mb-10 w-full flex justify-center self-center">
+            <div className="h-full flex flex-row justify-center px-2 sm:py-10 sm:px-0">
+                <div className="w-full flex justify-center self-center">
                     <div className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                         <div className="mb-4 text-center sm:text-start">
                             <h3 className="font-bold text-2xl dark:text-white">Login
@@ -198,14 +198,14 @@ const LoginForm = () => {
             </div>
 
             <dialog id="password_modal" className="modal modal-bottom sm:modal-middle">
-                <form method="dialog" className="modal-box bg-white">
+                <form method="dialog" className="modal-box">
                     <div className={"flex justify-between items-center"}>
-                        <h3 className="p-3 font-bold text-xl">Reset Password</h3>
+                        <h3 className="p-3 font-bold text-xl dark:text-white">Forgot your password?</h3>
                     </div>
                     <div className="px-3">
                         <div className="form-control w-full">
-                            <label htmlFor={"email2"} className="pb-2 text-sm font-medium text-gray-600 tracking-wide">
-                                Send password reset link
+                            <label htmlFor={"email2"} className="pb-2 text-sm font-medium text-gray-600 tracking-wide dark:text-gray-300">
+                                Send reset password reset link
                             </label>
                             <input id={"email2"} autoComplete={"email"} name="email" type="email" placeholder="Enter your email" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" value={recoveryEmail} onChange={(e) => {
                                 setRecoveryEmail(e.target.value);
