@@ -35,8 +35,9 @@ export const GET = async (req, {params}) => {
                 createdAt: 'desc'
             },
             include: {
-                images: true
-            }
+                images: true,
+                reviews: true
+            },
         });
         return Response.json(
             {
