@@ -79,9 +79,9 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
 
     return (
         <dialog id="review_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box bg-white">
+            <form method="dialog" className="modal-box">
                 <div className={"flex justify-center items-center"}>
-                    <h3 className="p-4 font-bold text-xl">Review Product</h3>
+                    <h3 className="p-4 font-bold text-3xl dark:text-white">Review Product</h3>
                 </div>
                 <div className={"flex justify-center"}>
                     <Image
@@ -94,7 +94,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                 </div>
 
                 <div className={"px-4 flex flex-col label"}>
-                    <span className={"label-text py-2"}>Select your rating</span>
+                    <span className={"label-text py-2 dark:text-white"}>Select your rating</span>
                     <div className="rating rating-lg">
                         <input type="radio" value={"0"} name="rating-2" className="rating-hidden" defaultChecked
                                onChange={(e) => setRating(e.target.value)}/>
@@ -114,7 +114,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                 <div className="px-4">
                     <div className="form-control w-full">
                         <label htmlFor={"title"} className="label">
-                            <span className="label-text">Add a headline</span>
+                            <span className="label-text dark:text-white">Add a headline</span>
                         </label>
                         <input id="title" type="text" placeholder="What's most important to know?"
                                className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -124,7 +124,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                     </div>
                     <div className="form-control w-full">
                         <label htmlFor={"reviewbody"} className="label">
-                            <span className="label-text">Add a review</span>
+                            <span className="label-text dark:text-white">Add a review</span>
                         </label>
                         <textarea id="reviewbody" value={reviewBody}
                                   placeholder="What did you like or dislike? What did you use this product for?" className="h-20 bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" onChange={(e) => {

@@ -8,7 +8,7 @@ const RatingPlaceholder = () => {
 
     return (
         <>
-            <h2 className={"py-4 text-xl font-light text-center"}>This product does not have any reviews yet</h2>
+            <h2 className={"py-4 text-xl font-light text-center dark:text-white"}>This product does not have any reviews yet</h2>
             <div
                 className={"flex w-full px-4 flex-col gap-4 justify-center items-center"}>
                 <div className={"w-full flex items-center gap-4"}>

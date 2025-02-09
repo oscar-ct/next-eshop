@@ -41,7 +41,7 @@ const CartItem = ( {item} ) => {
                         <Link href={`/products/${item.id}`} className={"lg:text-lg font-bold hover:link hover:link-primary dark:text-white"}>
                             {item.name}
                         </Link>
-                        <div className={"flex flex-col lg:pt-3"}>
+                        <div className={"flex flex-col pt-3"}>
                             <div className={"flex flex-col text-xs sm:text-sm"}>
                                 <div className={"pb-1"}>
                                     <span className={"text-xs font-bold text-gray-500"}>Brand:</span>

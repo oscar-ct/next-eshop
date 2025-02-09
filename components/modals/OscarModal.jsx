@@ -6,7 +6,7 @@ const OscarModal = () => {
         <dialog id="oscar_modal" className="modal">
             <div className="modal-box">
                 <div
-                    className={"w-full h-[28em] flex flex-col items-center justify-evenly"}>
+                    className={"w-full h-[28rem] flex flex-col items-center justify-evenly"}>
                     <div className={"pt-3 w-full flex flex-col justify-center items-center"}>
                         <div
                             className={"text-3xl font-bold text-center dark:text-white"}>

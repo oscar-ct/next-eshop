@@ -32,7 +32,7 @@ const SearchBox = ({ toggle }) => {
         <div className="relative" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
             <input
                 autoComplete={"off"}
-                className="w-full bg-slate-800/70 h-10 pl-5 rounded-full text-base text-white placeholder-white/70 focus:outline-none md:w-72"
+                className="w-full bg-slate-500/70 h-10 pl-5 rounded-full text-base text-white placeholder-white/70 focus:outline-none md:w-72"
                 type="search"
                 name="search"
                 placeholder="Search products"
