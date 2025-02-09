@@ -29,18 +29,18 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                     </Link>
                 </div>
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
-                    <Link href={`/products/${item.productId}`} className={`sm:text-lg font-bold hover:link-primary ${strikethrough()}`}>
+                    <Link href={`/products/${item.productId}`} className={`sm:text-lg font-bold hover:link-primary dark:text-white ${strikethrough()}`}>
                         {item.name}
                     </Link>
                     <div className={"flex w-full justify-between items-end"}>
                         <div className={"flex flex-col"}>
                             <div>
                                 <span className={`text-gray-500 font-bold text-xs`}>Qty:</span>
-                                <span className={`ml-1 text-sm ${strikethrough()}`}>{item.quantity}</span>
+                                <span className={`ml-1 text-sm dark:text-white ${strikethrough()}`}>{item.quantity}</span>
                             </div>
                             <div>
                                 <span className={"text-gray-500 font-bold text-xs"}>Price:</span>
-                                <span className={`ml-1 text-sm ${strikethrough()}`}>{convertCentsToUSD(item.price)}/ea.</span>
+                                <span className={`ml-1 text-sm dark:text-white ${strikethrough()}`}>{convertCentsToUSD(item.price)}/ea.</span>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                     </h3>
                 )
             }
-            <div className={"mt-5 border-b-[1px] border-gray-300"}/>
+            <div className={"mt-5 border-b border-gray-300"}/>
         </>
     );
 };

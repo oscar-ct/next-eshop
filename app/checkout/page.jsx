@@ -235,7 +235,7 @@ const CheckoutPage = () => {
 
 
 
-                    <div className={"flex flex-col items-center gap-2 w-full sm:max-w-lg"}>
+                    <div className={"flex flex-col items-center gap-2 w-full sm:gap-4 sm:max-w-lg"}>
                         <div className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
                             {
                                 itemsPrice > 10000 ? (

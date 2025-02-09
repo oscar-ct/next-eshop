@@ -25,7 +25,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
     return (
         <>
             <div className={"flex w-full mt-5"}>
-                <div className={"w-2/12 flex justify-center items-center"}>
+                <div className={"w-3/12 flex justify-center items-center"}>
                     <Link className={"bg-zinc-100/70 rounded-md max-w-[175px] max-h-[160px]"} href={`/products/${item.id}`}>
                         <Image
                             priority
@@ -37,37 +37,38 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                         />
                     </Link>
                 </div>
-                <div className={"w-9/12 flex flex-col px-3 sm:px-5"}>
-                    <Link href={`/products/${item.id}`} className={"sm:text-lg font-bold hover:link hover:link-primary"}>
-                        {item.name}
-                    </Link>
-                    <div className={"flex w-full"}>
-                        <div className={"flex flex-col w-6/12"}>
-                            <div>
-                                <span className={"text-gray-500 font-bold text-xs"}>Brand:</span>
-                                <span className={"ml-1 text-sm"}>{item.brand}</span>
+                <div className={"w-6/12 sm:w-7/12"}>
+                    <div className={"flex flex-col pl-4 pr-0 sm:pr-5 sm:pl-5"}>
+                        <Link href={`/products/${item.id}`}
+                              className={"sm:text-lg font-bold hover:link hover:link-primary dark:text-white"}>
+                            {item.name}
+                        </Link>
+                        <div className={"flex flex-col lg:pt-3"}>
+                            <div className={"flex flex-col text-xs sm:text-sm"}>
+                                <div className={"pb-1"}>
+                                    <span className={"text-gray-500 font-bold text-xs"}>Brand:</span>
+                                    <span className={"ml-1 text-sm dark:text-white"}>{item.brand}</span>
+                                </div>
+                                <div className={"pb-1"}>
+                                    <span className={"text-gray-500 font-bold text-xs"}>Remaining In Stock:</span>
+                                    <span className={"ml-1 text-sm dark:text-white"}>{item.countInStock}</span>
+                                </div>
+                                <div>
+                                    <span className={"text-gray-500 font-bold text-xs"}>List Price:</span>
+                                    <span
+                                        className={"ml-1 text-sm dark:text-white"}>{convertCentsToUSD(item.price)}/ea.</span>
+                                </div>
                             </div>
-                            <div>
-                                <span className={"text-gray-500 font-bold text-xs"}>Remaining In Stock:</span>
-                                <span className={"ml-1 text-sm"}>{item.countInStock}</span>
-                            </div>
-                            <div>
-                                <span className={"text-gray-500 font-bold text-xs"}>Price:</span>
-                                <span className={"ml-1 text-sm"}>{convertCentsToUSD(item.price)}/ea.</span>
-                            </div>
-                        </div>
-                        <div className={"w-6/12 flex justify-center items-end"}>
-                            {
-                                !saveButtonDisabled && (
-                                    <QuantitySelect quantity={item.quantity} products={item.countInStock} item={item}/>
-                                )
-                            }
-
                         </div>
                     </div>
                 </div>
-                <div className={"w-1/12 flex flex-col items-end justify-between"}>
+                <div className={"w-3/12 sm:w-2/12 flex flex-col items-end justify-between"}>
                     <FormatPrice price={convertCentsToUSD(item.price * item.quantity).toString()} fontSize={"text-xl"}/>
+                    {
+                        !saveButtonDisabled && (
+                            <QuantitySelect quantity={item.quantity} products={item.countInStock} item={item}/>
+                        )
+                    }
                     <div>
                         {
                             !saveButtonDisabled && (
@@ -82,7 +83,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                     </div>
                 </div>
             </div>
-            <div className={"mt-5 border-b-[1px] border-gray-300"}/>
+            <div className={"mt-5 border-b border-gray-300"}/>
         </>
 
     );

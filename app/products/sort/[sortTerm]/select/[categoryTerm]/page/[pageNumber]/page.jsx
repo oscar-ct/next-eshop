@@ -83,13 +83,13 @@ const ProductsPage = () => {
                             <div className={"w-full p-1 flex items-center"}>
                                 <div className={"flex w-full"}>
                                     <div className={"flex flex-col justify-between items-center w-6/12"}>
-                                        <p className={"p-1 text-sm"}>Category</p>
+                                        <p className={"p-1 text-sm dark:text-white"}>Category</p>
                                         <div className={"px-2 w-full lg:w-96"}>
                                             <SelectMenuCategory sortTerm={sortTerm} categoryTerm={categoryTerm} pageNumber={pageNumber} customStyles={customStyles}/>
                                         </div>
                                     </div>
                                     <div className={"flex flex-col justify-between items-center w-6/12"}>
-                                        <p className={"p-1 text-sm"}>Sort By</p>
+                                        <p className={"p-1 text-sm dark:text-white"}>Sort By</p>
                                         <div className={"px-2 w-full lg:w-96"}>
                                             <SelectMenuSort sortTerm={sortTerm} categoryTerm={categoryTerm} pageNumber={pageNumber} customStyles={customStyles}/>
                                         </div>

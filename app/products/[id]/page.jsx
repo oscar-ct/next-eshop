@@ -189,10 +189,10 @@ const ProductPage = () => {
                     </div>
                     <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
                 </div>
-                <div className={"pt-16 flex flex-col items-center gap-8 xl:flex-row xl:justify-center xl:items-start"}>
-                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full flex-col flex items-center rounded-2xl gap-4 sm:gap-4 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none md:max-w-3xl"}>
+                <div className={"px-2 pt-16 flex flex-col items-center gap-4 xl:flex-row xl:justify-center xl:items-start"}>
+                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full flex-col flex items-center rounded-2xl gap-4 sm:gap-4 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none md:max-w-3xl dark:bg-slate-800"}>
                         <div className={"flex flex-col gap-4"}>
-                            <h2 className={"text-2xl text-center sm:text-3xl"}>{product.name}</h2>
+                            <h2 className={"text-2xl text-center sm:text-3xl dark:text-white"}>{product.name}</h2>
                             <div className={"flex items-center justify-between"}>
                                 <div className={"flex gap-2"}>
                                     <ProductItemRating rating={product.rating}/>
@@ -267,10 +267,10 @@ const ProductPage = () => {
                                     }
                                 </div>
                             </div>
-                            <h6 className={"text-lg font-semibold"}>
+                            <h6 className={"text-lg font-semibold dark:text-white"}>
                                 About this product --
                             </h6>
-                            <div className={"text-sm flex flex-col w-full gap-4 md:gap-0 md:flex-row"}>
+                            <div className={"text-sm flex flex-col w-full gap-4 md:gap-0 md:flex-row dark:text-white"}>
                                 <div className={"flex flex-col w-full gap-4 md:w-6/12"}>
                                     <div className={"flex"}>
                                         <div className={"w-6/12"}>
@@ -336,10 +336,10 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <h6 className={"text-lg font-semibold"}>
+                            <h6 className={"text-lg font-semibold dark:text-white"}>
                                 Description --
                             </h6>
-                            <div className={"xl:hidden flex flex-col"}>
+                            <div className={"xl:hidden flex flex-col dark:text-white"}>
                                 <p>
                                     {detailsActive ? product.description : product.description.substring(0, 138) + "..."}
                                 </p>
@@ -350,14 +350,14 @@ const ProductPage = () => {
                                     {detailsActive ? "show less" : "show more"}
                                 </div>
                             </div>
-                            <p className={"hidden xl:block"}>
+                            <p className={"hidden xl:block dark:text-white"}>
                                 {product.description}
                             </p>
                         </div>
                         {
                             product.countInStock > 0 && (
                                 <div
-                                    className={"my-3 w-full rounded-md border-gray-300 border h-12 flex justify-start items-center px-2"}>
+                                    className={"bg-zinc-50 my-3 w-full rounded-md border-gray-300 border h-12 flex justify-start items-center px-2"}>
                                     <label
                                         htmlFor={"qty"}
                                         className={"text-sm font-semibold pr-1"}
@@ -366,7 +366,7 @@ const ProductPage = () => {
                                     </label>
                                     <select
                                         id={"qty"}
-                                        className="h-full w-full !outline-none text-sm bg-white"
+                                        className="bg-zinc-50 h-full w-full !outline-none text-sm bg-white"
                                         value={quantity}
                                         onChange={(e) => setQuantity(Number(e.target.value))}
                                     >
@@ -466,8 +466,8 @@ const ProductPage = () => {
                         {/*        </div>*/}
                         {/*    )*/}
                         {/*}*/}
-                        <div ref={scrollTo} className={"bg-zinc-50 z-20 px-4 py-8 w-full flex flex-col rounded-2xl gap-4 sm:gap-4 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none"}>
-                            <h2 id={"reviews"} className={"text-3xl text-center"}>Customer Reviews
+                        <div ref={scrollTo} className={"bg-zinc-50 z-20 px-4 py-8 w-full flex flex-col rounded-2xl gap-4 sm:gap-4 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                            <h2 id={"reviews"} className={"text-3xl text-center dark:text-white"}>Customer Reviews
                                 <span className={"pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
                             </h2>
                             <div>
@@ -511,7 +511,7 @@ const ProductPage = () => {
                                                                         <span className="text-xs">{review.name.substring(0, 1).toUpperCase()}</span>
                                                                     </div>
                                                                 </div>
-                                                                <span className={"text-xs font-bold text-neutral-500"}>{review.name}</span>
+                                                                <span className={"text-xs font-bold text-neutral-500 dark:text-white"}>{review.name}</span>
                                                             </div>
                                                             {
                                                                 user?.id === review.userId && !loadingDelete && (
@@ -529,14 +529,14 @@ const ProductPage = () => {
                                                         </div>
                                                         <ProductItemRating rating={product.rating}/>
                                                         <div className={"flex flex-col gap-1"}>
-                                                            <p className={"text-sm font-bold"}>
+                                                            <p className={"text-sm font-bold dark:text-white"}>
                                                                 {review.title}
                                                             </p>
                                                             <div className={"text-xs text-gray-500 flex gap-1"}>
                                                                 <span>Reviewed on</span>
                                                                 {`${review.createdAt.substring(5, 10)}-${review.createdAt.substring(0, 4)}`}
                                                             </div>
-                                                            <p className={"text-sm"}>
+                                                            <p className={"text-sm dark:text-white"}>
                                                                 {review.comment}
                                                             </p>
                                                         </div>

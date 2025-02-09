@@ -1,26 +1,11 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import GlobalContext from "@/context/GlobalContext";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 const QuantitySelect = ({quantity, products, item}) => {
 
     const { dispatch } = useContext(GlobalContext);
-
-    const [width, setWidth] = useState(window.innerWidth);
-    const [quantityText, setQuantityText] = useState(window.innerWidth > 500 ? "Quantity:" : "Qty:");
-
-    useEffect(() => {
-        const adjustWidth = () => {
-            setWidth(window.innerWidth)
-        };
-        window.addEventListener("resize", adjustWidth)
-        return () => removeEventListener("resize", adjustWidth)
-    }, []);
-
-
-    useEffect(() => {
-        width > 500 && width < 768 && setQuantityText("Qty:");
-        width >= 768 && setQuantityText("Quantity:");
-    }, [width]);
+    const {width} = useWindowDimensions();
 
     const addToCartHandler = async (product, quantity) => {
         dispatch({
@@ -32,11 +17,11 @@ const QuantitySelect = ({quantity, products, item}) => {
     };
 
     return (
-        <div className={"bg-zinc-100 rounded-md border-gray-200 border h-12 flex justify-start items-center px-2"}>
-            <label htmlFor={`${item.id}`} className={"text-sm font-semibold pr-1"}>{quantityText}</label>
+        <div className={"bg-zinc-50 rounded-md border-gray-200 border h-12 flex justify-start items-center px-1 sm:px-2"}>
+            <label htmlFor={`${item.id}`} className={"text-sm font-semibold pr-1"}>{width < 768 ? "Qty:" : "Quantity:"}</label>
             <select
                 id={`${item.id}`}
-                className="bg-zinc-100 h-full w-full md:w-16 !outline-none text-sm cursor-pointer font-bold"
+                className="bg-zinc-50 h-full w-full max-w-16 !outline-none text-sm cursor-pointer font-bold"
                 value={quantity}
                 onChange={(e) => addToCartHandler(item, Number(e.target.value))}
             >

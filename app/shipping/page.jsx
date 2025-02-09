@@ -306,7 +306,7 @@ const ShippingPage = () => {
 
                                             <label htmlFor={"checkbox"}
                                                    className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
-                                                <span className="text-sm pr-2">Save this address</span>
+                                                <span className="text-sm pr-2 dark:text-white">Save this address</span>
                                                 <input id={"checkbox"} type="checkbox" checked={savePaymentData}
                                                        onChange={() => setSavePaymentData(prevState => !prevState)}
                                                        className="checkbox checkbox-primary"/>

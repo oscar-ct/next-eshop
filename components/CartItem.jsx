@@ -78,7 +78,7 @@ const CartItem = ( {item} ) => {
                     </div>
                 </div>
             </div>
-            <div className={"my-5 border-b-[1px] border-gray-300"}/>
+            <div className={"my-5 border-b border-gray-300"}/>
         </>
     );
 };
