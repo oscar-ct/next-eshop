@@ -15,17 +15,17 @@ const AccountPage = async () => {
     return (
         <div className={"flex flex-col overflow-x-clip relative"}>
             <div className={"flex justify-center py-6 sm:py-10"}>
-                <div role="tablist" className="tabs tabs-bordered">
+                <div role="tablist" className="tabs tabs-bordered !text-white">
                     <Link
                         role="tab"
                         href={"/account"}
-                        className={`tab tab-active dark:invert`}>
+                        className={`tab tab-active dark:text-white dark:border-white`}>
                         Account
                     </Link>
                     <Link
                         role="tab"
                         href={"/account/orders"}
-                        className={`tab dark:invert`}>
+                        className={`tab dark:text-white dark:border-white/50`}>
                         Your Orders
                     </Link>
                 </div>

@@ -58,7 +58,7 @@ const AccountPasswordForm = () => {
                         <label htmlFor={"new-password"} className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                             New password
                         </label>
-                        <span className={"text-xs pl-1"}>(must be at least 6 characters)</span>
+                        <span className={"text-xs pl-1 dark:text-gray-200"}>(must be at least 6 characters)</span>
                         <input
                             className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                             autoComplete={"off"}

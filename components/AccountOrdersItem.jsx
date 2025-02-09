@@ -50,7 +50,7 @@ const AccountOrdersItem = ({order}) => {
     return (
         <RevealMotion y={-50} parentClass={"z-30"}>
             <div className={"z-30 flex flex-col rounded-2xl max-w-5xl sm:shadow-lg"}>
-                <div className={"z-30 px-4 py-6 sm:px-6 flex flex-row bg-zinc-700 rounded-tr-2xl rounded-tl-2xl"}>
+                <div className={"z-30 px-4 py-6 sm:px-6 flex flex-row bg-slate-600 rounded-tr-2xl rounded-tl-2xl"}>
                     <div className={"w-full flex justify-between gap-2 sm:gap-4"}>
                         <div className={"flex text-white gap-2 sm:gap-8"}>
                             <div className={"flex flex-col"}>

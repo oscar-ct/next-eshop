@@ -48,7 +48,7 @@ const NavbarMobile = ({ session, links }) => {
             ref={containerRef}
             className={"w-72"}
         >
-            <motion.div className={`fixed top-0 right-0 bottom-0 w-72 bg-zinc-200 bg-opacity-95 dark:bg-slate-800`} variants={sidebar} />
+            <motion.div className={`fixed top-0 right-0 bottom-0 w-72 bg-zinc-200 bg-opacity-95 dark:bg-slate-900`} variants={sidebar} />
             <NavbarMobileMenu session={session} links={links} toggle={() => toggleOpen()}/>
             <NavbarMobileMenuToggle toggle={() => toggleOpen()} />
         </motion.nav>
