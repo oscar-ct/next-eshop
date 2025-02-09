@@ -29,12 +29,12 @@ const AccountOrdersItemProduct = ({product, index, orderSize}) => {
 
     return (
         <>
-            <div className={"py-3 pl-5 bg-white rounded-bl-xl"}>
+            <div className={"py-3 px-4"}>
                 <div className={"flex flex-col lg:flex-row"}>
                     <div className={"w-full"}>
                         <div className={"flex pb-2"}>
                             <div className="w-3/12">
-                                <Link href={`/products/${product.productId}`} className="bg-zinc-100/20 rounded-md w-full h-full flex items-center justify-center">
+                                <Link href={`/products/${product.productId}`} className="bg-zinc-100/20 rounded-md w-full h-full flex items-center justify-center dark:bg-slate-600">
                                     <Image
                                         priority
                                         src={product.imageUrl}
@@ -46,11 +46,11 @@ const AccountOrdersItemProduct = ({product, index, orderSize}) => {
                                     />
                                 </Link>
                             </div>
-                            <div className={"flex flex-col w-9/12 pl-5 "}>
-                                <Link href={`/products/${product.productId}`} className={"hover:link hover:link-primary font-bold"}>
+                            <div className={"flex flex-col w-9/12 pl-5"}>
+                                <Link href={`/products/${product.productId}`} className={"hover:link hover:link-primary font-bold dark:text-white"}>
                                     {product.name}
                                 </Link>
-                                <div className={"flex pt-2"}>
+                                <div className={"flex pt-2 dark:text-white"}>
                                     <span className={"text-xs"}>{convertCentsToUSD(product.price)}/ea</span>
                                     <span className={"pl-10 text-xs"}>Qty: {product.quantity}</span>
                                 </div>
@@ -66,7 +66,7 @@ const AccountOrdersItemProduct = ({product, index, orderSize}) => {
             </div>
             {
                 index+1 !== orderSize && (
-                    <div className={"lg:border-b-[1px] lg:border-gray-300 mx-4"}/>
+                    <div className={"lg:border-b lg:border-gray-300 mx-4"}/>
                 )
             }
         </>

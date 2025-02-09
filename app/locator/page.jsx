@@ -59,14 +59,14 @@ const OrderLocatorPage = () => {
             <div className="h-full flex flex-row justify-center px-2 py-10 sm:px-0">
                 <div className="sm:mt-10 md:mb-10 w-full flex justify-center self-center">
                     <div
-                        className="bg-white z-20 px-4 py-8 w-full rounded-2xl sm:max-w-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none">
+                        className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:max-w-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                         <div className="font-bold text-3xl text-center sm:text-start">
                             Find your e-shop order
                         </div>
                         {
                             !isVerifiedEmail ? (
                                 <form onSubmit={verifyEmailHandler}>
-                                    <p className="my-6 max-w-lg text-center sm:text-start">
+                                    <p className="my-6 max-w-lg text-center sm:text-start dark:text-white">
                                         Please enter your email address that you used to place your order. We will need
                                         your order number in the next step.
                                     </p>
@@ -110,7 +110,7 @@ const OrderLocatorPage = () => {
                                 </form>
                             ) : (
                                 <form onSubmit={locateOrderHandler}>
-                                    <p className="my-6 max-w-lg text-center sm:text-start">
+                                    <p className="my-6 max-w-lg text-center sm:text-start dark:text-white">
                                         Email found! Please enter your order number now. If you are having trouble
                                         locating your order number, feel free to <span className={"link link-primary"}>contact us</span> for
                                         further assistance.

@@ -70,16 +70,16 @@ const RegisterForm = () => {
         <div className="h-full flex flex-row justify-center px-2 py-10 sm:px-0">
             <div className="sm:mt-10 md:mb-10 w-full flex justify-center self-center">
                 <div
-                    className="bg-white z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none">
+                    className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                     <div className="mb-4 text-center sm:text-start">
-                        <h3 className="font-bold text-2xl">Create an account
+                        <h3 className="font-bold text-2xl dark:text-white">Create an account
                         </h3>
-                        <p className="text-gray-500">It&apos;s quick and easy
+                        <p className="text-gray-500 dark:text-gray-300">It&apos;s quick and easy
                         </p>
                     </div>
                     <form onSubmit={submitRegister} className="space-y-3">
                         <div className="space-y-2">
-                            <label htmlFor={"name"} className="text-sm font-medium text-gray-600 tracking-wide">Full
+                            <label htmlFor={"name"} className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">Full
                                 Name
                             </label>
                             <input
@@ -94,7 +94,7 @@ const RegisterForm = () => {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label htmlFor={"email"} className="text-sm font-medium text-gray-600 tracking-wide">Email
+                            <label htmlFor={"email"} className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">Email
                             </label>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -109,7 +109,7 @@ const RegisterForm = () => {
                         </div>
                         <div className="space-y-2">
                             <label htmlFor={"password"}
-                                   className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
+                                   className="mb-5 text-sm font-medium text-gray-600 tracking-wide dark:text-white">
                                 Password
                             </label>
 
@@ -126,7 +126,7 @@ const RegisterForm = () => {
                         </div>
                         <div className="space-y-2">
                             <label htmlFor={"confirmPassword"}
-                                   className="text-sm font-medium text-gray-600 tracking-wide">
+                                   className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">
                                 Confirm Password
                             </label>
 
@@ -163,7 +163,7 @@ const RegisterForm = () => {
                             </button>
                         </div>
                     </form>
-                    <div className={"flex justify-center text-sm"}>
+                    <div className={"flex justify-center text-sm dark:text-white"}>
                         <p className={"pt-6"}>
                             Already have an account?
                         </p>

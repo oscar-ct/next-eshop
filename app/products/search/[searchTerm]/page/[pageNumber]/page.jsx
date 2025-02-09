@@ -9,6 +9,7 @@ import ProductItem from "@/components/ProductItem";
 import Snake from "@/components/Snake";
 import Paginate from "@/components/Paginate";
 import Loading from "@/app/loading";
+import {BiJoystickButton} from "react-icons/bi";
 
 
 const fetchProductsSearch = async (params) => {
@@ -36,7 +37,8 @@ const SearchPage = () => {
     const {searchTerm, pageNumber} = useParams();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
-    const [windowInnerWidth, setWindowInnerWidth] = useState(typeof window !== "undefined" && window.innerWidth);    const [windowResizing, setWindowResizing] = useState(false);
+    const [windowInnerWidth, setWindowInnerWidth] = useState(typeof window !== "undefined" && window.innerWidth);
+    const [windowResizing, setWindowResizing] = useState(false);
 
     useEffect(() => {
         let timeout;
@@ -74,14 +76,14 @@ const SearchPage = () => {
     }, [data]);
 
 
-    if (!loading && data.products) {
+    if (!loading && data?.products) {
         return (
             <>
                 <BackButton/>
                 {
                     data.products.length === 0 ? (
                         <>
-                            <h2 className={"text-2xl lg:text-3xl px-2 pt-20 pb-7 md:pt-10 text-center"}>
+                            <h2 className={"text-2xl lg:text-3xl px-2 pt-20 pb-7 md:pt-10 text-center dark:text-white"}>
                                 No search results for &quot;{data.searchTerm}&quot;
                             </h2>
                             <div className={"px-10"}>
@@ -94,41 +96,40 @@ const SearchPage = () => {
                                 </div>
                             </div>
                             <div className={"py-10 flex justify-center items-center"}>
-                                <div className={"w-40 flex flex-col"}>
-                                    <div className={"flex justify-center"}>
-                                        <button onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                            key: 'w',
-                                            code: 'KeyW',
-                                            keyCode: 87
-                                        }))} className={"btn btn-neutral p-3 rounded-lg border-[2px]"}>
-                                            <FaChevronUp/>
-                                        </button>
-                                    </div>
-                                    <div className={"flex justify-between"}>
-                                        <button onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                            key: 'a',
-                                            code: 'KeyA',
-                                            keyCode: 65
-                                        }))} className={"btn btn-neutral p-3 rounded-lg border-[2px]"}>
-                                            <FaChevronLeft/>
-                                        </button>
-                                        <button onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                            key: 'd',
-                                            code: 'KeyD',
-                                            keyCode: 68
-                                        }))} className={"btn btn-neutral p-3 rounded-lg border-[2px]"}>
-                                            <FaChevronRight/>
-                                        </button>
-                                    </div>
-                                    <div className={"flex justify-center"}>
-                                        <button onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                <div className={"relative dark:text-white"}>
+                                    <BiJoystickButton size={200}/>
+                                    <button
+                                        className={"rounded-2xl absolute bottom-2 left-0 right-0 mx-auto w-20 h-16"}
+                                        onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
                                             key: 's',
                                             code: 'KeyS',
                                             keyCode: 83
-                                        }))} className={"btn btn-neutral p-3 rounded-lg border-[2px]"}>
-                                            <FaChevronDown/>
-                                        </button>
-                                    </div>
+                                        }))}
+                                    />
+                                    <button
+                                        className={"rounded-2xl absolute top-2 left-0 right-0 mx-auto w-20 h-16"}
+                                            onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                        key: 'w',
+                                        code: 'KeyW',
+                                        keyCode: 87
+                                    }))}
+                                    />
+                                    <button
+                                        className={"rounded-2xl absolute bottom-0 top-0 left-2 my-auto w-16 h-20"}
+                                        onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                            key: 'a',
+                                            code: 'KeyA',
+                                            keyCode: 65
+                                        }))}
+                                    />
+                                    <button
+                                        className={"rounded-2xl absolute bottom-0 top-0 right-2 my-auto w-16 h-20"}
+                                        onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                            key: 'd',
+                                            code: 'KeyD',
+                                            keyCode: 68
+                                        }))}
+                                    />
                                 </div>
                             </div>
                         </>
@@ -139,8 +140,8 @@ const SearchPage = () => {
                             </h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
-                                    data.products.map(function (product) {
-                                        return <ProductItem key={product._id} product={product} windowInnerWidth={windowInnerWidth}/>
+                                    data.products.map(function (product, index) {
+                                        return <ProductItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
                                     })
                                 }
                             </div>
