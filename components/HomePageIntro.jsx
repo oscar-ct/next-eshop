@@ -95,7 +95,7 @@ const HomePageIntro = () => {
                         alt={"divider"}
                         width={800}
                         height={110}
-                        className={"w-full object-cover"}
+                        className={"w-full object-cover dark:invert"}
                     />
                 </motion.div>
                 <h2 className={"py-10 text-center text-xl text-gray-600 font-semibold translate-y-5 lg:py-0 dark:text-white"}>What do we sell?</h2>
@@ -103,7 +103,7 @@ const HomePageIntro = () => {
             <div className={"pt-5 pb-12 w-full flex flex-col items-center justify-center relative lg:h-64 lg:py-0"}>
                 <HomePageIntroCategories/>
                 <motion.div
-                    className={"z-0 absolute h-full w-full categoriesBg"}
+                    className={"z-0 absolute h-full w-full categoriesBg dark:invert"}
                     initial={{opacity: 0, x: -300}}
                     exit={{opacity: 0}}
                     animate={{opacity: 1, x: 0}}
