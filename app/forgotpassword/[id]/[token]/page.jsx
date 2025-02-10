@@ -108,20 +108,20 @@ const ForgotPasswordPage = () => {
     if (!loading && validJwt) {
         return (
 
-            <div className="h-max relative">
-                <div className="h-full flex flex-row justify-center">
-                    <div className="sm:mt-10 md:mb-10 w-full flex justify-center self-center">
-                        <div className="bg-white border p-12 mx-auto sm:w-96 w-full">
-                            <div className="mb-4">
-                                <h3 className="font-bold text-2xl">Reset your password
+            <>
+                <div className="h-full flex flex-row justify-center px-2 sm:py-10 sm:px-0">
+                    <div className="w-full flex justify-center self-center">
+                        <div className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
+                            <div className="mb-4 text-center sm:text-start">
+                                <h3 className="font-bold text-2xl dark:text-white">Reset your password
                                 </h3>
-                                <p className="text-gray-500 text-sm">Password must be at least 6 characters
+                                <p className="text-gray-500 text-sm dark:text-gray-300">Password must be at least 6 characters
                                 </p>
                             </div>
                             <form onSubmit={submitResetPassword} className="space-y-5">
                                 <div className="space-y-2">
                                     <label htmlFor={"password"}
-                                           className="text-sm font-medium text-gray-600 tracking-wide">New Password
+                                           className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">New Password
                                     </label>
                                     <input
                                         className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -136,7 +136,7 @@ const ForgotPasswordPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor={"confirmPassword"}
-                                           className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
+                                           className="mb-5 text-sm font-medium text-gray-600 tracking-wide dark:text-white">
                                         Confirm New Password
                                     </label>
 
@@ -170,12 +170,12 @@ const ForgotPasswordPage = () => {
 
                                 <div className={"flex justify-center"}>
                                     <button type="submit"
-                                            className="rounded-full btn btn-neutral btn-wide normal-case ibmplex text-base">
+                                            className="rounded-full btn btn-neutral btn-wide normal-case text-base">
                                         Reset Password
                                     </button>
                                 </div>
                             </form>
-                            <div className={"flex justify-center items-center text-sm"}>
+                            <div className={"flex justify-center items-center text-sm dark:text-white"}>
                                 <p className={"pt-6"}>
                                     Remembered your password?
                                 </p>
@@ -186,7 +186,7 @@ const ForgotPasswordPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
     if (loading) return <Loading/>
