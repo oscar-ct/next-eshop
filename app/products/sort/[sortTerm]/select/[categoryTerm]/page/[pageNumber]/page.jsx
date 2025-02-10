@@ -71,7 +71,7 @@ const ProductsPage = () => {
     if (!loading && products) {
         return (
             <div>
-                <div className={"pb-10"}>
+                <div className={"sm:pb-5"}>
                     <div className={"flex w-full"}>
                         <div className={"w-2/12 md:w-1/12"}>
                             <BackButton/>
