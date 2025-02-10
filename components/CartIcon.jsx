@@ -28,7 +28,7 @@ const CartIcon = () => {
     }}, [isMounted]);
 
     if (!isMounted) return (
-        <Link href={"/cart"} className="px-2 w-6 h-12 flex items-center md:h-16 md:px-0">
+        <Link href={"/cart"} className="pr-2.5 w-full h-12 flex items-center md:h-16">
             <div className="indicator dark:text-white">
                 <div className="badge text-white bg-violet-600 badge-sm indicator-item border-none">
                     <span className="loading loading-bars w-2"/>
@@ -39,7 +39,7 @@ const CartIcon = () => {
     );
     if (isMounted) return (
         <>
-            <Link href={"/cart"} className={"px-2 w-6 h-12 flex items-center md:hidden"}>
+            <Link href={"/cart"} className={"pr-2.5 w-full h-12 flex items-center md:hidden"}>
                 <div className="indicator dark:text-white">
                     {
                         totalCartItems !== 0 && (
@@ -56,7 +56,7 @@ const CartIcon = () => {
                 onMouseLeave={() => setCartDropdownActive(false)}
                 className={"hidden relative h-16 md:block"}
             >
-                <Link href={"/cart"} className="w-6 h-16 flex items-center">
+                <Link href={"/cart"} className="pr-2.5 w-full h-16 flex items-center">
                     <div className="indicator dark:text-white">
                         {
                             totalCartItems !== 0 && (
@@ -70,7 +70,7 @@ const CartIcon = () => {
                 </Link>
                 {
                     cartDropdownActive && (
-                        <div className="z-10 absolute right-0 origin-top-right w-52 bg-slate-800/70 shadow rounded-b-md">
+                        <div className="z-10 absolute right-0 origin-top-right w-52 bg-slate-800/70 shadow rounded-b-md dark:bg-slate-600/70">
                             <div className="p-5 font-bold text-white">
                                 {
                                     totalCartItems !== 0 ? (
