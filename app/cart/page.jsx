@@ -86,11 +86,11 @@ const CartPage = () => {
                     )
                 }
                 <dialog id="checkout_modal" className="modal modal-bottom sm:modal-middle">
-                    <form method="dialog" className="modal-box bg-white">
+                    <form method="dialog" className="modal-box">
                         <div className="p-3">
                             <div className="form-control w-full">
                                 <div className={"flex justify-between items-center"}>
-                                    <div className="pb-3 font text-lg">
+                                    <div className="pb-3 font text-lg dark:text-white">
                                         You are currently not logged in, we<span
                                         className={"px-1 font-bold"}>recommend</span>you login prior to placing any
                                         orders. This will allow you to seamlessly view and manage all your orders.

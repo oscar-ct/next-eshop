@@ -167,7 +167,7 @@ const ShippingPage = () => {
                                     !user && (
                                         <div className="space-y-2">
                                             <label htmlFor={"email"}
-                                                   className="text-sm font-medium text-gray-700 tracking-wide">
+                                                   className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">
                                                 Customer Email
                                             </label>
                                             <input
@@ -180,7 +180,7 @@ const ShippingPage = () => {
                                                 onChange={(e) => setGuestEmail(e.target.value)}
                                                 required
                                             />
-                                            <div className={"text-xs sm:text-sm w-full flex justify-center"}>(this email
+                                            <div className={"text-xs sm:text-sm w-full flex justify-center dark:text-gray-300"}>(this email
                                                 will be only be used to contact you about your order)
                                             </div>
                                         </div>
