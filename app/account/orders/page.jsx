@@ -12,7 +12,7 @@ const AccountOrdersPage = async () => {
     if (!session) redirect("/");
 
     return (
-        <div className={"flex flex-col overflow-x-clip relative"}>
+        <div className={"flex flex-col"}>
             <div className={"flex justify-center py-6 sm:py-10"}>
                 <div role="tablist" className="tabs tabs-bordered">
                     <Link
@@ -34,8 +34,6 @@ const AccountOrdersPage = async () => {
                     <AccountOrders/>
                 </div>
             </div>
-            <div
-                className={"z-0 scale-125 -rotate-6 m-auto absolute w-full top-72 h-72 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"}/>
         </div>
     );
 };
