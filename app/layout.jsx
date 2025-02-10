@@ -6,6 +6,7 @@ import AuthProvider from "@/components/AuthProvider";
 import {GlobalProvider} from "@/context/GlobalContext";
 import Footer from "@/components/Footer";
 import AddToCartModal from "@/components/modals/AddToCartModal";
+import {ThemeProvider} from "@/context/ThemeContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default async function RootLayout({children}) {
     return (
         <GlobalProvider>
             <AuthProvider>
+                <ThemeProvider>
                 <html lang="en">
                 <body className={`${inter.className} bg-zinc-50 dark:bg-slate-800`}>
                 <Toaster/>
@@ -30,6 +32,7 @@ export default async function RootLayout({children}) {
                 <Footer/>
                 </body>
                 </html>
+                </ThemeProvider>
             </AuthProvider>
         </GlobalProvider>
     );
