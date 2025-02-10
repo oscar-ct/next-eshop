@@ -81,12 +81,13 @@ const SearchPage = () => {
                 <BackButton/>
                 {
                     data.products.length === 0 ? (
-                        <>
-                            <h2 className={"text-2xl lg:text-3xl px-2 pt-20 pb-7 md:pt-10 text-center dark:text-white"}>
-                                No search results for &quot;{data.searchTerm}&quot;
+                        <div className={"flex flex-col"}>
+                            <h2 className={"flex flex-col text-2xl px-2 pt-20 pb-7 text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                                <span>Sorry, no search results for &quot;{data.searchTerm}&quot;</span>
+                                <span className={"text-base"}>Enjoy a game of snake!</span>
                             </h2>
-                            <div className={"px-10"}>
-                                <div className={"m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
+                            <div className={"z-10 px-2"}>
+                                <div className={"z-30 m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
                                     {
                                         !windowResizing && (
                                             <Snake/>
@@ -94,7 +95,7 @@ const SearchPage = () => {
                                     }
                                 </div>
                             </div>
-                            <div className={"py-10 flex justify-center items-center"}>
+                            <div className={"z-10 pt-10 flex justify-center items-center"}>
                                 <div className={"relative dark:text-white"}>
                                     <BiJoystickButton size={200}/>
                                     <button
@@ -131,10 +132,10 @@ const SearchPage = () => {
                                     />
                                 </div>
                             </div>
-                        </>
+                        </div>
                     ) : (
-                        <div className={"pb-10"}>
-                            <h2 className={"pt-20 md:pt-10 text-2xl lg:text-3xl text-center px-2 pb-7"}>
+                        <div className={"sm:pb-5"}>
+                            <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
                                 Search results for &quot;{data.searchTerm}&quot;
                             </h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
