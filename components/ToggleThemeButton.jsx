@@ -1,46 +1,41 @@
 "use client";
 
-import {useContext, useEffect} from "react";
 import {MdOutlineDarkMode, MdOutlineLightMode} from "react-icons/md";
-import ThemeContext from "@/context/ThemeContext";
+import {useTheme} from "next-themes";
+import {useEffect, useState} from "react";
 
 const ToggleThemeButton = () => {
-
-    const { isDarkMode, isInitialRender, dispatch } = useContext(ThemeContext);
-
-    const toggleTheme = () => {
-        document.documentElement.classList.toggle('dark');
-        dispatch({type: "TOGGLE_THEME"});
-    };
+    const { theme, setTheme } = useTheme();
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        if (isInitialRender) {
-            if (isDarkMode) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-            dispatch({type: "RENDER_FALSE"});
-        }
-    }, [isInitialRender, isDarkMode]);
+        setIsMounted(true);
+    }, [])
 
-    return (
-        <button className={"w-full h-full flex items-center"} onClick={toggleTheme}>
+    if (!isMounted) return (
+        <div className={"w-full"}>
+            <span className="loading loading-bars loading-xs"/>
+        </div>
+
+    )
+
+    if (isMounted) return (
+        <>
             {
-                isDarkMode ? (
-                    <div className={"flex flex-col items-center"}>
+                theme === "dark" ? (
+                    <button onClick={() => setTheme("light")} className={"w-full h-full flex flex-col items-center"}>
                         <MdOutlineLightMode size={24} fill={"white"}/>
                         <span className={"hidden text-white text-xs md:block "}>Light</span>
-                    </div>
+                    </button>
 
                 ) : (
-                    <div className={"flex flex-col items-center"}>
+                    <button onClick={() => setTheme("dark")} className={"w-full h-full flex flex-col items-center"}>
                         <MdOutlineDarkMode size={24}/>
                         <span className={"hidden text-xs md:block"}>Dark</span>
-                    </div>
+                    </button>
                 )
             }
-        </button>
+        </>
     );
 };
 
