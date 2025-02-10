@@ -2,7 +2,8 @@
 import daisyui from 'daisyui'
 
 module.exports = {
-  darkMode: "selector",
+  darkMode: 'class',
+  // darkMode: "selector",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
