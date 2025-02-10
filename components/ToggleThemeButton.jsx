@@ -2,14 +2,17 @@
 
 import {useContext} from "react";
 import {MdOutlineDarkMode, MdOutlineLightMode} from "react-icons/md";
-import GlobalContext from "@/context/GlobalContext";
+import ThemeContext from "@/context/ThemeContext";
 
 const ToggleThemeButton = () => {
-    const { isDarkMode, dispatch } = useContext(GlobalContext);
+
+    const { isDarkMode, dispatch } = useContext(ThemeContext);
+
     const toggleTheme = () => {
         document.documentElement.classList.toggle('dark');
         dispatch({type: "TOGGLE_THEME"});
-    }
+    };
+
     return (
         <button className={"w-full h-full flex items-center"} onClick={toggleTheme}>
             {
