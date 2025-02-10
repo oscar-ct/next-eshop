@@ -366,7 +366,7 @@ const ProductPage = () => {
                                     </label>
                                     <select
                                         id={"qty"}
-                                        className="bg-zinc-50 h-full w-full !outline-none text-sm bg-white"
+                                        className="bg-zinc-50 h-full w-full !outline-none text-sm"
                                         value={quantity}
                                         onChange={(e) => setQuantity(Number(e.target.value))}
                                     >
