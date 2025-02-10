@@ -5,6 +5,11 @@ const themeReducer = (state, action) => {
                 ...state,
                 isDarkMode: !state.isDarkMode,
             }
+        case "RENDER_FALSE":
+            return {
+                ...state,
+                isInitialRender: false,
+            }
         default:
             console.log("case missed...")
             return state;

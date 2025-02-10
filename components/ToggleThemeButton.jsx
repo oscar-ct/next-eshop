@@ -1,17 +1,28 @@
 "use client";
 
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {MdOutlineDarkMode, MdOutlineLightMode} from "react-icons/md";
 import ThemeContext from "@/context/ThemeContext";
 
 const ToggleThemeButton = () => {
 
-    const { isDarkMode, dispatch } = useContext(ThemeContext);
+    const { isDarkMode, isInitialRender, dispatch } = useContext(ThemeContext);
 
     const toggleTheme = () => {
         document.documentElement.classList.toggle('dark');
         dispatch({type: "TOGGLE_THEME"});
     };
+
+    useEffect(() => {
+        if (isInitialRender) {
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            dispatch({type: "RENDER_FALSE"});
+        }
+    }, [isInitialRender, isDarkMode]);
 
     return (
         <button className={"w-full h-full flex items-center"} onClick={toggleTheme}>
