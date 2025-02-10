@@ -59,8 +59,8 @@ const NavbarUser = ({ session, myAccountLink, myOrdersLink, dashboardLink }) => 
                         onMouseEnter={() => setUserDropdownActive(true)}
                         onMouseLeave={() => setUserDropdownActive(false)}
                     >
-                        <div className={"cursor-pointer h-16 flex items-center"}>
-                            <h5 className={"font-semibold pr-1.5 dark:text-white"}>{session?.user.name.username.substring(0, 12)}</h5>
+                        <div className={"cursor-pointer h-16 flex items-center dark:text-white"}>
+                            <h5 className={"font-semibold pr-1.5"}>{session?.user.name.username.substring(0, 12)}</h5>
                             <div className={`${rotateChevron(userDropdownActive)}`}>
                                 <FaChevronDown className={"w-2.5"}/>
                             </div>
@@ -69,7 +69,7 @@ const NavbarUser = ({ session, myAccountLink, myOrdersLink, dashboardLink }) => 
                             userDropdownActive && (
                                 <div className="absolute right-0 z-10 origin-top-right">
                                     <div
-                                        className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                        className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full dark:bg-slate-600/70">
                                         <div className={"flex-col w-full"}>
                                             <Link
                                                 href={myAccountLink}
@@ -108,13 +108,13 @@ const NavbarUser = ({ session, myAccountLink, myOrdersLink, dashboardLink }) => 
                         onMouseEnter={() => setUserDropdownActive(true)}
                         onMouseLeave={() => setUserDropdownActive(false)}
                     >
-                        <div className={"cursor-pointer h-16 flex items-center"}>
+                        <div className={"cursor-pointer h-16 flex items-center dark:text-white"}>
                             <Link href={"/login"}>
                                 <div
                                     className="flex items-center"
                                 >
                                     <FaUser/>
-                                    <h5 className={"px-1.5 font-semibold dark:text-white"}>Login</h5>
+                                    <h5 className={"px-1.5 font-semibold"}>Login</h5>
                                 </div>
                             </Link>
                             <div className={`${rotateChevron(userDropdownActive)}`}>
@@ -125,7 +125,7 @@ const NavbarUser = ({ session, myAccountLink, myOrdersLink, dashboardLink }) => 
                             userDropdownActive && (
                                 <div className="absolute right-0 z-10 origin-top-right">
                                     <div
-                                        className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                        className="bg-slate-800/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full dark:bg-slate-600/70">
                                         <div className={"flex-col w-full"}>
                                             <Link
                                                 href={"/login"}
