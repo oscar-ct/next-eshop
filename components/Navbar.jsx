@@ -7,6 +7,7 @@ import NavbarSearchBox from "@/components/NavbarSearchBox";
 import NavbarProducts from "@/components/NavbarProducts";
 import NavbarUser from "@/components/NavbarUser";
 import {getServerSession} from "next-auth";
+import ToggleThemeButton from "@/components/ToggleThemeButton";
 
 
 const Navbar = async () => {
@@ -31,7 +32,7 @@ const Navbar = async () => {
                     dashboardLink}}
                 />
             </div>
-            <div className={"z-40 fixed h-12 inset-0 bg-zinc-50 w-full sm:border-b md:h-16 dark:bg-slate-800"}>
+            <div className={"z-40 fixed h-12 inset-0 bg-zinc-50 w-full md:h-16 sm:shadow dark:bg-slate-800"}>
                 <div className="h-full w-full flex justify-between items-center relative">
                     <div className={"flex cursor-pointer px-3"}>
                         <Link
@@ -46,12 +47,16 @@ const Navbar = async () => {
                             />
                         </Link>
                     </div>
-                    <div className={"absolute right-16 md:hidden"}>
+                    <div className={"absolute right-24 md:hidden"}>
+                        <ToggleThemeButton/>
+                    </div>
+                    <div className={"absolute right-12 md:hidden"}>
                         <CartIcon/>
                     </div>
                     <div className={"hidden md:flex justify-end"}>
                         <div className={"pr-3"}>
-                            <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-3 lg:gap-6">
+                                <ToggleThemeButton/>
                                 <NavbarSearchBox/>
                                 <CartIcon/>
                                 <NavbarProducts
