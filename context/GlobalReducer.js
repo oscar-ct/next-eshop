@@ -149,11 +149,6 @@ const globalReducer = (state, action) => {
                 ...state,
                 guestData: action.payload
             }
-        case "TOGGLE_THEME":
-            return {
-                ...state,
-                isDarkMode: !state.isDarkMode
-            }
         default:
             console.log("case missed...")
             return state;
