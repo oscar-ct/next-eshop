@@ -205,7 +205,7 @@ const LoginForm = () => {
                     <div className="px-3">
                         <div className="form-control w-full">
                             <label htmlFor={"email2"} className="pb-2 text-sm font-medium text-gray-600 tracking-wide dark:text-gray-300">
-                                Send reset password reset link
+                                Send a reset password link to your email
                             </label>
                             <input id={"email2"} autoComplete={"email"} name="email" type="email" placeholder="Enter your email" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" value={recoveryEmail} onChange={(e) => {
                                 setRecoveryEmail(e.target.value);
