@@ -20,7 +20,7 @@ const ProductItemRating = ({rating, text} ) => {
             </div>
             {
                 text && (
-                    <span className={"text-gray-700"}>{text}</span>
+                    <span className={"text-gray-700 dark:text-gray-300"}>{text}</span>
                 )
             }
         </div>
