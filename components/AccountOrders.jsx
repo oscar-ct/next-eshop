@@ -9,16 +9,16 @@ import Loading from "@/app/loading";
 import {fetchCancelProduct, fetchUserOrders} from "@/utils/api-requests/fetchRequests";
 
 
-const AccountOrders = () => {
+const AccountOrders = ({session}) => {
 
-    const { user, cancelIntentData } = useContext(GlobalContext);
+    const { cancelIntentData } = useContext(GlobalContext);
     const [orders, setOrders] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserOrdersData = async () => {
             try {
-                const orders = await fetchUserOrders(user.id);
+                const orders = await fetchUserOrders(session.user.image);
                 setOrders(orders);
             } catch (e) {
                 console.log(e);
