@@ -24,14 +24,14 @@ const AccountOrdersPage = async () => {
                     <Link
                         role="tab"
                         href={"/account/orders"}
-                        className={`tab tab-active dark:text-white dark:border-white`}>
+                        className={`tab tab-active dark:text-white dark:!border-white`}>
                         Your Orders
                     </Link>
                 </div>
             </div>
             <div className={"mx-auto"}>
                 <div className={"px-2"}>
-                    <AccountOrders/>
+                    <AccountOrders session={session}/>
                 </div>
             </div>
         </div>
