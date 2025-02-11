@@ -430,9 +430,10 @@ const OrderPage = () => {
                                                             order.paymentMethod === "PayPal / Credit Card" && (
                                                                 <div className={"px-4"}>
                                                                     <PayPalScriptProvider options={initialOptions}>
-                                                                        <PaypalCheckout createNewOrder={() => createNewOrder()}
-                                                                                        setSaveButtonDisabled={() => null}
-                                                                                        existingOrder={order}/>
+                                                                        <PaypalCheckout
+                                                                            setSaveButtonDisabled={() => null}
+                                                                            existingOrder={order}
+                                                                        />
                                                                     </PayPalScriptProvider>
                                                                 </div>
                                                             )
