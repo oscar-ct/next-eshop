@@ -6,7 +6,7 @@ import HomePageIntroCategories from "@/components/HomePageIntroCategories";
 import divider from "@/icons/divider.svg";
 import HomePageSwiper from "@/components/HomePageSwiper";
 
-const HomePageIntro = () => {
+const HomePageIntro = ({session}) => {
 
     // const openModal = () => {
     //     window.oscar_modal.showModal();
@@ -76,9 +76,18 @@ const HomePageIntro = () => {
 
         <div className={"bg-opacity-85 sm:mt-10 rounded-2xl bg-zinc-50 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
             <div className={"h-full relative lg:pb-10"}>
-                <h1 className={"py-14 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
-                    Welcome to eshopjs.com
-                </h1>
+                {
+                    session ? (
+                        <h1 className={"py-14 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
+                            Welcome, {session.user.name.username}!
+                        </h1>
+                    ) : (
+                        <h1 className={"py-14 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
+                            Welcome to eshopjs.com
+                        </h1>
+                    )
+                }
+
                 <div className={"w-full h-min"}>
                     <HomePageSwiper/>
                 </div>
