@@ -19,7 +19,7 @@ const AccountPage = async () => {
                     <Link
                         role="tab"
                         href={"/account"}
-                        className={`tab tab-active dark:text-white dark:border-white`}>
+                        className={`tab tab-active dark:text-white dark:!border-white`}>
                         Account
                     </Link>
                     <Link
@@ -32,8 +32,8 @@ const AccountPage = async () => {
             </div>
             <div className={"mx-auto"}>
                 <div className={"px-2 flex flex-col gap-4 sm:gap-8 lg:flex-row"}>
-                    <AccountDetailsForm/>
-                    <AccountPasswordForm/>
+                    <AccountDetailsForm session={session}/>
+                    <AccountPasswordForm session={session}/>
                 </div>
             </div>
         </div>
