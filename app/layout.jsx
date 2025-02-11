@@ -24,7 +24,7 @@ export default async function RootLayout({children}) {
                         <Theme>
                             <Toaster/>
                             <Navbar/>
-                            <main className={"mt-12 mx-auto min-h-[calc(100vh-336px)] md:mt-16 md:min-h-[calc(100vh-288px)] relative overflow-x-clip overflow-y-hidden"}>
+                            <main className={"top-12 mx-auto min-h-[calc(100vh-288px)] md:top-16 md:min-h-[calc(100vh-224px)] relative overflow-x-clip overflow-y-hidden"}>
                                 {children}
                                 <div className={"z-0 scale-125 -rotate-6 m-auto fixed w-full top-72 h-72 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"}/>
                             </main>
