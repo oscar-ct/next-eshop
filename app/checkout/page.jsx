@@ -67,6 +67,7 @@ const CheckoutPage = () => {
         dispatch({type: "SET_LOCAL_STORAGE"});
     };
 
+    /// used only for paypal checkout and create new unpaid order
     const createNewOrder = async () => {
         let user;
         if (userData) {
@@ -88,7 +89,7 @@ const CheckoutPage = () => {
             shippingPrice,
             taxPrice,
             totalPrice,
-            validCode: res.validCode,
+            validCode: res ? res.validCode : false,
         }
         const newOrder = await fetchNewOrder(body);
         if (!newOrder) return null;
