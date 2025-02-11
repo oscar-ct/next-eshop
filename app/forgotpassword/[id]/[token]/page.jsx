@@ -109,7 +109,7 @@ const ForgotPasswordPage = () => {
         return (
 
             <>
-                <div className="h-full flex flex-row justify-center px-2 sm:py-10 sm:px-0">
+                <div className="h-full flex flex-row justify-center px-2 sm:pt-10 sm:px-0">
                     <div className="w-full flex justify-center self-center">
                         <div className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                             <div className="mb-4 text-center sm:text-start">

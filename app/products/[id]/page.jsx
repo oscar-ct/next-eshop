@@ -189,7 +189,7 @@ const ProductPage = () => {
                     </div>
                     <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
                 </div>
-                <div className={"px-2 pt-16 flex flex-col items-center gap-4 sm:pb-5 xl:flex-row xl:justify-center xl:items-start"}>
+                <div className={"px-2 pt-16 flex flex-col items-center gap-4 xl:flex-row xl:justify-center xl:items-start"}>
                     <div className={"bg-zinc-50 z-20 px-4 py-8 w-full flex-col flex items-center rounded-2xl gap-4 sm:gap-4 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none md:max-w-3xl dark:bg-slate-800"}>
                         <div className={"flex flex-col gap-4"}>
                             <h2 className={"text-2xl text-center sm:text-3xl dark:text-white"}>{product.name}</h2>

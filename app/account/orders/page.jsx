@@ -30,7 +30,7 @@ const AccountOrdersPage = async () => {
                 </div>
             </div>
             <div className={"mx-auto"}>
-                <div className={"px-2 sm:pb-5"}>
+                <div className={"px-2"}>
                     <AccountOrders/>
                 </div>
             </div>

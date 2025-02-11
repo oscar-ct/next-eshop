@@ -95,7 +95,7 @@ const SearchPage = () => {
                                     }
                                 </div>
                             </div>
-                            <div className={"z-10 pt-10 flex justify-center items-center"}>
+                            <div className={"z-10 flex justify-center items-center"}>
                                 <div className={"relative dark:text-white"}>
                                     <BiJoystickButton size={200}/>
                                     <button
@@ -134,7 +134,7 @@ const SearchPage = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className={"sm:pb-5"}>
+                        <>
                             <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
                                 Search results for &quot;{data.searchTerm}&quot;
                             </h2>
@@ -154,7 +154,7 @@ const SearchPage = () => {
                                     </div>
                                 )
                             }
-                        </div>
+                        </>
                     )
                 }
             </>
