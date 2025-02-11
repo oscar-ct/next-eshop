@@ -5,46 +5,72 @@ import GlobalContext from "@/context/GlobalContext";
 import toast from "react-hot-toast";
 import CustomBtn from "@/components/CustomBtn";
 import {fetchUpdateUserCredentials} from "@/utils/api-requests/fetchRequests"
+import {signOut, useSession} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 
-const AccountDetailsForm = () => {
+const AccountDetailsForm = ({session}) => {
 
     const { user, dispatch } = useContext(GlobalContext);
+    const router = useRouter();
 
-    const [name, setName] = useState(user ? user.name : "");
-    const [email, setEmail] = useState(user ? user.email : "");
+    const { update } = useSession();
+    const [name, setName] = useState(session.user.name.username);
+    const [email, setEmail] = useState(session.user.email);
     const [password, setPassword] = useState("");
     const [buttonIsDisabled, setButtonIsDisabled] = useState(true);
 
     useEffect(() => {
-        if (name !== user?.name || email !== user?.email) {
+        if (name !== session.user.name.username || email !== session.user.email) {
             setButtonIsDisabled(false);
         } else {
             setButtonIsDisabled(true);
         }
-    }, [name, email, user?.name, user?.email]);
+    }, [name, email, session.user.name.username, session.user.email]);
 
 
     const submitAccountHandler = async (e) => {
         e.preventDefault();
+        setButtonIsDisabled(true);
         const body = {
-            id: user.id,
+            id: session.user.image,
             name,
             email,
             password,
         }
+        if (session.user.image !== user.id) {
+            toast.error("Something went wrong");
+            await signOut({ callbackUrl: '/' });
+            dispatch({type: "RESET_STATE"});
+            return;
+        }
         const updatedUser = await fetchUpdateUserCredentials(body);
         if (updatedUser) {
+            const hasUpdatedUsername = session.user.name.username !== name;
+            const hasUpdatedEmail = session.user.name.username !== name;
+            const newSessionObject = {
+                ...session,
+                user: {
+                    ...session.user,
+                    name: {
+                        ...session.user.name,
+                        username: hasUpdatedUsername ? name : session.user.name.username,
+                    },
+                    email: hasUpdatedEmail ? email : session.user.email,
+                }
+            }
+            await update(newSessionObject);
             dispatch({type: "ADD_USER", payload: updatedUser});
             dispatch({type: "SET_LOCAL_STORAGE"});
             setPassword("");
             toast.success("Account updated");
+            setButtonIsDisabled(false);
+            router.refresh();
         }
     };
 
 
     return (
-
             <div
                 className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                 <div className="mb-4 text-center sm:text-start">
@@ -104,7 +130,6 @@ const AccountDetailsForm = () => {
                             required
                         />
                     </div>
-
                     <div className={"pt-5 flex justify-center"}>
                         <CustomBtn isDisabled={buttonIsDisabled} type={"submit"} customClass={"btn-wide"}>
                             Update
