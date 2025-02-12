@@ -47,9 +47,7 @@ const fetchDeleteProductReview = async (body, id, reviewId) => {
     }
 };
 
-
 const ProductPage = () => {
-
 
     const router = useRouter();
     const { dispatch, user } = useContext(GlobalContext);
@@ -136,13 +134,12 @@ const ProductPage = () => {
         window.confirm_modal.showModal();
     };
 
-
     if (!loading && fullScreen && product) {
         return (
-            <div className={"z-30 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
-                <div className={"relative"}>
+            <div className={"z-50 bg-black h-full fixed top-0 right-0 left-0 bottom-0"}>
+                <div className={"h-full relative flex items-center"}>
                     <button onClick={() => setFullScreen(false)}
-                            className={"z-10 hover:text-blue-500 rounded-full bg-black/50 p-3 text-2xl text-white absolute top-5 right-5"}>
+                            className={"z-50 hover:text-blue-500 rounded-full bg-black/50 p-3 text-2xl text-white absolute top-5 right-5"}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24"
                              stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -160,16 +157,14 @@ const ProductPage = () => {
                         {product.images.map(function (data, index) {
                             return (
                                 <SwiperSlide key={index}>
-                                    <div className={"min-h-[calc(100vh-336px)] md:min-h-[calc(100vh-288px)] flex justify-center items-center"}>
-                                        <div className={"swiper-zoom-container"}>
-                                            <Image
-                                                className={"h-[600px] w-[600px]"}
-                                                width={600}
-                                                height={600}
-                                                src={data.length !== 0 ? data.url : "/images/sample.jpg"}
-                                                alt={"item"}
-                                            />
-                                        </div>
+                                    <div className={"swiper-zoom-container"}>
+                                        <Image
+                                            className={"w-auto h-auto"}
+                                            width={600}
+                                            height={600}
+                                            src={data.length !== 0 ? data.url : "/images/sample.jpg"}
+                                            alt={"item"}
+                                        />
                                     </div>
                                 </SwiperSlide>
                             )
@@ -212,32 +207,32 @@ const ProductPage = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className={"flex flex-col gap-6 w-full"}>
-                            <div className={"flex justify-center sm:border-none bg-stone-100 rounded-lg"}
+                        <div className={"flex flex-col gap-6 w-full h-full"}>
+                            <div className={"flex justify-center sm:border-none bg-stone-100 rounded-lg h-96 relative"}
                                  onClick={() => setFullScreen(true)}>
                                 <Image
                                     priority
                                     src={product.images.length !== 0 ? product.images[imageIndex]?.url : "/images/sample.jpg"}
                                     alt={"product"}
-                                    height={448}
-                                    width={448}
-                                    className={"w-auto cursor-pointer rounded-lg object-scale-down h-96"}
+                                    fill={true}
+                                    sizes={"384px"}
+                                    className={"cursor-pointer rounded-lg object-scale-down"}
                                 />
                             </div>
-                            <div className={"flex justify-center"}>
+                            <div className={"flex justify-center gap-3"}>
                                 {
                                     product.images.map(function (image, index) {
                                         return (
                                             <div onMouseEnter={() => setImageIndex(index)} key={index}
                                                  onDoubleClick={() => setFullScreen(true)}
-                                                 className={"px-1 cursor-pointer"}>
+                                                 className={"cursor-pointer flex justify-center items-center h-20 w-20 relative"}>
                                                 <Image
                                                     priority
-                                                    className={`w-full h-full max-h-20 object-scale-down rounded-sm transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`}
+                                                    className={`object-scale-down rounded-sm transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`}
                                                     src={image?.url}
-                                                    height={80}
-                                                    width={80}
+                                                    fill={true}
                                                     alt={"products"}
+                                                    sizes={"80px"}
                                                 />
                                             </div>
                                         )
