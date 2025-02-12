@@ -12,15 +12,14 @@ const ToggleThemeButton = () => {
         setIsMounted(true);
     }, [])
 
-    if (!isMounted) return (
-        <div className={"w-full"}>
-            <span className="loading loading-bars loading-xs"/>
-        </div>
-
-    )
+    // if (!isMounted) return (
+    //     <div className={"w-full"}>
+    //         <span className="loading loading-bars loading-xs"/>
+    //     </div>
+    // )
 
     if (isMounted) return (
-        <>
+        <div className={"fadeInEffect"}>
             {
                 theme === "dark" ? (
                     <button onClick={() => setTheme("light")} className={"w-full h-full flex flex-col items-center"}>
@@ -35,7 +34,7 @@ const ToggleThemeButton = () => {
                     </button>
                 )
             }
-        </>
+        </div>
     );
 };
 
