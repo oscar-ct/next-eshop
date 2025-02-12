@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    img {
+        height: auto;
+        width: auto;
+    }
+}
+
 body {
     color: black;
     margin: 0;
