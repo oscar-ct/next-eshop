@@ -190,6 +190,7 @@ const ProductPage = () => {
                         loading && !product ? (
                             <div className="flex w-full flex-col gap-6 h-full">
                                 <div className="skeleton h-16 w-full"></div>
+                                <div className="skeleton h-6 w-full"></div>
                                 <div className="skeleton h-96 w-full"></div>
                                 <div className="skeleton h-4 w-28"></div>
                                 <div className="skeleton h-4 w-full"></div>
