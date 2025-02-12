@@ -1,19 +1,26 @@
 "use client";
 
-import {useContext, useState} from "react";
+import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
-import GlobalContext from "@/context/GlobalContext";
 import CustomBtn from "@/components/CustomBtn";
 import {fetchUpdateUserCredentials} from "@/utils/api-requests/fetchRequests";
 
 
-const AccountPasswordForm = () => {
-
-    const { user } = useContext(GlobalContext);
+const AccountPasswordForm = ({session}) => {
 
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
+    const [isValidPassword, setIsValidPassword] = useState(true);
+    const [isProcessing, setIsProcessing] = useState(false);
+
+    useEffect(() => {
+        if (newPassword.length > 6 && confirmNewPassword.length > 6) {
+            setIsValidPassword(false)
+        } else {
+            setIsValidPassword(true);
+        }
+    }, [newPassword, confirmNewPassword]);
 
     const clearPasswordFields = () => {
         setPassword("");
@@ -23,8 +30,9 @@ const AccountPasswordForm = () => {
 
     const submitAccountHandler = async (e) => {
         e.preventDefault();
+        setIsProcessing(true);
         const body = {
-            id: user.id,
+            id: session.user.image,
             newPassword,
             password,
         }
@@ -37,11 +45,11 @@ const AccountPasswordForm = () => {
                 toast.success("Password updated");
             }
         }
+        setIsProcessing(false);
     };
 
 
     return (
-
             <div
                 className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                 <div className="mb-4 text-center sm:text-start">
@@ -101,7 +109,7 @@ const AccountPasswordForm = () => {
                         />
                     </div>
                     <div className={"pt-5 flex justify-center"}>
-                        <CustomBtn isDisabled={newPassword.length < 6 || confirmNewPassword.length < 6} type={"submit"} customClass={"btn-wide"}>
+                        <CustomBtn isDisabled={isValidPassword || isProcessing} type={"submit"} customClass={"btn-wide"}>
                             Update
                         </CustomBtn>
                     </div>
