@@ -28,9 +28,9 @@ const Message = ({variant, children, border= ""}) => {
     const alertClass = (variant) => {
         switch (variant) {
             case "error" :
-                return `alert flex alert-error bg-[#F4595E59] border-none ${border}`;
+                return `alert flex alert-error border-none ${border}`;
             case "warning" :
-                return `alert flex alert-warning bg-[#F8B11C59] border-none ${border}`;
+                return `alert flex alert-warning border-none ${border}`;
             case "success" :
                 return `alert flex alert-success bg-green-200 border-none ${border}`;
             case "info" :
@@ -44,9 +44,9 @@ const Message = ({variant, children, border= ""}) => {
     return (
         // this is not working properly
         // <div className={`alert alert-${variant}`}>
-        <div className={`!rounded-sm ${alertClass(variant)}`}>
+        <div className={`!rounded-sm opacity-90 ${alertClass(variant)}`}>
             <div className={"flex items-center justify-start"}>
-                <div className={"mr-1"}>{ iconType(variant) }</div>
+                <div className={"pr-1"}>{ iconType(variant) }</div>
                 <span className={"text-start"}>{children}</span>
             </div>
         </div>
