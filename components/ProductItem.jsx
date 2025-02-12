@@ -69,14 +69,15 @@ const ProductItem = ({product, smallSize = false, cardWidth = "", windowInnerWid
                     <div
                         onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))}
                         onMouseLeave={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(0)}
+                        className={"p-2"}
                     >
-                        <figure className="p-2">
+                        <figure className="h-48 relative">
                             <Image
                                 src={product.images.length !== 0 ? product.images[imgIndex].url : "/images/sample.jpg"}
                                 alt="product"
-                                className="w-full bg-zinc-50 h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl dark:bg-white"
-                                width={246}
-                                height={197}
+                                className="bg-zinc-50 object-scale-down rounded-tr-xl rounded-tl-xl dark:bg-white"
+                                fill={true}
+                                sizes={"192px"}
                                 priority={true}
                             />
                         </figure>
