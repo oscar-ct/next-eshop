@@ -6,7 +6,7 @@ import CustomBtn from "@/components/CustomBtn";
 const OscarModal = () => {
     return (
         <dialog id="oscar_modal" className="modal">
-            <div className="modal-box dark:bg-slate-800">
+            <div className="modal-box bg-white  dark:bg-slate-800">
                 <div
                     className={"w-full h-[28rem] flex flex-col items-center justify-evenly"}>
                     <div className={"pt-3 w-full flex flex-col justify-center items-center"}>

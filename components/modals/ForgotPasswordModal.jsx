@@ -62,7 +62,7 @@ const ForgotPasswordModal = ({setFormData}) => {
 
     return (
         <dialog id="password_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box dark:bg-slate-800">
+            <form method="dialog" className="modal-box bg-white dark:bg-slate-800">
                 <div className={"flex justify-between items-center"}>
                     <h3 className="p-3 font-bold text-xl dark:text-white">Forgot your password?</h3>
                 </div>

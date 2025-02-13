@@ -7,7 +7,7 @@ const GuestModal = () => {
     const router = useRouter();
     return (
         <dialog id="checkout_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box dark:bg-slate-800">
+            <form method="dialog" className="modal-box bg-white dark:bg-slate-800">
                 <div className="p-3">
                     <div className="form-control w-full">
                         <div className={"flex justify-between items-center"}>

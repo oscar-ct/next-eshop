@@ -79,7 +79,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
 
     return (
         <dialog id="review_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box dark:bg-slate-800">
+            <form method="dialog" className="modal-box bg-white dark:bg-slate-800">
                 <div className={"flex justify-center items-center"}>
                     <h3 className="p-4 font-bold text-3xl dark:text-white">Review Product</h3>
                 </div>

@@ -21,7 +21,7 @@ const AddToCartModal = () => {
 
     if (mounted) return (
         <dialog id="add_to_cart_modal" className="modal modal-bottom sm:modal-middle">
-            <div className="modal-box dark:bg-slate-800">
+            <div className="modal-box bg-white dark:bg-slate-800">
                 <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
