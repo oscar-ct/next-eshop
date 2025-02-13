@@ -79,7 +79,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
 
     return (
         <dialog id="review_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box">
+            <form method="dialog" className="modal-box dark:bg-slate-800">
                 <div className={"flex justify-center items-center"}>
                     <h3 className="p-4 font-bold text-3xl dark:text-white">Review Product</h3>
                 </div>
@@ -95,7 +95,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
 
                 <div className={"px-4 flex flex-col label"}>
                     <span className={"label-text py-2 dark:text-white"}>Select your rating</span>
-                    <div className="rating rating-lg">
+                    <div className="rating rating-lg gap-4">
                         <input type="radio" value={"0"} name="rating-2" className="rating-hidden" defaultChecked
                                onChange={(e) => setRating(e.target.value)}/>
                         <input type="radio" value={"1"} name="rating-2" className="mask mask-star-2 bg-orange-300"
