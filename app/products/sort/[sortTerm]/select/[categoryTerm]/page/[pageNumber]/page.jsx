@@ -74,10 +74,10 @@ const ProductsPage = () => {
                         <div className={"flex w-full"}>
                             <div className={"flex flex-col justify-between items-center w-6/12"}>
                                 <p className={"z-10 p-1 text-sm dark:text-white"}>Category</p>
-                                <div className={"px-2 w-full lg:w-96"}>
+                                <div className={"flex px-2 w-full lg:w-96"}>
                                     {
                                         loading && !products ? (
-                                            <div className={"z-10"}>
+                                            <div className={"w-full z-10"}>
                                                 <div
                                                     className={"h-[42px] bg-zinc-50 border flex justify-between items-center px-3 py-2.5 text-gray-400"}>
                                                     <span className="z-30 loading loading-bars loading-sm"/>
@@ -100,10 +100,10 @@ const ProductsPage = () => {
                             </div>
                             <div className={"flex flex-col justify-between items-center w-6/12"}>
                                 <p className={"z-10 p-1 text-sm dark:text-white"}>Sort By</p>
-                                <div className={"z-10 px-2 w-full lg:w-96"}>
+                                <div className={"flex px-2 w-full lg:w-96"}>
                                     {
                                         loading && !products ? (
-                                            <div className={"z-10"}>
+                                            <div className={"w-full z-10"}>
                                                 <div
                                                     className={"w-full h-[42px] bg-zinc-50 border flex justify-between items-center px-3 py-2.5 text-gray-400"}>
                                                     <span className="z-30 loading loading-bars loading-sm"/>
@@ -131,7 +131,10 @@ const ProductsPage = () => {
             </div>
             {
                 loading && !products ? (
-                    <ProductItemSkeletons/>
+                    <div className={"pt-6"}>
+                        <ProductItemSkeletons/>
+                    </div>
+
                 ) : (
                     <>
 
