@@ -69,11 +69,11 @@ const ProductsPage = () => {
                 <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
             </div>
             <div className={"pt-20 lg:pt-14"}>
-                <div className={"flex justify-between"}>
-                    <div className={"w-full p-1 flex items-center"}>
-                        <div className={"flex w-full"}>
-                            <div className={"flex flex-col justify-between items-center w-6/12"}>
-                                <p className={"z-20 flex p-1 text-sm dark:text-white"}>Category</p>
+                <div className={"z-30 flex justify-between"}>
+                    <div className={"z-30 w-full p-1 flex items-center"}>
+                        <div className={"z-30 flex w-full"}>
+                            <div className={"z-30 flex flex-col justify-between items-center w-6/12"}>
+                                <p className={"z-30 flex p-1 text-sm dark:text-white"}>Category</p>
                                 <div className={"flex px-2 w-full lg:w-96"}>
                                     {
                                         loading && !products ? (
@@ -98,8 +98,8 @@ const ProductsPage = () => {
                                     }
                                 </div>
                             </div>
-                            <div className={"flex flex-col justify-between items-center w-6/12"}>
-                                <p className={"z-20 flex p-1 text-sm dark:text-white"}>Sort By</p>
+                            <div className={"z-30 flex flex-col justify-between items-center w-6/12"}>
+                                <p className={"z-30 flex p-1 text-sm dark:text-white"}>Sort By</p>
                                 <div className={"flex px-2 w-full lg:w-96"}>
                                     {
                                         loading && !products ? (
@@ -120,7 +120,6 @@ const ProductsPage = () => {
                                                 pageNumber={pageNumber}
                                                 customStyles={customStyles}
                                             />
-
                                         )
                                     }
                                 </div>

@@ -49,7 +49,7 @@ const SelectMenuCategory = ({sortTerm, categoryTerm, pageNumber, customStyles}) 
         <Select
             styles={customStyles}
             isSearchable={false}
-            className={"text-black w-full z-30"}
+            className={"w-full"}
             placeholder={placeHolder(categoryTerm)}
             options={options}
             onChange={handleChange}

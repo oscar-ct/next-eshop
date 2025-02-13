@@ -30,7 +30,7 @@ const SelectMenuSort = ({sortTerm, categoryTerm, pageNumber, customStyles}) => {
         <Select
             styles={customStyles}
             isSearchable={false}
-            className={"text-black w-full z-30"}
+            className={"w-full"}
             placeholder={placeHolder(sortTerm)}
             options={options}
             onChange={handleChange}
