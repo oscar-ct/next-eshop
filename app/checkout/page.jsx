@@ -281,7 +281,7 @@ const CheckoutPage = () => {
                                     <div className="skeleton h-6 w-full bg-gray-300 dark:bg-gray-200"/>
                                 </div>
                             ) : (
-                                <RevealMotion y={25}>
+                                <RevealMotion y={25} childClass={"w-full flex justify-center"}>
                                     {
                                         itemsPrice > 10000 ? (
                                             <div className={"text-center flex items-center gap-2"}>
@@ -427,9 +427,9 @@ const CheckoutPage = () => {
                     </div>
                     {
                         mounted && userData && !saveButtonDisabled && (
-                            <RevealMotion y={25}>
+                            <RevealMotion y={25} parentClass={"w-full z-20"}>
                                 <div
-                                    className={"z-20 px-4 bg-opacity-90 bg-zinc-500 w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
+                                    className={"px-4 bg-opacity-90 bg-zinc-500 w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
                                     <div className={"text-center flex items-center gap-2"}>
                                         Save this order and pay later?
                                         <button
