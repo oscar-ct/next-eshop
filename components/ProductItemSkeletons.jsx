@@ -1,12 +1,12 @@
 import ProductItemSkeleton from "@/components/ProductItemSkeleton";
 
-const ProductItemSkeletons = () => {
+const ProductItemSkeletons = ({length = 5}) => {
     let rows = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < length; i++) {
         rows.push(<ProductItemSkeleton key={i}/>);
     }
     return (
-        <div className={"w-full flex flex-wrap justify-center pt-6"}>
+        <div className={"w-full flex flex-wrap justify-center"}>
             {rows}
         </div>
     );
