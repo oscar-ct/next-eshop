@@ -12,7 +12,7 @@ const RatingPlaceholder = () => {
             <div
                 className={"flex w-full px-4 flex-col gap-4 justify-center items-center"}>
                 <div className={"w-full flex items-center gap-4"}>
-                    <div className="flex">
+                    <div className="flex gap-0.5">
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
@@ -20,12 +20,12 @@ const RatingPlaceholder = () => {
                         <IoStarSharp fill={fill} size={size}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-full"
+                        className="progress bg-gray-300/90 w-full"
                         value={0} max="100"
                     />
                 </div>
                 <div className={"w-full flex items-center gap-4"}>
-                    <div className="flex">
+                    <div className="flex gap-0.5">
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
@@ -33,12 +33,12 @@ const RatingPlaceholder = () => {
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-full"
+                        className="progress bg-gray-300/90 w-full"
                         value={0} max="100"
                     />
                 </div>
                 <div className={"w-full flex items-center gap-4"}>
-                    <div className="flex">
+                    <div className="flex gap-0.5">
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
@@ -46,12 +46,12 @@ const RatingPlaceholder = () => {
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-full"
+                        className="progress bg-gray-300/90 w-full"
                         value={0} max="100"
                     />
                 </div>
                 <div className={"w-full flex items-center gap-4"}>
-                    <div className="flex">
+                    <div className="flex gap-0.5">
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
@@ -59,12 +59,12 @@ const RatingPlaceholder = () => {
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-full"
+                        className="progress bg-gray-300/90 w-full"
                         value={0} max="100"
                     />
                 </div>
                 <div className={"w-full flex items-center gap-4"}>
-                    <div className="flex">
+                    <div className="flex gap-0.5">
                         <IoStarSharp fill={fill} size={size}/>
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
@@ -72,7 +72,7 @@ const RatingPlaceholder = () => {
                         <IoStarSharp fill={fill} size={size} opacity={opacity}/>
                     </div>
                     <progress
-                        className="progress progress-warning w-full"
+                        className="progress bg-gray-300/90 w-full"
                         value={0} max="100"
                     />
                 </div>
