@@ -120,8 +120,9 @@ const OrderPage = () => {
                 {
                     loading && !order ? (
                         <div className={"w-full gap-4 flex flex-col justify-center items-center"}>
-                            <div className="skeleton h-4 w-full lg:w-7/12"/>
-                            <div className="skeleton h-4 w-full lg:w-7/12"/>
+                            <div className="skeleton h-4 bg-gray-300 w-full max-w-3xl xl:max-w-screen-xl dark:bg-gray-200"/>
+                            <div className="skeleton h-4 bg-gray-300 w-full max-w-3xl xl:max-w-screen-xl dark:bg-gray-200"/>
+                            <div className="skeleton h-4 bg-gray-300 w-full sm:hidden dark:bg-gray-200"/>
                         </div>
                     ) : (
                         <RevealMotion y={25} childClass={"dark:text-white flex justify-center"}>
