@@ -34,20 +34,20 @@ const NavbarMobileMenu = ({ toggle, links, session }) => {
                 <NavbarSearchBox toggle={toggle}/>
             </NavbarMobileMenuItem>
             <NavbarMobileMenuItem>
-                <Link href={"/"} onClick={() => toggle()}>Home</Link>
+                <Link className={"block"} href={"/"} onClick={() => toggle()}>Home</Link>
             </NavbarMobileMenuItem>
             <NavbarMobileMenuItem>
-                <Link href={latestProductsLink} onClick={() => toggle()}>
+                <Link className={"block"} href={latestProductsLink} onClick={() => toggle()}>
                     Latest Products
                 </Link>
             </NavbarMobileMenuItem>
             <NavbarMobileMenuItem>
-                <Link href={topRatedLink} onClick={() => toggle()}>
+                <Link className={"block"} href={topRatedLink} onClick={() => toggle()}>
                     Top Rated Products
                 </Link>
             </NavbarMobileMenuItem>
             <NavbarMobileMenuItem>
-                <Link href={"/locator"} onClick={() => toggle()}>
+                <Link className={"block"} href={"/locator"} onClick={() => toggle()}>
                     Order Lookup
                 </Link>
             </NavbarMobileMenuItem>
@@ -55,12 +55,12 @@ const NavbarMobileMenu = ({ toggle, links, session }) => {
                 session ? (
                     <>
                         <NavbarMobileMenuItem>
-                            <Link href={myAccountLink} onClick={() => toggle()}>
+                            <Link className={"block"} href={myAccountLink} onClick={() => toggle()}>
                                 My Account
                             </Link>
                         </NavbarMobileMenuItem>
                         <NavbarMobileMenuItem>
-                            <Link href={myOrdersLink} onClick={() => toggle()}>
+                            <Link className={"block"} href={myOrdersLink} onClick={() => toggle()}>
                                 My Orders
                             </Link>
                         </NavbarMobileMenuItem>
@@ -68,12 +68,12 @@ const NavbarMobileMenu = ({ toggle, links, session }) => {
                 ) : (
                     <>
                         <NavbarMobileMenuItem>
-                            <Link href={"/login"} onClick={() => toggle()}>
+                            <Link className={"block text-blue-600"} href={"/login"} onClick={() => toggle()}>
                                 Login
                             </Link>
                         </NavbarMobileMenuItem>
                         <NavbarMobileMenuItem>
-                            <Link href={"/register"} onClick={() => toggle()}>
+                            <Link className={"block text-blue-600"} href={"/register"} onClick={() => toggle()}>
                                 Create Account
                             </Link>
                         </NavbarMobileMenuItem>
@@ -83,7 +83,7 @@ const NavbarMobileMenu = ({ toggle, links, session }) => {
             {
                 session?.user.name.userIsAdmin && (
                     <NavbarMobileMenuItem>
-                        <Link href={dashboardLink} onClick={() => toggle()}>
+                        <Link className={"block text-pink-500"} href={dashboardLink} onClick={() => toggle()}>
                             Dashboard
                         </Link>
                     </NavbarMobileMenuItem>
@@ -92,7 +92,7 @@ const NavbarMobileMenu = ({ toggle, links, session }) => {
             {
                 session && (
                     <NavbarMobileMenuItem>
-                        <button onClick={logoutHandler}>
+                        <button className={"w-full text-start text-red-600"} onClick={logoutHandler}>
                             Logout
                         </button>
                     </NavbarMobileMenuItem>
