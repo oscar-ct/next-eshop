@@ -1,6 +1,6 @@
 "use client";
 
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams, useRouter, useSearchParams} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
 import Message from "@/components/Message";
@@ -16,6 +16,7 @@ import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import {IoInformationCircleOutline} from "react-icons/io5";
 import {FcDeleteDatabase} from "react-icons/fc";
 import RevealMotion from "@/components/RevealMotion";
+import Loading from "@/app/loading";
 
 
 const OrderPage = () => {
@@ -27,6 +28,7 @@ const OrderPage = () => {
 
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cancelIntent, setCancelIntent] = useState(false);
 
     const TAX_PERCENTAGE = 0.0825;
 
@@ -97,12 +99,15 @@ const OrderPage = () => {
     }, [order, searchParams]);
 
     const submitCancel = async () => {
+        setCancelIntent(true);
         const updatedOrder = await fetchCancelOrder(orderId[0]);
         if (updatedOrder) {
             setOrder(updatedOrder);
+            setCancelIntent(false);
             return;
         }
         toast.error("Please try again later");
+        setCancelIntent(false);
     };
 
     const initialOptions = {
@@ -113,6 +118,7 @@ const OrderPage = () => {
     };
 
     if (!loading && !order) return <NotFound/>
+    if (cancelIntent) return <Loading/>;
 
     return  (
         <>
@@ -450,107 +456,110 @@ const OrderPage = () => {
                         }
                     </div>
                     {/*PAYMENT SUMMARY*/}
-                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+
                         {
                             loading && !order ? (
-                                <div className="flex w-full flex-col gap-5 h-full">
-                                    <div className="skeleton h-16 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className={"flex justify-between"}>
-                                        <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
-                                        <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
+                                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                                    <div className="flex w-full flex-col gap-5 h-full">
+                                        <div className="skeleton h-16 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className={"flex justify-between"}>
+                                            <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                            <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
+                                        </div>
+                                        <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className={"flex justify-between"}>
+                                            <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                            <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
+                                        </div>
+                                        <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className={"flex justify-between"}>
+                                            <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                            <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
+                                        </div>
+                                        <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className={"flex justify-between"}>
+                                            <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                            <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
+                                        </div>
+                                        <div className="skeleton h-4 w-6/12 bg-gray-300 dark:bg-gray-200"/>
+                                        <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
+                                        <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
                                     </div>
-                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className={"flex justify-between"}>
-                                        <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
-                                        <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
-                                    </div>
-                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className={"flex justify-between"}>
-                                        <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
-                                        <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
-                                    </div>
-                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className={"flex justify-between"}>
-                                        <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
-                                        <div className="skeleton h-4 w-7/12 bg-gray-300 dark:bg-gray-200"/>
-                                    </div>
-                                    <div className="skeleton h-4 w-6/12 bg-gray-300 dark:bg-gray-200"/>
-                                    <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
-                                    <div className="skeleton h-10 w-full bg-gray-300 dark:bg-gray-200"/>
                                 </div>
                             ) : (
-                                <RevealMotion y={25}>
+                                <>
                                     {
                                         order.totalPrice !== 0 && (
-                                            <>
-                                                <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl dark:text-white"}>
-                                                    {order.isPaid ? "Payment Summary" : "Place Order"}
-                                                </h1>
-                                                <div className="flex flex-col gap-8 dark:text-white">
-                                                    <div className={"flex flex-col text-sm gap-2"}>
-                                                        <div className={"flex justify-between"}>
-                                                            <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
-                                                            <span>{convertCentsToUSD(order.itemsPrice)}</span>
+                                            <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                                                <RevealMotion y={25}>
+                                                    <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl dark:text-white"}>
+                                                        {order.isPaid ? "Payment Summary" : "Place Order"}
+                                                    </h1>
+                                                    <div className="flex flex-col gap-8 dark:text-white">
+                                                        <div className={"flex flex-col text-sm gap-2"}>
+                                                            <div className={"flex justify-between"}>
+                                                                <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
+                                                                <span>{convertCentsToUSD(order.itemsPrice)}</span>
+                                                            </div>
+                                                            <div className={"flex justify-between"}>
+                                                                <span>Shipping & handling:</span>
+                                                                <span>{convertCentsToUSD(order.shippingPrice)}</span>
+                                                            </div>
+                                                            <span
+                                                                className={"self-end w-16 my-1 border-b border-grey-700"}/>
+                                                            <div className={"flex justify-between"}>
+                                                                <span>Total before tax:</span>
+                                                                <span>{convertCentsToUSD(order.itemsPrice + order.shippingPrice)}</span>
+                                                            </div>
+                                                            <div className={"flex justify-between"}>
+                                                                <span>Estimated tax to be collected:</span>
+                                                                <span>{convertCentsToUSD(order.taxPrice)}</span>
+                                                            </div>
                                                         </div>
-                                                        <div className={"flex justify-between"}>
-                                                            <span>Shipping & handling:</span>
-                                                            <span>{convertCentsToUSD(order.shippingPrice)}</span>
+                                                        <div
+                                                            className={"flex justify-between font-semibold text-lg text-red-600"}>
+                                                            <span>Order Total:</span>
+                                                            <span>{convertCentsToUSD(order.taxPrice + order.shippingPrice + order.itemsPrice)}</span>
                                                         </div>
-                                                        <span
-                                                            className={"self-end w-16 my-1 border-b border-grey-700"}/>
-                                                        <div className={"flex justify-between"}>
-                                                            <span>Total before tax:</span>
-                                                            <span>{convertCentsToUSD(order.itemsPrice + order.shippingPrice)}</span>
-                                                        </div>
-                                                        <div className={"flex justify-between"}>
-                                                            <span>Estimated tax to be collected:</span>
-                                                            <span>{convertCentsToUSD(order.taxPrice)}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className={"flex justify-between font-semibold text-lg text-red-600"}>
-                                                        <span>Order Total:</span>
-                                                        <span>{convertCentsToUSD(order.taxPrice + order.shippingPrice + order.itemsPrice)}</span>
-                                                    </div>
 
-                                                    {/*PAYMENT OPTIONS*/}
-                                                    {
-                                                        !order.isPaid && (!order.isCanceled || order.orderItems.length !== canceledItems.length) && (
-                                                            <>
-                                                                {
-                                                                    order.paymentMethod === "PayPal / Credit Card" && (
-                                                                        <div className={"px-4"}>
-                                                                            <PayPalScriptProvider
-                                                                                options={initialOptions}>
-                                                                                <PaypalCheckout
-                                                                                    setSaveButtonDisabled={() => null}
-                                                                                    existingOrder={order}
-                                                                                />
-                                                                            </PayPalScriptProvider>
-                                                                        </div>
-
-                                                                    )
-                                                                }
-                                                                {
-                                                                    order.paymentMethod === "Stripe / Credit Card" && (
-                                                                        <StripeCheckout existingOrder={order}
+                                                        {/*PAYMENT OPTIONS*/}
+                                                        {
+                                                            !order.isPaid && (!order.isCanceled || order.orderItems.length !== canceledItems.length) && (
+                                                                <>
+                                                                    {
+                                                                        order.paymentMethod === "PayPal / Credit Card" && (
+                                                                            <div className={"px-4"}>
+                                                                                <PayPalScriptProvider
+                                                                                    options={initialOptions}>
+                                                                                    <PaypalCheckout
                                                                                         setSaveButtonDisabled={() => null}
-                                                                                        setOrder={setOrder}/>
-                                                                    )
-                                                                }
-                                                            </>
-                                                        )
-                                                    }
-                                                </div>
-                                            </>
+                                                                                        existingOrder={order}
+                                                                                    />
+                                                                                </PayPalScriptProvider>
+                                                                            </div>
+
+                                                                        )
+                                                                    }
+                                                                    {
+                                                                        order.paymentMethod === "Stripe / Credit Card" && (
+                                                                            <StripeCheckout existingOrder={order}
+                                                                                            setSaveButtonDisabled={() => null}
+                                                                                            setOrder={setOrder}/>
+                                                                        )
+                                                                    }
+                                                                </>
+                                                            )
+                                                        }
+                                                    </div>
+                                                </RevealMotion>
+                                            </div>
                                         )
                                     }
-                                </RevealMotion>
+                                </>
                             )
                         }
-                    </div>
                     {/*REFUND SUMMARY*/}
                     {
                         !loading && order && (
