@@ -34,6 +34,24 @@ const NavbarMobile = ({ session, links }) => {
     const { height } = useDimensions(containerRef);
     const { width } = useWindowDimensions();
 
+    const handleClickOutside = (event) => {
+        if (containerRef.current && !containerRef.current.contains(event.target)) {
+            toggleOpen();
+        }
+    };
+
+    useEffect(() => {
+        const mobile   = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+        const start = mobile ? "touchstart" : "mousedown";
+        if (isOpen) {
+            document.addEventListener(start, handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener(start, handleClickOutside);
+        };
+    }, [isOpen]);
+
     useEffect(() => {
         if (width >= 768 && isOpen) {
             toggleOpen();
@@ -48,7 +66,7 @@ const NavbarMobile = ({ session, links }) => {
             ref={containerRef}
             className={"w-72"}
         >
-            <motion.div className={`fixed top-0 right-0 bottom-0 w-72 bg-zinc-200 bg-opacity-95 dark:bg-slate-900`} variants={sidebar} />
+            <motion.div className={`fixed top-0 right-0 bottom-0 w-72 bg-zinc-200 bg-opacity-95 dark:bg-opacity-95 dark:bg-neutral-900`} variants={sidebar} />
             <NavbarMobileMenu session={session} links={links} toggle={() => toggleOpen()}/>
             <NavbarMobileMenuToggle toggle={() => toggleOpen()} />
         </motion.nav>
