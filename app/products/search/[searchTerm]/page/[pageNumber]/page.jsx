@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 import ProductItem from "@/components/ProductItem";
 import Snake from "@/components/Snake";
 import Paginate from "@/components/Paginate";
-import Loading from "@/app/loading";
 import {BiJoystickButton} from "react-icons/bi";
+import ProductItemSkeletons from "@/components/ProductItemSkeletons";
 
 
 const fetchProductsSearch = async (params) => {
@@ -75,92 +75,104 @@ const SearchPage = () => {
     }, [data]);
 
 
-    if (!loading && data?.products) {
-        return (
-            <>
-                <BackButton/>
-                {
-                    data.products.length === 0 ? (
-                        <div className={"flex flex-col"}>
-                            <h2 className={"flex flex-col text-2xl px-2 pt-20 pb-7 text-center md:pt-10 lg:text-3xl dark:text-white"}>
-                                <span>Sorry, no search results for &quot;{data.searchTerm}&quot;</span>
-                                <span className={"text-base"}>Enjoy a game of snake!</span>
-                            </h2>
-                            <div className={"z-10 px-2"}>
-                                <div className={"z-30 m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
+
+    return (
+        <>
+            <BackButton/>
+            {
+                loading && !data ? (
+                    <>
+                        <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                           Searching for &quot;{searchTerm}&quot;. . .
+                        </h2>
+                        <ProductItemSkeletons length={3}/>
+                    </>
+                ) : (
+                    <>
+                        {
+                            data.products.length > 0 ? (
+                                <>
+                                    <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                                        Search results for &quot;{data.searchTerm}&quot;
+                                    </h2>
+                                    <div className={"w-full flex flex-wrap justify-center"}>
+                                        {
+                                            data.products.map(function (product, index) {
+                                                return <ProductItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
+                                            })
+                                        }
+                                    </div>
                                     {
-                                        !windowResizing && (
-                                            <Snake/>
+                                        data?.pages > 1 && (
+                                            <div className={"pt-10 flex justify-center"}>
+                                                <div className={"join"}>
+                                                    <Paginate pages={data.pages} page={data.page} searchTerm={searchTerm}/>
+                                                </div>
+                                            </div>
                                         )
                                     }
-                                </div>
-                            </div>
-                            <div className={"z-10 flex justify-center items-center"}>
-                                <div className={"relative dark:text-white"}>
-                                    <BiJoystickButton size={200}/>
-                                    <button
-                                        className={"rounded-2xl absolute bottom-2 left-0 right-0 mx-auto w-20 h-16"}
-                                        onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                            key: 's',
-                                            code: 'KeyS',
-                                            keyCode: 83
-                                        }))}
-                                    />
-                                    <button
-                                        className={"rounded-2xl absolute top-2 left-0 right-0 mx-auto w-20 h-16"}
-                                            onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                        key: 'w',
-                                        code: 'KeyW',
-                                        keyCode: 87
-                                    }))}
-                                    />
-                                    <button
-                                        className={"rounded-2xl absolute bottom-0 top-0 left-2 my-auto w-16 h-20"}
-                                        onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                            key: 'a',
-                                            code: 'KeyA',
-                                            keyCode: 65
-                                        }))}
-                                    />
-                                    <button
-                                        className={"rounded-2xl absolute bottom-0 top-0 right-2 my-auto w-16 h-20"}
-                                        onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
-                                            key: 'd',
-                                            code: 'KeyD',
-                                            keyCode: 68
-                                        }))}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        <>
-                            <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
-                                Search results for &quot;{data.searchTerm}&quot;
-                            </h2>
-                            <div className={"w-full flex flex-wrap justify-center"}>
-                                {
-                                    data.products.map(function (product, index) {
-                                        return <ProductItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
-                                    })
-                                }
-                            </div>
-                            {
-                                data?.pages > 1 && (
-                                    <div className={"pt-10 flex justify-center"}>
-                                        <div className={"join"}>
-                                            <Paginate pages={data.pages} page={data.page} searchTerm={searchTerm}/>
+                                </>
+                            ) : (
+                                <div className={"flex flex-col"}>
+                                    <div
+                                        className={"pt-20 px-2 pb-7 flex flex-col text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                                        <h2>Sorry, no search results for &quot;{data.searchTerm}&quot;</h2>
+                                        <h5 className={"text-base"}>Enjoy a game of snake!</h5>
+                                    </div>
+                                    <div className={"z-10 px-2"}>
+                                        <div className={"z-30 m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
+                                            {
+                                                !windowResizing && (
+                                                    <Snake/>
+                                                )
+                                            }
                                         </div>
                                     </div>
-                                )
-                            }
-                        </>
-                    )
-                }
-            </>
-        );
-    }
-    return <Loading/>
+                                    <div className={"z-10 flex justify-center items-center"}>
+                                        <div className={"relative dark:text-white"}>
+                                            <BiJoystickButton size={200}/>
+                                            <button
+                                                className={"rounded-2xl absolute bottom-2 left-0 right-0 mx-auto w-20 h-16"}
+                                                onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                                    key: 's',
+                                                    code: 'KeyS',
+                                                    keyCode: 83
+                                                }))}
+                                            />
+                                            <button
+                                                className={"rounded-2xl absolute top-2 left-0 right-0 mx-auto w-20 h-16"}
+                                                onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                                    key: 'w',
+                                                    code: 'KeyW',
+                                                    keyCode: 87
+                                                }))}
+                                            />
+                                            <button
+                                                className={"rounded-2xl absolute bottom-0 top-0 left-2 my-auto w-16 h-20"}
+                                                onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                                    key: 'a',
+                                                    code: 'KeyA',
+                                                    keyCode: 65
+                                                }))}
+                                            />
+                                            <button
+                                                className={"rounded-2xl absolute bottom-0 top-0 right-2 my-auto w-16 h-20"}
+                                                onClick={() => dispatchEvent(new KeyboardEvent('keydown', {
+                                                    key: 'd',
+                                                    code: 'KeyD',
+                                                    keyCode: 68
+                                                }))}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </>
+                )
+            }
+        </>
+    );
 };
 
-export default SearchPage;
+export default SearchPage
