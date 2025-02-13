@@ -4,8 +4,9 @@ export const customStyles = {
         padding: "2px",
         borderRadius: 0,
         cursor: "pointer",
-        fontSize: "16px",
-        zIndex: 30
+        fontSize: "14px",
+        zIndex: 30,
+        lineHeight: "14px"
     }),
     option: (base, {isDisabled, isFocused, isSelected}) => {
         return {
@@ -37,6 +38,6 @@ export const customStyles = {
         ...base,
         padding: 0,
         cursor: "pointer",
-        fontSize: "16px",
+        fontSize: "14px",
     })
 };
