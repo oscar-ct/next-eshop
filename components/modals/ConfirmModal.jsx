@@ -3,7 +3,7 @@ import CustomBtn from "@/components/CustomBtn";
 const ConfirmModal = ({title, children, initiateFunction}) => {
     return (
         <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box">
+            <form method="dialog" className="modal-box dark:bg-slate-800">
                 <div className={"flex justify-between items-center"}>
                     <h3 className="p-3 font-bold text-xl dark:text-white">{title}</h3>
                 </div>
