@@ -188,23 +188,28 @@ const ProductPage = () => {
                 <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none md:max-w-3xl dark:bg-slate-800"}>
                     {
                         loading && !product ? (
-                            <div className="flex w-full flex-col gap-6 h-full">
-                                <div className="skeleton h-16 w-full"></div>
-                                <div className="skeleton h-6 w-full"></div>
-                                <div className="skeleton h-96 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
+                            <div className="flex w-full flex-col gap-5 h-full">
+                                <div className="skeleton h-6 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-6 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className={"flex items-center justify-between"}>
+                                    <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
+                                </div>
+                                <div className="skeleton h-96 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-16 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-28 bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-28 bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-28 bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
                             </div>
                         ) : (
                             <RevealMotion y={25} childClass={"flex flex-col gap-4"}>
-                                <div className={"flex flex-col gap-4"}>
+                            <div className={"flex flex-col gap-4"}>
                                     <h2 className={"text-2xl text-center sm:text-3xl dark:text-white"}>{product.name}</h2>
                                     <div className={"flex items-center justify-between"}>
                                         <div className={"flex gap-2"}>
@@ -414,18 +419,17 @@ const ProductPage = () => {
                     <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
                     {
                         loading && !product ? (
-                            <div className="flex w-full flex-col gap-6 h-full">
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
+                            <div className="flex w-full flex-col gap-5 h-full">
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
                             </div>
                         ) : (
                             <RevealMotion y={25} childClass={"flex flex-col gap-6"}>
@@ -456,6 +460,7 @@ const ProductPage = () => {
                                                         onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
                                                         className={"btn btn-sm btn-neutral rounded-full"}>
                                                         <MdOutlineRateReview size={26}/>
+                                                        <span>Rate & Review</span>
                                                     </button>
                                                 </div>
                                                 <RatingPlaceholder/>
