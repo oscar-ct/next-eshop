@@ -8,6 +8,8 @@ import {useRouter} from "next/navigation";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import {LuPartyPopper} from "react-icons/lu";
+import GuestModal from "@/components/modals/GuestModal";
+import RevealMotion from "@/components/RevealMotion";
 
 const CartPage = () => {
 
@@ -29,97 +31,84 @@ const CartPage = () => {
         }
     };
 
-    if (mounted) {
-        return (
-            <>
-                <CheckoutSteps/>
-                {
-                    cartItems.length === 0 ? (
-                        <div className={"px-2 flex m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
-                            <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
-                                <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center dark:text-white"}>
-                                    Your cart is empty.
-                                </div>
-                                <CustomBtn onClick={() =>  router.push("/")}>
-                                    Continue Shopping
-                                </CustomBtn>
+    return (
+        <>
+            <CheckoutSteps/>
+            {
+                !mounted ? (
+                    <div className={"px-2 flex m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
+                        <div
+                            className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+                            <div className={"fadeInEffect h-full gap-4 flex flex-col items-center justify-evenly"}>
+                                <div className="skeleton h-24 w-full bg-gray-300 dark:bg-gray-200"></div>
+                                <div className="skeleton h-4 w-28 bg-gray-300 dark:bg-gray-200"></div>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"></div>
+                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"></div>
                             </div>
                         </div>
-                    ) : (
-                        <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-4 sm:pt-10 lg:px-8"}>
-                            <div className={"z-20 bg-zinc-50 mx-auto max-w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:text-white dark:bg-slate-800"}>
-                                <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
-                                    Your cart total is {convertCentsToUSD(itemsPrice)}
-                                </div>
-                                <div className={"text-center text-sm"}>
-                                    Taxes and shipping will be calculated at checkout
-                                </div>
-                                <CustomBtn onClick={checkoutHandler}>
-                                    Proceed To Checkout
-                                </CustomBtn>
-                            </div>
-                            <div className={"z-20 bg-opacity-70 bg-zinc-50 sm:bg-opacity-70 mx-auto w-full h-20 rounded-2xl flex justify-center items-center sm:bg-white sm:shadow-lg"}>
-                                {
-                                    itemsPrice > 10000 ? (
-                                        <div className={"text-center flex items-center gap-2"}>
-                                            Your order qualifies for FREE shipping!
-                                            <LuPartyPopper size={30}/>
+                    </div>
+                ) : (
+                    <RevealMotion y={25} childClass={"w-full z-20"} parentClass={"flex"}>
+                        {
+                            cartItems.length === 0 ? (
+                                <RevealMotion y={25}>
+                                <div className={"px-2 flex m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
+                                    <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+                                        <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center dark:text-white"}>
+                                            Your cart is empty.
                                         </div>
-                                    ) : (
-                                        <div className={"text-center"}>
-                                            <span>Add <span className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
-                                        </div>
-                                    )
-                                }
-                            </div>
-                            <div
-                                className={"z-20 bg-zinc-50 rounded-2xl overflow-y py-8 px-4 sm:px-8 sm:border-none sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
-                                {
-                                    cartItems.map(function (item) {
-                                        return (
-                                            <CartItem item={item} key={item.id}/>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                    )
-                }
-                <dialog id="checkout_modal" className="modal modal-bottom sm:modal-middle">
-                    <form method="dialog" className="modal-box">
-                        <div className="p-3">
-                            <div className="form-control w-full">
-                                <div className={"flex justify-between items-center"}>
-                                    <div className="pb-3 font text-lg dark:text-white">
-                                        You are currently not logged in, we<span
-                                        className={"px-1 font-bold"}>recommend</span>you login prior to placing any
-                                        orders. This will allow you to seamlessly view and manage all your orders.
+                                        <CustomBtn onClick={() =>  router.push("/")}>
+                                            Continue Shopping
+                                        </CustomBtn>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="modal-action w-full flex justify-center">
-                            <button
-                                onClick={() => router.push("/shipping")}
-                                className={"btn btn-neutral rounded-full normal-case"}
-                            >
-                                Continue As Guest
-                            </button>
-                            <CustomBtn onClick={() => router.push('/login?redirect=/shipping')} type={"submit"}
-                                       customClass={"text-sm font-semibold"}>
-                                Login / Sign Up
-                            </CustomBtn>
-                        </div>
-                    </form>
-                    <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
-                    </form>
-                </dialog>
-            </>
-        )
-    }
-
-
+                                </RevealMotion>
+                            ) : (
+                                <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-4 sm:pt-10 lg:px-8"}>
+                                    <div className={"z-20 bg-zinc-50 mx-auto max-w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:text-white dark:bg-slate-800"}>
+                                        <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
+                                            Your cart total is {convertCentsToUSD(itemsPrice)}
+                                        </div>
+                                        <div className={"text-center text-sm"}>
+                                            Taxes and shipping will be calculated at checkout
+                                        </div>
+                                        <CustomBtn onClick={checkoutHandler}>
+                                            Proceed To Checkout
+                                        </CustomBtn>
+                                    </div>
+                                    <div className={"z-20 bg-opacity-70 bg-zinc-50 sm:bg-opacity-70 mx-auto w-full h-20 rounded-2xl flex justify-center items-center sm:bg-white sm:shadow-lg"}>
+                                        {
+                                            itemsPrice > 10000 ? (
+                                                <div className={"text-center flex items-center gap-2"}>
+                                                    Your order qualifies for FREE shipping!
+                                                    <LuPartyPopper size={30}/>
+                                                </div>
+                                            ) : (
+                                                <div className={"text-center"}>
+                                                    <span>Add <span className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                    <div
+                                        className={"z-20 bg-zinc-50 rounded-2xl overflow-y py-8 px-4 sm:px-8 sm:border-none sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+                                        {
+                                            cartItems.map(function (item) {
+                                                return (
+                                                    <CartItem item={item} key={item.id}/>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </RevealMotion>
+                )
+            }
+            <GuestModal/>
+        </>
+    )
 };
 
 export default CartPage;
