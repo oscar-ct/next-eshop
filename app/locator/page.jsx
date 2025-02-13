@@ -68,9 +68,9 @@ const OrderLocatorPage = () => {
                                         {
                                             loading ? (
                                                 <div className="py-6 flex w-full flex-col gap-4">
-                                                    <div className="skeleton h-4 w-full"></div>
-                                                    <div className="skeleton h-4 w-8/12"></div>
-                                                    <div className="skeleton h-4 w-full sm:hidden"></div>
+                                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"></div>
+                                                    <div className="skeleton h-4 w-8/12 bg-gray-300 dark:bg-gray-200"></div>
+                                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200 sm:hidden"></div>
                                                 </div>
                                             ) : (
                                                 <p className="py-6 max-w-lg text-center sm:text-start dark:text-white">
