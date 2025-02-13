@@ -182,7 +182,7 @@ const ShippingPage = () => {
                                 </h1>
                                 {
                                     useNewAddress ? (
-                                        <form onSubmit={submitShippingData} className="pt-3">
+                                        <form onSubmit={submitShippingData} className="pt-3 flex flex-col gap-4 sm:pt-0">
                                             {
                                                 !user && (
                                                     <div className="space-y-2">
@@ -320,7 +320,7 @@ const ShippingPage = () => {
                                                     <div className="w-full flex justify-end">
                                                         {
                                                             user.shippingAddresses?.length !== 0 && (
-                                                                <div className={"py-3 w-6/12 flex items-center"}>
+                                                                <div className={"w-6/12 flex items-center"}>
                                                     <span onClick={() => setUseNewAddress(prevState => !prevState)}
                                                           className={"text-sm text-start link link-primary"}>Use saved address</span>
                                                                 </div>
@@ -328,7 +328,7 @@ const ShippingPage = () => {
                                                         }
 
                                                         <label htmlFor={"checkbox"}
-                                                               className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
+                                                               className="w-6/12 flex items-center justify-end cursor-pointer">
                                                             <span
                                                                 className="text-sm pr-2 dark:text-white">Save this address</span>
                                                             <input id={"checkbox"} type="checkbox" checked={savePaymentData}
@@ -357,20 +357,11 @@ const ShippingPage = () => {
                                                             <div
                                                                 className={`w-full rounded-md shadow-sm border cursor-pointer ${item.id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
                                                                 <div className={"w-full flex p-6"}>
-                                                                    <div
-                                                                        className={"text-sm w-10/12 flex flex-col justify-center"}>
-                                                     <span className={"truncate"}>
-                                                        {item.name}
-                                                    </span>
-                                                                        <span className={"truncate"}>
-                                                        {item.address}
-                                                    </span>
-                                                                        <span className={"truncate"}>
-                                                        {`${item.city}, ${item.state} ${item.postalCode} `}
-                                                    </span>
-                                                                        <span className={"truncate"}>
-                                                        {item.country}
-                                                    </span>
+                                                                    <div className={"text-sm w-10/12 flex flex-col justify-center"}>
+                                                                        <span className={"truncate"}>{item.name}</span>
+                                                                        <span className={"truncate"}>{item.address}</span>
+                                                                        <span className={"truncate"}>{`${item.city}, ${item.state} ${item.postalCode} `}</span>
+                                                                        <span className={"truncate"}>{item.country}</span>
                                                                     </div>
                                                                     <div className={"w-2/12 flex items-center"}>
                                                                         <input
@@ -392,7 +383,7 @@ const ShippingPage = () => {
                                                     )
                                                 })
                                             }
-                                            <div className={"py-3"}>
+                                            <div>
                                                 <span onClick={() => setUseNewAddress(prevState => !prevState)}
                                                     className={"text-sm text-end link link-primary"}>
                                                     Use new address
