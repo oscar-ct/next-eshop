@@ -322,6 +322,16 @@ const ProductPage = () => {
                                                     {product.color}
                                                 </div>
                                             </div>
+                                            <div className={"flex"}>
+                                                <div className={"w-6/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Category
+                                                    </div>
+                                                </div>
+                                                <div className={"w-6/12"}>
+                                                    {product.category}
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className={"flex flex-col w-full gap-4 lg:w-6/12"}>
                                             <div className={"flex"}>
@@ -331,7 +341,7 @@ const ProductPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className={"w-6/12"}>
-                                                    San Antonio, TX
+                                                San Antonio, TX
                                                 </div>
                                             </div>
                                             <div className={"flex"}>
