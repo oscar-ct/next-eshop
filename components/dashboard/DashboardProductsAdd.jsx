@@ -102,12 +102,12 @@ const DashboardProductsAdd = () => {
 
     return (
         <>
-            <div className={"bg-white h-full w-full px-5 lg:px-0"}>
+            <div className={"h-full w-full px-5 lg:px-0"}>
                 <div className={"pt-5 h-12 lg:pt-0 flex items-center w-full"}>
-                    <span className={"text-2xl font-bold w-4/12 sm:w-28"}>Step 1.</span>
+                    <div className={"text-2xl font-bold w-4/12 sm:w-28 dark:text-white"}>Step 1.</div>
                     {
                         !productCreated ? (
-                            <span className="w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold">Create a new listing</span>
+                            <div className="w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold dark:text-gray-300">Complete all the text fields</div>
                         ) : (
                             <Message variant={"success"} border={"h-12 w-8/12 sm:w-full"}>
                                 <span className={"text-xs sm:text-sm"}>You successfully created a new product listing!</span>
@@ -119,11 +119,14 @@ const DashboardProductsAdd = () => {
                     <div className={"flex flex-col lg:flex-row"}>
                         <div className={"w-full flex flex-col lg:w-7/12"}>
                             <div className={"space-y-2 pb-2"}>
-                                <label htmlFor={"name"} className="text-sm font-medium text-gray-700 tracking-wide">
+                                <label
+                                    htmlFor={"name"}
+                                    className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                >
                                     Title
                                 </label>
                                 <textarea
-                                    className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                    className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                     autoComplete={"off"}
                                     placeholder={"e.g. Brand, model name, color, and size"}
                                     id={"name"}
@@ -134,12 +137,14 @@ const DashboardProductsAdd = () => {
                                 />
                             </div>
                             <div className={"space-y-2 pb-2"}>
-                                <label htmlFor={"description"}
-                                       className="text-sm font-medium text-gray-700 tracking-wide">
+                                <label
+                                    htmlFor={"description"}
+                                    className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                >
                                     Description
                                 </label>
                                 <textarea
-                                    className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                    className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                     autoComplete={"off"}
                                     placeholder={"Tell customers more details about the product"}
                                     id={"description"}
@@ -155,12 +160,14 @@ const DashboardProductsAdd = () => {
                             <div className={"flex flex-col lg:flex-row"}>
                                 <div className={"w-full flex flex-col lg:w-6/12 lg:px-2"}>
                                     <div className={"space-y-2 pb-2"}>
-                                        <label htmlFor={"brand"}
-                                               className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <label
+                                            htmlFor={"brand"}
+                                            className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                        >
                                             Brand
                                         </label>
                                         <input
-                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                            className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                             autoComplete={"off"}
                                             type={"text"}
                                             placeholder={"e.g. Sony"}
@@ -172,12 +179,14 @@ const DashboardProductsAdd = () => {
                                         />
                                     </div>
                                     <div className={"space-y-2 pb-2"}>
-                                        <label htmlFor={"model"}
-                                               className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <label
+                                            htmlFor={"model"}
+                                            className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                        >
                                             Model Number
                                         </label>
                                         <input
-                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                            className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                             autoComplete={"off"}
                                             type={"text"}
                                             placeholder={"e.g. KDL-32BX330"}
@@ -189,12 +198,14 @@ const DashboardProductsAdd = () => {
                                         />
                                     </div>
                                     <div className={"space-y-2 pb-2"}>
-                                        <label htmlFor={"category"}
-                                               className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <label
+                                            htmlFor={"category"}
+                                            className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                        >
                                             Category
                                         </label>
                                         <select
-                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                            className={`w-full text-base pl-2 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                             autoComplete={"off"}
                                             id={"category"}
                                             onChange={onMutate}
@@ -207,13 +218,15 @@ const DashboardProductsAdd = () => {
                                 </div>
                                 <div className={"w-full flex flex-col lg:w-6/12 lg:px-2"}>
                                     <div className={"w-full flex flex-row lg:flex-col"}>
-                                        <div className={"bg-white w-full space-y-2 pb-2"}>
-                                            <label htmlFor={"countInStock"}
-                                                   className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <div className={"w-full space-y-2 pb-2"}>
+                                            <label
+                                                htmlFor={"countInStock"}
+                                                className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                            >
                                                 Qty In Stock
                                             </label>
                                             <input
-                                                className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                                className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                                 autoComplete={"off"}
                                                 type={"number"}
                                                 id={"countInStock"}
@@ -224,13 +237,15 @@ const DashboardProductsAdd = () => {
                                                 min={0}
                                             />
                                         </div>
-                                        <div className={"bg-white w-full pl-5 lg:pl-0 space-y-2 pb-2"}>
-                                            <label htmlFor={"price"}
-                                                   className="text-sm font-medium text-gray-700 tracking-wide">
+                                        <div className={"w-full pl-5 lg:pl-0 space-y-2 pb-2"}>
+                                            <label
+                                                htmlFor={"price"}
+                                                className="text-sm font-medium text-gray-700 tracking-wide dark:text-white"
+                                            >
                                                 Price In Cents
                                             </label>
                                             <input
-                                                className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                                className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                                 autoComplete={"off"}
                                                 type={"number"}
                                                 id={"price"}
@@ -241,12 +256,12 @@ const DashboardProductsAdd = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className={"bg-white w-full space-y-2 pb-2"}>
+                                    <div className={"w-full space-y-2 pb-2"}>
                                         <label htmlFor={"color"}
-                                               className="text-sm font-medium text-gray-700 tracking-wide">Color
+                                               className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">Color
                                         </label>
                                         <input
-                                            className={`w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-neutral-300 ${productCreated ? "bg-gray-100 font-semibold text-gray-300 dark:bg-base-300" : "bg-gray-100/40 dark:bg-base-200"}`}
+                                            className={`w-full text-base px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-zinc-300 ${productCreated ? "bg-zinc-50 dark:bg-slate-800" : "bg-zinc-200 dark:bg-slate-700"}`}
                                             autoComplete={"off"}
                                             type={"text"}
                                             placeholder={"e.g. Silver"}
@@ -262,27 +277,32 @@ const DashboardProductsAdd = () => {
                         </div>
                     </div>
                     <div className={`px-5 sm:px-0 pt-3 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
-                        <CustomBtn isDisabled={productCreated || !formIsComplete} type={"submit"}
-                                   customClass={"w-full lg:w-48 self-end"}>
+                        <CustomBtn
+                            isDisabled={productCreated || !formIsComplete}
+                            type={"submit"}
+                            customClass={"w-full lg:w-48 self-end"}
+                        >
                             Create Listing
                         </CustomBtn>
                     </div>
                 </form>
                 <div className={"py-5 flex items-center"}>
-                    <span className={"text-2xl font-bold w-4/12 sm:w-28"}>Step 2.</span>
+                    <div className={"text-2xl font-bold w-4/12 sm:w-28 dark:text-white"}>
+                        Step 2.
+                    </div>
                     {
                         productImages.length === 0 ? (
-                            <div className={"w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold"}>
+                            <div className={"w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold dark:text-gray-300"}>
                                 Add images to your listing
                             </div>
                         ) : productImages.length > 0 && productImages.length <= 6 ? (
-                            <div className={"w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold"}>
+                            <div className={"w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold dark:text-gray-300"}>
                                 Add more images ({productImages.length}/7)
                             </div>
                         ) : productImages.length === 7 && (
-                            <div className={"w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold"}>
-                                <span
-                                    className={"text-red-500 font-bold"}>You have reach the max limit</span> ({productImages.length}/7)
+                            <div className={"w-8/12 sm:w-full text-start text-base text-gray-500 font-semibold dark:text-gray-300"}>
+                                <span className={"text-red-500 font-bold"}>You have reach the max limit of images</span>
+                                ({productImages.length}/7)
                             </div>
                         )
                     }
@@ -296,9 +316,9 @@ const DashboardProductsAdd = () => {
                                         className={`border-2 rounded-lg ${index === 0 ? "border-green-400" : "border-gray-300"}`}>
                                         <div onClick={() => submitProductImageDelete(img.id, img.handle)}
                                              className="indicator">
-                                        <span
-                                            className="cursor-pointer indicator-item badge badge-error px-1 hover:bg-red-800"><FaXmark
-                                            className={"w-3 text-white"}/></span>
+                                        <span className="cursor-pointer indicator-item badge badge-error px-1 hover:bg-red-800">
+                                            <FaXmark className={"w-3 text-white"}/>
+                                        </span>
                                             <div className={"flex flex-col items-center"}>
                                                 <Image
                                                     src={img.url}
@@ -324,17 +344,24 @@ const DashboardProductsAdd = () => {
                     <p className={"text-xs text-gray-500 font-normal py-2 text-center"}>
                         Note: the first uploaded image will be the cover image
                     </p>
-                    <CustomBtn isDisabled={!productCreated || productImages.length >= 7} onClick={openPicker}
-                               customClass={"w-full lg:w-48"}>
+                    <CustomBtn
+                        isDisabled={!productCreated || productImages.length >= 7}
+                        onClick={openPicker}
+                        customClass={"w-full lg:w-48"}
+                    >
                         Add Image
                     </CustomBtn>
                 </div>
                 {
                     productCreated && productImages.length !== 0 && (
-                        <div className={"py-10 text-center text-2xl"}>
-                            <span>Link: </span>
-                            <Link className={"link link-primary"}
-                                  href={`/products/${productId}`}>https://eshopjs.com/products/{productId}</Link>
+                        <div className={"pt-10 text-center text-2xl"}>
+                            <span className={"dark:text-white"}>Live link: </span>
+                            <Link
+                                className={"link link-primary"}
+                                href={`/products/${productId}`}
+                            >
+                                https://eshopjs.com/products/{productId}
+                            </Link>
                         </div>
                     )
                 }

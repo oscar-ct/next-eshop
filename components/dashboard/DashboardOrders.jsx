@@ -5,6 +5,7 @@ import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import toast from "react-hot-toast";
 import DashboardLoading from "@/components/dashboard/DashboardLoading";
+import {TiFilter} from "react-icons/ti";
 
 
 const DashboardOrders = () => {
@@ -107,79 +108,133 @@ const DashboardOrders = () => {
         setTitle("Total");
     };
 
-
-    if (!loading && orders) return (
+    if (loading && !orders) return <DashboardLoading/>;
+    return (
         <>
-            <div className={"w-full 2xl:flex justify-around"}>
-                <section className={"w-full flex mx-auto lg:w-min 2xl:mx-0"}>
+            <section className={"flex flex-col gap-2 items-center"}>
+                <div className={"w-full flex mx-auto lg:w-min"}>
                     <div className={"flex flex-col w-full items-center gap-2.5 pr-1.5 sm:pl-0 md:items-end lg:items-center lg:gap-1.5 lg:flex-row"}>
                         <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
-                            <div className="w-full stats shadow border">
+                            <div className="w-full stats shadow-md dark:bg-slate-500">
                                 <div className="stat">
-                                    <div className="stat-title h-14">Total Sales</div>
-                                    <div className="stat-value text-2xl">{convertCentsToUSD(totalSalesCentAmount)}</div>
-                                    {/*<div className="stat-desc">21% more than last month</div>*/}
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Total Sales
+                                    </div>
+                                    <div className="stat-value text-2xl dark:text-white">
+                                        {convertCentsToUSD(totalSalesCentAmount)}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
-                            <div className="w-full stats shadow border">
+                            <div className="w-full stats shadow-md dark:bg-slate-500">
                                 <div className="stat">
-                                    <div className="stat-title h-14 whitespace-normal">Total Reimbursed</div>
-                                    <div className="stat-value text-red-500 text-2xl">-{convertCentsToUSD(totalReimbursedCentAmount)}</div>
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Total Reimbursed
+                                    </div>
+                                    <div className="stat-value text-red-500 text-2xl">
+                                        -{convertCentsToUSD(totalReimbursedCentAmount)}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className={"flex flex-col w-full items-center gap-2.5 pl-1.5 sm:pl-0 md:items-start lg:items-center lg:gap-1.5 lg:flex-row"}>
                         <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
-                            <div className="w-full stats shadow border">
+                            <div className="w-full stats shadow-md dark:bg-slate-500">
                                 <div className="stat">
-                                    <div className="stat-title h-14 whitespace-normal">Est. Pending Reimbursement</div>
-                                    <div className="stat-value text-red-500 text-2xl">-{convertCentsToUSD(totalPendingReimbursementCentAmount)}</div>
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Est. Pending Reimbursement
+                                    </div>
+                                    <div className="stat-value text-red-500 text-2xl">
+                                        -{convertCentsToUSD(totalPendingReimbursementCentAmount)}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
-                            <div className="w-full stats shadow border">
+                            <div className="w-full stats shadow-md dark:bg-slate-500">
                                 <div className="stat">
-                                    <div className="stat-title h-14 whitespace-normal">Total Commission</div>
-                                    <div className="stat-value text-green-600 text-2xl">{convertCentsToUSD(totalSalesCentAmount - totalReimbursedCentAmount - totalPendingReimbursementCentAmount)}</div>
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Total Commission
+                                    </div>
+                                    <div className="stat-value text-green-600 text-2xl">
+                                        {convertCentsToUSD(totalSalesCentAmount - totalReimbursedCentAmount - totalPendingReimbursementCentAmount)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section className={"w-full flex mx-auto lg:w-min"}>
+                    <div className={"flex flex-col w-full items-center gap-2.5 pr-1.5 sm:pl-0 md:items-end lg:items-center lg:gap-1.5 lg:flex-row"}>
+                        <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
+                            <div onClick={setAllOrders} className={`cursor-pointer w-full stats shadow-md ${title === "Total" ? "bg-zinc-200 dark:bg-slate-700" : "dark:bg-slate-500"}`}>
+                                <div className="stat">
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Total Orders
+                                        <TiFilter size={24}/>
+                                    </div>
+                                    <div className="stat-value text-2xl dark:text-white">
+                                        {orders.length}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
+                            <div onClick={filterPaidOrders} className={`cursor-pointer w-full stats shadow-md ${title === "Paid" ? "bg-zinc-200 dark:bg-slate-700" : "dark:bg-slate-500"}`}>
+                                <div className="stat">
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Paid Orders
+                                        <TiFilter size={24}/>
+                                    </div>
+                                    <div className="stat-value text-2xl dark:text-white">
+                                        {totalOrdersPaid}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"flex flex-col w-full items-center gap-2.5 pl-1.5 sm:pl-0 md:items-start lg:items-center lg:gap-1.5 lg:flex-row"}>
+                        <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
+                            <div onClick={filtersUnpaidOrders} className={`cursor-pointer w-full stats shadow-md ${title === "Unpaid" ? "bg-zinc-200 dark:bg-slate-700" : "dark:bg-slate-500"}`}>
+                                <div className="stat">
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Unpaid Orders
+                                        <TiFilter size={24}/>
+                                    </div>
+                                    <div className="stat-value text-2xl dark:text-white">
+                                        {totalOrdersUnpaid}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"w-full md:w-64 lg:w-44 flex justify-center"}>
+                            <div onClick={filterCanceledOrders} className={`cursor-pointer w-full stats shadow-md ${title === "Canceled" ? "bg-zinc-200 dark:bg-slate-700" : "dark:bg-slate-500"}`}>
+                                <div className="stat">
+                                    <div className="stat-title h-14 whitespace-normal dark:text-gray-300">
+                                        Canceled Orders
+                                        <TiFilter size={24}/>
+                                    </div>
+                                    <div className="stat-value text-2xl dark:text-white">
+                                        {totalOrdersCanceled}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section className={"w-full flex justify-center pt-3 2xl:w-min pr-1"}>
-                    <div className={`w-full md:w-min h-min shadow border rounded-2xl cursor-pointer flex justify-center`}>
-                        <div className={`w-3/12 md:w-32 px-4 py-4 whitespace-nowrap text-center border-r ${title === "Total" ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50 rounded-tl-2xl rounded-bl-2xl" : ""}`}
-                             onClick={setAllOrders}>
-                            <div className="text-sm md:text-base text-gray-500">Total</div>
-                            <div className="text-3xl font-extrabold">{orders.length}</div>
-                        </div>
-                        <div className={`w-3/12 md:w-32 px-4 py-4 whitespace-nowrap text-center border-r ${title === "Paid" ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50" : ""}`}
-                             onClick={filterPaidOrders}>
-                            <div className="text-sm md:text-base text-gray-500">Paid</div>
-                            <div className="text-3xl font-extrabold">{totalOrdersPaid}</div>
-                        </div>
-                        <div className={`w-3/12 md:w-32 px-4 py-4 whitespace-nowrap text-center border-r ${title === "Unpaid" ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50" : ""}`}
-                             onClick={filtersUnpaidOrders}>
-                            <div className="text-sm md:text-base text-gray-500">Unpaid</div>
-                            <div className="text-3xl font-extrabold">{totalOrdersUnpaid}</div>
-                        </div>
-                        <div className={`w-3/12 md:w-32 px-4 py-4 whitespace-nowrap text-center ${title === "Canceled" ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50 rounded-tr-2xl rounded-br-2xl" : ""}`}
-                             onClick={filterCanceledOrders}>
-                            <div className="text-sm md:text-base text-gray-500 text-center">Canceled</div>
-                            <div className="text-3xl font-extrabold">{totalOrdersCanceled}</div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <section>
+            </section>
+            <section className={"flex flex-col gap-3"}>
                 {
                     filteredOrders.map((order) => {
-                        return <DashboardOrdersItem successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} setOrderData={setOrderData} order={order} key={order.id}/>
+                        return <DashboardOrdersItem
+                            successfullyUpdatedOrder={successfullyUpdatedOrder}
+                            setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder}
+                            setOrderData={setOrderData}
+                            order={order}
+                            key={order.id}
+                        />
                     })
                 }
             </section>
@@ -187,7 +242,7 @@ const DashboardOrders = () => {
                 <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
                 {
                     orderData?.message !== "" && (
-                        orderData?.message.split("&").map(function(sentence, index){
+                        orderData?.message.split("&").map(function (sentence, index) {
                             return (
                                 <p className={"pt-3"} key={index}>{sentence}</p>
                             )
@@ -197,10 +252,7 @@ const DashboardOrders = () => {
             </ConfirmModal>
         </>
     );
-    return <DashboardLoading/>
 };
-
-
 
 
 export default DashboardOrders;

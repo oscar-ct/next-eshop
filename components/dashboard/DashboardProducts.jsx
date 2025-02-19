@@ -5,7 +5,7 @@ import ConfirmModal from "@/components/modals/ConfirmModal";
 import toast from "react-hot-toast";
 import DashboardLoading from "@/components/dashboard/DashboardLoading";
 
-const DashboardProducts = ({ width }) => {
+const DashboardProducts = () => {
 
     const [productData, setProductData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -49,12 +49,17 @@ const DashboardProducts = ({ width }) => {
             <section>
             {
                 products.map((product) => {
-                    return <DashboardProductsItem setProductData={setProductData} successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} width={width} product={product} key={product.id}/>
+                    return <DashboardProductsItem setProductData={setProductData} successfullyUpdatedOrder={successfullyUpdatedOrder} setSuccessfullyUpdatedOrder={setSuccessfullyUpdatedOrder} product={product} key={product.id}/>
                 })
             }
             </section>
-            <ConfirmModal title={"Confirm Changes"} initiateFunction={submitProductUpdate}>
-                <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
+            <ConfirmModal
+                title={"Confirm Changes"}
+                initiateFunction={submitProductUpdate}
+            >
+                <h3 className="font-semibold text-lg">
+                    Please confirm these are the changes you wish to make --
+                </h3>
                 {
                     productData?.message !== "" && (
                         productData?.message.split("&").map(function(sentence, index){

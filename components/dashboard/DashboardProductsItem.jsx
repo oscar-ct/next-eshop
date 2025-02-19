@@ -11,9 +11,10 @@ import {
     fetchAdminUpdateProduct
 } from "@/utils/api-requests/fetchRequests";
 import toast from "react-hot-toast";
+import {RiImageAddLine} from "react-icons/ri";
 
 
-const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSuccessfullyUpdatedOrder, setProductData }) => {
+const DashboardProductsItem = ({ product, successfullyUpdatedOrder, setSuccessfullyUpdatedOrder, setProductData }) => {
 
     const [loading, setLoading] = useState(false);
     const [images, setImages] = useState(product.images || []);
@@ -178,11 +179,12 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
     };
 
     if (!isDeleted) return (
-        <details ref={ref} className={`collapse my-3 ${product.isDisabled ? "bg-neutral-400" : "bg-base-200"} ${loading ? "opacity-30" : ""}`}>
-            <summary className="collapse-title pe-4">
-                <div className={"flex justify-start items-center"}>
+        <details ref={ref} className={`collapse my-3 ${product.isDisabled ? "bg-zinc-500" : "bg-zinc-300"} ${loading ? "opacity-30" : ""}`}>
+            <summary className="collapse-title p-2">
+                <div className={"flex justify-start gap-4 items-between"}>
                     {
                         images.length !== 0 ? (
+                            <div className={"w-2/12 flex justify-center items-center md:w-1/12"}>
                             <Image
                                 src={images[0]?.url}
                                 alt={"product"}
@@ -190,32 +192,35 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                 height={50}
                                 className={"w-16 h-16 object-scale-down rounded-md"}
                             />
+                            </div>
                         ) : (
-                            <div className="avatar placeholder">
+                            <div className="w-1/12 avatar placeholder">
                                 <div className="bg-white text-neutral-content rounded-full w-14">
                                     <span className="text-xl text-black font-bold">?</span>
                                 </div>
                             </div>
                         )
                     }
-
-                    <div className={"pl-2"}>
-                        <div className={"flex flex-col gap-1 text-sm md:text-base"}>
-                            <h3 className="text-gray-500">
-                                <span
-                                    className="font-semibold ml-1 badge badge-md">{product.createdAt.substring(5, 10) + "-" + product.createdAt.substring(2, 4)}</span>
-                            </h3>
-                            <h3 className="text-gray-500">
-                                <Link href={`/products/${product.id}`}
-                                      className="link link-primary font-semibold ml-1 badge badge-md">{product.name.substring(0, width < 500 ? 26 : width >= 500 && width < 640 ? 32 : width >= 640 && width < 768 ? 52 : width >= 768 && width < 1024 ? 72 : width >= 1024 && width < 1280 ? 72 : width >= 1280 && width < 1536 ? 96 : product.name.length)}...
-                                </Link>
-                            </h3>
+                    <div className={"w-10/12 flex flex-col gap-1 text-sm md:text-base md:flex-row md:gap-4 md:w-11/12"}>
+                        <div className="w-20 h-full flex justify-center items-center rounded-xl bg-white md:w-[12%]">
+                            <div className="px-1 text-xs text-gray-700 font-semibold md:text-sm">
+                                {product.createdAt.substring(5, 10) + "-" + product.createdAt.substring(2, 4)}
+                            </div>
+                        </div>
+                        <div className="px-1 w-full h-full flex items-center rounded-xl bg-white md:px-6 md:w-[84%]">
+                            <Link
+                                href={`/products/${product.id}`}
+                                className="text-xs font-semibold link link-primary md:text-sm text-wrap"
+                            >
+                                {product.name}
+                            </Link>
                         </div>
                     </div>
+
                 </div>
             </summary>
-            <div className="collapse-content">
-                <div className="w-full stats text-primary-content">
+            <div className="collapse-content p-2">
+                <div className="bg-zinc-50 w-full stats dark:bg-slate-700">
                     <div className="stat">
                         <div className={"flex flex-wrap gap-2"}>
                             {
@@ -236,14 +241,14 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
 
                                     )
                                 }) : (
-                                    <span className={"text-neutral-700 font-bold"}>No Images...</span>
+                                    <div className={"text-neutral-700 font-bold dark:text-white"}>No Images Found</div>
                                 )
                             }
                         </div>
                         <div className="stat-actions flex flex-col gap-1">
-                            <div className={"w-full flex flex-col justify-evenly md:flex-row md:justify-start"}>
-                                <div className={"flex flex-col"}>
-                                    <div className="stat-title font-semibold text-xs md:text-base">
+                            <div className={"w-full flex flex-col justify-evenly md:flex-row"}>
+                                <div className={"w-full flex flex-col md:pr-2"}>
+                                    <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                         Price In Cents
                                     </div>
                                     <input
@@ -254,12 +259,12 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={price}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
+                                        className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
                                         type={"number"}
                                     />
                                 </div>
-                                <div className={"flex flex-col"}>
-                                    <div className="stat-title font-semibold text-xs md:text-base">
+                                <div className={"w-full flex flex-col md:pl-2"}>
+                                    <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                         Stock
                                     </div>
                                     <input
@@ -271,14 +276,14 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
 
                                         value={countInStock}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
+                                        className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
                                         type={"number"}
                                     />
                                 </div>
                             </div>
                             <div className={"w-full flex flex-col justify-evenly md:flex-row md:justify-start"}>
-                                <div className={"flex flex-col"}>
-                                    <div className="stat-title font-semibold text-xs md:text-base">
+                                <div className={"w-full flex flex-col md:pr-2"}>
+                                    <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                         Brand
                                     </div>
                                     <input
@@ -289,12 +294,12 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={brand}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
+                                        className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
                                         type={"text"}
                                     />
                                 </div>
-                                <div className={"flex flex-col"}>
-                                    <div className="stat-title font-semibold text-xs md:text-base">
+                                <div className={"w-full flex flex-col md:pl-2"}>
+                                    <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                         Model
                                     </div>
                                     <input
@@ -305,14 +310,14 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={model}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
+                                        className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
                                         type={"text"}
                                     />
                                 </div>
                             </div>
                             <div className={"w-full flex flex-col justify-evenly md:flex-row md:justify-start"}>
-                                <div className={"flex flex-col"}>
-                                    <div className="stat-title font-semibold text-xs md:text-base">
+                                <div className={"w-full flex flex-col md:pr-2"}>
+                                    <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                         Category
                                     </div>
                                     <input
@@ -323,12 +328,12 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={category}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
+                                        className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
                                         type={"text"}
                                     />
                                 </div>
-                                <div className={"flex flex-col"}>
-                                    <div className="stat-title font-semibold text-xs md:text-base">
+                                <div className={"w-full flex flex-col md:pl-2"}>
+                                    <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                         Color
                                     </div>
                                     <input
@@ -339,7 +344,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         }}
                                         value={color}
                                         autoComplete={"off"}
-                                        className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
+                                        className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
                                         type={"text"}
                                     />
                                 </div>
@@ -356,7 +361,7 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                     </div>
                     <div className="stat">
                         <div className={"h-min"}>
-                            <div className="stat-title font-semibold text-xs md:text-base h-5 md:h-7">
+                            <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
                                 Description
                             </div>
                             <textarea
@@ -367,13 +372,13 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                 }}
                                 value={description}
                                 autoComplete={"off"}
-                                className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
-                                rows={width < 768 ? 6 : 4}
+                                className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
+                                rows={6}
                             />
                         </div>
                         <div>
-                            <div className="stat-title font-semibold text-xs md:text-base">
-                                Name
+                            <div className="stat-title font-semibold text-xs md:text-base dark:text-white">
+                                Title
                             </div>
                             <textarea
                                 name={"name"}
@@ -383,15 +388,16 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                 }}
                                 value={name}
                                 autoComplete={"off"}
-                                className={"text-neutral-700 text-sm w-full dark:text-neutral-300"}
-                                rows={width < 768 ? 4 : 2}
+                                className={"px-2 py-1 rounded text-neutral-700 text-sm w-full dark:text-neutral-300 dark:bg-slate-500"}
+                                rows={6}
                             />
 
                         </div>
                         <div className={"flex justify-between gap-2"}>
-                            <button
-                                className="w-full md:w-40 bg-base-200 font-semibold p-2 text-sm rounded-lg leading-none h-14 flex flex-col md:flex-row items-center justify-between md:h-10 ">
-                                <span className={"text-neutral-500"}>Disabled: </span>
+                            <div className="text-black font-semibold text-sm rounded-lg leading-none flex flex-col items-end gap-2 md:flex-row">
+                                <div className={"h-full flex items-end dark:text-white md:items-center"}>
+                                    Disabled:
+                                </div>
                                 <select
                                     name={"isDisabled"}
                                     onChange={(e) => {
@@ -399,7 +405,8 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         !editActive && setEditActive(true);
                                     }}
                                     value={isDisabled}
-                                    className="bg-transparent text-neutral-500 dark:text-neutral-300 focus:outline-none focus:shadow-primary">
+                                    className={`p-2 rounded-lg focus:outline-none focus:shadow-primary bg-zinc-200 hover:bg-zinc-300`}
+                                >
                                     <option value={"true"}>
                                         yes
                                     </option>
@@ -407,12 +414,15 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                                         no
                                     </option>
                                 </select>
-                            </button>
-                            <button
-                                onClick={openPicker}
-                                className="btn btn-sm h-14 md:h-10 whitespace-normal w-min md:w-40 dark:text-neutral-300">
-                                Add Image
-                            </button>
+                            </div>
+                            <div className={"flex items-end"}>
+                                <button
+                                    onClick={openPicker}
+                                    className={`py-1 px-2 rounded-lg bg-zinc-200 hover:bg-zinc-300`}
+                                >
+                                    <RiImageAddLine size={28} fill={"black"}/>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -420,11 +430,19 @@ const DashboardProductsItem = ({ product, width, successfullyUpdatedOrder, setSu
                     {
                         editActive && (
                             <div className={"pl-5 flex gap-3"}>
-                                <button onClick={onCancel} className={"flex font-semibold items-center text-sm"}>
-                                    Cancel <FaMinusCircle className={"ml-1 text-red-500"}/>
+                                <button
+                                    onClick={onCancel}
+                                    className={"flex font-semibold items-center text-sm"}
+                                >
+                                    Cancel
+                                    <FaMinusCircle className={"ml-1 text-red-500"}/>
                                 </button>
-                                <button onClick={onSave} className={"flex font-semibold items-center text-sm"}>
-                                    Save <FaCheckCircle className={"ml-1 text-green-500"}/>
+                                <button
+                                    onClick={onSave}
+                                    className={"flex font-semibold items-center text-sm"}
+                                >
+                                    Save
+                                    <FaCheckCircle className={"ml-1 text-green-500"}/>
                                 </button>
                             </div>
                         )
