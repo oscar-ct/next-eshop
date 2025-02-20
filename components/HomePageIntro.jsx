@@ -76,11 +76,11 @@ const HomePageIntro = ({session}) => {
             <div className={"h-full relative lg:pb-10"}>
                 {
                     session ? (
-                        <h1 className={"py-14 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
+                        <h1 className={"pb-10 pt-8 font-extrabold text-center text-5xl sm:pb-12 sm:pt-20 2xl:text-6xl dark:text-white"}>
                             Welcome, {session.user.name.username}!
                         </h1>
                     ) : (
-                        <h1 className={"py-14 font-extrabold text-center text-5xl sm:pt-24 2xl:text-6xl dark:text-white"}>
+                        <h1 className={"pb-10 pt-8 font-extrabold text-center text-5xl sm:pb-12 sm:pt-20 2xl:text-6xl dark:text-white"}>
                             Welcome to eshopjs.com
                         </h1>
                     )

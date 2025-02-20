@@ -25,7 +25,7 @@ const HomePageSwiper = () => {
         >
             <SwiperSlide>
                 <div className={"px-4 w-full flex flex-col justify-center items-center text-xl text-gray-600 gap-4 lg:px-8 lg:gap-0 dark:text-white"}>
-                    <div className={"flex flex-col w-full h-40 sm:h-28 lg:h-20 relative rainbow"}>
+                    <div className={"flex flex-col w-full h-52 sm:h-32 lg:h-24 relative rainbow"}>
                         <div className={"px-4 flex items-center bg-zinc-50 rounded-lg absolute top-0 left-0 right-0 bottom-0 m-auto h-[calc(100%-6px)] w-[calc(100%-6px)] focus:outline-none focus:ring-4 focus:ring-offset-1 dark:text-white dark:bg-slate-700"}>
                             <h3 className={"text-center"}>
                                 eshopjs.com is an online e-commerce store built and designed from the ground up by <span
@@ -46,7 +46,7 @@ const HomePageSwiper = () => {
             </SwiperSlide>
             <SwiperSlide>
                 <div className={"px-4 w-full flex flex-col justify-center items-center text-xl text-gray-600 gap-4 lg:gap-0 lg:px-8 dark:text-white"}>
-                    <div className={"flex flex-col w-full h-40 sm:h-28 lg:h-20 relative rainbow"}>
+                    <div className={"flex flex-col w-full h-48 sm:h-32 lg:h-24 relative rainbow"}>
                         <div
                             className={"px-4 flex items-center bg-zinc-50 rounded-lg absolute top-0 left-0 right-0 bottom-0 m-auto h-[calc(100%-6px)] w-[calc(100%-6px)] focus:outline-none focus:ring-4 focus:ring-offset-1 dark:text-white dark:bg-slate-700"}>
                             <h3 className={"mx-auto text-center"}>
