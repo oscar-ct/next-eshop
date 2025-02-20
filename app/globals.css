@@ -107,3 +107,33 @@ iframe {
     radial-gradient(rgba(0, 0, 0, 0.47) 2px, transparent 0);
     background-size: 30px 30px, 30px 30px;
 }
+
+.rainbow {
+    z-index: 2;
+}
+
+@keyframes rainbow {
+    0% {
+        background-position-x: 0
+    }
+    to {
+        background-position-x: 100%
+    }
+}
+
+.rainbow:after {
+    content: "";
+    background: linear-gradient(90deg,rgb(99 102 241),rgb(168 85 247),rgb(236 72 153));
+    height: inherit;
+    z-index: -1;
+    background-size: 50% 100%;
+    background-repeat: repeat-x;
+    border-radius: 10px;
+    animation: rainbow 2s linear infinite
+}
+
+@media(prefers-reduced-motion) {
+    .rainbow:after {
+        animation: none
+    }
+}
