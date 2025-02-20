@@ -1,9 +1,7 @@
 "use client";
 
 import {motion} from "framer-motion";
-import Image from "next/image";
 import HomePageIntroCategories from "@/components/HomePageIntroCategories";
-import divider from "@/icons/divider.svg";
 import HomePageSwiper from "@/components/HomePageSwiper";
 
 const HomePageIntro = ({session}) => {
@@ -91,23 +89,25 @@ const HomePageIntro = ({session}) => {
                 <div className={"w-full h-min"}>
                     <HomePageSwiper/>
                 </div>
-                <motion.div
-                    initial={{opacity: 0, x: -300}}
-                    exit={{opacity: 0}}
-                    animate={{opacity: 1, x: 0}}
-                    transition={{delay: .0, duration: .1}}
-                    className={"hidden h-36 w-full absolute justify-center top-[33%] lg:flex lg:top-[35%]"}
-                >
-                    <Image
-                        priority
-                        src={divider}
-                        alt={"divider"}
-                        width={800}
-                        height={110}
-                        className={"w-full object-cover dark:invert"}
-                    />
-                </motion.div>
-                <h2 className={"py-10 text-center text-xl text-gray-600 font-semibold translate-y-5 lg:py-0 dark:text-white"}>What do we sell?</h2>
+                {/*<motion.div*/}
+                {/*    initial={{opacity: 0, x: -300}}*/}
+                {/*    exit={{opacity: 0}}*/}
+                {/*    animate={{opacity: 1, x: 0}}*/}
+                {/*    transition={{delay: .0, duration: .1}}*/}
+                {/*    className={"hidden h-36 w-full absolute justify-center top-[33%] lg:flex lg:top-[35%]"}*/}
+                {/*>*/}
+                {/*<Image*/}
+                {/*    priority*/}
+                {/*    src={divider}*/}
+                {/*    alt={"divider"}*/}
+                {/*    width={800}*/}
+                {/*    height={110}*/}
+                {/*    className={"w-full object-cover dark:invert"}*/}
+                {/*/>*/}
+                {/*</motion.div>*/}
+                <h2 className={"py-10 text-center text-xl text-gray-600 font-semibold translate-y-5 lg:py-0 dark:text-white"}>
+                    What do we sell?
+                </h2>
             </div>
             <div className={"pt-5 pb-12 w-full flex flex-col items-center justify-center relative lg:h-64 lg:py-0"}>
                 <HomePageIntroCategories/>
@@ -121,7 +121,6 @@ const HomePageIntro = ({session}) => {
                 </motion.div>
             </div>
         </div>
-
     </>
     );
 };
