@@ -127,7 +127,7 @@ const PaymentPage = () => {
                                     </div>
                                     <div className={"pt-5 w-full flex justify-end"}>
                                         <CustomBtn isDisabled={paymentMeth === null} type={"submit"}>
-                                            Proceed To Checkout
+                                            Save and Continue
                                         </CustomBtn>
                                     </div>
                                 </form>
