@@ -22,7 +22,7 @@ const ShippingPage = () => {
 
     const matchingAddress = user?.shippingAddresses.filter((address) => {
         return address.id === shippingAddress.id;
-    })
+    });
 
     const locateExistingAddress = () => {
         if (user) {
@@ -68,22 +68,35 @@ const ShippingPage = () => {
         }
     }, [shippingAddress]);
 
-    const validAddressCharLimit = 48;
-    const validCityCharLimit = 48;
-    const emailRegex = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-    const validNameCharLimit = 48;
 
     const isValidPostalCode = (zipCode) => {
-        return zipCode.length === 5 && !isNaN(parseFloat(zipCode)) && isFinite(zipCode)
+        return zipCode.length === 5 && !isNaN(parseFloat(zipCode)) && isFinite(zipCode);
+    };
+    const isValidAddress = (address) => {
+        return address.trim().length > 2 && address.length < 32;
+    };
+    const isValidCity = (city) => {
+        return city.trim().length > 2 && address.length < 24;
+    };
+    const isValidName = (name) => {
+        return name.trim().length > 2 && name.length < 24;
+    };
+    const isValidEmail = (email) => {
+        const noSpacesRegex = /^\S+$/;
+        const emailRegex = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
+        if (!noSpacesRegex.test(email)) {
+            return false;
+        }
+        return emailRegex.test(email);
     };
 
     useEffect(() => {
-        if (shippingData.address.length !== 0 && shippingData.address.length < validAddressCharLimit && shippingData.city.length !== 0 && shippingData.city.length < validCityCharLimit && isValidPostalCode(shippingData.postalCode) && shippingData.state.length !== 0 && shippingData.country.length !== 0 && shippingData.name.length !== 0 && shippingData.name.length < validNameCharLimit) {
+        if (isValidPostalCode(shippingData.postalCode) && isValidAddress(shippingData.address) && isValidCity(shippingData.city) && isValidName(shippingData.name) && shippingData.state.length !== 0 && shippingData.country.length !== 0) {
             setIsValidShippingData(true);
         } else {
             setIsValidShippingData(false);
         }
-    }, [shippingData.address.length, shippingData.city.length, shippingData.postalCode.length, shippingData.postalCode, shippingData.state.length, shippingData.country.length, shippingData.name.length]);
+    }, [shippingData.postalCode, shippingData.name, shippingData.address, shippingData.city, shippingData.state.length, shippingData.country.length]);
 
     useEffect(function () {
         if (cartItems.length === 0) {
@@ -191,9 +204,9 @@ const ShippingPage = () => {
                                                             Customer Email
                                                         </label>
                                                         <input
-                                                            className={`${dynamicBorder(emailRegex.test(guestEmail), guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                            className={`${dynamicBorder(isValidEmail(guestEmail), guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                                             autoComplete={"email"}
-                                                            type={"email"}
+                                                            type={"text"}
                                                             placeholder={"example@email.com"}
                                                             id={"email"}
                                                             value={guestEmail}
@@ -214,7 +227,7 @@ const ShippingPage = () => {
                                                     Recipient&apos;s Name
                                                 </label>
                                                 <input
-                                                    className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                    className={`${dynamicBorder(isValidName(name), name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                                     autoComplete={"name"}
                                                     type={"text"}
                                                     placeholder={"John Doe"}
@@ -230,7 +243,7 @@ const ShippingPage = () => {
                                                     Street Address
                                                 </label>
                                                 <input
-                                                    className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                    className={`${dynamicBorder(isValidAddress(address), address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                                     autoComplete={"address"}
                                                     type={"text"}
                                                     placeholder={"600 Navarro St #400"}
@@ -246,7 +259,7 @@ const ShippingPage = () => {
                                                     City
                                                 </label>
                                                 <input
-                                                    className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                    className={`${dynamicBorder(isValidCity(city), city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                                     autoComplete={"home city"}
                                                     type={"text"}
                                                     placeholder={"San Antonio"}
@@ -340,10 +353,10 @@ const ShippingPage = () => {
                                             }
                                             <div className={"pt-5 w-full flex justify-end"}>
                                                 <CustomBtn
-                                                    isDisabled={!isValidShippingData || (user ? false : !emailRegex.test(guestEmail))}
+                                                    isDisabled={!isValidShippingData || (user ? false : !isValidEmail(guestEmail))}
                                                     type={"submit"}
                                                 >
-                                                    Proceed To Checkout
+                                                    Save and Continue
                                                 </CustomBtn>
                                             </div>
                                         </form>
@@ -391,7 +404,7 @@ const ShippingPage = () => {
                                             </div>
                                             <div className={"pt-5 w-full flex justify-end"}>
                                                 <CustomBtn isDisabled={radioId === ""} type={"submit"}>
-                                                    Proceed To Checkout
+                                                    Save and Continue
                                                 </CustomBtn>
                                             </div>
                                         </form>
