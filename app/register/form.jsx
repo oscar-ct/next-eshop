@@ -34,13 +34,17 @@ const RegisterForm = () => {
 
     const submitRegister = async (e) => {
         e.preventDefault();
+        if (name.includes(" ") || name.length < 2 || name.length > 12) {
+            toast.error("Username must be between 2-12 characters and not include spaces");
+            return;
+        }
         const emailRegex = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
         if (!emailRegex.test(email)) {
             toast.error("Please enter a valid email");
         } else if (password !== confirmPassword) {
             toast.error("Passwords do not match");
 
-        } else if (password.trim().length < 6 || confirmPassword.trim().length < 6) {
+        } else if (password.length < 6 || confirmPassword.length < 6) {
             toast.error("Password is too short.  Password must be at least 6 characters");
         } else {
             const body = {
@@ -79,8 +83,8 @@ const RegisterForm = () => {
                     </div>
                     <form onSubmit={submitRegister} className="space-y-3">
                         <div className="space-y-2">
-                            <label htmlFor={"name"} className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">Full
-                                Name
+                            <label htmlFor={"name"} className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">
+                                Username
                             </label>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
@@ -112,7 +116,6 @@ const RegisterForm = () => {
                                    className="mb-5 text-sm font-medium text-gray-600 tracking-wide dark:text-white">
                                 Password
                             </label>
-
                             <input
                                 className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"off"}
@@ -129,7 +132,6 @@ const RegisterForm = () => {
                                    className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">
                                 Confirm Password
                             </label>
-
                             <input
                                 className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"off"}
