@@ -91,7 +91,7 @@ const RegisterForm = () => {
                                 autoComplete={"name"}
                                 type={"name"}
                                 id={"name"}
-                                placeholder={"John Doe"}
+                                placeholder={"user123"}
                                 value={name}
                                 onChange={onCredentialChange}
                                 required
