@@ -17,6 +17,9 @@ import {FiEdit} from "react-icons/fi";
 import {LiaSave} from "react-icons/lia";
 import RevealMotion from "@/components/RevealMotion";
 import Loading from "@/app/loading";
+import Image from "next/image";
+import usaFlag from "@/icons/usa.svg";
+import {deliveryDateString} from "@/utils/deliveryDate";
 
 
 const CheckoutPage = () => {
@@ -174,17 +177,17 @@ const CheckoutPage = () => {
                                                         <span>{guestData}</span>
                                                     </div>
                                                     {
-                                                    !saveButtonDisabled && (
-                                                        <Link href={"/shipping"}>
-                                                            <FiEdit/>
-                                                        </Link>
-                                                    )
-                                                }
+                                                        !saveButtonDisabled && (
+                                                            <Link href={"/shipping"}>
+                                                                <FiEdit/>
+                                                            </Link>
+                                                        )
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            }
+                                    )
+                                }
                                 <div
                                     className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
                                     <div
@@ -216,7 +219,33 @@ const CheckoutPage = () => {
                                     <div
                                         className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                         <h3 className={"font-semibold"}>
-                                            Payment Method
+                                            Delivery Service
+                                        </h3>
+                                    </div>
+                                    <div className={"w-full sm:w-8/12"}>
+                                        <div className={"flex justify-between gap-4"}>
+                                            <div className={"flex flex-col text-sm dark:text-white"}>
+                                                <span>United States Postal Service</span>
+                                                <span>Standard, between {deliveryDateString()}</span>
+                                            </div>
+                                            <div className={"flex items-center"}>
+                                                <Image
+                                                    src={usaFlag}
+                                                    alt={"usa"}
+                                                    width={50}
+                                                    height={50}
+                                                    className={"w-10 h-8"}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
+                                    <div
+                                        className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                        <h3 className={"font-semibold"}>
+                                            Payment Authorizer
                                         </h3>
                                     </div>
                                     <div className={"w-full sm:w-8/12"}>
@@ -409,8 +438,10 @@ const CheckoutPage = () => {
                                             paymentMethod === "PayPal / Credit Card" && (
                                                 <div className={"px-4"}>
                                                     <PayPalScriptProvider options={initialOptions}>
-                                                        <PaypalCheckout createNewOrder={() => createNewOrder()}
-                                                                        setSaveButtonDisabled={setSaveButtonDisabled}/>
+                                                        <PaypalCheckout
+                                                            createNewOrder={() => createNewOrder()}
+                                                            setSaveButtonDisabled={setSaveButtonDisabled}
+                                                        />
                                                     </PayPalScriptProvider>
                                                 </div>
                                             )
