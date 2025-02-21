@@ -23,6 +23,8 @@ import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import RatingPlaceholder from "@/components/RatingPlaceholder";
 import {MdOutlineRateReview} from "react-icons/md";
 import RevealMotion from "@/components/RevealMotion";
+import usaFlag from "@/icons/usa.svg"
+import {deliveryDateString} from "@/utils/deliveryDate";
 
 
 const fetchDeleteProductReview = async (body, id, reviewId) => {
@@ -134,7 +136,6 @@ const ProductPage = () => {
         window.confirm_modal.showModal();
     };
 
-
     if (!loading && !product) return <NotFound/>
 
     if (!loading && fullScreen && product) return (
@@ -230,9 +231,8 @@ const ProductPage = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div className={"flex flex-col gap-6 w-full h-full"}>
-                                    <div
-                                        className={"flex justify-center sm:border-none bg-stone-100 rounded-lg h-96 relative"}
+                                <div className={"flex flex-col gap-6 w-full h-full lg:flex-row"}>
+                                    <div className={"flex justify-center sm:border-none bg-stone-100 rounded-lg h-96 relative lg:w-10/12"}
                                         onClick={() => setFullScreen(true)}>
                                         <Image
                                             priority
@@ -243,7 +243,7 @@ const ProductPage = () => {
                                             className={"cursor-pointer rounded-lg object-scale-down"}
                                         />
                                     </div>
-                                    <div className={"flex justify-center gap-3"}>
+                                    <div className={"flex justify-center gap-3 lg:flex-col lg:items-center lg:w-2/12 lg:max-h-96"}>
                                         {
                                             product.images.map(function (image, index) {
                                                 return (
@@ -264,7 +264,7 @@ const ProductPage = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className={"flex flex-col gap-6"}>
+                                <div className={"flex flex-col gap-6 lg:pt-2"}>
                                     <div className={"flex justify-between"}>
                                         <FormatPrice
                                             price={convertCentsToUSD(product.price).toString()}
@@ -272,7 +272,7 @@ const ProductPage = () => {
                                         >
                                             /ea.
                                         </FormatPrice>
-                                        <div className={"text-lg flex items-end"}>
+                                        <div className={"text-lg flex items-center"}>
                                             {
                                                 product.countInStock > 0 ? (
                                                     <div className={"text-green-500 font-semibold"}>
@@ -286,6 +286,43 @@ const ProductPage = () => {
                                             }
                                         </div>
                                     </div>
+                                    <div className={"flex flex-col gap-4 lg:flex-row lg:gap-6"}>
+                                        {
+                                            product.countInStock > 0 && (
+                                                <div
+                                                    className={"bg-zinc-50 w-full rounded-md border-gray-300 border h-12 flex justify-start items-center px-2"}>
+                                                    <label
+                                                        htmlFor={"qty"}
+                                                        className={"text-sm font-semibold pr-1"}
+                                                    >
+                                                        Quantity:
+                                                    </label>
+                                                    <select
+                                                        id={"qty"}
+                                                        className="bg-zinc-50 h-full w-full !outline-none text-sm"
+                                                        value={quantity}
+                                                        onChange={(e) => setQuantity(Number(e.target.value))}
+                                                    >
+                                                        {
+                                                            [...Array(product.countInStock).keys()].map(function (x) {
+                                                                return (
+                                                                    <option key={x} value={x + 1}>
+                                                                        {x + 1}
+                                                                    </option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+
+                                            )
+                                        }
+                                        <CustomBtn customClass={"w-full"} isDisabled={product.countInStock === 0}
+                                                   onClick={addToCartHandler}>
+                                            Add To Cart
+                                        </CustomBtn>
+                                    </div>
+                                    <div className={"h-0.5 bg-slate-400 w-full"}/>
                                     <h6 className={"text-lg font-semibold dark:text-white"}>
                                         About this product --
                                     </h6>
@@ -341,7 +378,7 @@ const ProductPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className={"w-6/12"}>
-                                                San Antonio, TX
+                                                    San Antonio, TX
                                                 </div>
                                             </div>
                                             <div className={"flex"}>
@@ -366,6 +403,31 @@ const ProductPage = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className={"h-0.5 bg-slate-400 w-full"}/>
+                                    <h6 className={"text-lg font-semibold dark:text-white"}>
+                                        Delivery --
+                                    </h6>
+                                    <div className={"flex gap-4 md:gap-8"}>
+                                        <div className={"flex items-center"}>
+                                            <Image
+                                                src={usaFlag}
+                                                alt={"usa"}
+                                                width={50}
+                                                height={50}
+                                                className={"w-12 h-10"}
+                                            />
+                                        </div>
+                                        <div className={"flex flex-col gap-4"}>
+                                            <div className={"flex flex-col md:items-center md:gap-4 md:flex-row"}>
+                                                <span className={"dark:text-white line-through"}>Express by {deliveryDateString("express")}</span>
+                                                <span className={"text-xs text-red-500"}>(currently unavailable)</span>
+                                            </div>
+                                            <div className={"dark:text-white"}>
+                                                Standard between {deliveryDateString()}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={"h-0.5 bg-slate-400 w-full"}/>
                                     <h6 className={"text-lg font-semibold dark:text-white"}>
                                         Description --
                                     </h6>
@@ -384,40 +446,6 @@ const ProductPage = () => {
                                         {product.description}
                                     </p>
                                 </div>
-                                {
-                                    product.countInStock > 0 && (
-                                        <div
-                                            className={"bg-zinc-50 my-3 w-full rounded-md border-gray-300 border h-12 flex justify-start items-center px-2"}>
-                                            <label
-                                                htmlFor={"qty"}
-                                                className={"text-sm font-semibold pr-1"}
-                                            >
-                                                Quantity:
-                                            </label>
-                                            <select
-                                                id={"qty"}
-                                                className="bg-zinc-50 h-full w-full !outline-none text-sm"
-                                                value={quantity}
-                                                onChange={(e) => setQuantity(Number(e.target.value))}
-                                            >
-                                                {
-                                                    [...Array(product.countInStock).keys()].map(function (x) {
-                                                        return (
-                                                            <option key={x} value={x + 1}>
-                                                                {x + 1}
-                                                            </option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-
-                                    )
-                                }
-                                <CustomBtn customClass={"w-full"} isDisabled={product.countInStock === 0}
-                                           onClick={addToCartHandler}>
-                                    Add To Cart
-                                </CustomBtn>
                             </RevealMotion>
                         )
                     }
@@ -426,7 +454,8 @@ const ProductPage = () => {
                     {/*{*/}
                     {/*    !product.isDisabled && (*/}
                     {/*}*/}
-                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                    <div
+                        className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
                     {
                         loading && !product ? (
                             <div className="flex w-full flex-col gap-5 h-full">
