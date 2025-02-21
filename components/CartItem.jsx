@@ -54,7 +54,7 @@ const CartItem = ( {item} ) => {
                             </div>
                             <div className={"flex flex-col text-xs sm:text-sm"}>
                                 <div className={"flex items-center pb-1"}>
-                                     <span className={"text-xs font-bold text-gray-500"}>Remaining In Stock:</span>
+                                     <span className={"text-xs font-bold text-gray-500"}>In Stock:</span>
                                     <span className={"ml-1 dark:text-white"}>{item.countInStock}</span>
                                 </div>
                                 <div>

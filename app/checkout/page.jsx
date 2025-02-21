@@ -215,7 +215,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
                                 <div
-                                    className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
+                                    className={"flex flex-col border-b border-gray-300 py-3 gap-2 sm:gap-0 sm:flex-row dark:text-white"}>
                                     <div
                                         className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                         <h3 className={"font-semibold"}>
@@ -436,7 +436,7 @@ const CheckoutPage = () => {
                                         }
                                         {
                                             paymentMethod === "PayPal / Credit Card" && (
-                                                <div className={"px-4"}>
+                                                <div style={{colorScheme: 'none'}} className={"px-4"}>
                                                     <PayPalScriptProvider options={initialOptions}>
                                                         <PaypalCheckout
                                                             createNewOrder={() => createNewOrder()}

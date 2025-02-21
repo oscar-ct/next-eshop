@@ -17,11 +17,11 @@ const QuantitySelect = ({quantity, products, item}) => {
     };
 
     return (
-        <div className={"bg-zinc-50 rounded-md border-gray-200 border h-12 flex justify-start items-center px-1 sm:px-2"}>
+        <div className={"bg-zinc-100 rounded-md h-10 flex justify-start items-center px-1 sm:px-2 dark:bg-slate-600 dark:text-white"}>
             <label htmlFor={`${item.id}`} className={"text-sm font-semibold pr-1"}>{width < 768 ? "Qty:" : "Quantity:"}</label>
             <select
                 id={`${item.id}`}
-                className="bg-zinc-50 h-full w-full max-w-16 !outline-none text-sm cursor-pointer font-bold"
+                className="bg-zinc-100 h-full w-full max-w-16 !outline-none text-sm cursor-pointer font-semibold dark:bg-slate-600 dark:text-white"
                 value={quantity}
                 onChange={(e) => addToCartHandler(item, Number(e.target.value))}
             >

@@ -264,33 +264,31 @@ const ProductPage = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className={"flex flex-col gap-6 lg:pt-2"}>
-                                    <div className={"flex justify-between"}>
+                                <div className={"flex flex-col gap-6 pt-4"}>
+                                    <div className={"flex justify-between items-end"}>
                                         <FormatPrice
                                             price={convertCentsToUSD(product.price).toString()}
                                             fontSize={"text-4xl"}
                                         >
                                             /ea.
                                         </FormatPrice>
-                                        <div className={"text-lg flex items-center"}>
-                                            {
-                                                product.countInStock > 0 ? (
-                                                    <div className={"text-green-500 font-semibold"}>
-                                                        Remaining in stock: {product.countInStock}
-                                                    </div>
-                                                ) : (
-                                                    <div className={"text-red-600 font-semibold"}>
-                                                        Out of Stock
-                                                    </div>
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className={"flex flex-col gap-4 lg:flex-row lg:gap-6"}>
                                         {
-                                            product.countInStock > 0 && (
+                                            product.countInStock > 0 ? (
+                                                <div className={"text-green-500 font-semibold"}>
+                                                    Remaining in stock: {product.countInStock}
+                                                </div>
+                                            ) : (
+                                                <div className={"text-red-600 font-semibold"}>
+                                                    Out of Stock
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                    {
+                                        !product.isDisabled && product.countInStock > 0 && (
+                                            <div className={"flex flex-col gap-6 lg:flex-row"}>
                                                 <div
-                                                    className={"bg-zinc-50 w-full rounded-md border-gray-300 border h-12 flex justify-start items-center px-2"}>
+                                                    className={"bg-zinc-100 w-full rounded-md h-12 flex justify-start items-center px-2 dark:bg-slate-600 dark:text-white"}>
                                                     <label
                                                         htmlFor={"qty"}
                                                         className={"text-sm font-semibold pr-1"}
@@ -299,7 +297,7 @@ const ProductPage = () => {
                                                     </label>
                                                     <select
                                                         id={"qty"}
-                                                        className="bg-zinc-50 h-full w-full !outline-none text-sm"
+                                                        className="bg-zinc-100 h-full w-full font-semibold !outline-none text-sm dark:bg-slate-600 dark:text-white"
                                                         value={quantity}
                                                         onChange={(e) => setQuantity(Number(e.target.value))}
                                                     >
@@ -314,14 +312,14 @@ const ProductPage = () => {
                                                         }
                                                     </select>
                                                 </div>
-
-                                            )
-                                        }
-                                        <CustomBtn customClass={"w-full"} isDisabled={product.countInStock === 0}
-                                                   onClick={addToCartHandler}>
-                                            Add To Cart
-                                        </CustomBtn>
-                                    </div>
+                                                <CustomBtn customClass={"w-full"}
+                                                           isDisabled={product.countInStock === 0}
+                                                           onClick={addToCartHandler}>
+                                                    Add To Cart
+                                                </CustomBtn>
+                                            </div>
+                                        )
+                                    }
                                     <div className={"h-0.5 bg-slate-400 w-full"}/>
                                     <h6 className={"text-lg font-semibold dark:text-white"}>
                                         About this product --

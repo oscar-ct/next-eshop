@@ -50,7 +50,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                                     <span className={"ml-1 text-sm dark:text-white"}>{item.brand}</span>
                                 </div>
                                 <div className={"pb-1"}>
-                                    <span className={"text-gray-500 font-bold text-xs"}>Remaining In Stock:</span>
+                                    <span className={"text-gray-500 font-bold text-xs"}>In Stock:</span>
                                     <span className={"ml-1 text-sm dark:text-white"}>{item.countInStock}</span>
                                 </div>
                                 <div>
@@ -83,7 +83,7 @@ const CheckoutItem = ({ item, saveButtonDisabled }) => {
                     </div>
                 </div>
             </div>
-            <div className={"mt-5 border-b border-gray-300"}/>
+            <div className={"pt-5 border-b"}/>
         </>
 
     );
