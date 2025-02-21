@@ -49,6 +49,10 @@ const CheckoutPage = () => {
 
 
     const submitApplyDiscountCode = async () => {
+        if (discountCode.trim().length === 0) {
+            toast.error("Blank code invalid!");
+            return;
+        }
         const res = await fetchDiscountValidity({discountKey: discountCode})
         if (!res.validCode) {
             // dispatch(setLoading(true));
@@ -66,6 +70,7 @@ const CheckoutPage = () => {
     };
 
     const submitRemoveDiscountCode = () => {
+        setDiscountLabelActive(false);
         setDiscountCode("");
         dispatch({type: "REMOVE_DISCOUNT"});
         dispatch({type: "UPDATE_CART"});
@@ -103,6 +108,11 @@ const CheckoutPage = () => {
 
 
     const createNewUnpaidOrder = async () => {
+        if (!userData) {
+            toast.error("You must be signed in to save an order");
+            router.push("/register");
+            return;
+        }
         setLoading(true);
         const orderId = await createNewOrder();
         if (orderId) {
@@ -163,10 +173,8 @@ const CheckoutPage = () => {
                                 </h1>
                                 {
                                     !userData && guestData && (
-                                        <div
-                                            className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
-                                            <div
-                                                className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                        <div className={"flex flex-col border-b border-gray-300 py-3 gap-2 sm:gap-0 sm:flex-row dark:text-white"}>
+                                            <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                                 <h3 className={"font-semibold"}>
                                                     Customer Email
                                                 </h3>
@@ -391,22 +399,19 @@ const CheckoutPage = () => {
                                         {
                                             discount && (
                                                 <div className={"w-full flex items-center justify-between"}>
-                                                        <span
-                                                            className={"text-sm font-semibold"}>Discount code applied :D</span>
-                                                    <div className={"pl-10"}>
-                                                        <button
-                                                            onClick={() => submitRemoveDiscountCode()}
-                                                            className={"btn btn-sm text-xs rounded-full px-4 normal-case"}
-                                                        >
-                                                            Remove Discount
-                                                        </button>
-                                                    </div>
+                                                    <div className={"font-semibold text-xs sm:text-sm"}>Discount code applied!</div>
+                                                    <button
+                                                        onClick={() => submitRemoveDiscountCode()}
+                                                        className={"btn btn-sm rounded-full px-4 normal-case text-xs sm:text-sm"}
+                                                    >
+                                                        Remove Discount
+                                                    </button>
                                                 </div>
                                             )
                                         }
                                         {
                                             !discount && !saveButtonDisabled && (
-                                                <div className={"flex w-full items-end"}>
+                                                <div className={"flex w-full items-end gap-6 lg:gap-10"}>
                                                     <div className={`relative h-11 w-full`}>
                                                         <input
                                                             id={"discountCode"}
@@ -421,13 +426,13 @@ const CheckoutPage = () => {
                                                             className={`${!discountLabelActive ? "cursor-pointer" : ""} text-[16px] lg:text-base peer h-full w-full rounded-none border-b border-gray-300 hover:border-gray-400 bg-transparent pt-4 pb-1.5 font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 placeholder-shown:text-[16px] focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100`}/>
                                                         <label
                                                             htmlFor={"discountCode"}
-                                                            className={`${discountLabelHover ? "text-gray-700" : "text-gray-500"} after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-[14px] peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500`}>
+                                                            className={`${discountLabelHover ? "text-gray-700" : "text-gray-500"} after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-[14px] peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 dark:peer-focus:text-indigo-500 dark:peer-focus:after:border-indigo-500`}>
                                                             {discountLabelActive ? "Discount code" : "Have a discount code?"}
                                                         </label>
                                                     </div>
                                                     <button
                                                         onClick={submitApplyDiscountCode}
-                                                        className={"pl-5 text-xs"}
+                                                        className={"font-semibold text-xs sm:text-sm"}
                                                     >
                                                         Apply
                                                     </button>
@@ -457,7 +462,7 @@ const CheckoutPage = () => {
                         }
                     </div>
                     {
-                        mounted && userData && !saveButtonDisabled && (
+                        mounted && !saveButtonDisabled && (
                             <RevealMotion y={25} parentClass={"w-full z-20"}>
                                 <div
                                     className={"px-4 bg-opacity-90 bg-zinc-500 w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
