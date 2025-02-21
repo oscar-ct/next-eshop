@@ -17,6 +17,8 @@ import {IoInformationCircleOutline} from "react-icons/io5";
 import {FcDeleteDatabase} from "react-icons/fc";
 import RevealMotion from "@/components/RevealMotion";
 import Loading from "@/app/loading";
+import Image from "next/image";
+import usaFlag from "@/icons/usa.svg";
 
 
 const OrderPage = () => {
@@ -248,12 +250,36 @@ const OrderPage = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className={"flex flex-col border-b border-gray-300 py-3 gap-2 sm:gap-0 sm:flex-row dark:text-white"}>
+                                    <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
+                                        <h3 className={"font-semibold"}>
+                                            Delivery Service
+                                        </h3>
+                                    </div>
+                                    <div className={"w-full sm:w-8/12"}>
+                                        <div className={"flex justify-between gap-4"}>
+                                            <div className={"flex flex-col text-sm dark:text-white"}>
+                                                <span>United States Postal Service</span>
+                                                <span>Standard Shipping, 4-7 Business Days</span>
+                                            </div>
+                                            <div className={"flex items-center"}>
+                                                <Image
+                                                    src={usaFlag}
+                                                    alt={"usa"}
+                                                    width={50}
+                                                    height={50}
+                                                    className={"w-10 h-8"}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div
                                     className={"flex flex-col border-b border-gray-300 py-3 sm:flex-row dark:text-white"}>
                                     <div
                                         className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                         <h3 className={"font-semibold"}>
-                                            Payment Method
+                                            Payment Authorizer
                                         </h3>
                                     </div>
                                     <div className={"w-full sm:w-8/12"}>
@@ -417,7 +443,8 @@ const OrderPage = () => {
                     }
                 </div>
                 <div className={"flex flex-col items-center gap-4 w-full sm:max-w-lg"}>
-                    <div className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
+                    <div
+                        className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
                         {
                             loading && !order ? (
                                 <div className="gap-3 flex w-full flex-col justify-center h-full">
