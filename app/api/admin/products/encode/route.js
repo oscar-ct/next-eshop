@@ -9,7 +9,8 @@ export const POST = async (req) => {
         if (!session.user.name.userIsAdmin) return new Response("This action is forbidden", {status: 403});
         const { handle } = await req.json();
         let policyObj = {
-            expiry: 1735624800,
+            // EXPIRES DECEMBER 31, 2025!!!!!!
+            expiry: 1767225600,
             handle: handle,
             call: ['remove'],
         }
