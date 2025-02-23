@@ -322,116 +322,11 @@ const ProductPage = () => {
                                     }
                                     <div className={"h-0.5 bg-slate-400 w-full"}/>
                                     <h6 className={"text-lg font-semibold dark:text-white"}>
-                                        About this product --
-                                    </h6>
-                                    <div
-                                        className={"text-sm flex flex-col w-full gap-4 md:gap-0 md:flex-row dark:text-white"}>
-                                        <div className={"flex flex-col w-full gap-4 md:w-6/12"}>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Brand
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    {product.brand}
-                                                </div>
-                                            </div>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Model
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    {product.model}
-                                                </div>
-                                            </div>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Color
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    {product.color}
-                                                </div>
-                                            </div>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Category
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    {product.category}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={"flex flex-col w-full gap-4 lg:w-6/12"}>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Ships from
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    San Antonio, TX
-                                                </div>
-                                            </div>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Sold by
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    Oscar Castro
-                                                </div>
-                                            </div>
-                                            <div className={"flex"}>
-                                                <div className={"w-6/12"}>
-                                                    <div className={"font-semibold"}>
-                                                        Listed on
-                                                    </div>
-                                                </div>
-                                                <div className={"w-6/12"}>
-                                                    {`${product.createdAt.substring(5, 10)}-${product.createdAt.substring(0, 4)}`}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={"h-0.5 bg-slate-400 w-full"}/>
-                                    <h6 className={"text-lg font-semibold dark:text-white"}>
-                                        Delivery --
-                                    </h6>
-                                    <div className={"flex gap-4 md:gap-8"}>
-                                        <div className={"flex items-center"}>
-                                            <Image
-                                                src={usaFlag}
-                                                alt={"usa"}
-                                                width={50}
-                                                height={50}
-                                                className={"w-12 h-10"}
-                                            />
-                                        </div>
-                                        <div className={"flex flex-col gap-4"}>
-                                            <div className={"flex flex-col md:items-center md:gap-4 md:flex-row"}>
-                                                <span className={"dark:text-white line-through"}>Express by {deliveryDateString("express")}</span>
-                                                <span className={"text-xs text-red-500"}>(currently unavailable)</span>
-                                            </div>
-                                            <div className={"dark:text-white"}>
-                                                Standard between {deliveryDateString()}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={"h-0.5 bg-slate-400 w-full"}/>
-                                    <h6 className={"text-lg font-semibold dark:text-white"}>
                                         Description --
                                     </h6>
                                     <div className={"xl:hidden flex flex-col dark:text-white"}>
                                         <p>
-                                            {detailsActive ? product.description : product.description.substring(0, 138) + "..."}
+                                            {detailsActive ? product.description : product.description.substring(0, 256) + "..."}
                                         </p>
                                         <div
                                             className={"self-end link link-primary"}
@@ -443,6 +338,120 @@ const ProductPage = () => {
                                     <p className={"hidden xl:block dark:text-white"}>
                                         {product.description}
                                     </p>
+                                    <div className={"h-0.5 bg-slate-400 w-full"}/>
+                                    {
+                                        !product.isDisabled && product.countInStock > 0 && (
+                                            <>
+                                                <h6 className={"text-lg font-semibold dark:text-white"}>
+                                                    Delivery --
+                                                </h6>
+                                                <div className={"flex gap-4 md:gap-8"}>
+                                                    <div className={"flex items-center"}>
+                                                        <Image
+                                                            src={usaFlag}
+                                                            alt={"usa"}
+                                                            width={50}
+                                                            height={50}
+                                                            className={"w-12 h-10"}
+                                                        />
+                                                    </div>
+                                                    <div className={"flex flex-col gap-4"}>
+                                                        <div
+                                                            className={"flex flex-col md:items-center md:gap-4 md:flex-row"}>
+                                                            <span
+                                                                className={"dark:text-white line-through"}>Express by {deliveryDateString("express")}</span>
+                                                            <span
+                                                                className={"text-xs text-red-500"}>(currently unavailable)</span>
+                                                        </div>
+                                                        <div className={"dark:text-white"}>
+                                                            Standard between {deliveryDateString()}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className={"h-0.5 bg-slate-400 w-full"}/>
+                                            </>
+                                        )
+                                    }
+                                    <h6 className={"text-lg font-semibold dark:text-white"}>
+                                        More about this product --
+                                    </h6>
+                                    <div
+                                        className={"text-sm flex flex-col w-full gap-4 sm:gap-0 sm:flex-row dark:text-white"}>
+                                        <div className={"flex flex-col w-full gap-4 sm:w-6/12"}>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Brand
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    {product.brand}
+                                                </div>
+                                            </div>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Model
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    {product.model}
+                                                </div>
+                                            </div>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Color
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    {product.color}
+                                                </div>
+                                            </div>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Category
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    {product.category}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={"flex flex-col w-full gap-4 sm:w-6/12"}>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Ships from
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    San Antonio, TX
+                                                </div>
+                                            </div>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Sold by
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    Oscar Castro
+                                                </div>
+                                            </div>
+                                            <div className={"flex"}>
+                                                <div className={"w-4/12"}>
+                                                    <div className={"font-semibold"}>
+                                                        Listed on
+                                                    </div>
+                                                </div>
+                                                <div className={"w-8/12"}>
+                                                    {`${product.createdAt.substring(5, 10)}-${product.createdAt.substring(0, 4)}`}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </RevealMotion>
                         )
@@ -454,44 +463,32 @@ const ProductPage = () => {
                     {/*}*/}
                     <div
                         className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
-                    {
-                        loading && !product ? (
-                            <div className="flex w-full flex-col gap-5 h-full">
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                                <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
-                            </div>
-                        ) : (
-                            <RevealMotion y={25} childClass={"flex flex-col gap-6"}>
-                                <h2 ref={scrollTo} id={"reviews"} className={"text-3xl text-center dark:text-white"}>Customer
-                                    Reviews
-                                    <span
-                                        className={"pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
-                                </h2>
-                                <div>
-                                    {/*<div className={"lg:max-h-96 lg:overflow-y-auto"}>*/}
-                                    {
-                                        product.reviews.length !== 0 && (
-                                            <div className={"w-full flex justify-center"}>
-                                                <button
-                                                    onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
-                                                    className={"btn btn-sm btn-neutral rounded-full"}>
-                                                    <MdOutlineRateReview size={26}/>
-                                                    <span>Rate & Review</span>
-                                                </button>
-                                            </div>
-                                        )
-                                    }
-                                    {
-                                        product.reviews.length === 0 && (
-                                            <>
+                        {
+                            loading && !product ? (
+                                <div className="flex w-full flex-col gap-5 h-full">
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-3/12 bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-2/12 bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                    <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"/>
+                                </div>
+                            ) : (
+                                <RevealMotion y={25} childClass={"flex flex-col gap-6"}>
+                                    <h2 ref={scrollTo} id={"reviews"}
+                                        className={"text-3xl text-center dark:text-white"}>Customer
+                                        Reviews
+                                        <span
+                                            className={"pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
+                                    </h2>
+                                    <div>
+                                        {/*<div className={"lg:max-h-96 lg:overflow-y-auto"}>*/}
+                                        {
+                                            product.reviews.length !== 0 && (
                                                 <div className={"w-full flex justify-center"}>
                                                     <button
                                                         onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
@@ -500,22 +497,35 @@ const ProductPage = () => {
                                                         <span>Rate & Review</span>
                                                     </button>
                                                 </div>
-                                                <RatingPlaceholder/>
-                                            </>
+                                            )
+                                        }
+                                        {
+                                            product.reviews.length === 0 && (
+                                                <>
+                                                    <div className={"w-full flex justify-center"}>
+                                                        <button
+                                                            onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
+                                                            className={"btn btn-sm btn-neutral rounded-full"}>
+                                                            <MdOutlineRateReview size={26}/>
+                                                            <span>Rate & Review</span>
+                                                        </button>
+                                                    </div>
+                                                    <RatingPlaceholder/>
+                                                </>
 
-                                        )
-                                    }
-                                    {
-                                        product.reviews.length !== 0 && (
-                                            product.reviews.map(function (review, index) {
-                                                return (
-                                                    <div key={index} className={"py-3 border-b"}>
-                                                        <div className={"flex flex-col gap-2"}>
-                                                            <div className={"flex justify-between"}>
-                                                                <div className={"flex items-center gap-2"}>
-                                                                    <div className="avatar placeholder">
-                                                                        <div
-                                                                            className="bg-neutral-400 text-neutral-content rounded-full w-6">
+                                            )
+                                        }
+                                        {
+                                            product.reviews.length !== 0 && (
+                                                product.reviews.map(function (review, index) {
+                                                    return (
+                                                        <div key={index} className={"py-3 border-b"}>
+                                                            <div className={"flex flex-col gap-2"}>
+                                                                <div className={"flex justify-between"}>
+                                                                    <div className={"flex items-center gap-2"}>
+                                                                        <div className="avatar placeholder">
+                                                                            <div
+                                                                                className="bg-neutral-400 text-neutral-content rounded-full w-6">
                                                                     <span
                                                                         className="text-xs">{review.name.substring(0, 1).toUpperCase()}</span>
                                                                         </div>
