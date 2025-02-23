@@ -332,7 +332,7 @@ const DashboardProductsAdd = () => {
                                     </div>
                                     {
                                         index === 0 && (
-                                            <span className={"text-sm font-semibold"}>Cover Image</span>
+                                            <span className={"text-sm font-semibold dark:text-white"}>Cover Image</span>
                                         )
                                     }
                                 </div>
