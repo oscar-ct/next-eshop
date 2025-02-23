@@ -156,8 +156,8 @@ export const fetchProducts = async () => {
     return await getDataReturnJsonErrorNull(`/products/sort/latest/select/all/page/1`);
 };
 
-export const fetchProductCategories = async () => {
-    return await getDataReturnJsonErrorNull(`/products/categories`);
+export const fetchProductCategoriesWithOrWithoutImages = async (includeImages) => {
+    return await getDataReturnJsonErrorNull(`/products/categories?images=${includeImages}`);
 };
 
 /// admin only

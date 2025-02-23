@@ -5,7 +5,7 @@ import {motion} from "framer-motion";
 import Image from "next/image";
 import RevealMotion from "@/components/RevealMotion";
 import {useEffect, useState} from "react";
-import {fetchProductCategories} from "@/utils/api-requests/fetchRequests";
+import {fetchProductCategoriesWithOrWithoutImages} from "@/utils/api-requests/fetchRequests";
 
 const HomePageIntroCategories = () => {
 
@@ -23,7 +23,8 @@ const HomePageIntroCategories = () => {
     useEffect(() => {
         const fetchProductsCategoryData = async () => {
             try {
-                const products = await fetchProductCategories();
+                // params controls object response to include images array or not
+                const products = await fetchProductCategoriesWithOrWithoutImages("yes");
                 setProductsCategory(products);
             } catch (e) {
                 console.log(e);
