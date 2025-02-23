@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import ProductItemSkeletons from "@/components/ProductItemSkeletons";
 import {IoIosArrowDown} from "react-icons/io";
+import {fetchProductCategoriesWithOrWithoutImages} from "@/utils/api-requests/fetchRequests";
 
 const fetchProducts = async (params) => {
     const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -40,6 +41,7 @@ const ProductsPage = () => {
     const {sortTerm, categoryTerm, pageNumber} = params;
 
     const [products, setProducts] = useState(null);
+    const [selectMenuCategoryOptions, setSelectMenuCategoryOptions] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -47,16 +49,22 @@ const ProductsPage = () => {
             try {
                 const products = await fetchProducts(`sort/${sortTerm}/select/${categoryTerm}/page/${pageNumber}`);
                 setProducts(products);
+                // params controls object response to include images array or not
+                const categories = await fetchProductCategoriesWithOrWithoutImages("no");
+                const options = categories.map((item) => {
+                    return {value: item.category.toLowerCase(), label: item.category};
+                });
+                setSelectMenuCategoryOptions(options);
             } catch (e) {
                 console.log(e);
             } finally {
                 setLoading(false);
             }
         };
-        if (products === null) {
+        if (products === null && selectMenuCategoryOptions === null) {
             fetchProductsData();
         }
-    }, [products]);
+    }, [products, selectMenuCategoryOptions]);
 
     const {width} = useWindowDimensions();
 
@@ -76,7 +84,7 @@ const ProductsPage = () => {
                                 <p className={"z-30 flex p-1 text-sm dark:text-white"}>Category</p>
                                 <div className={"flex px-2 w-full lg:w-96"}>
                                     {
-                                        loading && !products ? (
+                                        loading && !products && !selectMenuCategoryOptions ? (
                                             <div className={"w-full z-20"}>
                                                 <div
                                                     className={"h-[42px] bg-zinc-50 border flex justify-between items-center px-3 py-2.5 text-gray-400"}>
@@ -93,6 +101,7 @@ const ProductsPage = () => {
                                                 categoryTerm={categoryTerm}
                                                 pageNumber={pageNumber}
                                                 customStyles={customStyles}
+                                                options={selectMenuCategoryOptions}
                                             />
                                         )
                                     }
