@@ -1,8 +1,5 @@
 import prisma from "@/lib/prisma";
-
-const capitalizeFirstChar = (string) => {
-    return string.substring(0, 1).toUpperCase() + string.substring(1, string.length);
-};
+import capitalizeFirstChar from "@/utils/capitalizeFirstChar";
 
 //  GET /api/products/sort/[sortTerm]/select/[categoryTerm]/page/[pageNumber]
 
