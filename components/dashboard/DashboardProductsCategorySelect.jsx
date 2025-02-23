@@ -8,17 +8,20 @@ const DashboardProductsCategorySelect = ({disabled, isPopulated = false}) => {
                     </option>
                 )
             }
-            <option value={"Apparel"}>
-                Apparel
-            </option>
             <option value={"Automotive"}>
                 Automotive
+            </option>
+            <option value={"Cycling"}>
+                Cycling
+            </option>
+            <option value={"EDC"}>
+                EDC
             </option>
             <option value={"Electronics"}>
                 Electronics
             </option>
-            <option value={"Food"}>
-                Food
+            <option value={"Cycling"}>
+                Kayaking
             </option>
             <option value={"Footwear"}>
                 Footwear
@@ -26,14 +29,17 @@ const DashboardProductsCategorySelect = ({disabled, isPopulated = false}) => {
             <option value={"Games"}>
                 Games
             </option>
-            <option value={"Health"}>
-                Health
-            </option>
             <option value={"Home"}>
                 Home
             </option>
+            <option value={"Kayaking"}>
+                Kayaking
+            </option>
             <option value={"Pet"}>
                 Pet
+            </option>
+            <option value={"Treats"}>
+                Treats
             </option>
             <option value={"Other"}>
                 Other
