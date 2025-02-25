@@ -373,7 +373,7 @@ const ProductPage = () => {
                                         )
                                     }
                                     <h6 className={"text-lg font-semibold dark:text-white"}>
-                                        More about this product --
+                                        Details --
                                     </h6>
                                     <div
                                         className={"text-sm flex flex-col w-full gap-4 sm:gap-0 sm:flex-row dark:text-white"}>

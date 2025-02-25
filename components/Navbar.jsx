@@ -32,7 +32,7 @@ const Navbar = async () => {
                     dashboardLink}}
                 />
             </div>
-            <div className={"z-40 fixed h-12 inset-0 bg-zinc-50 w-full md:h-16 sm:shadow dark:bg-slate-800"}>
+            <div className={"z-40 fixed h-12 inset-0 bg-zinc-50 w-full md:h-16 sm:shadow dark:bg-slate-800 lg:dark:bg-slate-900"}>
                 <div className="h-full w-full flex justify-between items-center relative">
                     <div className={"flex cursor-pointer px-3"}>
                         <Link

@@ -20,7 +20,7 @@ export default async function RootLayout({children}) {
         <GlobalProvider>
             <AuthProvider>
                 <html lang="en" suppressHydrationWarning>
-                    <body className={`${inter.className} bg-zinc-50 dark:bg-slate-800`}>
+                    <body className={`${inter.className} bg-zinc-50 dark:bg-slate-800 lg:dark:bg-slate-900`}>
                         <Theme>
                             <Toaster/>
                             <Navbar/>

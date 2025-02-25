@@ -13,7 +13,7 @@ export default async function RootLayout({children}) {
         redirect("/");
     }
     return (
-        <div className={"relative z-10 bg-zinc-50 dark:bg-slate-800"}>
+        <div className={"relative z-10 bg-zinc-50 dark:bg-slate-800 lg:dark:bg-slate-900"}>
             {children}
         </div>
     );
