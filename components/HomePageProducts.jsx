@@ -3,6 +3,7 @@
 import ProductItem from "@/components/ProductItem";
 import {useEffect, useState} from "react";
 import {fetchProducts} from "@/utils/api-requests/fetchRequests";
+import ProductItemSkeletons from "@/components/ProductItemSkeletons";
 
 const HomePageProducts = () => {
 
@@ -40,9 +41,7 @@ const HomePageProducts = () => {
             </div>
             {
                 !products && loading ? (
-                    <div className={"h-64 flex items-center justify-center"}>
-                        <span className="loading loading-bars loading-lg"/>
-                    </div>
+                    <ProductItemSkeletons length={16}/>
                 ) : (
                     <div className={"w-full flex flex-wrap justify-center"}>
                         {

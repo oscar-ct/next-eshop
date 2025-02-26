@@ -37,16 +37,105 @@ const HomePageIntroCategories = () => {
 
 
      if (!productsCategory && loadingCategory) return (
-         <div className={"h-64 flex items-center justify-center"}>
-             <span className="loading loading-bars loading-lg"/>
+         <div className={"z-10 w-full flex flex-wrap justify-center lg:flex-nowrap 2xl:container"}>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
+             <div className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                 <div
+                     className={"bg-white rounded-lg flex flex-col items-center border sm:shadow-md sm:border-none dark:bg-slate-600 dark:border-none"}>
+                     <div className="p-2 flex justify-center rounded-xl dark:bg-slate-600">
+                         <div className="skeleton h-36 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                     <div className={"p-2 h-full sm:px-4"}>
+                         <div className="skeleton h-4 w-36 bg-gray-300 dark:bg-gray-200"/>
+                     </div>
+                 </div>
+             </div>
          </div>
      )
+
     return (
         <div className={"z-10 w-full flex flex-wrap justify-center lg:flex-nowrap 2xl:container"}>
             {
                 productsCategory.slice(0, 8).map(function (product, index) {
                     return (
-                        <Link key={index} href={`/products/sort/latest/select/${product.category.toLowerCase()}/page/1`} className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
+                        <Link key={index} href={`/products/sort/latest/select/${product.category.toLowerCase()}/page/1`}
+                              className={"w-6/12 p-1 sm:w-[175px] sm:py-3 sm:px-2"}>
                             <RevealMotion
                                 y={35}
                                 isSmallScreen={false}
