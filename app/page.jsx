@@ -1,5 +1,5 @@
-import HomePageProducts from "@/components/HomePageProducts";
-import HomePageIntro from "@/components/HomePageIntro";
+import HomePageProducts from "@/components/home/HomePageProducts";
+import HomePageIntro from "@/components/home/HomePageIntro";
 import OscarModal from "@/components/modals/OscarModal";
 import {getServerSession} from "next-auth";
 

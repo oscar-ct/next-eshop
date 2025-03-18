@@ -2,8 +2,8 @@
 
 import {useContext, useEffect, useState} from 'react';
 import GlobalContext from "@/context/GlobalContext";
-import CustomBtn from "@/components/CustomBtn";
-import CartItem from "@/components/CartItem";
+import Btn from "@/components/Btn";
+import CartItem from "@/app/cart/components/CartItem";
 import {useRouter} from "next/navigation";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
@@ -57,9 +57,9 @@ const CartPage = () => {
                                         <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center dark:text-white"}>
                                             Your cart is empty.
                                         </div>
-                                        <CustomBtn onClick={() =>  router.push("/")}>
+                                        <Btn onClick={() =>  router.push("/")}>
                                             Continue Shopping
-                                        </CustomBtn>
+                                        </Btn>
                                     </div>
                                 </div>
                                 </RevealMotion>
@@ -72,9 +72,9 @@ const CartPage = () => {
                                         <div className={"text-center text-sm"}>
                                             Taxes and shipping will be calculated at checkout
                                         </div>
-                                        <CustomBtn onClick={checkoutHandler}>
+                                        <Btn onClick={checkoutHandler}>
                                             Proceed To Checkout
-                                        </CustomBtn>
+                                        </Btn>
                                     </div>
                                     <div className={"z-20 bg-opacity-70 bg-zinc-50 sm:bg-opacity-70 mx-auto w-full h-20 rounded-2xl flex justify-center items-center sm:bg-white sm:shadow-lg"}>
                                         {

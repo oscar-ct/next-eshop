@@ -5,12 +5,12 @@ import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import CheckoutItem from "@/components/CheckoutItem";
-import StripeCheckout from "@/components/StripeCheckout";
+import CheckoutItem from "@/app/checkout/components/CheckoutItem";
+import StripeCheckout from "@/components/stripe/StripeCheckout";
 import CheckoutSteps from "@/components/CheckoutSteps";
-import PaypalCheckout from "@/components/PaypalCheckout";
+import PaypalCheckout from "@/components/paypal/PaypalCheckout";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
-import {fetchDiscountValidity, fetchNewOrder} from "@/utils/api-requests/fetchRequests";
+import {fetchDiscountValidity, fetchNewOrder} from "@/utils/apiFetchRequests";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import {LuPartyPopper} from "react-icons/lu";
 import {FiEdit} from "react-icons/fi";
@@ -19,7 +19,7 @@ import RevealMotion from "@/components/RevealMotion";
 import Loading from "@/app/loading";
 import Image from "next/image";
 import usaFlag from "@/icons/usa.svg";
-import {deliveryDateString} from "@/utils/deliveryDate";
+import {deliveryDateString} from "@/utils/formatDeliveryDate";
 
 
 const CheckoutPage = () => {

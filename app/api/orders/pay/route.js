@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import jwt from "jsonwebtoken";
-import {checkIfNewTransaction, verifyPayPalPayment} from "@/utils/paypal";
+import {checkIfNewTransaction, verifyPayPalPayment} from "@/utils/paypalApi";
 import prisma from "@/lib/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_API_SECRET_KEY);

@@ -5,37 +5,18 @@ import BackButtonMessage from "@/components/BackButtonMessage";
 import {customStyles} from "@/utils/selectCustomStyles";
 import {useEffect, useState} from "react";
 import {useParams} from "next/navigation";
-import SelectMenuCategory from "@/components/SelectMenuCategory";
-import SelectMenuSort from "@/components/SelectMenuSort";
-import ProductItem from "@/components/ProductItem";
-import Message from "@/components/Message";
-import Paginate from "@/components/Paginate";
-import toast from "react-hot-toast";
+import SelectMenuCategory from "@/app/products/sort/components/SelectMenuCategory";
+import SelectMenuSort from "@/app/products/sort/components/SelectMenuSort";
+import ProductItem from "@/components/products/ProductItem";
+import AlertMessage from "@/components/AlertMessage";
+import ProductsPagination from "@/components/products/ProductsPagination";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
-import ProductItemSkeletons from "@/components/ProductItemSkeletons";
+import ProductItemSkeletons from "@/components/products/ProductItemSkeletons";
 import {IoIosArrowDown} from "react-icons/io";
-import {fetchProductCategoriesWithOrWithoutImages} from "@/utils/api-requests/fetchRequests";
+import {fetchProductCategoriesWithOrWithoutImages, fetchProducts} from "@/utils/apiFetchRequests";
 
-const fetchProducts = async (params) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/products/${params}`);
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
 
-const ProductsPage = () => {
+const FilterProductsPage = () => {
 
     const params = useParams();
     const {sortTerm, categoryTerm, pageNumber} = params;
@@ -160,16 +141,16 @@ const ProductsPage = () => {
                                     })
                                 ) : (
                                     <div className={"z-10 p-4"}>
-                                        <Message variant={"warning"}>
+                                        <AlertMessage variant={"warning"}>
                                             It appears we dont have what you are looking for at the moment :(
-                                        </Message>
+                                        </AlertMessage>
                                     </div>
                                 )
                             }
                         </div>
                         <div className={"pt-10 flex justify-center"}>
                             <div className={"join"}>
-                                <Paginate
+                                <ProductsPagination
                                     pages={products.pages}
                                     page={products.page}
                                     sortTerm={sortTerm}
@@ -184,4 +165,4 @@ const ProductsPage = () => {
     );
 };
 
-export default ProductsPage;
+export default FilterProductsPage;

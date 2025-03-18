@@ -1,7 +1,6 @@
-import {getServerSession} from "next-auth";
-import {redirect} from "next/navigation";
 import Link from "next/link";
-import AccountOrders from "@/components/AccountOrders";
+import AccountOrders from "@/app/account/components/AccountOrders";
+import {getServerSession} from "next-auth";
 
 export const metadata = {
     title: "eshopjs | Orders",
@@ -9,8 +8,6 @@ export const metadata = {
 
 const AccountOrdersPage = async () => {
     const session = await getServerSession();
-    if (!session) redirect("/");
-
     return (
         <div className={"flex flex-col"}>
             <div className={"flex justify-center py-6 sm:py-10"}>

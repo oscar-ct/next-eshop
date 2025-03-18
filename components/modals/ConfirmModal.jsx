@@ -1,4 +1,4 @@
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 
 const ConfirmModal = ({title, children, initiateFunction}) => {
     return (
@@ -14,9 +14,9 @@ const ConfirmModal = ({title, children, initiateFunction}) => {
                             className={"btn btn-neutral rounded-full normal-case"}>
                             Cancel
                         </button>
-                        <CustomBtn type={"submit"} onClick={initiateFunction} customClass={"text-sm"}>
+                        <Btn type={"submit"} onClick={initiateFunction} customClass={"text-sm"}>
                             Confirm
-                        </CustomBtn>
+                        </Btn>
                     </div>
                 </div>
             </form>

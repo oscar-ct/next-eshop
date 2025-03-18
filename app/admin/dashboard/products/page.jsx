@@ -1,11 +1,11 @@
-"use client";
+import Dashboard from "@/app/admin/components/Dashboard";
 
-import Dashboard from "@/components/dashboard/Dashboard";
+export const metadata = {
+    title: "eshopjs | Dashboard: Products",
+};
 
-const AdminProductsPage = () => {
-    return (
-        <Dashboard/>
-    );
+const AdminProductsPage = async () => {
+    return <Dashboard/>;
 };
 
 export default AdminProductsPage;

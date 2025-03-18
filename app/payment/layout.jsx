@@ -2,7 +2,7 @@ export const metadata = {
     title: "eshopjs | Payment",
 };
 
-export default function RootLayout({ children }) {
+export default function PaymentLayout({ children }) {
     return (
         <>{children}</>
     );

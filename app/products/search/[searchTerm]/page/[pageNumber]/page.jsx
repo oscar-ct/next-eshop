@@ -3,35 +3,15 @@
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import BackButton from "@/components/BackButton";
-import toast from "react-hot-toast";
-import ProductItem from "@/components/ProductItem";
-import Snake from "@/components/Snake";
-import Paginate from "@/components/Paginate";
+import ProductItem from "@/components/products/ProductItem";
+import Snake from "@/app/products/search/components/Snake";
+import ProductsPagination from "@/components/products/ProductsPagination";
 import {BiJoystickButton} from "react-icons/bi";
-import ProductItemSkeletons from "@/components/ProductItemSkeletons";
+import ProductItemSkeletons from "@/components/products/ProductItemSkeletons";
+import {fetchProducts} from "@/utils/apiFetchRequests";
 
 
-const fetchProductsSearch = async (params) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const res = await fetch(`${apiDomain}/products/${params}`);
-        if (!res.ok) {
-            const message = await res.text();
-            toast.error(message);
-            return null;
-        }
-        return res.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-
-const SearchPage = () => {
+const SearchProductsPage = () => {
 
     const {searchTerm, pageNumber} = useParams();
     const [loading, setLoading] = useState(true);
@@ -61,7 +41,7 @@ const SearchPage = () => {
     useEffect(() => {
         const fetchProductsSearchData = async () => {
             try {
-                const data = await fetchProductsSearch(`search/${searchTerm}/page/${pageNumber}`);
+                const data = await fetchProducts(`search/${searchTerm}/page/${pageNumber}`);
                 setData(data);
             } catch (e) {
                 console.log(e);
@@ -106,7 +86,7 @@ const SearchPage = () => {
                                         data?.pages > 1 && (
                                             <div className={"pt-10 flex justify-center"}>
                                                 <div className={"join"}>
-                                                    <Paginate pages={data.pages} page={data.page} searchTerm={searchTerm}/>
+                                                    <ProductsPagination pages={data.pages} page={data.page} searchTerm={searchTerm}/>
                                                 </div>
                                             </div>
                                         )
@@ -175,4 +155,4 @@ const SearchPage = () => {
     );
 };
 
-export default SearchPage
+export default SearchProductsPage

@@ -3,15 +3,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams, useRouter, useSearchParams} from "next/navigation";
 import GlobalContext from "@/context/GlobalContext";
-import Message from "@/components/Message";
-import OrderItem from "@/components/OrderItem";
-import StripeCheckout from "@/components/StripeCheckout";
+import AlertMessage from "@/components/AlertMessage";
+import OrderItem from "@/app/orders/components/OrderItem";
+import StripeCheckout from "@/components/stripe/StripeCheckout";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import {toast} from "react-hot-toast";
-import {fetchCancelOrder, fetchOrder} from "@/utils/api-requests/fetchRequests";
+import {fetchCancelOrder, fetchOrder} from "@/utils/apiFetchRequests";
 import NotFound from "@/app/not-found";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
-import PaypalCheckout from "@/components/PaypalCheckout";
+import PaypalCheckout from "@/components/paypal/PaypalCheckout";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import {IoInformationCircleOutline} from "react-icons/io5";
 import {FcDeleteDatabase} from "react-icons/fc";
@@ -331,51 +331,51 @@ const OrderPage = () => {
                                         <div className={"flex flex-col text-sm py-3"}>
                                             {
                                                 order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
-                                                    <Message variant={"info"}>
+                                                    <AlertMessage variant={"info"}>
                                                         Processing order
-                                                    </Message>
+                                                    </AlertMessage>
                                                 ) : order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
-                                                    <Message variant={"success"}>
+                                                    <AlertMessage variant={"success"}>
                                                         <div className={"flex gap-1"}>
                                                             <span>Delivered on</span>
                                                             <span>{order.deliveredAt.substring(0, 10)}</span>
                                                         </div>
-                                                    </Message>
+                                                    </AlertMessage>
                                                 ) : order.isPaid && order.isShipped && !order.isCanceled && order.orderItems.length !== canceledItems?.length ? (
-                                                    <Message variant={"info"}>
+                                                    <AlertMessage variant={"info"}>
                                                         <div className={"flex flex-col"}>
                                                             Shipped
                                                         </div>
-                                                    </Message>
+                                                    </AlertMessage>
                                                 ) : order.isCanceled || order.orderItems.length === canceledItems?.length ? (
-                                                    <Message variant={"error"}>
+                                                    <AlertMessage variant={"error"}>
                                                         <div className={"flex gap-1"}>
                                                             <span>Canceled on</span>
                                                             <span>{order.canceledAt.substring(0, 10)}</span>
                                                         </div>
-                                                    </Message>
+                                                    </AlertMessage>
                                                 ) : (
-                                                    <Message variant={"warning"}>
+                                                    <AlertMessage variant={"warning"}>
                                                         Order is awaiting payment, please pay now.
-                                                    </Message>
+                                                    </AlertMessage>
                                                 )
                                             }
                                         </div>
                                         <div className={"flex items-center text-sm pb-3"}>
                                             {
                                                 order.isPaid ? (
-                                                    <Message variant={"success"}>
+                                                    <AlertMessage variant={"success"}>
                                                         <div className={"flex flex-wrap items-center gap-1"}>
                                                             <span>Paid</span>
                                                             <span>{convertCentsToUSD(order.paidAmount)}</span>
                                                             <span>on</span>
                                                             <span>{order.paidAt.substring(0, 10)}</span>
                                                         </div>
-                                                    </Message>
+                                                    </AlertMessage>
                                                 ) : (
-                                                    <Message variant={"error"}>
+                                                    <AlertMessage variant={"error"}>
                                                         Not Paid
-                                                    </Message>
+                                                    </AlertMessage>
                                                 )
                                             }
                                         </div>
@@ -386,7 +386,7 @@ const OrderPage = () => {
                                                 <div className={"flex items-center text-sm pb-3"}>
                                                     {
                                                         order.isReimbursed ? (
-                                                            <Message variant={"success"}>
+                                                            <AlertMessage variant={"success"}>
                                                                 <div
                                                                     className={"flex flex-wrap items-center gap-1"}>
                                                                     <span>Refunded</span>
@@ -394,11 +394,11 @@ const OrderPage = () => {
                                                                     <span>on </span>
                                                                     <span>{order.reimbursedAt.substring(0, 10)}</span>
                                                                 </div>
-                                                            </Message>
+                                                            </AlertMessage>
                                                         ) : (
-                                                            <Message variant={"info"}>
+                                                            <AlertMessage variant={"info"}>
                                                                 Processing refund
-                                                            </Message>
+                                                            </AlertMessage>
                                                         )
                                                     }
                                                 </div>

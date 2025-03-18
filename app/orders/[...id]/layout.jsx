@@ -2,7 +2,7 @@ export const metadata = {
     title: "eshopjs | Order",
 };
 
-export default function RootLayout({ children }) {
+export default function OrdersLayout({ children }) {
     return (
         <>{children}</>
     );

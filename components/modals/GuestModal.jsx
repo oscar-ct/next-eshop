@@ -1,6 +1,6 @@
 "use client";
 
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import {useRouter} from "next/navigation";
 
 const GuestModal = () => {
@@ -26,10 +26,10 @@ const GuestModal = () => {
                     >
                         Continue As Guest
                     </button>
-                    <CustomBtn onClick={() => router.push('/login?redirect=/shipping')} type={"submit"}
-                               customClass={"text-sm font-semibold"}>
+                    <Btn onClick={() => router.push('/login?redirect=/shipping')} type={"submit"}
+                         customClass={"text-sm font-semibold"}>
                         Login / Sign Up
-                    </CustomBtn>
+                    </Btn>
                 </div>
             </form>
             <form method="dialog" className="modal-backdrop">

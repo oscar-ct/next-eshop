@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 
 const OscarModal = () => {
     return (
@@ -35,9 +35,9 @@ const OscarModal = () => {
                         <a aria-label="portfolio" href={"https://oscar-ct.com/"}
                            target="_blank"
                            rel="noopener noreferrer">
-                            <CustomBtn customClass={"bg-zinc-700"}>
+                            <Btn customClass={"bg-zinc-700"}>
                                 Visit Portfolio
-                            </CustomBtn>
+                            </Btn>
                         </a>
                     </div>
                 </div>

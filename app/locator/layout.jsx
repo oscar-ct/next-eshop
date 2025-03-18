@@ -2,7 +2,7 @@ export const metadata = {
     title: "eshopjs | Order Locator",
 };
 
-export default function RootLayout({ children }) {
+export default function LocatorLayout({ children }) {
     return (
         <>{children}</>
     );

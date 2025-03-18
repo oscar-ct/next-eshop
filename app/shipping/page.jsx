@@ -3,12 +3,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import Select from "react-select";
 import {customStyles} from "@/utils/selectCustomStyles";
-import {countries, states} from "@/utils/locationData";
+import {countries, states} from "@/utils/locationDataList";
 import CheckoutSteps from "@/components/CheckoutSteps";
-import {fetchUserAddress} from "@/utils/api-requests/fetchRequests";
+import {fetchUserAddress} from "@/utils/apiFetchRequests";
 import RevealMotion from "@/components/RevealMotion";
 
 
@@ -352,12 +352,12 @@ const ShippingPage = () => {
                                                 )
                                             }
                                             <div className={"pt-5 w-full flex justify-end"}>
-                                                <CustomBtn
+                                                <Btn
                                                     isDisabled={!isValidShippingData || (user ? false : !isValidEmail(guestEmail))}
                                                     type={"submit"}
                                                 >
                                                     Save and Continue
-                                                </CustomBtn>
+                                                </Btn>
                                             </div>
                                         </form>
                                     ) : (
@@ -403,9 +403,9 @@ const ShippingPage = () => {
                                                 </span>
                                             </div>
                                             <div className={"pt-5 w-full flex justify-end"}>
-                                                <CustomBtn isDisabled={radioId === ""} type={"submit"}>
+                                                <Btn isDisabled={radioId === ""} type={"submit"}>
                                                     Save and Continue
-                                                </CustomBtn>
+                                                </Btn>
                                             </div>
                                         </form>
                                     )

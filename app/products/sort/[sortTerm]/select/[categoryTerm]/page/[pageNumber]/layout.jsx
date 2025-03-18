@@ -6,7 +6,7 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export default function RootLayout({ children }) {
+export default function FilterProductsLayout({ children }) {
     return (
         <>{children}</>
     );

@@ -6,7 +6,7 @@ import GlobalContext from "@/context/GlobalContext";
 import paypal from "@/icons/paypal-logo.svg";
 import stripe from "@/icons/stripe-logo.svg";
 import Image from "next/image";
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import RevealMotion from "@/components/RevealMotion";
 
@@ -126,9 +126,9 @@ const PaymentPage = () => {
                                         </div>
                                     </div>
                                     <div className={"pt-5 w-full flex justify-end"}>
-                                        <CustomBtn isDisabled={paymentMeth === null} type={"submit"}>
+                                        <Btn isDisabled={paymentMeth === null} type={"submit"}>
                                             Save and Continue
-                                        </CustomBtn>
+                                        </Btn>
                                     </div>
                                 </form>
                             </RevealMotion>

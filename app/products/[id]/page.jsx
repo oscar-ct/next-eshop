@@ -6,10 +6,9 @@ import {Zoom, Navigation, Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css/zoom';
 import 'swiper/css';
-import ProductItemRating from "@/components/ProductItemRating";
 import {FaPen, FaTrash} from "react-icons/fa";
-import FormatPrice from "@/components/FormatPrice";
-import CustomBtn from "@/components/CustomBtn";
+import ProductDollarAmount from "@/app/products/[id]/components/ProductDollarAmount";
+import Btn from "@/components/Btn";
 import toast from "react-hot-toast";
 import GlobalContext from "@/context/GlobalContext";
 import BackButton from "@/components/BackButton";
@@ -17,39 +16,18 @@ import BackButtonMessage from "@/components/BackButtonMessage";
 import Image from "next/image";
 import ReviewModal from "@/components/modals/ReviewModal";
 import ConfirmModal from "@/components/modals/ConfirmModal";
-import {fetchProduct} from "@/utils/api-requests/fetchRequests";
+import {fetchDeleteProductReview, fetchProduct} from "@/utils/apiFetchRequests";
 import NotFound from "@/app/not-found";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
-import RatingPlaceholder from "@/components/RatingPlaceholder";
+import ProductRatingPlaceholder from "@/app/products/[id]/components/ProductRatingPlaceholder";
 import {MdOutlineRateReview} from "react-icons/md";
 import RevealMotion from "@/components/RevealMotion";
 import usaFlag from "@/icons/usa.svg"
-import {deliveryDateString} from "@/utils/deliveryDate";
+import {deliveryDateString} from "@/utils/formatDeliveryDate";
+import ProductRating from "@/app/products/[id]/components/ProductRating";
 
 
-const fetchDeleteProductReview = async (body, id, reviewId) => {
-    const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
-    try {
-        if (!apiDomain) {
-            return null;
-        }
-        const response = await fetch(`${apiDomain}/products/${id}/review/${reviewId}/delete`, {
-            method: "DELETE",
-            body: JSON.stringify(body)
-        });
-        if (!response.ok) {
-            const message = await response.text();
-            toast.error(message);
-            return null;
-        }
-        return response.json();
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
-};
-
-const ProductPage = () => {
+const ProductIdPage = () => {
 
     const router = useRouter();
     const { dispatch, user } = useContext(GlobalContext);
@@ -59,8 +37,6 @@ const ProductPage = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingDelete, setLoadingDelete] = useState(false);
-    // const [productsTopRated, setProductsTopRated] = useState(null);
-    // const [loadingTopRated, setLoadingTopRated] = useState(true);
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
     const [reviewData, setReviewData] = useState({});
@@ -82,21 +58,6 @@ const ProductPage = () => {
         };
         if (product === null) fetchProductData();
     }, [product]);
-
-    // useEffect(() => {
-    //     const fetchProductsTopRatedData = async () => {
-    //         try {
-    //             const products = await fetchTopRatedProducts();
-    //             setProductsTopRated(products);
-    //         } catch (e) {
-    //             console.log(e);
-    //         } finally {
-    //             setLoadingTopRated(false);
-    //         }
-    //     };
-    //     if (productsTopRated === null) fetchProductsTopRatedData();
-    // }, [productsTopRated]);
-
 
     const executeScroll = () => {
         scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
@@ -214,7 +175,7 @@ const ProductPage = () => {
                                     <h2 className={"text-2xl text-center sm:text-3xl dark:text-white"}>{product.name}</h2>
                                     <div className={"flex items-center justify-between"}>
                                         <div className={"flex gap-2"}>
-                                            <ProductItemRating rating={product.rating}/>
+                                            <ProductRating rating={product.rating}/>
                                             <div onClick={executeScroll}
                                                  className={"text-sm font-semibold link-primary cursor-pointer"}>
                                                 {product.reviews.length !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
@@ -266,12 +227,12 @@ const ProductPage = () => {
                                 </div>
                                 <div className={"flex flex-col gap-6 pt-4"}>
                                     <div className={"flex justify-between items-end"}>
-                                        <FormatPrice
+                                        <ProductDollarAmount
                                             price={convertCentsToUSD(product.price).toString()}
                                             fontSize={"text-4xl"}
                                         >
                                             /ea.
-                                        </FormatPrice>
+                                        </ProductDollarAmount>
                                         {
                                             product.countInStock > 0 ? (
                                                 <div className={"text-green-500 font-semibold"}>
@@ -312,11 +273,11 @@ const ProductPage = () => {
                                                         }
                                                     </select>
                                                 </div>
-                                                <CustomBtn customClass={"w-full"}
-                                                           isDisabled={product.countInStock === 0}
-                                                           onClick={addToCartHandler}>
+                                                <Btn customClass={"w-full"}
+                                                     isDisabled={product.countInStock === 0}
+                                                     onClick={addToCartHandler}>
                                                     Add To Cart
-                                                </CustomBtn>
+                                                </Btn>
                                             </div>
                                         )
                                     }
@@ -458,11 +419,7 @@ const ProductPage = () => {
                     }
                 </div>
                 <div className={"flex flex-col w-full md:max-w-3xl xl:max-w-xl"}>
-                    {/*{*/}
-                    {/*    !product.isDisabled && (*/}
-                    {/*}*/}
-                    <div
-                        className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
                         {
                             loading && !product ? (
                                 <div className="flex w-full flex-col gap-5 h-full">
@@ -480,19 +437,19 @@ const ProductPage = () => {
                             ) : (
                                 <RevealMotion y={25} childClass={"flex flex-col gap-6"}>
                                     <h2 ref={scrollTo} id={"reviews"}
-                                        className={"text-3xl text-center dark:text-white"}>Customer
-                                        Reviews
-                                        <span
-                                            className={"pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
+                                        className={"text-3xl text-center dark:text-white"}
+                                    >
+                                        Customer Reviews
+                                        <span className={"pl-2"}>{product.reviews.length !== 0 ? `(${product.reviews.length})` : "(0)"}</span>
                                     </h2>
                                     <div>
-                                        {/*<div className={"lg:max-h-96 lg:overflow-y-auto"}>*/}
                                         {
                                             product.reviews.length !== 0 && (
                                                 <div className={"w-full flex justify-center"}>
                                                     <button
                                                         onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
-                                                        className={"btn btn-sm btn-neutral rounded-full"}>
+                                                        className={"btn btn-sm btn-neutral rounded-full"}
+                                                    >
                                                         <MdOutlineRateReview size={26}/>
                                                         <span>Rate & Review</span>
                                                     </button>
@@ -505,12 +462,13 @@ const ProductPage = () => {
                                                     <div className={"w-full flex justify-center"}>
                                                         <button
                                                             onClick={() => user ? window.review_modal.showModal() : router.push("/login")}
-                                                            className={"btn btn-sm btn-neutral rounded-full"}>
+                                                            className={"btn btn-sm btn-neutral rounded-full"}
+                                                        >
                                                             <MdOutlineRateReview size={26}/>
                                                             <span>Rate & Review</span>
                                                         </button>
                                                     </div>
-                                                    <RatingPlaceholder/>
+                                                    <ProductRatingPlaceholder/>
                                                 </>
 
                                             )
@@ -524,14 +482,11 @@ const ProductPage = () => {
                                                                 <div className={"flex justify-between"}>
                                                                     <div className={"flex items-center gap-2"}>
                                                                         <div className="avatar placeholder">
-                                                                            <div
-                                                                                className="bg-neutral-400 text-neutral-content rounded-full w-6">
-                                                                    <span
-                                                                        className="text-xs">{review.name.substring(0, 1).toUpperCase()}</span>
+                                                                            <div className="bg-neutral-400 text-neutral-content rounded-full w-6">
+                                                                            <span className="text-xs">{review.name.substring(0, 1).toUpperCase()}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <span
-                                                                        className={"text-xs font-bold text-neutral-500 dark:text-white"}>{review.name}</span>
+                                                                    <span className={"text-xs font-bold text-neutral-500 dark:text-white"}>{review.name}</span>
                                                                 </div>
                                                                 {
                                                                     user?.id === review.userId && !loadingDelete && (
@@ -548,7 +503,7 @@ const ProductPage = () => {
                                                                     )
                                                                 }
                                                             </div>
-                                                            <ProductItemRating rating={review.rating}/>
+                                                            <ProductRating rating={review.rating}/>
                                                             <div className={"flex flex-col gap-1"}>
                                                                 <p className={"text-sm font-bold dark:text-white"}>
                                                                     {review.title}
@@ -574,29 +529,6 @@ const ProductPage = () => {
                     </div>
                 </div>
             </div>
-
-
-            {/*<div className={"hidden lg:pr-3 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>*/}
-            {/*    <div className={"flex flex-col"}>*/}
-            {/*        <div className={"py-2 px-5 pl-3 bg-zinc-700"}>*/}
-            {/*            <h2 className={"text-2xl text-white font-semibold"}>You might also like</h2>*/}
-            {/*        </div>*/}
-            {/*        <div*/}
-            {/*            className={"shadow-lg bg-white sm:px-3 sm:pb-2 flex overflow-x-auto h-full border"}>*/}
-            {/*            {*/}
-            {/*                productsTopRated.map(function (product, index) {*/}
-            {/*                    return <ProductItem*/}
-            {/*                        key={index}*/}
-            {/*                        product={product}*/}
-            {/*                        smallSize={true}*/}
-            {/*                        cardWidth={"w-[12em] sm:w-56"}*/}
-            {/*                        windowInnerWidth={768}*/}
-            {/*                    />*/}
-            {/*                })*/}
-            {/*            }*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             {
                 !loading && product && (
                     <>
@@ -617,4 +549,4 @@ const ProductPage = () => {
     );
 };
 
-export default ProductPage;
+export default ProductIdPage;

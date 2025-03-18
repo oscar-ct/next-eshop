@@ -3,7 +3,7 @@
 import Image from "next/image";
 import {useContext, useEffect, useState} from "react";
 import GlobalContext from "@/context/GlobalContext";
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import {FaCheck} from "react-icons/fa";
 import {useRouter} from "next/navigation";
 
@@ -50,16 +50,16 @@ const AddToCartModal = () => {
                     </div>
                 </div>
                 <div className={"flex flex-col sm:flex-row sm:justify-between gap-3"}>
-                    <CustomBtn onClick={() => window.add_to_cart_modal.close()} customClass={"!bg-neutral text-sm"}>
+                    <Btn onClick={() => window.add_to_cart_modal.close()} customClass={"!bg-neutral text-sm"}>
                         Continue Shopping
-                    </CustomBtn>
-                    <CustomBtn onClick={() => {
+                    </Btn>
+                    <Btn onClick={() => {
                         window.add_to_cart_modal.close()
                         router.push("/cart")
                     }}
-                               customClass={"text-sm"}>
+                         customClass={"text-sm"}>
                         View My Cart
-                    </CustomBtn>
+                    </Btn>
                 </div>
             </div>
             <form method="dialog" className="modal-backdrop">

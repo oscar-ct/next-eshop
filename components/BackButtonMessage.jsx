@@ -1,3 +1,5 @@
+"use client";
+
 import {useContext, useEffect, useState} from "react";
 import GlobalContext from "@/context/GlobalContext";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
@@ -7,7 +9,9 @@ const BackButtonMessage = ({width = ""}) => {
 
     const { cartItems, itemsPrice } = useContext(GlobalContext);
     const [mounted, setMounted] = useState(false);
-    useEffect(() => {setMounted(true)}, [])
+    useEffect(() => {setMounted(true)}, []);
+
+    const FREE_SHIPPING_THRESHOLD = 10000;
 
     return (
         <div className={`absolute right-0 pl-2 pr-3 pt-3 ${width}`}>
@@ -17,26 +21,24 @@ const BackButtonMessage = ({width = ""}) => {
                         <span className="z-30 loading loading-bars loading-sm"/>
                     ) : (
                         <>
-                        {
+                            {
                                 cartItems.length === 0 && (
                                     <span>Spend $100 or more to qualify for FREE shipping</span>
                                 )
                             }
                             {
-                                cartItems.length !== 0 && itemsPrice < 10000 && (
+                                cartItems.length > 0 && itemsPrice < FREE_SHIPPING_THRESHOLD && (
                                     <div className={"text-center"}>
                                         <span>Add <span className={"font-bold"}>{convertCentsToUSD(10000 - itemsPrice)}</span> to your order to qualify for FREE shipping.</span>
                                     </div>
                                 )
                             }
                             {
-                                cartItems.length !== 0 && itemsPrice >= 10000 && (
-                                    (
-                                        <div className={"text-center flex items-center gap-2"}>
-                                            Your order qualifies for FREE shipping!
-                                            <LuPartyPopper size={30}/>
-                                        </div>
-                                    )
+                                cartItems.length > 0 && itemsPrice >= FREE_SHIPPING_THRESHOLD && (
+                                    <div className={"text-center flex items-center gap-2"}>
+                                        Your order qualifies for FREE shipping!
+                                        <LuPartyPopper size={30}/>
+                                    </div>
                                 )
                             }
                         </>

@@ -2,7 +2,7 @@
 
 import {useContext, useState} from "react";
 import {toast} from "react-hot-toast";
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import GlobalContext from "@/context/GlobalContext";
 import Image from "next/image";
 
@@ -142,12 +142,12 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                 </div>
                 <div className="modal-action">
                     <button onClick={closeReviewModal} className={"btn btn-neutral rounded-full normal-case"}>Cancel</button>
-                    <CustomBtn isDisabled={loadingButton} type={"submit"} onClick={submitProductReview} customClass={"w-28 text-sm flex justify-center items-center py-3"}>
+                    <Btn isDisabled={loadingButton} type={"submit"} onClick={submitProductReview} customClass={"w-28 text-sm flex justify-center items-center py-3"}>
                         {
                             loadingButton ? <span
                                 className="flex items-center loading loading-bars loading-sm"/> : `Submit`
                         }
-                    </CustomBtn>
+                    </Btn>
                 </div>
             </form>
             <form method="dialog" className="modal-backdrop">

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import toast from "react-hot-toast";
 
 const fetchAccountRecoveryLink = async (body) => {
@@ -87,14 +87,14 @@ const ForgotPasswordModal = ({setFormData}) => {
                             }}
                             className={"btn btn-neutral rounded-full normal-case"}>Cancel
                         </button>
-                        <CustomBtn type={"submit"} isDisabled={!emailIsValid || loadingBtn}
-                                   onClick={submitResetPassword}
-                                   customClass={"text-sm w-28 flex justify-center items-center"}>
+                        <Btn type={"submit"} isDisabled={!emailIsValid || loadingBtn}
+                             onClick={submitResetPassword}
+                             customClass={"text-sm w-28 flex justify-center items-center"}>
                             {
                                 loadingBtn ?
                                     <span className="flex items-center loading loading-bars loading-sm"/> : `Send Link`
                             }
-                        </CustomBtn>
+                        </Btn>
                     </div>
                 </div>
             </form>

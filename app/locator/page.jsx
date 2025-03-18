@@ -1,9 +1,9 @@
 "use client";
 
 import {useEffect, useState} from 'react';
-import CustomBtn from "@/components/CustomBtn";
+import Btn from "@/components/Btn";
 import {useRouter} from "next/navigation";
-import {fetchVerifyEmail, fetchVerifyOrder} from "@/utils/api-requests/fetchRequests";
+import {fetchVerifyEmail, fetchVerifyOrder} from "@/utils/apiFetchRequests";
 
 
 const OrderLocatorPage = () => {
@@ -100,7 +100,7 @@ const OrderLocatorPage = () => {
                                                 required
                                             />
                                             <div className="hidden sm:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
-                                                <CustomBtn
+                                                <Btn
                                                     customClass={"w-28 flex justify-center items-center"}
                                                     type={"submit"}
                                                     isDisabled={loading || !mounted}
@@ -108,12 +108,12 @@ const OrderLocatorPage = () => {
                                                     {
                                                         loading ? <span className="flex items-center loading loading-bars loading-sm"/> : "Search"
                                                     }
-                                                </CustomBtn>
+                                                </Btn>
                                             </div>
                                         </div>
                                         <div
                                             className="pt-8 flex sm:hidden justify-end items-center px-2 rounded-lg space-x-4 mx-auto ">
-                                            <CustomBtn
+                                            <Btn
                                                 customClass={"w-28 flex justify-center items-center"}
                                                 type={"submit"}
                                                 isDisabled={loading || !mounted}
@@ -121,7 +121,7 @@ const OrderLocatorPage = () => {
                                                 {
                                                     loading ? <span className="flex items-center loading loading-bars loading-sm"/> : "Search"
                                                 }
-                                            </CustomBtn>
+                                            </Btn>
                                         </div>
                                         {
                                             emailErrorMessage && (
@@ -158,7 +158,7 @@ const OrderLocatorPage = () => {
                                                 required
                                             />
                                             <div className="hidden sm:flex ms:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
-                                                <CustomBtn
+                                                <Btn
                                                     customClass={"w-28 flex justify-center items-center"}
                                                     type={"submit"}
                                                     isDisabled={loading || !mounted}
@@ -166,11 +166,11 @@ const OrderLocatorPage = () => {
                                                     {
                                                         loading ? <span className="flex items-center loading loading-bars loading-sm"/> : "Search"
                                                     }
-                                                </CustomBtn>
+                                                </Btn>
                                             </div>
                                         </div>
                                         <div className="pt-8 flex sm:hidden justify-end items-center px-2 rounded-lg space-x-4 mx-auto ">
-                                            <CustomBtn
+                                            <Btn
                                                 customClass={"w-28 flex justify-center items-center"}
                                                 type={"submit"}
                                                 isDisabled={loading || !mounted}
@@ -178,7 +178,7 @@ const OrderLocatorPage = () => {
                                                 {
                                                     loading ? <span className="flex items-center loading loading-bars loading-sm"/> : "Search"
                                                 }
-                                            </CustomBtn>
+                                            </Btn>
                                         </div>
                                         {
                                             orderErrorMessage && (

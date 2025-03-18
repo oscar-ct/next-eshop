@@ -8,7 +8,10 @@ const BackButton = () => {
 
     return (
         <div className={"fixed lg:relative z-10 lg:z-0 pt-3 pl-3"}>
-            <div className={"p-3 bg-black/50 rounded-full flex items-center w-12"} onClick={() => router.back()}>
+            <div
+                className={"p-3 bg-black/50 rounded-full flex items-center w-12"}
+                onClick={() => router.back()}
+            >
                 <Image
                     priority
                     src={arrow}
