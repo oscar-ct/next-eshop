@@ -1,5 +1,5 @@
 
-const CreditCards = () => {
+const HomePageCreditCards = () => {
     return (
         <ul className="flex list list-payment gap-2" role="list">
             <li className="list-payment__item">
@@ -114,4 +114,4 @@ const CreditCards = () => {
     );
 };
 
-export default CreditCards;
+export default HomePageCreditCards;
