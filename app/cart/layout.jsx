@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "eshopjs | Cart",
+    title: "Shoposcar.com | My Cart",
 };
 
 export default function CartLayout({ children }) {

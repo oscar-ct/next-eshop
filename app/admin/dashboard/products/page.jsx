@@ -1,7 +1,7 @@
 import Dashboard from "@/app/admin/components/Dashboard";
 
 export const metadata = {
-    title: "eshopjs | Dashboard: Products",
+    title: "Shoposcar.com | My Dashboard",
 };
 
 const AdminProductsPage = async () => {

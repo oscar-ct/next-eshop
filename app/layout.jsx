@@ -11,8 +11,36 @@ import Theme from "@/app/theme";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-    title: "eshopjs by Oscar Castro",
-    description: "eshopjs was developed by Oscar Castro, a software developer based in San Antonio, TX.",
+    keywords: "oscar, shop, shoposcar, oscar castro, castro",
+    robots: "index, follow, max-image-preview: large",
+    // verification: {
+    //     google: "JKNPelzYqvq4H9cuv_31abNyv84JS7GDY_3F5oXQPVE",
+    // },
+    description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
+    alternates: {
+        canonical: "https://shoposcar.com",
+    },
+    icons: {
+        icon: "/icon.ico",
+        shortcut: "/icon.ico",
+        apple: "/apple-icon.png",
+        other: [{ rel: "icon", url: "/icon.png", sizes: "192x192" }],
+    },
+    openGraph: {
+        title: "Shoposcar.com. Shop Online. Shop Oscar.",
+        description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
+        images: [{ url: "/logo.png", width: 1000, height: 600, alt: "shoposcar" }],
+        url: "https://shoposcar.com",
+        siteName: "Shop Oscar",
+        locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        title: "Shoposcar.com. Shop Online. Shop Oscar.",
+        description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
+        images: ["/logo.png"],
+        card: "summary_large_image",
+    },
 };
 
 export default async function RootLayout({children}) {

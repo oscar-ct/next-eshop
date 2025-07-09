@@ -3,6 +3,10 @@ import HomePageIntro from "@/components/home/HomePageIntro";
 import OscarModal from "@/components/modals/OscarModal";
 import {getServerSession} from "next-auth";
 
+export const metadata = {
+    title: "Shoposcar.com. Shop Online. Shop Oscar.",
+};
+
 const Page = async () => {
     const session = await getServerSession();
     return (

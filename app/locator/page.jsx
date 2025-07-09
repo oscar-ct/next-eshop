@@ -58,7 +58,7 @@ const OrderLocatorPage = () => {
             <div className={"w-full flex justify-center self-center"}>
                 <div className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:max-w-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
                     <div className="font-bold text-3xl text-center sm:text-start dark:text-white">
-                        Find your e-shop order
+                        Order Locator
                     </div>
                     {
                         <>

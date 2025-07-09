@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "eshopjs | Payment",
+    title: "Shoposcar.com | Payment",
 };
 
 export default function PaymentLayout({ children }) {

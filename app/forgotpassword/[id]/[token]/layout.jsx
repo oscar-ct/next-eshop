@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "eshopjs | Forgot Password",
+    title: "Shoposcar.com | Forgot Password",
 };
 
 export default function ForgotPasswordLayout({ children }) {

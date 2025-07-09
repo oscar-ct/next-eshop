@@ -3,7 +3,7 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
 export const metadata = {
-    title: "eshopjs | Dashboard: Orders",
+    title: "Shoposcar.com | My Dashboard",
 };
 
 const AdminOrdersPage = async () => {

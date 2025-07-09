@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "eshopjs | Order Locator",
+    title: "Shoposcar.com | Order Locator",
 };
 
 export default function LocatorLayout({ children }) {
