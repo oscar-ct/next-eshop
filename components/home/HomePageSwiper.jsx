@@ -28,7 +28,7 @@ const HomePageSwiper = () => {
                     <div className={"flex flex-col w-full h-36 md:h-24 relative rainbow"}>
                         <div className={"px-4 flex items-center bg-zinc-50 rounded-lg absolute top-0 left-0 right-0 bottom-0 m-auto h-[calc(100%-4px)] w-[calc(100%-4px)] dark:text-white dark:bg-slate-700"}>
                             <h3 className={"mx-auto text-center sm:text-lg"}>
-                                eshopjs.com is an online e-commerce store built and designed from the ground up by <span
+                                shoposcar.com is an online e-commerce store built and designed from the ground up by <span
                                 className={"font-bold text-violet-700 cursor-pointer"} onClick={openModal}>Oscar Castro</span>,
                                 a Web Developer based in San Antonio, Texas.
                             </h3>
@@ -36,7 +36,7 @@ const HomePageSwiper = () => {
                     </div>
                     <div className={"flex flex-col w-full justify-evenly items-center gap-2 lg:flex-row"}>
                         <p className={"text-center py-5 text-xl text-black font-bold flex flex-col lg:text-start dark:text-white"}>
-                            Enjoy online shopping with free shipping!
+                            Enjoy free shipping on every order!
                             <span className={"text-center text-gray-500 text-sm font-light"}>when you spend over $100</span>
                         </p>
                         <HomePageCreditCards/>
@@ -48,7 +48,7 @@ const HomePageSwiper = () => {
                     <div className={"flex flex-col w-full h-36 md:h-24 relative rainbow"}>
                         <div className={"px-4 flex items-center bg-zinc-50 rounded-lg absolute top-0 left-0 right-0 bottom-0 m-auto h-[calc(100%-4px)] w-[calc(100%-4px)] focus:outline-none focus:ring-4 focus:ring-offset-1 dark:text-white dark:bg-slate-700"}>
                             <h3 className={"mx-auto text-center sm:text-lg"}>
-                                eshopjs.com uses <span className={"font-semibold text-blue-600"}>Stripe</span> and <span
+                                shoposcar.com uses <span className={"font-semibold text-blue-600"}>Stripe</span> and <span
                                 className={"font-bold text-blue-600"}>PayPal</span> to handle credit card transactions, and we
                                 do not store any credit card information.
                             </h3>
@@ -56,7 +56,7 @@ const HomePageSwiper = () => {
                     </div>
                     <div className={"flex flex-col w-full justify-evenly items-center gap-4 lg:flex-row"}>
                         <p className={"flex items-center justify-center gap-1 flex-wrap text-center py-5 text-xl text-black font-bold dark:text-white"}>
-                            Cash App  <SiCashapp fill={"#58DA14"}/> and Afterpay <SiAfterpay fill={"#9FF5D6"}/> are available.
+                            CashApp  <SiCashapp fill={"#58DA14"}/> & Afterpay <SiAfterpay fill={"#9FF5D6"}/> available at checkout
                         </p>
                         <HomePageCreditCards/>
                     </div>
