@@ -3,225 +3,187 @@
 import {useState, useEffect, useCallback, useContext} from "react";
 import {PaymentElement, LinkAuthenticationElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import Btn from "../Btn";
-import {toast} from "react-hot-toast";
 import GlobalContext from "@/context/GlobalContext";
 import {useRouter} from "next/navigation";
-import {
-    fetchDiscountValidity,
-    fetchNewOrder,
-    fetchPayOrder, fetchStripePaymentIntent,
-    fetchVerifiedOrderDollarAmount
-} from "@/utils/apiFetchRequests";
+import {fetchNewOrder, fetchPayOrder, fetchStripePaymentIntent} from "@/utils/apiFetchRequests";
 import Image from "next/image";
-import stripelogo from "@/icons/stripe-logo.svg";
+import stripeLogo from "@/icons/stripe-logo.svg";
 import {motion} from "framer-motion";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
+import {getDiscountStatus, getVerifiedTotalPrice} from "@/utils/priceValidation";
 
 
 
-const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) => {
+const StripeCheckoutForm = ({ newOrder, existingOrder, setSaveButtonDisabled, setOrder }) => {
 
     const stripe = useStripe();
     const elements = useElements();
-
-    const { user: userData, dispatch, discountKey, cartItems, totalPrice, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice, guestData, token } = useContext(GlobalContext);
-
+    const { dispatch, authToken } = useContext(GlobalContext);
     const router = useRouter();
 
-    const [message, setMessage] = useState(null);
-    const [errorMessage, setErrorMessage] = useState();
-    const [loadingBtn, setLoadingBtn] = useState(false);
-    const [clientHasSecret, setClientHasSecret] = useState(false);
-    const [paymentFailed, setPaymentFailed] = useState(false);
+    const [statusMessage, setStatusMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isClientSecretPresent, setIsClientSecretPresent] = useState(false);
+    const [isPaymentFailed, setIsPaymentFailed] = useState(false);
 
-    const placeNewOrder = useCallback(async (clientSecret, token) => {
-        const res = await fetchDiscountValidity({discountKey: discountKey});
-        let user;
-        if (userData) {
-            user = {
-                id: userData.id,
-            };
-        } else {
-            user = {
-                email: guestData,
-            };
-        }
-        const body = {
-            user,
-            orderItems: cartItems,
-            shippingAddress,
-            paymentMethod,
-            itemsPrice,
-            shippingPrice,
-            taxPrice,
-            totalPrice,
-            validCode: res ? res.validCode : false,
-            clientSecret: clientSecret || "invalid",
-            token: token || "invalid",
-        }
-        const newOrder = await fetchNewOrder(body);
-        if (!newOrder) return null;
-        return newOrder.id;
-    }, [cartItems, discountKey, itemsPrice, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice, userData, guestData]);
 
+    const createNewOrder = useCallback(async (stripeClientSecret, authToken) => {
+        const discountResponse = await getDiscountStatus(existingOrder, newOrder);
+        const totalPriceResponse = await getVerifiedTotalPrice(existingOrder, newOrder, discountResponse);
+        if (!totalPriceResponse) {
+            setSaveButtonDisabled(false);
+            return;
+        }
+        const orderPayload = {
+            user: newOrder.userId ? { id: newOrder.userId } : { email: newOrder.guestEmail },
+            orderItems: newOrder.cartItems,
+            shippingAddress: newOrder.shippingAddress,
+            paymentMethod: newOrder.paymentMethod,
+            itemsPrice: newOrder.itemsPrice,
+            shippingPrice: newOrder.shippingPrice,
+            taxPrice: newOrder.taxPrice,
+            totalPrice: totalPriceResponse,
+            validCode: discountResponse,
+            stripeClientSecret: stripeClientSecret || "invalid",
+            authToken: authToken || "invalid",
+        }
+        const orderResponse = await fetchNewOrder(orderPayload);
+        return orderResponse ? orderResponse.id : null;
+    }, [existingOrder, newOrder, getDiscountStatus, getVerifiedTotalPrice, setSaveButtonDisabled, fetchNewOrder]);
+
+
+    // Effect to handle payment intent status on page load
     useEffect( () => {
-        const clientSecret = new URLSearchParams(window.location.search).get(
+        // Extract client secret from URL query params
+        const stripeClientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         );
-        if (!clientSecret) {
+        if (!stripeClientSecret) {
             setSaveButtonDisabled(false);
             return;
         } else {
             setSaveButtonDisabled(true);
-            setClientHasSecret(true);
+            setIsClientSecretPresent(true);
         }
         if (!stripe) {
             return;
         }
-        if (clientSecret) {
-            stripe.retrievePaymentIntent(clientSecret).then(async ({paymentIntent}) => {
+        if (stripeClientSecret) {
+            stripe.retrievePaymentIntent(stripeClientSecret).then(async ({paymentIntent}) => {
                 switch (paymentIntent.status) {
                     case "succeeded": {
-                        const details = {
+                        const paymentDetails = {
                             id: paymentIntent.id,
                             status: paymentIntent.status,
                             update_time: paymentIntent.created.toString(),
                         };
                         if (!existingOrder) {
-                            const orderId = await placeNewOrder(clientSecret, token);
+                            // Create new order if none exists
+                            const orderId = await createNewOrder(stripeClientSecret, authToken);
                             if (!orderId) return router.push("/");
-                            setMessage("Your payment is processing...");
-                            const order = await fetchPayOrder({orderId: orderId, details, clientSecret, token});
-                            if (order) {
-                                setMessage("Payment succeeded! 🎉");
-                                router.push(`/orders/${order.id}/payment?stripe=successful`);
-                            }
-                        } else {
-                            if (!existingOrder.isPaid) {
-                                const order = await fetchPayOrder({orderId: existingOrder.id, details, clientSecret, token});
-                                if (order) {
-                                    setOrder(order);
-                                }
-                            }
 
+                            setStatusMessage("Your payment is processing...");
+                            const updatedOrder = await fetchPayOrder({orderId: orderId, paymentDetails, stripeClientSecret, authToken});
+                            if (updatedOrder) {
+                                setStatusMessage("Payment succeeded! 🎉");
+                                router.push(`/orders/${updatedOrder.id}/payment?stripe=successful`);
+                            }
+                        } else if (!existingOrder.isPaid) {
+                            // Update existing unpaid order
+                            const updatedOrder = await fetchPayOrder({orderId: existingOrder.id, paymentDetails, stripeClientSecret, authToken});
+                            if (updatedOrder) setOrder(updatedOrder);
                         }
                         break;
                     }
                     case "processing": {
-                        setMessage("Your payment is processing.");
+                        setStatusMessage("Your payment is processing.");
                         break;
                     }
                     case "requires_payment_method": {
-                        setPaymentFailed(true);
-                        setMessage("Your payment was not successful, please try again.");
+                        setIsPaymentFailed(true);
+                        setStatusMessage("Your payment was not successful, please try again.");
                         break;
                     }
 
                     default: {
-                        setMessage("Something went wrong.");
-                        setPaymentFailed(true);
+                        setStatusMessage("Something went wrong.");
+                        setIsPaymentFailed(true);
                         break;
                     }
                 }
             });
         }
-    }, [stripe, dispatch, placeNewOrder, existingOrder, router]);
+    }, [stripe, existingOrder, router, authToken, createNewOrder]);
 
-    const handleError = (error) => {
-        setLoadingBtn(false);
+
+    const handlePaymentError = (error) => {
+        setIsLoading(false);
         setErrorMessage(error.message);
         setSaveButtonDisabled(false);
     };
 
-    const handlePriceError = () => {
-        toast.error("Something went wrong, please try again later.");
-        setLoadingBtn(false);
-        setSaveButtonDisabled(false);
-    };
 
-    const handleSubmit = async (e) => {
+    const handlePaymentSubmit = async (e) => {
         e.preventDefault();
-        if (!stripe) {
-            // Stripe.js hasn't yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
-            return;
-        }
-        setLoadingBtn(true);
-        setSaveButtonDisabled(true);
-        // Trigger form validation and wallet collection
+        if (!stripe) return; // Exit if Stripe.js hasn't loaded
+        setIsLoading(true); // Show loading state
+        setSaveButtonDisabled(true); // Disable save button
+        // Validate and collect payment details
         const {error: submitError} = await elements.submit();
         if (submitError) {
-            handleError(submitError);
+            handlePaymentError(submitError);
             return;
         }
-        // Create the PaymentIntent and obtain clientSecret
-        let isDiscounted;
-        if (!existingOrder) {
-            const discount = await fetchDiscountValidity({discountKey: discountKey});
-            isDiscounted = discount.validCode;
+        // Create PaymentIntent
+        const discountResponse = await getDiscountStatus(existingOrder, newOrder);
+        const totalPriceResponse = await getVerifiedTotalPrice(existingOrder, newOrder, discountResponse);
+        if (!totalPriceResponse) {
+            setIsLoading(false);
+            setSaveButtonDisabled(false);
+            return;
         }
-
-        const totalPriceFromBackend = await fetchVerifiedOrderDollarAmount({
-            orderItems: existingOrder ? existingOrder.orderItems.filter((item) => !item.isCanceled) : cartItems,
-            validCode : existingOrder ? existingOrder.freeShipping : isDiscounted,
-            isNewOrder: !existingOrder
-        });
-        if (!existingOrder) {
-            if (totalPriceFromBackend !== totalPrice) {
-                handlePriceError();
-                return;
-            }
-        } else {
-            if (totalPriceFromBackend !== existingOrder.totalPrice) {
-                handlePriceError();
-                return;
-            }
-        }
-        const {clientSecret, token} = await fetchStripePaymentIntent({totalPriceFromBackend});
-
-        dispatch({type: "SET_TOKEN", payload: token});
+        const { stripeClientSecret, authToken } = await fetchStripePaymentIntent({verifiedTotalPrice: totalPriceResponse});
+        // Update global state with new token
+        dispatch({type: "SET_AUTH_TOKEN", payload: authToken});
         dispatch({type: "SET_LOCAL_STORAGE"});
-
-        // Confirm the PaymentIntent using the details collected by the Payment Element
+        // Confirm payment with Stripe
         const {error} = await stripe.confirmPayment({
             elements,
-            clientSecret,
+            clientSecret: stripeClientSecret,
             confirmParams: {
                 return_url: existingOrder ? `${window.location.origin}/orders/${existingOrder.id}` : `${window.location.origin}/checkout`,
             },
         });
         if (error) {
-            // This point is only reached if there's an immediate error when
-            // confirming the payment. Show the error to your customer (for example, payment details incomplete)
-            handleError(error);
+            // This point is only reached if there's an immediate error when confirming the payment.
+            handlePaymentError(error);
         } else {
-            console.log("This is active")
-            // Your customer is redirected to your `return_url`. For some payment
-            // methods like iDEAL, your customer is redirected to an intermediate
-            // site first to authorize the payment, then redirected to the `return_url`.
+            console.log("Payment confirmation initiated"); // Log for debugging
         }
     };
 
-    const paymentElementOptions = {
-        layout: "tabs",
-    };
 
-    const linkAuthenticationElementOptions = {
-        defaultValues: {
-            email: userData ? userData.email : ""
-        }
-    };
+    // Configuration for Stripe elements
+    const paymentElementConfig = { layout: "tabs" };
+    let emailDefaultValue = "";
+    if (existingOrder) {
+        emailDefaultValue = existingOrder.user?.email || (!existingOrder.user && existingOrder.email) || "";
+    } else if (newOrder) {
+        emailDefaultValue = newOrder.user?.email || newOrder.guestEmail || "";
+    }
+    const linkAuthElementConfig = { defaultValues: { email: emailDefaultValue} };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handlePaymentSubmit} aria-busy={isLoading}>
             {
-                !clientHasSecret && (
+                !isClientSecretPresent && (
                     <>
                         <motion.div className={"pb-3 flex w-full justify-center items-center"}
-                                    initial={{opacity: 0}}
-                                    animate={{opacity: 1}}
-                                    transition={{delay: 1}}
-                                    exit={{opacity: 0}}
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            transition={{delay: 1}}
+                            exit={{opacity: 0}}
                         >
                             <div
                                 className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
@@ -229,21 +191,21 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
                                 <Image
                                     priority
                                     className={"w-16 h-auto"}
-                                    src={stripelogo}
+                                    src={stripeLogo}
                                     alt={"stripe"}
                                     width={40}
                                     height={10}
                                 />
                             </div>
                         </motion.div>
-                        <LinkAuthenticationElement options={linkAuthenticationElementOptions} className={"pb-5"}/>
-                        <PaymentElement className={"pb-3"} options={paymentElementOptions}/>
+                        <LinkAuthenticationElement options={linkAuthElementConfig} className={"pb-5"}/>
+                        <PaymentElement className={"pb-3"} options={paymentElementConfig}/>
                         <div className={"flex justify-center"}>
                             <Btn customClass={"w-full flex justify-center items-center my-3"} type={"submit"}
-                                 isDisabled={loadingBtn || !stripe || !elements}>
+                                 isDisabled={isLoading || !stripe || !elements}>
                                 {
-                                    loadingBtn ? <span
-                                        className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - (${existingOrder ? convertCentsToUSD(existingOrder.totalPrice) : convertCentsToUSD(totalPrice)})`
+                                    isLoading ? <span
+                                        className="flex items-center loading loading-bars loading-sm"/> : `Pay Now - (${existingOrder ? convertCentsToUSD(existingOrder.totalPrice) : convertCentsToUSD(newOrder.totalPrice)})`
                                 }
                             </Btn>
                         </div>
@@ -251,15 +213,15 @@ const StripeCheckoutForm = ({ existingOrder, setSaveButtonDisabled, setOrder }) 
                 )
             }
             {
-                (errorMessage || message) && (
+                (errorMessage || statusMessage) && (
                     <div
                         className={`text-center leading-[20px] text-lg py-4 ${errorMessage ? "text-red-600" : "font-bold"}`}>
-                        {errorMessage || message}
+                        {errorMessage || statusMessage}
                     </div>
                 )
             }
             {
-                paymentFailed && (
+                isPaymentFailed && (
                     <div className={"pt-6"}>
                         <Btn customClass={"w-full"} type={"button"} onClick={(e) => {
                             e.preventDefault();

@@ -16,7 +16,7 @@ const ShippingPage = () => {
 
     const router = useRouter();
 
-    const { user, shippingAddress, cartItems, guestData, dispatch } = useContext(GlobalContext);
+    const { user, shippingAddress, cartItems, guestEmail: email, dispatch } = useContext(GlobalContext);
 
     // const [updateUserAddress] = useUpdateUserAddressMutation();
 
@@ -39,7 +39,7 @@ const ShippingPage = () => {
     const [radioId, setRadioId] = useState(Object.hasOwnProperty.call(shippingAddress, "id") ? matchingAddress[0].id : "");
     const [savePaymentData, setSavePaymentData] = useState(false);
     const [useNewAddress, setUseNewAddress] = useState(locateExistingAddress());
-    const [guestEmail, setGuestEmail] = useState(guestData ? guestData : "");
+    const [guestEmail, setGuestEmail] = useState(email ? email : "");
     const [isValidShippingData, setIsValidShippingData] = useState(false);
     const [shippingData, setShippingData] = useState({
         name: "",
@@ -142,7 +142,7 @@ const ShippingPage = () => {
                 dispatch({type: "SET_LOCAL_STORAGE"});
                 router.push("payment");
             } else {
-                dispatch({type: "SET_GUEST_DATA", payload: guestEmail});
+                dispatch({type: "SET_GUEST_EMAIL", payload: guestEmail});
                 dispatch({type: "SET_SHIPPING_DATA", payload: {name, address, city, state, postalCode, country}});
                 dispatch({type: "SET_LOCAL_STORAGE"});
                 router.push("payment");

@@ -10,21 +10,22 @@ import StripeCheckout from "@/components/stripe/StripeCheckout";
 import CheckoutSteps from "@/components/CheckoutSteps";
 import PaypalCheckout from "@/components/paypal/PaypalCheckout";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
-import {fetchDiscountValidity, fetchNewOrder} from "@/utils/apiFetchRequests";
+import {fetchDiscountValidity} from "@/utils/apiFetchRequests";
 import {convertCentsToUSD} from "@/utils/covertCentsToUSD";
 import {LuPartyPopper} from "react-icons/lu";
 import {FiEdit} from "react-icons/fi";
-import {LiaSave} from "react-icons/lia";
 import RevealMotion from "@/components/RevealMotion";
 import Loading from "@/app/loading";
 import Image from "next/image";
 import usaFlag from "@/icons/usa.svg";
 import {deliveryDateString} from "@/utils/formatDeliveryDate";
+import CheckoutSaveBtn from "@/app/checkout/components/CheckoutSaveBtn";
 
 
 const CheckoutPage = () => {
 
-    const { user: userData, dispatch, discount, discountKey, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice, guestData } = useContext(GlobalContext);
+    const { user, dispatch, discountKey, discount, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice, guestEmail } = useContext(GlobalContext);
+    const newOrder = { discountKey, user, guestEmail, cartItems, totalPrice, taxPrice, shippingPrice, itemsPrice, paymentMethod, shippingAddress }
     const router = useRouter();
 
     const [discountCode, setDiscountCode] = useState("");
@@ -32,6 +33,7 @@ const CheckoutPage = () => {
     const [discountLabelHover, setDiscountLabelHover] = useState(false);
     const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -47,9 +49,13 @@ const CheckoutPage = () => {
         }
     }, [router, shippingAddress, paymentMethod, cartItems.length]);
 
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
 
     const submitApplyDiscountCode = async () => {
-        if (discountCode.trim().length === 0) {
+        if (!discountCode.trim()) {
             toast.error("Blank code invalid!");
             return;
         }
@@ -76,55 +82,6 @@ const CheckoutPage = () => {
         dispatch({type: "UPDATE_CART"});
         dispatch({type: "SET_LOCAL_STORAGE"});
     };
-
-    /// used only for paypal checkout and create new unpaid order
-    const createNewOrder = async () => {
-        let user;
-        if (userData) {
-            user = {
-                id: userData.id,
-            };
-        } else {
-            user = {
-                email: guestData,
-            };
-        }
-        const res = await fetchDiscountValidity({discountKey})
-        const body = {
-            user,
-            orderItems: cartItems,
-            shippingAddress,
-            paymentMethod,
-            itemsPrice,
-            shippingPrice,
-            taxPrice,
-            totalPrice,
-            validCode: res ? res.validCode : false,
-        }
-        const newOrder = await fetchNewOrder(body);
-        if (!newOrder) return null;
-        return newOrder.id;
-    };
-
-
-    const createNewUnpaidOrder = async () => {
-        if (!userData) {
-            toast.error("You must be signed in to save an order");
-            router.push("/register");
-            return;
-        }
-        setLoading(true);
-        const orderId = await createNewOrder();
-        if (orderId) {
-            router.push(`/orders/${orderId}/payment?${paymentMethod === "Stripe / Credit Card" ? "stripe" : "paypal"}=unsuccessful`);
-        }
-        // dispatch(setLoading(false));
-    };
-
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     const initialOptions = {
         clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
@@ -172,7 +129,7 @@ const CheckoutPage = () => {
                                     Review your order
                                 </h1>
                                 {
-                                    !userData && guestData && (
+                                    !user && guestEmail && (
                                         <div className={"flex flex-col border-b border-gray-300 py-3 gap-2 sm:gap-0 sm:flex-row dark:text-white"}>
                                             <div className={"w-full justify-center flex items-center sm:justify-start sm:w-4/12"}>
                                                 <h3 className={"font-semibold"}>
@@ -182,7 +139,7 @@ const CheckoutPage = () => {
                                             <div className={"w-full sm:w-8/12"}>
                                                 <div className={"flex justify-between items-center"}>
                                                     <div className={"flex flex-col text-sm"}>
-                                                        <span>{guestData}</span>
+                                                        <span>{guestEmail}</span>
                                                     </div>
                                                     {
                                                         !saveButtonDisabled && (
@@ -444,7 +401,8 @@ const CheckoutPage = () => {
                                                 <div style={{colorScheme: 'none'}} className={"px-4"}>
                                                     <PayPalScriptProvider options={initialOptions}>
                                                         <PaypalCheckout
-                                                            createNewOrder={() => createNewOrder()}
+                                                            newOrder={newOrder}
+                                                            existingOrder={null}
                                                             setSaveButtonDisabled={setSaveButtonDisabled}
                                                         />
                                                     </PayPalScriptProvider>
@@ -453,7 +411,12 @@ const CheckoutPage = () => {
                                         }
                                         {
                                             paymentMethod === "Stripe / Credit Card" && (
-                                                <StripeCheckout setSaveButtonDisabled={setSaveButtonDisabled}/>
+                                                <StripeCheckout
+                                                    newOrder={newOrder}
+                                                    existingOrder={null}
+                                                    setSaveButtonDisabled={setSaveButtonDisabled}
+                                                    setOrder={() => null}
+                                                />
                                             )
                                         }
                                     </div>
@@ -463,21 +426,10 @@ const CheckoutPage = () => {
                     </div>
                     {
                         mounted && !saveButtonDisabled && (
-                            <RevealMotion y={25} parentClass={"w-full z-20"}>
-                                <div
-                                    className={"px-4 bg-opacity-90 bg-zinc-500 w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
-                                    <div className={"text-center flex items-center gap-2"}>
-                                        Save this order and pay later?
-                                        <button
-                                            onClick={createNewUnpaidOrder}
-                                            disabled={cartItems.length === 0}
-                                            className={"btn btn-sm rounded-full normal-case"}
-                                        >
-                                            <LiaSave size={24}/>
-                                        </button>
-                                    </div>
-                                </div>
-                            </RevealMotion>
+                            <CheckoutSaveBtn
+                                newOrder={newOrder}
+                                setLoading={setLoading}
+                            />
                         )
                     }
                 </div>
@@ -487,3 +439,4 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+

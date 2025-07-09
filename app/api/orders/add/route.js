@@ -6,16 +6,16 @@ import prisma from "@/lib/prisma";
 
 export async function POST(req) {
     try {
-        const { orderItems, shippingAddress, paymentMethod, validCode, user, clientSecret, token } = await req.json();
+        const { orderItems, shippingAddress, paymentMethod, validCode, user, stripeClientSecret, authToken } = await req.json();
 
         if (orderItems?.length === 0) {
             return new Response("No order found", {status: 404});
         }
         if (paymentMethod === "Stripe / Credit Card") {
-            if (clientSecret || token) {
-                const secret = process.env.JWT_SECERT + clientSecret;
+            if (stripeClientSecret || authToken) {
+                const secret = process.env.JWT_SECERT + stripeClientSecret;
                 try {
-                    jwt.verify(token, secret);
+                    jwt.verify(authToken, secret);
                 } catch (e) {
                     console.log(e);
                     return new Response("This action has been terminated", {status: 401});

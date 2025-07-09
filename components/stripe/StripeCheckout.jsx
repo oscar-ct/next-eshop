@@ -7,7 +7,7 @@ import {loadStripe} from "@stripe/stripe-js/pure";
 import {useTheme} from "next-themes";
 
 
-const StripeCheckout = ({ existingOrder , setSaveButtonDisabled, setOrder }) => {
+const StripeCheckout = ({ newOrder, existingOrder , setSaveButtonDisabled, setOrder }) => {
 
     const [stripePromise] = useState(() => loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_PUBLISHABLE_KEY));
     const { theme} = useTheme();
@@ -30,7 +30,7 @@ const StripeCheckout = ({ existingOrder , setSaveButtonDisabled, setOrder }) => 
     return (
         stripePromise ? (
             <Elements stripe={stripePromise} options={options}>
-                <StripeCheckoutForm setOrder={setOrder} existingOrder={existingOrder} setSaveButtonDisabled={setSaveButtonDisabled}/>
+                <StripeCheckoutForm newOrder={newOrder} setOrder={setOrder} existingOrder={existingOrder} setSaveButtonDisabled={setSaveButtonDisabled}/>
             </Elements>
         ) : (
             "Loading Stripe..."

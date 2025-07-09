@@ -22,6 +22,7 @@ import usaFlag from "@/icons/usa.svg";
 
 
 const OrderPage = () => {
+
     const searchParams = useSearchParams();
     const { id: orderId } = useParams();
 
@@ -557,12 +558,13 @@ const OrderPage = () => {
                                                                 <>
                                                                     {
                                                                         order.paymentMethod === "PayPal / Credit Card" && (
-                                                                            <div className={"px-4"}>
+                                                                            <div style={{colorScheme: 'none'}} className={"px-4"}>
                                                                                 <PayPalScriptProvider
                                                                                     options={initialOptions}>
                                                                                     <PaypalCheckout
-                                                                                        setSaveButtonDisabled={() => null}
+                                                                                        newOrder={null}
                                                                                         existingOrder={order}
+                                                                                        setSaveButtonDisabled={() => null}
                                                                                     />
                                                                                 </PayPalScriptProvider>
                                                                             </div>
@@ -571,9 +573,12 @@ const OrderPage = () => {
                                                                     }
                                                                     {
                                                                         order.paymentMethod === "Stripe / Credit Card" && (
-                                                                            <StripeCheckout existingOrder={order}
-                                                                                            setSaveButtonDisabled={() => null}
-                                                                                            setOrder={setOrder}/>
+                                                                            <StripeCheckout
+                                                                                newOrder={null}
+                                                                                existingOrder={order}
+                                                                                setSaveButtonDisabled={() => null}
+                                                                                setOrder={setOrder}
+                                                                            />
                                                                         )
                                                                     }
                                                                 </>

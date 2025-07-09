@@ -14,9 +14,9 @@ const stripe = new Stripe(process.env.STRIPE_API_SECRET_KEY);
 // };
 
 export async function POST(req) {
-    const { totalPriceFromBackend } = await req.json();
+    const { verifiedTotalPrice } = await req.json();
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: totalPriceFromBackend,
+        amount: verifiedTotalPrice,
         currency: "usd",
         automatic_payment_methods: {
             enabled: true,
@@ -24,10 +24,10 @@ export async function POST(req) {
     });
     const secret = process.env.JWT_SECERT + paymentIntent.client_secret;
     const payload = {clientSecret: paymentIntent.client_secret}
-    const token = jwt.sign(payload, secret, {expiresIn: "15s"});
+    const authToken = jwt.sign(payload, secret, {expiresIn: "15s"});
     return Response.json({
-        clientSecret: paymentIntent.client_secret,
-        token,
+        stripeClientSecret: paymentIntent.client_secret,
+        authToken,
     });
 }
 
