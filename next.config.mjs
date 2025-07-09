@@ -4,8 +4,9 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'cdn.filestackcontent.com',
+                hostname: 'cloud.shoposcar.com',
             },
+
         ],
     },
     async redirects() {
