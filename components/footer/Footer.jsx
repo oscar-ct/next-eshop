@@ -1,28 +1,28 @@
 import {FaGithub, FaGlobe, FaLinkedin} from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/icons/e.svg";
+import newLogo from "@/public/images/so.com-high-resolution-logo-grayscale-transparent.png";
 
 const Footer = () => {
     return (
         <footer className="bg-zinc-50 h-72 px-4 mx-auto max-w-screen-2xl md:h-56 dark:bg-slate-800 lg:dark:bg-slate-900">
             <div className={"h-full flex flex-col items-center justify-evenly opacity-60 md:flex-row dark:text-white"}>
                 <div className={"h-28 w-full md:w-7/12 lg:w-6/12 flex flex-col items-center justify-between md:items-start md:h-20"}>
-                    <Link href={"/public"}>
+                    <Link href={"/"}>
                         <Image
-                            width={36}
-                            height={36}
                             priority
-                            className={"w-9 h-auto dark:invert"}
-                            src={logo}
-                            alt="eshopjs.com"
+                            width={256}
+                            height={27}
+                            className={"max-h-[27px] max-w-[256px] dark:invert"}
+                            src={newLogo}
+                            alt="shoposcar.com"
                         />
                     </Link>
                     <div className={"uppercase font-bold flex flex-col justify-center items-center  md:flex-row gap-1"}>
-                        Designed and developed by
+                        designed and developed by
                         <a
                             aria-label="portfolio"
-                            href={"https://oscar-ct.com/"}
+                            href={"https://oscarct.com/"}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={"link"}>

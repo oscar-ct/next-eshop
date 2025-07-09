@@ -1,13 +1,12 @@
 import Link from "next/link";
-import logo from "../../icons/e.svg";
 import NavCartIcon from "@/components/navbar/NavCartIcon";
 import NavMobile from "@/components/navbar/NavMobile";
-import Image from 'next/image';
 import NavbarSearchBox from "@/components/navbar/NavSearchBox";
 import NavProductsDropdown from "@/components/navbar/NavProductsDropdown";
 import NavUserDropdown from "@/components/navbar/NavUserDropdown";
 import {getServerSession} from "next-auth";
 import NavThemeToggle from "@/components/navbar/NavThemeToggle";
+import {BiHomeSmile} from "react-icons/bi";
 
 
 const Nav = async () => {
@@ -37,14 +36,9 @@ const Nav = async () => {
                     <div className={"flex cursor-pointer px-3"}>
                         <Link
                             href={"/"}
-                            className={"text-xl flex items-center hover:scale-110"}
+                            className={"text-xl flex items-center hover:scale-110 transition duration-150"}
                         >
-                            <Image
-                                priority
-                                className={"w-6 h-6 dark:invert"}
-                                src={logo}
-                                alt="e-shop-us.com"
-                            />
+                            <BiHomeSmile size={26} className={"dark:invert"}/>
                         </Link>
                     </div>
                     <div className={"absolute right-24 md:hidden"}>

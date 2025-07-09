@@ -3,19 +3,28 @@
 import {motion} from "framer-motion";
 import HomePageIntroCategories from "@/components/home/HomePageIntroCategories";
 import HomePageSwiper from "@/components/home/HomePageSwiper";
+import Image from "next/image";
+import newLogo from "@/public/images/so.com-high-resolution-logo-grayscale-transparent.png";
 
 const HomePageIntro = ({session}) => {
     return (
         <div className={"bg-opacity-85 sm:mt-10 rounded-2xl bg-zinc-50 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
-            <div className={"h-full relative lg:pb-10"}>
+            <div className={"h-full relative mx-auto lg:pb-10"}>
                 {
                     session ? (
                         <h1 className={"pb-10 pt-8 font-extrabold text-center text-5xl sm:pb-12 sm:pt-20 dark:text-white"}>
                             Welcome, {session.user.name.username}!
                         </h1>
                     ) : (
-                        <h1 className={"pb-10 pt-8 font-extrabold text-center text-5xl sm:pb-12 sm:pt-20 dark:text-white"}>
-                            Welcome to eshopjs.com
+                        <h1 className={"pb-10 pt-8 flex justify-center items-center gap-3 sm:pb-12 sm:pt-20 "}>
+                            <Image
+                                priority
+                                width={375}
+                                height={40}
+                                className={"max-h-[40px] w-auto dark:invert"}
+                                src={newLogo}
+                                alt="shoposcar.com"
+                            />
                         </h1>
                     )
                 }
