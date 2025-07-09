@@ -77,7 +77,7 @@ const globalReducer = (state, action) => {
                 discount: false,
                 discountKey: "",
                 guestData: "",
-                token: "",
+                authToken: "",
             };
         case "RESET_STATE":
             localStorage.removeItem("cart");
@@ -94,7 +94,7 @@ const globalReducer = (state, action) => {
                 guestData: "",
                 user: null,
                 cancelIntentData: null,
-                token: "",
+                authToken: "",
             };
         case "SET_LOCAL_STORAGE":
             localStorage.setItem("cart", JSON.stringify(state));
@@ -104,10 +104,10 @@ const globalReducer = (state, action) => {
                 ...state,
                 user: action.payload
             }
-        case "SET_TOKEN":
+        case "SET_AUTH_TOKEN":
             return {
                 ...state,
-                token: action.payload
+                authToken: action.payload
             }
         case "UPDATE_CANCEL_INTENT_DATA":
             return {
@@ -144,10 +144,10 @@ const globalReducer = (state, action) => {
                 discount: false,
                 discountKey: ""
             }
-        case "SET_GUEST_DATA":
+        case "SET_GUEST_EMAIL":
             return {
                 ...state,
-                guestData: action.payload
+                guestEmail: action.payload
             }
         default:
             console.log("case missed...")

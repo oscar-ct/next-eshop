@@ -17,10 +17,10 @@ export function GlobalProvider({ children }) {
         paymentMethod: null,
         discount: false,
         discountKey: "",
-        guestData: "",
+        guestEmail: "",
         user: null,
         cancelIntentData: null,
-        token: "",
+        authToken: "",
         addToCartId: null,
     };
 
@@ -39,10 +39,10 @@ export function GlobalProvider({ children }) {
             paymentMethod: state.paymentMethod,
             discount: state.discount,
             discountKey: state.discountKey,
-            guestData: state.guestData,
+            guestEmail: state.guestEmail,
             user: state.user,
             cancelIntentData: state.cancelIntentData,
-            token: state.token,
+            authToken: state.authToken,
             addToCartId: state.addToCartId,
         }}>
             {children}
