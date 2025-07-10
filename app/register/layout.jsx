@@ -2,7 +2,7 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
 export const metadata = {
-    title: "Shoposcar.com | Register",
+    title: "ShopOscar.com | Register",
 };
 
 export default async function RegisterLayout({children}) {

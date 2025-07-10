@@ -4,7 +4,7 @@ import OscarModal from "@/components/modals/OscarModal";
 import {getServerSession} from "next-auth";
 
 export const metadata = {
-    title: "Shoposcar.com. Shop Online. Shop Oscar.",
+    title: "ShopOscar.com. Shop Online. Shop Oscar.",
 };
 
 const Page = async () => {

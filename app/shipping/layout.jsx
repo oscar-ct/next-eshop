@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Shoposcar.com | Shipping",
+    title: "ShopOscar.com | Shipping",
 };
 
 export default function ShippingLayout({ children }) {

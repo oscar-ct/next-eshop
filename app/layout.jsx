@@ -27,7 +27,7 @@ export const metadata = {
         other: [{ rel: "icon", url: "/icon.png", sizes: "192x192" }],
     },
     openGraph: {
-        title: "Shoposcar.com. Shop Online. Shop Oscar.",
+        title: "ShopOscar.com. Shop Online. Shop Oscar.",
         description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
         images: [{ url: "/logo.png", width: 1000, height: 600, alt: "shoposcar" }],
         url: "https://shoposcar.com",
@@ -36,7 +36,7 @@ export const metadata = {
         type: "website",
     },
     twitter: {
-        title: "Shoposcar.com. Shop Online. Shop Oscar.",
+        title: "ShopOscar.com. Shop Online. Shop Oscar.",
         description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
         images: ["/logo.png"],
         card: "summary_large_image",

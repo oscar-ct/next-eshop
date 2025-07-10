@@ -3,7 +3,7 @@ import AccountOrders from "@/app/account/components/AccountOrders";
 import {getServerSession} from "next-auth";
 
 export const metadata = {
-    title: "Shoposcar.com | My Orders",
+    title: "ShopOscar.com | My Orders",
 };
 
 const AccountOrdersPage = async () => {

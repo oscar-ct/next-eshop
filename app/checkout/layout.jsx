@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Shoposcar.com | Checkout",
+    title: "ShopOscar.com | Checkout",
 };
 
 export default function CheckoutLayout({ children }) {

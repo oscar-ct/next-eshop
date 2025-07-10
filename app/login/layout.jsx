@@ -2,7 +2,7 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
 export const metadata = {
-    title: "Shoposcar.com | Login",
+    title: "ShopOscar.com | Login",
 };
 
 export default async function LoginLayout({children}) {

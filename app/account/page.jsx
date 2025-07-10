@@ -4,7 +4,7 @@ import AccountPasswordForm from "@/app/account/components/AccountPasswordForm";
 import {getServerSession} from "next-auth";
 
 export const metadata = {
-    title: "Shoposcar.com | My Account",
+    title: "ShopOscar.com | My Account",
 };
 
 const AccountPage = async () => {
