@@ -32,7 +32,7 @@ const OscarModal = () => {
                         className={"flex w-full flex-col items-center"}>
                         <a className={"link link-white hover:text-primary pb-5 dark:text-white"}
                            href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
-                        <a aria-label="portfolio" href={"https://oscar-ct.com/"}
+                        <a aria-label="portfolio" href={"https://oscarct.com/"}
                            target="_blank"
                            rel="noopener noreferrer">
                             <Btn customClass={"bg-zinc-700"}>
