@@ -22,7 +22,6 @@ export const metadata = {
         canonical: "https://shoposcar.com",
     },
     applicationName: 'ShopOscar',
-    referrer: 'origin-when-cross-origin',
     authors: [{ name: 'Oscar Castro' }, { name: 'Oscar Castro', url: 'https://oscarct.com' }],
     creator: 'Oscar Castro',
     publisher: 'Oscar Castro',
