@@ -11,6 +11,7 @@ import Theme from "@/app/theme";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+    metadataBase: new URL('https://www.shoposcar.com'),
     keywords: "oscar, shop, shoposcar, oscar castro, castro",
     robots: "index, follow, max-image-preview: large",
     // verification: {
