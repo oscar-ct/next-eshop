@@ -16,10 +16,15 @@ export const metadata = {
     // verification: {
     //     google: "JKNPelzYqvq4H9cuv_31abNyv84JS7GDY_3F5oXQPVE",
     // },
-    description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
+    description: "ShopOscar.com - A sleek e-commerce site by Oscar Castro, San Antonio developer. Built with Next.js, Prisma, Stripe & PayPal. Discover my web dev craft!",
     alternates: {
         canonical: "https://shoposcar.com",
     },
+    applicationName: 'ShopOscar',
+    referrer: 'origin-when-cross-origin',
+    authors: [{ name: 'Oscar Castro' }, { name: 'Oscar Castro', url: 'https://oscarct.com' }],
+    creator: 'Oscar Castro',
+    publisher: 'Oscar Castro',
     icons: {
         icon: "/icon.ico",
         shortcut: "/icon.ico",
@@ -28,16 +33,16 @@ export const metadata = {
     },
     openGraph: {
         title: "ShopOscar.com. Shop Online. Shop Oscar.",
-        description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
+        description: "ShopOscar.com - A sleek e-commerce site by Oscar Castro, San Antonio developer. Built with Next.js, Prisma, Stripe & PayPal. Discover my web dev craft!",
         images: [{ url: "/logo.png", width: 1000, height: 600, alt: "shoposcar" }],
         url: "https://shoposcar.com",
-        siteName: "Shop Oscar",
+        siteName: "ShopOscar",
         locale: "en_US",
         type: "website",
     },
     twitter: {
         title: "ShopOscar.com. Shop Online. Shop Oscar.",
-        description: "Built by Oscar Castro. Enjoy great deals on everyday essentials.",
+        description: "ShopOscar.com - A sleek e-commerce site by Oscar Castro, San Antonio developer. Built with Next.js, Prisma, Stripe & PayPal. Discover my web dev craft!",
         images: ["/logo.png"],
         card: "summary_large_image",
     },
