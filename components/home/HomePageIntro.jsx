@@ -31,7 +31,7 @@ const HomePageIntro = ({session}) => {
                 <div className={"w-full h-min"}>
                     <HomePageSwiper/>
                 </div>
-                <div className={"text-xl py-10 text-center text-gray-600 font-semibold translate-y-5 lg:py-0 dark:text-white"}>
+                <div className={"text-xl py-10 text-center text-gray-600 font-semibold translate-y-5 lg:py-4 dark:text-white"}>
                     What do we sell?
                 </div>
             </div>
