@@ -14,9 +14,9 @@ export const metadata = {
     metadataBase: new URL('https://www.shoposcar.com'),
     keywords: "oscar, shop, shoposcar, oscar castro, castro",
     robots: "index, follow, max-image-preview: large",
-    // verification: {
-    //     google: "JKNPelzYqvq4H9cuv_31abNyv84JS7GDY_3F5oXQPVE",
-    // },
+    verification: {
+        google: "pRbvjS8S2iStpZPaHlVrrDkfasIqOOU5",
+    },
     description: "ShopOscar.com - A sleek e-commerce site by Oscar Castro, San Antonio developer. Built with Next.js, Prisma, Stripe & PayPal. Discover my web dev craft!",
     alternates: {
         canonical: "https://shoposcar.com",
