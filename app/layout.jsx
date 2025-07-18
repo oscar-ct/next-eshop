@@ -7,6 +7,7 @@ import {GlobalProvider} from "@/context/GlobalContext";
 import Footer from "@/components/footer/Footer";
 import AddToCartModal from "@/components/modals/AddToCartModal";
 import Theme from "@/app/theme";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,8 +65,8 @@ export default async function RootLayout({children}) {
                             <AddToCartModal/>
                             <Footer/>
                         </Theme>
+                        <Analytics/>
                     </body>
-
                 </html>
             </AuthProvider>
         </GlobalProvider>
