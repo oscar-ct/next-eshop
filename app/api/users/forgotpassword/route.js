@@ -21,20 +21,22 @@ export async function POST(req) {
             const token = jwt.sign(payload, secret, {expiresIn: "3m"});
             let domain;
             if (process.env.NODE_ENV !== "development") {
-                domain = "https://eshopjs.com"
+                domain = "https://www.shoposcar.com"
             } else {
                 domain = "http://localhost:3000"
             }
             const link = `${domain}/forgotpassword/${id}/${token}`
 
             const client = new MailtrapClient({ token: process.env.MAILTRAP_TOKEN });
-            const sender = { name: "eshopjs.com", email: "resetpassword@eshopjs.com" };
-            client
+            const sender = { name: "ShopOscar", email: "no-reply@shoposcar.com" };
+            await client
                 .send({
                     from: sender,
                     to: [{ email: email }],
-                    subject: "Reset Password Link",
-                    text: link,
+                    template_uuid: "5b02a698-e877-4efa-8666-a545d8315467",
+                    template_variables: {
+                        "reset_link": link
+                    }
                 })
                 .then(console.log)
                 .catch(console.error)
