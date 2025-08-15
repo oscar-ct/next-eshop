@@ -36,9 +36,9 @@ const CartPage = () => {
             <CheckoutSteps/>
             {
                 !mounted ? (
-                    <div className={"px-2 flex m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
+                    <div className={"px-2 flex m-auto max-w-screen-2xl lg:px-8"}>
                         <div
-                            className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+                            className={"z-20 bg-white opacity-95 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 dark:bg-slate-800"}>
                             <div className={"fadeInEffect h-full gap-4 flex flex-col items-center justify-evenly"}>
                                 <div className="skeleton h-24 w-full bg-gray-300 dark:bg-gray-200"></div>
                                 <div className="skeleton h-4 w-28 bg-gray-300 dark:bg-gray-200"></div>
@@ -52,8 +52,8 @@ const CartPage = () => {
                         {
                             cartItems.length === 0 ? (
                                 <RevealMotion y={25}>
-                                <div className={"px-2 flex m-auto max-w-screen-2xl sm:pt-10 lg:px-8"}>
-                                    <div className={"z-20 bg-zinc-50 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+                                <div className={"px-2 flex m-auto max-w-screen-2xl lg:px-8"}>
+                                    <div className={"z-20 bg-white opacity-95 mx-auto w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly dark:bg-slate-800"}>
                                         <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center dark:text-white"}>
                                             Your cart is empty.
                                         </div>
@@ -64,8 +64,8 @@ const CartPage = () => {
                                 </div>
                                 </RevealMotion>
                             ) : (
-                                <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-4 sm:pt-10 lg:px-8"}>
-                                    <div className={"z-20 bg-zinc-50 mx-auto max-w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly sm:bg-white sm:shadow-lg dark:text-white dark:bg-slate-800"}>
+                                <div className={"px-2 flex flex-col gap-3 m-auto max-w-screen-2xl sm:gap-4 lg:px-8"}>
+                                    <div className={"z-20 bg-white opacity-95 mx-auto max-w-96 h-72 rounded-2xl px-3 pt-3 flex flex-col items-center justify-evenly dark:text-white dark:bg-slate-800"}>
                                         <div className={"text-4xl md:text-4xl font-semibold flex justify-center text-center"}>
                                             Your cart total is {convertCentsToUSD(itemsPrice)}
                                         </div>
@@ -76,7 +76,7 @@ const CartPage = () => {
                                             Proceed To Checkout
                                         </Btn>
                                     </div>
-                                    <div className={"z-20 bg-opacity-70 bg-zinc-50 sm:bg-opacity-70 mx-auto w-full h-20 rounded-2xl flex justify-center items-center sm:bg-white sm:shadow-lg"}>
+                                    <div className={"z-20 opacity-70 bg-[#7c3cfc] mx-auto w-full h-20 rounded-2xl flex justify-center items-center text-white"}>
                                         {
                                             itemsPrice > 10000 ? (
                                                 <div className={"text-center flex items-center gap-2"}>
@@ -91,7 +91,7 @@ const CartPage = () => {
                                         }
                                     </div>
                                     <div
-                                        className={"z-20 bg-zinc-50 rounded-2xl overflow-y py-8 px-4 sm:px-8 sm:border-none sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+                                        className={"z-20 bg-white opacity-95 rounded-2xl overflow-y py-8 px-4 sm:px-8 dark:bg-slate-800"}>
                                         {
                                             cartItems.map(function (item) {
                                                 return (

@@ -33,7 +33,7 @@ const HomePageProducts = () => {
 
 
     return (
-        <div className={"pb-14 rounded-2xl bg-zinc-50 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+        <div className={"pb-14 rounded-2xl opacity-95 bg-white dark:bg-slate-800"}>
             <div className={"py-10 flex justify-center items-center h-full w-full md:py-12"}>
                 <h2 className={"font-bold text-3xl dark:text-white"}>
                     Latest Products

@@ -8,15 +8,15 @@ import newLogo from "@/public/images/so.com-high-resolution-logo-grayscale-trans
 
 const HomePageIntro = ({session}) => {
     return (
-        <div className={"bg-opacity-85 sm:mt-10 rounded-2xl bg-zinc-50 sm:bg-white sm:shadow-lg dark:bg-slate-800"}>
+        <div className={"opacity-95 mt-10 rounded-2xl bg-white dark:bg-slate-800"}>
             <div className={"h-full relative mx-auto lg:pb-10"}>
                 {
                     session ? (
-                        <h1 className={"pb-10 pt-8 font-extrabold text-center text-5xl sm:pb-12 sm:pt-20 dark:text-white"}>
+                        <h1 className={"px-4 pb-10 pt-8 font-extrabold text-center text-5xl sm:pb-12 sm:pt-20 dark:text-white"}>
                             Welcome, {session.user.name.username}!
                         </h1>
                     ) : (
-                        <h1 className={"pb-10 pt-8 flex justify-center items-center gap-3 sm:pb-12 sm:pt-20 "}>
+                        <h1 className={"px-4 pb-10 pt-8 flex justify-center items-center gap-3 sm:pb-12 sm:pt-20"}>
                             <Image
                                 priority
                                 width={375}
@@ -31,7 +31,7 @@ const HomePageIntro = ({session}) => {
                 <div className={"w-full h-min"}>
                     <HomePageSwiper/>
                 </div>
-                <div className={"text-xl py-10 text-center text-gray-600 font-semibold translate-y-5 lg:py-4 dark:text-white"}>
+                <div className={"text-xl py-10 text-center text-gray-600 translate-y-5 lg:py-4 dark:text-gray-400"}>
                     What do we sell?
                 </div>
             </div>

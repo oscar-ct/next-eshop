@@ -51,10 +51,10 @@ const AccountPasswordForm = ({session}) => {
 
     return (
             <div
-                className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
+                className="bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 dark:bg-slate-800">
                 <div className="mb-4 text-center sm:text-start">
                     <h3 className="font-bold text-2xl dark:text-white">
-                        Account Password
+                        Change Password
                     </h3>
                     <p className="text-gray-500 dark:text-gray-300">
                         Edit your account password
@@ -68,7 +68,7 @@ const AccountPasswordForm = ({session}) => {
                         </label>
                         <span className={"text-xs pl-1 dark:text-gray-200"}>(must be at least 6 characters)</span>
                         <input
-                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white"
                             autoComplete={"off"}
                             placeholder={"New password"}
                             type={"password"}
@@ -84,7 +84,7 @@ const AccountPasswordForm = ({session}) => {
                         </label>
 
                         <input
-                            className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                            className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white"
                             autoComplete={"off"}
                             type={"password"}
                             placeholder={"Confirm new password"}
@@ -98,7 +98,7 @@ const AccountPasswordForm = ({session}) => {
                         <label htmlFor={"current-password"} className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">Current password
                         </label>
                         <input
-                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white"
                             autoComplete={"off"}
                             placeholder={"Current password"}
                             type={"password"}

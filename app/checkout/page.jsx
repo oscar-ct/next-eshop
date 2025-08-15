@@ -95,8 +95,8 @@ const CheckoutPage = () => {
     return (
         <>
             <CheckoutSteps/>
-            <div className={"z-20 px-2 w-full flex-col flex items-center max-w-screen-2xl mx-auto gap-2 sm:gap-4 sm:pt-10 xl:flex-row xl:items-start xl:justify-center"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+            <div className={"z-20 px-2 w-full flex-col flex items-center max-w-screen-2xl mx-auto gap-2 sm:gap-4 xl:flex-row xl:items-start xl:justify-center"}>
+                <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 dark:bg-slate-800"}>
                     {
                         !mounted ? (
                             <div className="fadeInEffect flex w-full flex-col gap-5 h-full">
@@ -268,7 +268,7 @@ const CheckoutPage = () => {
 
                 <div className={"flex flex-col items-center gap-2 w-full sm:gap-4 sm:max-w-lg"}>
                     <div
-                        className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
+                        className={"z-20 px-4 bg-opacity-80 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90"}>
                         {
                             !mounted ? (
                                 <div className="fadeInEffect gap-3 flex w-full flex-col justify-center h-full">
@@ -294,7 +294,7 @@ const CheckoutPage = () => {
                         }
                     </div>
                     <div
-                        className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                        className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 dark:bg-slate-800"}>
                         {
                             !mounted ? (
                                 <div className="fadeInEffect flex w-full flex-col gap-5 h-full">

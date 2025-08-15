@@ -45,7 +45,7 @@ const CheckoutSaveBtn = ({ newOrder, setLoading, }) => {
     return (
         <RevealMotion y={25} parentClass={"w-full z-20"}>
             <div
-                className={"px-4 bg-opacity-90 bg-zinc-500 w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
+                className={"px-4 bg-opacity-90 bg-zinc-500 w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90"}>
                 <div className={"text-center flex items-center gap-2"}>
                     Save this order and pay later?
                     <button

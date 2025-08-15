@@ -54,11 +54,11 @@ const OrderLocatorPage = () => {
     useEffect(() => {setMounted(true)}, [])
 
     return (
-        <div className="h-full flex flex-row justify-center px-2 sm:pt-20 sm:px-0">
+        <div className="h-full flex flex-row justify-center px-2 pt-20 sm:px-0">
             <div className={"w-full flex justify-center self-center"}>
-                <div className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:max-w-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
+                <div className="bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:max-w-2xl sm:px-8 dark:bg-slate-800">
                     <div className="font-bold text-3xl text-center sm:text-start dark:text-white">
-                        Order Locator
+                        Let's find your order
                     </div>
                     {
                         <>
@@ -67,13 +67,13 @@ const OrderLocatorPage = () => {
                                     <form onSubmit={verifyEmailHandler}>
                                         {
                                             loading ? (
-                                                <div className="py-6 flex w-full flex-col gap-4">
+                                                <div className="py-10 flex w-full flex-col gap-4">
                                                     <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200"></div>
                                                     <div className="skeleton h-4 w-8/12 bg-gray-300 dark:bg-gray-200"></div>
                                                     <div className="skeleton h-4 w-full bg-gray-300 dark:bg-gray-200 sm:hidden"></div>
                                                 </div>
                                             ) : (
-                                                <p className="py-6 max-w-lg text-center sm:text-start dark:text-white">
+                                                <p className="py-10 max-w-lg text-center sm:text-start dark:text-white">
                                                     Please enter your email address that you used to place your order.
                                                     We
                                                     will need
@@ -83,9 +83,9 @@ const OrderLocatorPage = () => {
                                         }
 
                                         <div
-                                            className={`${emailInputIsFocused ? "ring-2 ring-blue-200 border-blue-400" : "border-gray-300"} flex items-center border bg-white shadow-sm rounded-md overflow-hidden px-2 h-14 justify-between`}>
+                                            className={`${emailInputIsFocused ? "ring-2 ring-blue-200 border-blue-400" : "border-gray-300"} flex items-center border bg-white rounded-md overflow-hidden px-2 h-14 justify-between dark:bg-slate-800`}>
                                             <label htmlFor={"email"}
-                                                   className="text-sm font-medium text-gray-600 tracking-wide border-r border-gray-300 pr-2 h-full w-min flex items-center">Email
+                                                   className="text-sm font-medium text-gray-400 tracking-wide border-r border-gray-300 pr-2 h-full w-min flex items-center dark:bg-slate-800">Email
                                             </label>
                                             <input
                                                 id={"email"}
@@ -93,13 +93,13 @@ const OrderLocatorPage = () => {
                                                 onBlur={() => setEmailInputIsFocused(false)}
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="bg-white text-base text-gray-600 flex-grow outline-none px-2 "
+                                                className="bg-white text-base text-gray-600 flex-grow outline-none px-2 dark:text-white dark:bg-slate-800"
                                                 type="email"
                                                 placeholder="Enter your email address"
                                                 autoComplete={"email"}
                                                 required
                                             />
-                                            <div className="hidden sm:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
+                                            <div className="hidden sm:flex items-center px-2 rounded-lg space-x-4 mx-auto">
                                                 <Btn
                                                     customClass={"w-28 flex justify-center items-center"}
                                                     type={"submit"}
@@ -133,7 +133,7 @@ const OrderLocatorPage = () => {
                                     </form>
                                 ) : (
                                     <form onSubmit={locateOrderHandler}>
-                                        <p className="py-6 max-w-lg text-center sm:text-start dark:text-white">
+                                        <p className="py-10 max-w-lg text-center sm:text-start dark:text-white">
                                             Email found! Please enter your order number now. If you are having
                                             trouble
                                             locating your order number, feel free to <span
@@ -141,9 +141,9 @@ const OrderLocatorPage = () => {
                                             further assistance.
                                         </p>
                                         <div
-                                            className={`${orderInputIsFocused ? "ring-2 ring-blue-200 border-blue-400" : "border-gray-300"} flex items-center border bg-white shadow-sm rounded-md overflow-hidden px-2 h-14 justify-between `}>
+                                            className={`${orderInputIsFocused ? "ring-2 ring-blue-200 border-blue-400" : "border-gray-300"} flex items-center border bg-white rounded-md overflow-hidden px-2 h-14 justify-between dark:bg-slate-800`}>
                                             <label htmlFor={"order"}
-                                                   className="w-fit text-sm font-medium text-gray-600 tracking-wide border-r border-gray-300 pr-2 h-full flex items-center">Order
+                                                   className="w-fit text-sm font-medium text-gray-400 tracking-wide border-r border-gray-300 pr-2 h-full flex items-center dark:bg-slate-800">Order
                                                 #
                                             </label>
                                             <input
@@ -152,7 +152,7 @@ const OrderLocatorPage = () => {
                                                 onBlur={() => setOrderInputIsFocused(false)}
                                                 value={orderId}
                                                 onChange={(e) => setOrderId(e.target.value)}
-                                                className="bg-white text-base text-gray-600 flex-grow outline-none px-2 "
+                                                className="bg-white text-base text-gray-600 flex-grow outline-none px-2 dark:bg-slate-800 dark:text-white"
                                                 type="text"
                                                 placeholder="Enter your order number"
                                                 required

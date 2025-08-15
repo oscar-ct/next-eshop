@@ -146,8 +146,8 @@ const ProductIdPage = () => {
                 </div>
                 <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
             </div>
-            <div className={"px-2 pt-16 flex flex-col items-center gap-4 xl:flex-row xl:justify-center xl:items-start"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none md:max-w-3xl dark:bg-slate-800"}>
+            <div className={"px-2 pt-20 flex flex-col items-center gap-4 lg:pt-5 xl:flex-row xl:justify-center xl:items-start"}>
+                <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:border-none md:max-w-3xl dark:bg-slate-800"}>
                     {
                         loading && !product ? (
                             <div className="flex w-full flex-col gap-5 h-full">
@@ -419,7 +419,7 @@ const ProductIdPage = () => {
                     }
                 </div>
                 <div className={"flex flex-col w-full md:max-w-3xl xl:max-w-xl"}>
-                    <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                    <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 dark:bg-slate-800"}>
                         {
                             loading && !product ? (
                                 <div className="flex w-full flex-col gap-5 h-full">
@@ -502,30 +502,30 @@ const ProductIdPage = () => {
                                                                             className="loading loading-bars loading-xs"/>
                                                                     )
                                                                 }
-                                                            </div>
-                                                            <ProductRating rating={review.rating}/>
-                                                            <div className={"flex flex-col gap-1"}>
-                                                                <p className={"text-sm font-bold dark:text-white"}>
-                                                                    {review.title}
-                                                                </p>
-                                                                <div className={"text-xs text-gray-500 flex gap-1"}>
-                                                                    <span>Reviewed on</span>
-                                                                    {`${review.createdAt.substring(5, 10)}-${review.createdAt.substring(0, 4)}`}
                                                                 </div>
-                                                                <p className={"text-sm dark:text-white"}>
-                                                                    {review.comment}
-                                                                </p>
+                                                                <ProductRating rating={review.rating}/>
+                                                                <div className={"flex flex-col gap-1"}>
+                                                                    <p className={"text-sm font-bold dark:text-white"}>
+                                                                        {review.title}
+                                                                    </p>
+                                                                    <div className={"text-xs text-gray-500 flex gap-1"}>
+                                                                        <span>Reviewed on</span>
+                                                                        {`${review.createdAt.substring(5, 10)}-${review.createdAt.substring(0, 4)}`}
+                                                                    </div>
+                                                                    <p className={"text-sm dark:text-white"}>
+                                                                        {review.comment}
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })
-                                        )
-                                    }
-                                </div>
-                            </RevealMotion>
-                        )
-                    }
+                                                    )
+                                                })
+                                            )
+                                        }
+                                    </div>
+                                </RevealMotion>
+                            )
+                        }
                     </div>
                 </div>
             </div>

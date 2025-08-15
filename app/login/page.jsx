@@ -53,9 +53,9 @@ const LoginPage = () => {
 
     return (
         <>
-            <div className="h-full flex flex-row justify-center px-2 sm:pt-10 sm:px-0">
+            <div className="h-full flex flex-row justify-center px-2 pt-10 sm:px-0">
                 <div className="w-full flex justify-center self-center">
-                    <div className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
+                    <div className="bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 dark:bg-slate-800">
                         <div className="mb-4 text-center sm:text-start">
                             <h3 className="font-bold text-2xl dark:text-white">Login
                             </h3>
@@ -67,7 +67,7 @@ const LoginPage = () => {
                                 <label htmlFor={"email"} className="text-sm font-medium text-gray-600 tracking-wide dark:text-white">Email
                                 </label>
                                 <input
-                                    className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                                    className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-white dark:bg-slate-800"
                                     autoComplete={"email"}
                                     type={"email"}
                                     placeholder={"mail@gmail.com"}
@@ -83,7 +83,7 @@ const LoginPage = () => {
                                 </label>
 
                                 <input
-                                    className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                                    className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:text-white dark:bg-slate-800"
                                     autoComplete={"off"}
                                     type={ showPassword ? "text" : "password"}
                                     placeholder={"Enter your password"}
@@ -97,12 +97,12 @@ const LoginPage = () => {
                                         showPassword ? (
                                             <FaEye
                                                 onClick={() => setShowPassword(prevState => !prevState)}
-                                                className={"show-password-img"}
+                                                className={"show-password-img dark:text-white"}
                                             />
                                         ) : (
                                             <FaEyeSlash
                                                 onClick={() => setShowPassword(prevState => !prevState)}
-                                                className={"show-password-img"}
+                                                className={"show-password-img dark:text-white"}
                                             />
                                         )
                                     }

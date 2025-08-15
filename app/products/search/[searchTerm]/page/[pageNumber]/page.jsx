@@ -61,18 +61,18 @@ const SearchProductsPage = () => {
             <BackButton/>
             {
                 loading && !data ? (
-                    <>
-                        <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
-                           Searching for &quot;{searchTerm}&quot;. . .
+                    <div className={"flex flex-col"}>
+                        <h2 className={"z-10 pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                           Searching for &quot;{searchTerm}&quot;
                         </h2>
                         <ProductItemSkeletons length={3}/>
-                    </>
+                    </div>
                 ) : (
                     <>
                         {
                             data.products.length > 0 ? (
-                                <>
-                                    <h2 className={"pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                                <div className={"flex flex-col"}>
+                                    <h2 className={"z-10 pt-20 px-2 pb-7 text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
                                         Search results for &quot;{data.searchTerm}&quot;
                                     </h2>
                                     <div className={"w-full flex flex-wrap justify-center"}>
@@ -91,16 +91,16 @@ const SearchProductsPage = () => {
                                             </div>
                                         )
                                     }
-                                </>
+                                </div>
                             ) : (
                                 <div className={"flex flex-col"}>
                                     <div
-                                        className={"pt-20 px-2 pb-7 flex flex-col text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
+                                        className={"z-10 pt-20 px-2 pb-7 flex flex-col text-2xl text-center md:pt-10 lg:text-3xl dark:text-white"}>
                                         <h2>Sorry, no search results for &quot;{data.searchTerm}&quot;</h2>
                                         <h5 className={"text-base"}>Enjoy a game of snake!</h5>
                                     </div>
                                     <div className={"z-10 px-2"}>
-                                        <div className={"z-30 m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
+                                        <div className={"m-auto opacity-95 bg-slate-800 rounded-xl max-w-[830px]"}>
                                             {
                                                 !windowResizing && (
                                                     <Snake/>

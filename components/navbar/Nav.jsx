@@ -7,6 +7,7 @@ import NavUserDropdown from "@/components/navbar/NavUserDropdown";
 import {getServerSession} from "next-auth";
 import NavThemeToggle from "@/components/navbar/NavThemeToggle";
 import {BiHomeSmile} from "react-icons/bi";
+import NavBar from "@/components/navbar/NavBar";
 
 
 const Nav = async () => {
@@ -18,6 +19,7 @@ const Nav = async () => {
     const myAccountLink = "/account";
     const topRatedLink = "/products/sort/toprated/select/all/page/1";
     const latestProductsLink = "/products/sort/latest/select/all/page/1";
+
 
     return (
         <>
@@ -31,7 +33,7 @@ const Nav = async () => {
                     dashboardLink}}
                 />
             </div>
-            <div className={"z-40 fixed h-12 inset-0 bg-zinc-50 w-full md:h-16 sm:shadow dark:bg-slate-800 lg:dark:bg-slate-900"}>
+            <NavBar>
                 <div className="h-full w-full flex justify-between items-center relative">
                     <div className={"flex cursor-pointer px-3"}>
                         <Link
@@ -66,7 +68,7 @@ const Nav = async () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </NavBar>
         </>
     )
 };

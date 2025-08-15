@@ -43,8 +43,8 @@ const PaymentPage = () => {
     return (
         <>
             <CheckoutSteps/>
-            <div className={"px-2 w-full flex justify-center sm:pt-10"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+            <div className={"px-2 w-full flex justify-center"}>
+                <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 dark:bg-slate-800"}>
                     {
                         !mounted ? (
                             <div className="fadeInEffect flex w-full flex-col gap-6 h-full">
@@ -62,7 +62,7 @@ const PaymentPage = () => {
                                 </h1>
                                 <form onSubmit={submitPaymentMethod} className={"pt-3 space-y-5"}>
                                     <div
-                                        className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "PayPal / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
+                                        className={`w-full border cursor-pointer rounded-md ${paymentMeth === "PayPal / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
                                         onClick={() => setPaymentMeth("PayPal / Credit Card")}
                                     >
                                         <div className={"w-full flex px-6 py-5"}>
@@ -94,7 +94,7 @@ const PaymentPage = () => {
                                         </div>
                                     </div>
                                     <div
-                                        className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "Stripe / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
+                                        className={`w-full border cursor-pointer rounded-md ${paymentMeth === "Stripe / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
                                         onClick={() => setPaymentMeth("Stripe / Credit Card")}
                                     >
                                         <div className={"w-full flex pr-6 pl-3 py-5"}>

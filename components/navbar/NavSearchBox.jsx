@@ -32,7 +32,7 @@ const SearchBox = ({ toggle }) => {
         <div className="relative" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
             <input
                 autoComplete={"off"}
-                className="w-full bg-slate-500/70 h-10 pl-5 rounded-full text-base text-white placeholder-white/70 focus:outline-none md:w-72"
+                className="opacity-60 w-full bg-[#CCC9C4] h-10 pl-5 rounded-full text-base text-black placeholder-black focus:outline-none md:w-72 dark:placeholder-white dark:text-white dark:bg-[#5B547C]"
                 type="search"
                 name="search"
                 placeholder="Search products"
@@ -41,7 +41,7 @@ const SearchBox = ({ toggle }) => {
                 }}
             />
             <button aria-label="search" onClick={submitSearch} type="button" className="absolute right-0 top-0 flex justify-center items-center h-full w-10 rounded-tr-full rounded-br-full">
-                <svg className="text-white h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                <svg className="text-black h-4 w-4 fill-current dark:text-white" xmlns="http://www.w3.org/2000/svg"
                       version="1.1" id="SearchTerm" x="0px" y="0px"
                      viewBox="0 0 56.966 56.966"
                      width="512px" height="512px">

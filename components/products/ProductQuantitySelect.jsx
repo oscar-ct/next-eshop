@@ -1,11 +1,9 @@
 import {useContext} from "react";
 import GlobalContext from "@/context/GlobalContext";
-import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 const ProductQuantitySelect = ({quantity, products, item}) => {
 
     const { dispatch } = useContext(GlobalContext);
-    const {width} = useWindowDimensions();
 
     const addToCartHandler = async (product, quantity) => {
         dispatch({
@@ -18,7 +16,7 @@ const ProductQuantitySelect = ({quantity, products, item}) => {
 
     return (
         <div className={"bg-zinc-100 rounded-md h-10 flex justify-start items-center px-1 sm:px-2 dark:bg-slate-600 dark:text-white"}>
-            <label htmlFor={`${item.id}`} className={"text-sm font-semibold pr-1"}>{width < 768 ? "Qty:" : "Quantity:"}</label>
+            <label htmlFor={`${item.id}`} className={"text-sm font-semibold pr-1"}>Qty:</label>
             <select
                 id={`${item.id}`}
                 className="bg-zinc-100 h-full w-full max-w-16 !outline-none text-sm cursor-pointer font-semibold dark:bg-slate-600 dark:text-white"

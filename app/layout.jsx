@@ -60,7 +60,8 @@ export default async function RootLayout({children}) {
                             <Nav/>
                             <main className={"h-full pb-5 pt-12 mx-auto min-h-[calc(100vh-288px)] md:pt-16 md:min-h-[calc(100vh-224px)] relative overflow-x-clip overflow-y-hidden"}>
                                 {children}
-                                <div className={"z-0 scale-125 -rotate-6 m-auto fixed w-full top-72 h-72 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"}/>
+                                {/*<div className={"z-0 scale-125 -rotate-6 m-auto fixed w-full top-72 h-72 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"}/>*/}
+                                <div className={"z-0 fixed w-full top-0 h-full bg-[conic-gradient(var(--tw-gradient-stops))] from-[#fffbf5] via-[#f7efe5] to-[#c3acd0] dark:bg-[conic-gradient(var(--tw-gradient-stops))] dark:from-[#655d8a] dark:via-[#7897ab] dark:to-[#d885a3]"}/>
                             </main>
                             <AddToCartModal/>
                             <Footer/>

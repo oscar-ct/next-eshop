@@ -14,8 +14,8 @@ const BackButtonMessage = ({width = ""}) => {
     const FREE_SHIPPING_THRESHOLD = 10000;
 
     return (
-        <div className={`absolute right-0 pl-2 pr-3 pt-3 ${width}`}>
-            <div className={"z-20 bg-opacity-80 bg-[#7c3cfc] text-white mx-auto w-full h-12 rounded-2xl flex justify-center items-center text-xs sm:text-base sm:shadow-md"}>
+        <div className={`z-20 absolute right-0 pl-2 pr-3 pt-3 ${width}`}>
+            <div className={"bg-opacity-80 bg-[#7c3cfc] text-white mx-auto w-full h-12 rounded-2xl flex justify-center items-center text-xs sm:text-base"}>
                 {
                     !mounted ? (
                         <span className="z-30 loading loading-bars loading-sm"/>

@@ -6,14 +6,14 @@ export const customStyles = {
         cursor: "pointer",
         fontSize: "14px",
         zIndex: 30,
-        lineHeight: "14px"
+        lineHeight: "14px",
     }),
     option: (base, {isDisabled, isFocused, isSelected}) => {
         return {
             ...base,
             cursor: "pointer",
             borderRadius: 1,
-            color: "black",
+            color: "#1E313B",
             backgroundColor: isFocused
                 ? "rgba(132,170,252,0.3)"
                 : isSelected
@@ -39,5 +39,9 @@ export const customStyles = {
         padding: 0,
         cursor: "pointer",
         fontSize: "14px",
+    }),
+    singleValue: base => ({
+        ...base,
+        color: "light-dark(#1E313B, #FFFFFF)",
     })
 };

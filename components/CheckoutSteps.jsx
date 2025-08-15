@@ -88,8 +88,8 @@ const CheckoutSteps = () => {
     };
 
     return (
-        <div className="flex justify-center pt-5 text-xs sm:text-sm font-semibold">
-            <div className="steps w-full">
+        <div className="flex justify-center pt-5 pb-5 text-xs sm:pb-10 sm:text-sm font-semibold">
+            <div className="z-10 steps w-full">
                 {
                     !mounted ? steps.map((step) => (
                         <button

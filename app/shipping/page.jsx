@@ -169,8 +169,8 @@ const ShippingPage = () => {
     return (
         <>
             <CheckoutSteps/>
-            <div className={"px-2 w-full flex justify-center sm:pt-10"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+            <div className={"px-2 w-full flex justify-center"}>
+                <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl max-w-xl sm:px-8 sm:border-none dark:bg-slate-800"}>
                     {
                         !mounted ? (
                             <div className="fadeInEffect flex w-full flex-col gap-5 h-full">
@@ -204,7 +204,7 @@ const ShippingPage = () => {
                                                             Customer Email
                                                         </label>
                                                         <input
-                                                            className={`${dynamicBorder(isValidEmail(guestEmail), guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                            className={`${dynamicBorder(isValidEmail(guestEmail), guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white`}
                                                             autoComplete={"email"}
                                                             type={"text"}
                                                             placeholder={"example@email.com"}
@@ -227,7 +227,7 @@ const ShippingPage = () => {
                                                     Recipient&apos;s Name
                                                 </label>
                                                 <input
-                                                    className={`${dynamicBorder(isValidName(name), name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                    className={`${dynamicBorder(isValidName(name), name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white`}
                                                     autoComplete={"name"}
                                                     type={"text"}
                                                     placeholder={"John Doe"}
@@ -243,7 +243,7 @@ const ShippingPage = () => {
                                                     Street Address
                                                 </label>
                                                 <input
-                                                    className={`${dynamicBorder(isValidAddress(address), address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                    className={`${dynamicBorder(isValidAddress(address), address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white`}
                                                     autoComplete={"address"}
                                                     type={"text"}
                                                     placeholder={"600 Navarro St #400"}
@@ -259,7 +259,7 @@ const ShippingPage = () => {
                                                     City
                                                 </label>
                                                 <input
-                                                    className={`${dynamicBorder(isValidCity(city), city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                    className={`${dynamicBorder(isValidCity(city), city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white`}
                                                     autoComplete={"home city"}
                                                     type={"text"}
                                                     placeholder={"San Antonio"}
@@ -283,6 +283,7 @@ const ShippingPage = () => {
                                                                     borderRadius: 6,
                                                                     cursor: "pointer",
                                                                     fontSize: "16px",
+                                                                    backgroundColor: "dark(#1E313B)",
                                                                 }),
                                                             }}
                                                             id={state}
@@ -296,7 +297,7 @@ const ShippingPage = () => {
                                                         Zip Code
                                                     </label>
                                                     <input
-                                                        className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
+                                                        className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white`}
                                                         autoComplete={"locality"}
                                                         type={"text"}
                                                         placeholder={"78205"}
@@ -321,6 +322,7 @@ const ShippingPage = () => {
                                                             borderRadius: 6,
                                                             cursor: "pointer",
                                                             fontSize: "16px",
+                                                            backgroundColor: "dark(#1E313B)",
                                                         }),
                                                     }}
                                                     id={state}
@@ -368,7 +370,7 @@ const ShippingPage = () => {
                                                         <div key={index} className="my-5 dark:text-white"
                                                              onClick={() => setRadioId(item.id)}>
                                                             <div
-                                                                className={`w-full rounded-md shadow-sm border cursor-pointer ${item.id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
+                                                                className={`w-full rounded-md border cursor-pointer ${item.id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
                                                                 <div className={"w-full flex p-6"}>
                                                                     <div className={"text-sm w-10/12 flex flex-col justify-center"}>
                                                                         <span className={"truncate"}>{item.name}</span>

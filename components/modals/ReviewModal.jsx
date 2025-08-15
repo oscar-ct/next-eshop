@@ -117,7 +117,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                             <span className="label-text dark:text-white">Add a headline</span>
                         </label>
                         <input id="title" type="text" placeholder="What's most important to know?"
-                               className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                               className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800"
                                value={title} onChange={(e) => {
                             setTitle(e.target.value);
                         }}/>
@@ -127,7 +127,7 @@ const ReviewModal = ({ productId, productImageUrl, onPage, setProduct }) => {
                             <span className="label-text dark:text-white">Add a review</span>
                         </label>
                         <textarea id="reviewbody" value={reviewBody}
-                                  placeholder="What did you like or dislike? What did you use this product for?" className="h-20 bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400" onChange={(e) => {
+                                  placeholder="What did you like or dislike? What did you use this product for?" className="h-20 bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800" onChange={(e) => {
                             setReviewBody(e.target.value);
                         }}/>
                     </div>

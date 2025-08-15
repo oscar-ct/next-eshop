@@ -11,7 +11,7 @@ const AccountPage = async () => {
     const session = await getServerSession();
     return (
         <div className={"flex flex-col"}>
-            <div className={"flex justify-center py-6 sm:py-10"}>
+            <div className={"z-10 flex justify-center py-6 sm:py-10"}>
                 <div role="tablist" className="tabs tabs-bordered !text-white">
                     <Link
                         role="tab"

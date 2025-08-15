@@ -48,7 +48,7 @@ const NavMobileMenu = ({ toggle, links, session }) => {
             </NavMobileMenuItem>
             <NavMobileMenuItem>
                 <Link className={"block"} href={"/locator"} onClick={() => toggle()}>
-                    Order Lookup
+                    Lookup Order
                 </Link>
             </NavMobileMenuItem>
             {
@@ -68,12 +68,12 @@ const NavMobileMenu = ({ toggle, links, session }) => {
                 ) : (
                     <>
                         <NavMobileMenuItem>
-                            <Link className={"block text-blue-600"} href={"/login"} onClick={() => toggle()}>
+                            <Link className={"block font-bold text-blue-400"} href={"/login"} onClick={() => toggle()}>
                                 Login
                             </Link>
                         </NavMobileMenuItem>
                         <NavMobileMenuItem>
-                            <Link className={"block text-blue-600"} href={"/register"} onClick={() => toggle()}>
+                            <Link className={"block font-bold text-blue-400"} href={"/register"} onClick={() => toggle()}>
                                 Create Account
                             </Link>
                         </NavMobileMenuItem>
@@ -92,7 +92,7 @@ const NavMobileMenu = ({ toggle, links, session }) => {
             {
                 session && (
                     <NavMobileMenuItem>
-                        <button className={"w-full text-start text-red-600"} onClick={logoutHandler}>
+                        <button className={"w-full font-bold text-start text-red-600"} onClick={logoutHandler}>
                             Logout
                         </button>
                     </NavMobileMenuItem>

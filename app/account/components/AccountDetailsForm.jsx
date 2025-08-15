@@ -72,7 +72,7 @@ const AccountDetailsForm = ({session}) => {
 
     return (
             <div
-                className="bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800">
+                className="bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:w-96 sm:px-8 dark:bg-slate-800">
                 <div className="mb-4 text-center sm:text-start">
                     <h3 className="font-bold text-2xl dark:text-white">
                         Account Details
@@ -86,7 +86,7 @@ const AccountDetailsForm = ({session}) => {
                         <label htmlFor={"name"} className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">Username
                         </label>
                         <input
-                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white"
                             autoComplete={"name"}
                             type={"name"}
                             id={"name"}
@@ -101,7 +101,7 @@ const AccountDetailsForm = ({session}) => {
                         <label htmlFor={"email"} className="text-sm font-medium text-gray-700 tracking-wide dark:text-white">Email
                         </label>
                         <input
-                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                            className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white"
                             autoComplete={"email"}
                             type={"email"}
                             id={"email"}
@@ -118,7 +118,7 @@ const AccountDetailsForm = ({session}) => {
                             Confirm password to apply updates
                         </label>
                         <input
-                            className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
+                            className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:text-white"
                             autoComplete={"current-password"}
                             type={"password"}
                             placeholder={"Current password"}

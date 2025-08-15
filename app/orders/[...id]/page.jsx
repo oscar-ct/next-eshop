@@ -127,51 +127,45 @@ const OrderPage = () => {
         <>
             <div className={"p-5 lg:pt-10 lg:pb-5"}>
                 {
-                    loading && !order ? (
-                        <div className={"w-full gap-4 flex flex-col justify-center items-center"}>
-                            <div className="skeleton h-4 bg-gray-300 w-full max-w-3xl xl:max-w-screen-xl dark:bg-gray-200"/>
-                            <div className="skeleton h-4 bg-gray-300 w-full max-w-3xl xl:max-w-screen-xl dark:bg-gray-200"/>
-                            <div className="skeleton h-4 bg-gray-300 w-full sm:hidden dark:bg-gray-200"/>
-                        </div>
-                    ) : (
-                        <RevealMotion y={25} childClass={"dark:text-white flex justify-center"}>
+                    !loading && order && (
+                        <div className={"dark:text-white flex justify-center text-4xl font-bold"}>
                             {
                                 order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && totalNumberOfCanceledItems !== totalNumberOfItems ? (
-                                    <h1 className={"text-4xl font-bold"}>
+                                    <h1 className={"z-10"}>
                                         Payment successful! Order is now being processed. You can come back to this page to view future order updates.
                                     </h1>
                                 ) : order.isPaid && order.isShipped && !order.isDelivered ? (
-                                    <h1 className={"text-4xl font-bold"}>
+                                    <h1 className={"z-10"}>
                                         Your order is on the way.
                                     </h1>
                                 ) : order.isPaid && order.isShipped && order.isDelivered ? (
-                                    <h1 className={"text-4xl font-bold "}>
+                                    <h1 className={"z-10"}>
                                         Your order has been delivered, thank you!
                                     </h1>
                                 ) : (order.isCanceled || totalNumberOfCanceledItems === totalNumberOfItems) && order.isPaid && !order.isShipped && !order.isDelivered && !order.isReimbursed ? (
-                                    <h1 className={"text-4xl font-bold"}>
+                                    <h1 className={"z-10"}>
                                         Your order has been canceled and your refund process has begun.
                                     </h1>
                                 ) : (order.isCanceled || totalNumberOfCanceledItems === totalNumberOfItems) && order.isPaid && !order.isShipped && !order.isDelivered && order.isReimbursed ? (
-                                    <h1 className={"text-4xl font-bold"}>
+                                    <h1 className={"z-10"}>
                                         Your order has been canceled and your refund has been issued.
                                     </h1>
                                 ) : (order.isCanceled || totalNumberOfCanceledItems === totalNumberOfItems) && !order.isShipped && !order.isDelivered ? (
-                                    <h1 className={"text-4xl font-bold"}>
+                                    <h1 className={"z-10"}>
                                         Your order has been canceled.
                                     </h1>
                                 ) : (
-                                    <h1  className={"text-4xl font-bold"}>
+                                    <h1 className={"z-10"}>
                                         Please pay order below to begin shipment process.
                                     </h1>
                                 )
                             }
-                        </RevealMotion>
+                        </div>
                     )
                 }
             </div>
             <div className={"z-20 px-2 w-full flex-col flex items-center max-w-screen-2xl mx-auto gap-2 sm:gap-4 sm:pt-10 xl:flex-row xl:items-start xl:justify-center"}>
-                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full max-w-3xl rounded-2xl sm:px-8 dark:bg-slate-800"}>
                     {
                         loading && !order ? (
                             <div className="flex w-full flex-col gap-5 h-full">
@@ -445,7 +439,7 @@ const OrderPage = () => {
                 </div>
                 <div className={"flex flex-col items-center gap-4 w-full sm:max-w-lg"}>
                     <div
-                        className={"z-20 px-4 bg-opacity-90 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center sm:bg-opacity-90 sm:shadow-lg"}>
+                        className={"z-20 px-4 bg-opacity-80 bg-[#7c3cfc] w-full text-white mx-auto h-20 rounded-2xl flex justify-center items-center"}>
                         {
                             loading && !order ? (
                                 <div className="gap-3 flex w-full flex-col justify-center h-full">
@@ -456,7 +450,7 @@ const OrderPage = () => {
                                     {
                                         !order.isShipped && !order.isDelivered && !order.isCanceled && canceledItems.length !== order.orderItems.length ? (
                                             <div className={"text-center flex items-center gap-2"}>
-                                                Cancel order
+                                                Cancel this order
                                                 <button
                                                     onClick={() => window.confirm_modal.showModal()}
                                                     className={"btn btn-sm rounded-full normal-case"}
@@ -471,7 +465,7 @@ const OrderPage = () => {
                                             </p>
                                         ) : (order.isCanceled || canceledItems?.length === order.orderItems.length) || order.isDelivered ? (
                                             <p className={"text-center text-wrap"}>
-                                                Thank you for checking out eshopjs.com
+                                                Thank you for visiting shoposcar.com
                                             </p>
                                         ) : (
                                             <p className={"text-center text-wrap"}>
@@ -487,7 +481,7 @@ const OrderPage = () => {
 
                         {
                             loading && !order ? (
-                                <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                                <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 dark:bg-slate-800"}>
                                     <div className="flex w-full flex-col gap-5 h-full">
                                         <div className="skeleton h-16 w-full bg-gray-300 dark:bg-gray-200"/>
                                         <div className={"flex justify-between"}>
@@ -520,7 +514,7 @@ const OrderPage = () => {
                                 <>
                                     {
                                         order.totalPrice !== 0 && (
-                                            <div className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                                            <div className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 dark:bg-slate-800"}>
                                                 <RevealMotion y={25}>
                                                     <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl dark:text-white"}>
                                                         {order.isPaid ? "Payment Summary" : "Place Order"}
@@ -600,7 +594,7 @@ const OrderPage = () => {
                                     {
                                         order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || canceledItems.length > 0) && (
                                             <div
-                                                className={"bg-zinc-50 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 sm:bg-white sm:shadow-lg sm:border-none dark:bg-slate-800"}>
+                                                className={"bg-white opacity-95 z-20 px-4 py-8 w-full rounded-2xl sm:px-8 dark:bg-slate-800"}>
                                                 <h1 className={"h-16 flex items-start justify-center font-semibold text-3xl dark:text-white"}>
                                                     Refund Summary
                                                 </h1>
